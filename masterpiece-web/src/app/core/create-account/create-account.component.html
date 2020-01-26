@@ -1,0 +1,26 @@
+<form [formGroup]="signForm" novalidate (submit)="register()">
+    <div class="form-group">
+        <label>username:</label>
+        <input class="form-control" formControlName="username" type="text">
+    </div>
+    <div *ngIf="signForm.controls['username'].invalid && (signForm.controls['username'].dirty || signForm.controls['username'].touched)" class="alert alert-danger">
+        <div *ngIf="signForm.controls['username'].errors">
+          Username is required : Min 2 characters.
+        </div>
+    </div>
+     <div class="form-group">
+        <label>Password : </label>
+        <input class="form-control" formControlName="password" type="text">
+    </div>
+    <div *ngIf="signForm.controls['password'].invalid && (signForm.controls['password'].dirty || signForm.controls['password'].touched)" class="alert alert-danger">
+        <div *ngIf="signForm.controls['password'].errors">
+          Password is required : Min 8 characters, with 1 Uppecase
+        </div>
+    </div>
+    <button type="submit"
+        [disabled]="signForm.pristine || signForm.invalid" class="btn btn-success">
+        Save
+    </button>
+</form>
+<p>Form value: {{ signForm.value | json }}</p>
+<p>Form status: {{ signForm.status | json }}</p>
