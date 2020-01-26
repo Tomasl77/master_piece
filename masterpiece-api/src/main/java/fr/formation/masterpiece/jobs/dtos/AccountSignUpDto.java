@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AccountLoginDto {
+public class AccountSignUpDto {
 
     @NotBlank
     private String username;
@@ -17,6 +17,6 @@ public class AccountLoginDto {
     @Size(min = 8)
     private String password;
 
-    public AccountLoginDto() {
+    public AccountSignUpDto() {
     }
 }
