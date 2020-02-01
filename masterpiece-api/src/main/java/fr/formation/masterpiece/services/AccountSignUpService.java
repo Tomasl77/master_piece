@@ -1,6 +1,6 @@
 package fr.formation.masterpiece.services;
 
-import fr.formation.masterpiece.jobs.dtos.AccountSignUpDto;
+import fr.formation.masterpiece.domain.dtos.AccountSignUpDto;
 
 public interface AccountSignUpService {
 

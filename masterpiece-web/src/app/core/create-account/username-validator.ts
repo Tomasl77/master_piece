@@ -27,7 +27,7 @@ export class UsernameValidator {
 
     return new Promise((resolve, reject) => {
       this.timeout = setTimeout(() => {
-        this.http.get<boolean>(`http://localhost:8000/checkUsername?value=${control.value}`, {headers})
+        this.http.get<boolean>(`http://localhost:8000/checkusername/${control.value}`, {headers})
           .subscribe(flag => {
               if (flag) {
                 resolve({'usernameTaken': true});

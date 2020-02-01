@@ -1,4 +1,4 @@
-package fr.formation.masterpiece.jobs.dtos;
+package fr.formation.masterpiece.domain.dtos;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

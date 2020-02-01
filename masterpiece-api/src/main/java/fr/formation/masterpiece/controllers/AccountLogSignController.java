@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.formation.masterpiece.jobs.dtos.AccountSignUpDto;
+import fr.formation.masterpiece.domain.dtos.AccountSignUpDto;
 import fr.formation.masterpiece.services.AccountSignUpService;
 
 @RestController

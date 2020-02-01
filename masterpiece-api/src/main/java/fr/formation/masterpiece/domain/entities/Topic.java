@@ -1,4 +1,4 @@
-package fr.formation.masterpiece.jobs.entities;
+package fr.formation.masterpiece.domain.entities;
 
 import java.util.Date;
 

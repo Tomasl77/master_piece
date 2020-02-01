@@ -2,8 +2,8 @@ package fr.formation.masterpiece.services.impl;
 
 import org.springframework.stereotype.Service;
 
-import fr.formation.masterpiece.jobs.dtos.AccountSignUpDto;
-import fr.formation.masterpiece.jobs.entities.AccountSignUp;
+import fr.formation.masterpiece.domain.dtos.AccountSignUpDto;
+import fr.formation.masterpiece.domain.entities.AccountSignUp;
 import fr.formation.masterpiece.repositories.AccountSignUpRepository;
 import fr.formation.masterpiece.services.AccountSignUpService;
 
@@ -30,6 +30,6 @@ public class AccountSignUpServiceImpl implements AccountSignUpService {
 
     @Override
     public boolean existingUsernames(String username) {
-	return repository.findByUsername(username);
+	return repository.existsByUsername(username);
     }
 }

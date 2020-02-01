@@ -1,4 +1,4 @@
-package fr.formation.masterpiece.jobs.entities;
+package fr.formation.masterpiece.domain.entities;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

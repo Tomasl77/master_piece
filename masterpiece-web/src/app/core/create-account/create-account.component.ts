@@ -16,7 +16,7 @@ export class CreateAccountComponent implements OnInit {
   constructor(private fb: FormBuilder, usernameValidator: UsernameValidator,
     private readonly http: HttpClient) { 
       this.signForm = this.fb.group({
-       username: ['', Validators.required, usernameValidator.validate.bind(usernameValidator) ],
+       username: ['', [Validators.required, Validators.minLength(2)], usernameValidator.validate.bind(usernameValidator) ],
        password: ['', [Validators.required, Validators.pattern((this.passwordPatten))]]
     });
   }
@@ -24,8 +24,8 @@ export class CreateAccountComponent implements OnInit {
   ngOnInit() {
   }
   register() {
-    console.log(this.signForm.value);
-    this.http.post<object>(`http://localhost:8000/create-account`, this.signForm.value)
+    console.log("#########  "+this.signForm.value);
+    this.http.post<object>(`http://localhost:8000/create-account/`, this.signForm.value)
       .subscribe(async (data) => {
         for (const fieldName of Object.keys(data)) {
           const serverErrors = data[fieldName];
