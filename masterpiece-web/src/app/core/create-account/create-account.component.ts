@@ -24,7 +24,7 @@ export class CreateAccountComponent implements OnInit {
   ngOnInit() {
   }
   register() {
-    this.http.post<object>(`http://localhost:8000/create-account/`, this.signForm.value)
+    this.http.post<object>(`http://localhost:8000/accounts/`, this.signForm.value)
       .subscribe(async (data) => {
         for (const fieldName of Object.keys(data)) {
           const serverErrors = data[fieldName];

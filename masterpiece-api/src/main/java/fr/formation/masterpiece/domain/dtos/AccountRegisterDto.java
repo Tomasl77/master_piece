@@ -9,16 +9,16 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AccountSignUpDto {
+public class AccountRegisterDto {
 
     @NotBlank
-    @UniqueUser(fieldName = "username")
+    @UniqueUser
     private String username;
 
     @NotBlank
-    @Size(min = 8)
+    @Size(min = 8, max = 50)
     private String password;
 
-    public AccountSignUpDto() {
+    public AccountRegisterDto() {
     }
 }

@@ -9,7 +9,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class AccountSignUp extends AbstractEntity {
+public class Account extends AbstractEntity {
 
     @Column(name = "user_name", nullable = false)
     private String username;
@@ -17,6 +17,6 @@ public class AccountSignUp extends AbstractEntity {
     @Column(name = "password", nullable = false)
     private String password;
 
-    public AccountSignUp() {
+    public Account() {
     }
 }

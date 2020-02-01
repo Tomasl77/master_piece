@@ -10,27 +10,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.formation.masterpiece.domain.dtos.AccountSignUpDto;
-import fr.formation.masterpiece.services.AccountSignUpService;
+import fr.formation.masterpiece.domain.dtos.AccountRegisterDto;
+import fr.formation.masterpiece.services.AccountService;
 
 @RestController
-@RequestMapping(value = { "/create-account", "/checkusername" })
+@RequestMapping("/accounts")
 @CrossOrigin("*")
-public class AccountLogSignController {
+public class AccountController {
 
-    private AccountSignUpService service;
+    private AccountService service;
 
-    public AccountLogSignController(AccountSignUpService service) {
+    public AccountController(AccountService service) {
 	this.service = service;
     }
 
-    @GetMapping("/{username}")
+    @GetMapping("/{username}/verify")
     public boolean checkUsername(@PathVariable("username") String username) {
-	return service.existingUsernames(username);
+	return service.existsByUsername(username);
     }
 
     @PostMapping
-    public void createAccount(@Valid @RequestBody AccountSignUpDto dto) {
-	service.accountSign(dto);
+    public void create(@Valid @RequestBody AccountRegisterDto dto) {
+	service.create(dto);
     }
 }
