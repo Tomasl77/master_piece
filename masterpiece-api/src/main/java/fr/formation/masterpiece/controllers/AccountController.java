@@ -28,7 +28,7 @@ public class AccountController {
     @GetMapping("/{username}/verify")
     public UsernameCheckDto checkUsername(
             @PathVariable("username") String username) {
-	return null;
+	return service.checkUsername(username);
     }
 
     @PostMapping

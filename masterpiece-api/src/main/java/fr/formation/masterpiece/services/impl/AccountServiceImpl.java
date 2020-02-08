@@ -34,6 +34,7 @@ public class AccountServiceImpl implements AccountService {
 	return !repository.existsByUsername(username);
     }
 
+    @Override
     public UsernameCheckDto checkUsername(String username) {
 	boolean valid = this.isValid(username);
 	return new UsernameCheckDto(valid);
