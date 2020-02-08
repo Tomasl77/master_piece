@@ -3,6 +3,7 @@ package fr.formation.masterpiece.services.impl;
 import org.springframework.stereotype.Service;
 
 import fr.formation.masterpiece.domain.dtos.AccountRegisterDto;
+import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
 import fr.formation.masterpiece.domain.entities.Account;
 import fr.formation.masterpiece.repositories.AccountRepository;
 import fr.formation.masterpiece.services.AccountService;
@@ -29,7 +30,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public boolean existsByUsername(String username) {
-	return repository.existsByUsername(username);
+    public boolean isValid(String username) {
+	return !repository.existsByUsername(username);
+    }
+
+    public UsernameCheckDto checkUsername(String username) {
+	boolean valid = this.isValid(username);
+	return new UsernameCheckDto(valid);
     }
 }

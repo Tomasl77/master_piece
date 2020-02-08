@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.formation.masterpiece.domain.dtos.AccountRegisterDto;
+import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
 import fr.formation.masterpiece.services.AccountService;
 
 @RestController
@@ -25,8 +26,9 @@ public class AccountController {
     }
 
     @GetMapping("/{username}/verify")
-    public boolean checkUsername(@PathVariable("username") String username) {
-	return service.existsByUsername(username);
+    public UsernameCheckDto checkUsername(
+            @PathVariable("username") String username) {
+	return null;
     }
 
     @PostMapping

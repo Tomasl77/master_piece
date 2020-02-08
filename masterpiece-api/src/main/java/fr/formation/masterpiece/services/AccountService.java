@@ -4,7 +4,7 @@ import fr.formation.masterpiece.domain.dtos.AccountRegisterDto;
 
 public interface AccountService {
 
-    boolean existsByUsername(String username);
+    boolean isValid(String username);
 
     void create(AccountRegisterDto dto);
 }
