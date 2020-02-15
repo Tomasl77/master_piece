@@ -2,7 +2,6 @@ package fr.formation.masterpiece.controllers;
 
 import javax.validation.Valid;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +15,6 @@ import fr.formation.masterpiece.services.AccountService;
 
 @RestController
 @RequestMapping("/accounts")
-@CrossOrigin("*")
 public class AccountController {
 
     private AccountService service;

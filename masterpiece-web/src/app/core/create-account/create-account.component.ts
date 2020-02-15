@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CreateAccountComponent implements OnInit {
 
+  private serverUrl = "http://localhost:8000/accounts";
   private readonly passwordPatten = "^(?=.*?[A-Z])(?=.*?[a-z]).{8,}$";
 
   public signForm: FormGroup;
@@ -21,12 +22,51 @@ export class CreateAccountComponent implements OnInit {
     });
   }
 
+validationMessages = {
+  'username' : {
+    'required' : 'User name is required',
+    'minlength' : 'Minimum length : 2 characters'
+  },
+  'password' : {
+    'required' : 'Password is required',
+    'pattern' : 'Minimum 8 characters, including at least 1 uppercase.'
+  } 
+}
+
+formErrors = {
+  'username' : '',
+  'minLength' : ''
+}
+
+logValidationErrors(group : FormGroup = this.signForm) : void {
+  Object.keys(group.controls).forEach((key : string) => {
+    const abstractControl = group.get(key);
+    if (abstractControl instanceof FormGroup) {
+      this.logValidationErrors(abstractControl) 
+    } else {
+      this.formErrors[key]='';
+      if (abstractControl && !abstractControl.valid && ((abstractControl.touched) || (abstractControl.dirty))) {
+        const messages = this.validationMessages[key];
+        for(const errorKey in abstractControl.errors) {
+          if(errorKey) {
+            this.formErrors[key] += messages[errorKey] + ' ';
+          }
+        };
+      }
+    }
+  })
+}
+
   ngOnInit() {
+    this.signForm.valueChanges.subscribe((data) => {
+      this.logValidationErrors(this.signForm);
+    });
   }
   register() {
-    console.log(this.signForm.value);
-    this.http.post<object>(`http://localhost:8000/accounts/`, this.signForm.value)
+    console.log("submit : " + this.signForm.value.username);
+    this.http.post<object>(this.serverUrl, this.signForm.value)
       .subscribe();
-      //TODO: Learn to get errors !
-    }
+    //TODO: Learn to get errors !
+    this.signForm.reset();
+  }
 }
