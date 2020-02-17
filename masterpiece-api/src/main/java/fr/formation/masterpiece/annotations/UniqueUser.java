@@ -1,4 +1,4 @@
-package fr.formation.masterpiece.services;
+package fr.formation.masterpiece.annotations;
 
 import static java.lang.annotation.ElementType.FIELD;
 
@@ -9,8 +9,6 @@ import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
-
-import fr.formation.masterpiece.services.impl.UniqueUserValidator;
 
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

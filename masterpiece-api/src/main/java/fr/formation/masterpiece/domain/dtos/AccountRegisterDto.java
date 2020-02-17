@@ -3,7 +3,7 @@ package fr.formation.masterpiece.domain.dtos;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import fr.formation.masterpiece.services.UniqueUser;
+import fr.formation.masterpiece.annotations.UniqueUser;
 import lombok.Getter;
 import lombok.Setter;
 

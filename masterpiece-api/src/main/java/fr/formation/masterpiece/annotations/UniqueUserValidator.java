@@ -1,10 +1,9 @@
-package fr.formation.masterpiece.services.impl;
+package fr.formation.masterpiece.annotations;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import fr.formation.masterpiece.services.AccountService;
-import fr.formation.masterpiece.services.UniqueUser;
 
 public class UniqueUserValidator
         implements ConstraintValidator<UniqueUser, String> {
