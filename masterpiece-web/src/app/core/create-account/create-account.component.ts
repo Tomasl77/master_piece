@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 export class CreateAccountComponent implements OnInit {
 
   private serverUrl = "http://localhost:8000/accounts";
-  private readonly passwordPatten = "^(?=.*?[A-Z])(?=.*?[a-z]).{8,50}$";
+  private readonly passwordPatten = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*~{}&.,§+=°_();/]).{8,30}$";
 
   public signForm: FormGroup;
   constructor(private fb: FormBuilder, usernameValidator: UsernameValidator,
@@ -31,7 +31,7 @@ export class CreateAccountComponent implements OnInit {
     },
     'password': {
       'required': 'Password is required',
-      'pattern': 'Minimum 8 characters, including at least 1 uppercase, and 50 characters maximum.'
+      'pattern': 'Minimum 8 characters, including at least 1 uppercase, 1 lowercase, 1 digit, 1 special char and 30 characters maximum.'
     },
     'passwordConfirm': {
       'required': 'Please, confirm password',

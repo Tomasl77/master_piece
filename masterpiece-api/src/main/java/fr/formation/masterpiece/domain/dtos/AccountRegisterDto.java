@@ -1,6 +1,7 @@
 package fr.formation.masterpiece.domain.dtos;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import fr.formation.masterpiece.annotations.UniqueUser;
@@ -17,7 +18,8 @@ public class AccountRegisterDto {
     private String username;
 
     @NotBlank
-    @Size(min = 8, max = 50)
+    @Size(min = 8, max = 30)
+    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*~{}&.,§+=°_();/]).{8,30}$")
     private String password;
 
     public AccountRegisterDto() {
