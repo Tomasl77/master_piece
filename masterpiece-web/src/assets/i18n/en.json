@@ -18,5 +18,8 @@
         "notSame": "Confirmation must be indentical to password"
       }
     }
+  },
+  "login" : {
+
   }
 }

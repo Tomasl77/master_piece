@@ -30,8 +30,6 @@ export class CreateAccountComponent implements OnInit {
     'passwordConfirm': ''
   }
 
-
-
   logValidationErrors(group: FormGroup = this.signForm): void {
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
