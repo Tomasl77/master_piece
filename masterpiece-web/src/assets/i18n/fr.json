@@ -1,0 +1,7 @@
+{
+    "create-account" : {
+        "username" : "Nom d'utiliseur",
+        "password" : "Mot de passe",
+        "passwordConfirm" : "Confirmer votre mot de passe"
+    }
+}

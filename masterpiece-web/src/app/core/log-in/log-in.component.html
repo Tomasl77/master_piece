@@ -1,4 +1,4 @@
-<form [formGroup]="signForm" novalidate (submit)="logIn()">
+<form [formGroup]="logInForm" novalidate (submit)="logIn()">
     <div class="form-group">
         <label>username:</label>
         <input class="form-control" formControlName="username" type="text">
@@ -18,7 +18,7 @@
         </div>
     </div>
     <button type="submit"
-        [disabled]="signForm.pristine || signForm.invalid" class="btn btn-success">
+        [disabled]="logInForm.pristine || logInForm.invalid" class="btn btn-success">
         Log In
     </button>
 </form>

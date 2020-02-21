@@ -1,7 +1,11 @@
 package fr.formation.masterpiece.domain.entities;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,14 +13,22 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Account extends AbstractEntity {
+@Table(name = "users")
+public class User extends AbstractEntity {
 
     @Column(name = "user_name", nullable = false)
     private String username;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", length = 255, nullable = false)
     private String password;
 
-    public Account() {
+    @ManyToMany
+    @Column(nullable = false)
+    private Set<Role> role;
+
+    @Column(nullable = false)
+    private boolean enabled = true;
+
+    public User() {
     }
 }

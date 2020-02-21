@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ControlContainer } from '@angular/forms';
 import { UsernameValidator } from './username-validator';
 import { HttpClient } from '@angular/common/http';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-create-account',
@@ -15,7 +16,7 @@ export class CreateAccountComponent implements OnInit {
 
   public signForm: FormGroup;
   constructor(private fb: FormBuilder, usernameValidator: UsernameValidator,
-    private readonly http: HttpClient) {
+    private readonly http: HttpClient, private translate : TranslateService) {
     this.signForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)], usernameValidator.validate.bind(usernameValidator)],
       password: ['', [Validators.required, Validators.pattern((this.passwordPatten))]],
@@ -23,7 +24,7 @@ export class CreateAccountComponent implements OnInit {
     }, { validators: this.checkPasswords });
   }
 
-  validationMessages = {
+validationMessages = {
     'username': {
       'required': 'User name is required',
       'minlength': 'Minimum length : 2 characters',
@@ -31,7 +32,7 @@ export class CreateAccountComponent implements OnInit {
     },
     'password': {
       'required': 'Password is required',
-      'pattern': 'Minimum 8 characters, including at least 1 uppercase, 1 lowercase, 1 digit, 1 special char and 30 characters maximum.'
+      'pattern': 'Minimum 8 characters, including at least 1 uppercase, and 50 characters maximum.'
     },
     'passwordConfirm': {
       'required': 'Please, confirm password',
@@ -45,6 +46,8 @@ export class CreateAccountComponent implements OnInit {
     'passwordConfirm': ''
   }
 
+
+  
   logValidationErrors(group: FormGroup = this.signForm): void {
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
@@ -54,8 +57,10 @@ export class CreateAccountComponent implements OnInit {
         this.formErrors[key] = '';
         if (abstractControl && !abstractControl.valid && ((abstractControl.touched) || (abstractControl.dirty))) {
           const messages = this.validationMessages[key];
+          console.log(messages);
           for (const errorKey in abstractControl.errors) {
             if (errorKey) {
+              console.log(errorKey);
               this.formErrors[key] += messages[errorKey] + ' ';
             }
           };

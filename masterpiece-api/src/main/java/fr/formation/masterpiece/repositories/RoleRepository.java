@@ -3,10 +3,10 @@ package fr.formation.masterpiece.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import fr.formation.masterpiece.domain.entities.User;
+import fr.formation.masterpiece.domain.entities.Role;
 
 @Repository
-public interface AccountRepository extends JpaRepository<User, Long> {
+public interface RoleRepository extends JpaRepository<Role, Long> {
 
-    boolean existsByUsername(String username);
+    Role findByDefaultRole(boolean defaultRole);
 }
