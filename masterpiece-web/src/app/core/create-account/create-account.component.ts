@@ -16,28 +16,12 @@ export class CreateAccountComponent implements OnInit {
 
   public signForm: FormGroup;
   constructor(private fb: FormBuilder, usernameValidator: UsernameValidator,
-    private readonly http: HttpClient, private translate : TranslateService) {
+    private readonly http: HttpClient, private translate: TranslateService) {
     this.signForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)], usernameValidator.validate.bind(usernameValidator)],
       password: ['', [Validators.required, Validators.pattern((this.passwordPatten))]],
       passwordConfirm: ['', [Validators.required]]
     }, { validators: this.checkPasswords });
-  }
-
-validationMessages = {
-    'username': {
-      'required': 'User name is required',
-      'minlength': 'Minimum length : 2 characters',
-      'maxlength': 'Maximum length : 20 caracters'
-    },
-    'password': {
-      'required': 'Password is required',
-      'pattern': 'Minimum 8 characters, including at least 1 uppercase, and 50 characters maximum.'
-    },
-    'passwordConfirm': {
-      'required': 'Please, confirm password',
-      'notSame': 'Confirmation must be indentical to password'
-    }
   }
 
   formErrors = {
@@ -47,7 +31,7 @@ validationMessages = {
   }
 
 
-  
+
   logValidationErrors(group: FormGroup = this.signForm): void {
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
@@ -56,12 +40,10 @@ validationMessages = {
       } else {
         this.formErrors[key] = '';
         if (abstractControl && !abstractControl.valid && ((abstractControl.touched) || (abstractControl.dirty))) {
-          const messages = this.validationMessages[key];
-          console.log(messages);
           for (const errorKey in abstractControl.errors) {
             if (errorKey) {
-              console.log(errorKey);
-              this.formErrors[key] += messages[errorKey] + ' ';
+              const err = this.translate.instant('create-account.validationMessages.' + key +'.'+ errorKey);
+              this.formErrors[key] += err;
             }
           };
         }
@@ -73,7 +55,7 @@ validationMessages = {
     let pass = group.get('password').value;
     let confirmPass = group.get('passwordConfirm').value;
     if (pass !== confirmPass) {
-      group.get('passwordConfirm').setErrors({notSame : true})
+      group.get('passwordConfirm').setErrors({ notSame: true })
     }
   }
 

@@ -2,21 +2,21 @@
   "create-account": {
     "username": "User name",
     "password": "Password",
-    "passwordConfirm": "Confirm your password"
-  },
-  "validationMessages": {
-    "username": {
-      "required": "User name is required",
-      "minlength": "Minimum length : 2 characters",
-      "maxlength": "Maximum length : 20 caracter"
-    },
-    "password": {
-      "required": "Password is required",
-      "pattern": "Minimum 8 characters, including at least 1 uppercase, 1 lowercase, 1 digit, 1 special char and 30 characters maximum."
-    },
-    "passwordConfirm": {
-      "required": "Please, confirm password",
-      "notSame": "Confirmation must be indentical to password"
+    "passwordConfirm": "Confirm your password",
+    "validationMessages": {
+      "username": {
+        "required": "User name is required",
+        "minlength": "Minimum length : 2 characters",
+        "maxlength": "Maximum length : 20 caracters"
+      },
+      "password": {
+        "required": "Password is required",
+        "pattern": "Minimum 8 characters, including at least 1 uppercase, 1 lowercase, 1 digit, 1 special char and 30 characters maximum."
+      },
+      "passwordConfirm": {
+        "required": "Please, confirm password",
+        "notSame": "Confirmation must be indentical to password"
+      }
     }
   }
 }

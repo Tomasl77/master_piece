@@ -1,7 +1,22 @@
 {
-    "create-account" : {
-        "username" : "Nom d'utiliseur",
-        "password" : "Mot de passe",
-        "passwordConfirm" : "Confirmer votre mot de passe"
+  "create-account": {
+    "username": "Nom d'utiliseur",
+    "password": "Mot de passe",
+    "passwordConfirm": "Confirmer votre mot de passe",
+    "validationMessages": {
+      "username": {
+        "required": "Nom d'utilisateur requis",
+        "minlength": "Longueur minimum : 2 caracteres",
+        "maxlength": "Longueur maximum : 20 caracteres"
+      },
+      "password": {
+        "required": "Mot de passe requis",
+        "pattern": "Minimum 8 caracteres, incluant 1 minuscule, 1 majuscule, un chiffre et un caractere special."
+      },
+      "passwordConfirm": {
+        "required": "Veuillez confirmer votre mot de passe",
+        "notSame": "Le mot de passe doit etre identique"
+      }
     }
+  }
 }
