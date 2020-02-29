@@ -1,4 +1,4 @@
-<section>
+<section fxFlexAlign="stretch">
   <div fxFlexAlign="center">
     <mat-toolbar color="primary">
       <button mat-icon-button fxShow="true" fxHide.gt-sm="true">
@@ -24,7 +24,7 @@
         <a mat-list-item [routerLink]="'/login'">{{'navbar.sign-in' | translate}}</a>
         <a mat-list-item [routerLink]="'/create-account'">{{'navbar.sign-up' | translate}}</a>
         <a mat-list-item [routerLink]="'/contacts'">{{'navbar.contacts' | translate}}</a>
-        <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
+        <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>{{'navbar.close' | translate}}</a>
         <a a mat-list-item><img src="../../../assets/img/united-kingdom-flag.png" alt=""
             (click)="useLanguage('en')"></a>
         <a a mat-list-item><img src="../../../assets/img/french-flag.png" alt="" (click)="useLanguage('fr')"></a>
@@ -32,7 +32,7 @@
     </mat-sidenav>
     <mat-sidenav-content>
       <div style="height: 88vh;">
-        <router-outlet></router-outlet>
+        <router-outlet></router-outlet>        
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>

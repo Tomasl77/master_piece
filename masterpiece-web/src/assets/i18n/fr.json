@@ -29,6 +29,7 @@
     "account": "Mon Compte",
     "sign-in": "Se connecter",
     "sign-up": "S'inscrire",
-    "contacts": "Contactez-nous"
+    "contacts": "Contactez-nous",
+    "close" : "Fermer"
   }
 }
