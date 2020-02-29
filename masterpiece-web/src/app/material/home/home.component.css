@@ -1,11 +1,15 @@
-mat-sidenav-container, mat-sidenav-content, mat-sidenav {
-    height: 100%;
-}
- 
-mat-sidenav {
-    width: 250px;
-}
- 
+
 main {
     padding: 10px;
+}
+
+img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin:0px 10px;
+}
+
+a:hover {
+    color : lightcoral;
 }

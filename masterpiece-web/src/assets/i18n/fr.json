@@ -3,6 +3,7 @@
     "username": "Nom d'utiliseur",
     "password": "Mot de passe",
     "passwordConfirm": "Confirmer votre mot de passe",
+    "button": "S'inscrire",
     "validationMessages": {
       "username": {
         "required": "Nom d'utilisateur requis",
@@ -18,5 +19,16 @@
         "notSame": "Le mot de passe doit etre identique"
       }
     }
+  },
+  "login": {
+    "username": "Entrez votre nom d'utilisateur",
+    "password": "Entrez votre mot de passe",
+    "button": "Se connecter"
+  },
+  "navbar": {
+    "account": "Mon Compte",
+    "sign-in": "Se connecter",
+    "sign-up": "S'inscrire",
+    "contacts": "Contactez-nous"
   }
 }

@@ -6,12 +6,16 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule } from '@angular/material';
 import { CoreModule } from '../core/core.module';
 import { MaterialRoutingModule } from '../material/material-routing'
-
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [LayoutComponent, HomeComponent],
   imports: [
     CommonModule,
+    FlexLayoutModule,
     MatMenuModule,
     MatToolbarModule,
     MatSidenavModule,
@@ -19,7 +23,14 @@ import { MaterialRoutingModule } from '../material/material-routing'
     MatButtonModule,
     MatIconModule,
     CoreModule,
-    MaterialRoutingModule
+    MaterialRoutingModule,
+    TranslateModule.forChild({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   exports: [
     LayoutComponent,
@@ -27,3 +38,7 @@ import { MaterialRoutingModule } from '../material/material-routing'
   ]
 })
 export class MaterialModule { }
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

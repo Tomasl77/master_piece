@@ -7,6 +7,9 @@ import { LogInComponent } from '../core/log-in/log-in.component';
 
 const materialRoutes: Routes = [
   {
+    path: '', component: LogInComponent
+  },
+  {
     path: 'accounts', component: AccountComponent
   },
   {

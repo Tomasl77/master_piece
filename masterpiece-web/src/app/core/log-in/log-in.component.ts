@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {UsernameValidator} from '../create-account/username-validator';
 import {HttpClient} from '@angular/common/http';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-log-in',
@@ -14,7 +15,7 @@ export class LogInComponent implements OnInit {
   private readonly passwordPatten = "^(?=.*?[A-Z])(?=.*?[a-z]).{8,}$";
 
   constructor(private fb: FormBuilder, usernameValidator: UsernameValidator,
-    private readonly http: HttpClient) {
+    private readonly http: HttpClient, translate: TranslateService) {
     this.logInForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(2)], usernameValidator.validate.bind(usernameValidator)],
       password: ['', [Validators.required, Validators.pattern((this.passwordPatten))]]

@@ -3,6 +3,7 @@
     "username": "User name",
     "password": "Password",
     "passwordConfirm": "Confirm your password",
+    "button" : "Sign Up",
     "validationMessages": {
       "username": {
         "required": "User name is required",
@@ -20,6 +21,14 @@
     }
   },
   "login" : {
-
+    "username" : "Please, enter your user name",
+    "password" : "Enter your password",
+    "button" : "Log In"
+  },
+  "navbar" : {
+    "account" : "My account",
+    "sign-in" : "Sign in",
+    "sign-up" : "Create Account",
+    "contacts" : "Contact us"
   }
 }
