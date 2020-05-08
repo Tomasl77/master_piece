@@ -20,4 +20,12 @@ public class Role extends AbstractEntity {
     @NotNull
     @Column(nullable = false)
     boolean defaultRole;
+
+    public Role(@NotBlank String code, @NotNull boolean defaultRole) {
+	this.code = code;
+	this.defaultRole = defaultRole;
+    }
+
+    public Role() {
+    }
 }

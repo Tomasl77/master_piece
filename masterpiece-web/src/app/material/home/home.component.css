@@ -12,3 +12,7 @@ img {
 a:hover {
     color : lightcoral;
 }
+
+.active-red {
+    color : red;
+}

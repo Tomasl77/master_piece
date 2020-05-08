@@ -10,10 +10,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { RouterModule } from '@angular/router'
 
 @NgModule({
   declarations: [LayoutComponent, HomeComponent],
   imports: [
+    RouterModule,
     CommonModule,
     FlexLayoutModule,
     MatMenuModule,

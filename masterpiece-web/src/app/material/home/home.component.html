@@ -6,10 +6,13 @@
       </button>
       <h1>Team Sharing</h1>
       <div fxFlex fxLayout fxLayoutAlign="end" fxHide.lt-md="true">
-        <a mat-button [routerLink]="'/accounts'">{{'navbar.account' | translate}}</a>
-        <a mat-button [routerLink]="'/login'">{{'navbar.sign-in' | translate}}</a>
-        <a mat-button [routerLink]="'/create-account'">{{'navbar.sign-up' | translate}}</a>
-        <a mat-button [routerLink]="'/contacts'">{{'navbar.contacts' | translate}}</a>
+        <a mat-button [routerLink]="'/accounts'"
+          [routerLinkActive]="['active-red']">{{'navbar.account' | translate}}</a>
+        <a mat-button [routerLink]="'/login'" [routerLinkActive]="['active-red']">{{'navbar.sign-in' | translate}}</a>
+        <a mat-button [routerLink]="'/create-account'"
+          [routerLinkActive]="['active-red']">{{'navbar.sign-up' | translate}}</a>
+        <a mat-button [routerLink]="'/contacts'"
+          [routerLinkActive]="['active-red']">{{'navbar.contacts' | translate}}</a>
         <img src="../../../assets/img/united-kingdom-flag.png" alt="" (click)="useLanguage('en')">
         <img src="../../../assets/img/french-flag.png" alt="" (click)="useLanguage('fr')">
       </div>
@@ -32,7 +35,7 @@
     </mat-sidenav>
     <mat-sidenav-content>
       <div style="height: 88vh;">
-        <router-outlet></router-outlet>        
+        <router-outlet></router-outlet>
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
