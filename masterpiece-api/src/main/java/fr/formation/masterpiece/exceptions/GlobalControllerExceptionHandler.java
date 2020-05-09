@@ -17,6 +17,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestControllerAdvice
@@ -78,6 +79,27 @@ public class GlobalControllerExceptionHandler
 	ex.getSupportedHttpMethods().forEach(t -> builder.append(t + " "));
 	ApiError apiError = new ApiError(HttpStatus.METHOD_NOT_ALLOWED,
 	        ex.getLocalizedMessage(), builder.toString());
+	return new ResponseEntity<>(apiError, new HttpHeaders(),
+	        apiError.getStatus());
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleNoHandlerFoundException(
+            NoHandlerFoundException ex, HttpHeaders headers, HttpStatus status,
+            WebRequest request) {
+	String error = "Oups, there's nothing at this endpoint : "
+	        + ex.getRequestURL();
+	ApiError apiError = new ApiError(HttpStatus.NOT_FOUND,
+	        ex.getLocalizedMessage(), error);
+	return new ResponseEntity<>(apiError, new HttpHeaders(),
+	        apiError.getStatus());
+    }
+
+    @ExceptionHandler({ AccountNotFoundException.class })
+    public ResponseEntity<Object> idNotFoundException(
+            AccountNotFoundException ex) {
+	ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(),
+	        ex.getLocalizedMessage());
 	return new ResponseEntity<>(apiError, new HttpHeaders(),
 	        apiError.getStatus());
     }

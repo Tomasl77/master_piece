@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 
 import fr.formation.masterpiece.domain.dtos.AccountRegisterDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
+import fr.formation.masterpiece.domain.dtos.views.AccountViewDto;
 import fr.formation.masterpiece.domain.entities.Role;
 import fr.formation.masterpiece.domain.entities.User;
+import fr.formation.masterpiece.exceptions.AccountNotFoundException;
 import fr.formation.masterpiece.repositories.AccountRepository;
 import fr.formation.masterpiece.repositories.RoleRepository;
 import fr.formation.masterpiece.services.AccountService;
@@ -50,5 +52,15 @@ public class AccountServiceImpl implements AccountService {
     public UsernameCheckDto checkUsername(String username) {
 	boolean valid = this.isValid(username);
 	return new UsernameCheckDto(valid);
+    }
+
+    @Override
+    public AccountViewDto getOne(Long id) {
+	AccountViewDto value = userRepository.getById(id);
+	if (value != null) {
+	    return value;
+	} else {
+	    throw new AccountNotFoundException("Id not found : " + id);
+	}
     }
 }

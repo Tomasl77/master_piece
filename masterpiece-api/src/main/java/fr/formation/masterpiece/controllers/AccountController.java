@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.formation.masterpiece.domain.dtos.AccountRegisterDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
+import fr.formation.masterpiece.domain.dtos.views.AccountViewDto;
 import fr.formation.masterpiece.services.AccountService;
 
 @RestController
@@ -21,6 +22,11 @@ public class AccountController {
 
     public AccountController(AccountService service) {
 	this.service = service;
+    }
+
+    @GetMapping("/{id}")
+    public AccountViewDto getOne(@PathVariable("id") Long id) {
+	return service.getOne(id);
     }
 
     @GetMapping("/{username}/verify")
