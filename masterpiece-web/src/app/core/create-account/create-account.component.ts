@@ -3,11 +3,14 @@ import { FormGroup, FormBuilder, Validators, ControlContainer } from '@angular/f
 import { UsernameValidator } from './username-validator';
 import { HttpClient } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
+import { AccountRegistrationService } from '../account-registration.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-create-account',
   templateUrl: './create-account.component.html',
-  styleUrls: ['./create-account.component.css']
+  styleUrls: ['./create-account.component.css'],
+  providers: [AccountRegistrationService]
 })
 export class CreateAccountComponent implements OnInit {
 
@@ -16,7 +19,7 @@ export class CreateAccountComponent implements OnInit {
 
   public signForm: FormGroup;
   constructor(private fb: FormBuilder, usernameValidator: UsernameValidator,
-    private readonly http: HttpClient, private translate: TranslateService) {
+    private readonly http: HttpClient, private translate: TranslateService, private accountService : AccountRegistrationService) {
     this.signForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)], usernameValidator.validate.bind(usernameValidator)],
       password: ['', [Validators.required, Validators.pattern((this.passwordPatten))]],
@@ -62,11 +65,13 @@ export class CreateAccountComponent implements OnInit {
       this.logValidationErrors(this.signForm);
     });
   }
+
   register() {
-    console.log("submit : " + this.signForm.value.username);
-    this.http.post<object>(this.serverUrl, this.signForm.value)
-      .subscribe();
-    //TODO: Learn to get errors !
+    this.accountService.createAccount(this.signForm).subscribe();
     this.signForm.reset();
+  }
+
+  findOne(id: number) {
+    this.accountService.getAccount(id).subscribe();
   }
 }

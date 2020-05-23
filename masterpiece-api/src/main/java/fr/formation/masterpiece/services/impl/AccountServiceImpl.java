@@ -1,6 +1,7 @@
 package fr.formation.masterpiece.services.impl;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
@@ -56,11 +57,22 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountViewDto getOne(Long id) {
-	AccountViewDto value = userRepository.getById(id);
-	if (value != null) {
-	    return value;
+	Optional<AccountViewDto> value = userRepository.getById(id);
+	if (value.isPresent()) {
+	    return value.get();
 	} else {
 	    throw new AccountNotFoundException("Id not found : " + id);
+	}
+    }
+
+    @Override
+    public void deleteOne(Long id) {
+	Optional<AccountViewDto> value = userRepository.getById(id);
+	if (value.isPresent()) {
+	    userRepository.deleteById(id);
+	} else {
+	    throw new AccountNotFoundException(
+	            "Can't delete account " + id + " because it's not created");
 	}
     }
 }

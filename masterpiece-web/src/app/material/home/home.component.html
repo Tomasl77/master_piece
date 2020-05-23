@@ -23,10 +23,10 @@
   <mat-sidenav-container>
     <mat-sidenav #sidenav role="navigation">
       <mat-nav-list>
-        <a mat-list-item [routerLink]="'/accounts'">{{'navbar.account' | translate}}</a>
-        <a mat-list-item [routerLink]="'/login'">{{'navbar.sign-in' | translate}}</a>
-        <a mat-list-item [routerLink]="'/create-account'">{{'navbar.sign-up' | translate}}</a>
-        <a mat-list-item [routerLink]="'/contacts'">{{'navbar.contacts' | translate}}</a>
+        <a mat-list-item [routerLink]="'/accounts'" [routerLinkActive]="['active-red']">{{'navbar.account' | translate}}</a>
+        <a mat-list-item [routerLink]="'/login'" [routerLinkActive]="['active-red']">{{'navbar.sign-in' | translate}}</a>
+        <a mat-list-item [routerLink]="'/create-account'" [routerLinkActive]="['active-red']">{{'navbar.sign-up' | translate}}</a>
+        <a mat-list-item [routerLink]="'/contacts'" [routerLinkActive]="['active-red']">{{'navbar.contacts' | translate}}</a>
         <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>{{'navbar.close' | translate}}</a>
         <a a mat-list-item><img src="../../../assets/img/united-kingdom-flag.png" alt=""
             (click)="useLanguage('en')"></a>

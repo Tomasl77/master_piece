@@ -13,4 +13,6 @@ public interface AccountService {
     AccountViewDto getOne(Long id);
 
     UsernameCheckDto checkUsername(String username);
+
+    void deleteOne(Long id);
 }
