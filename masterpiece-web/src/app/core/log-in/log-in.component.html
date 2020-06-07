@@ -1,0 +1,24 @@
+<form [formGroup]="logInForm" novalidate (submit)="logIn()">
+    <div class="form-group">
+        <label>{{'login.username' | translate}}</label>
+        <input class="form-control" formControlName="username" type="text">
+    </div>
+    <div>
+        <div>
+          
+        </div>
+    </div>
+     <div class="form-group">
+        <label>{{'login.password' | translate}}</label>
+        <input class="form-control" formControlName="password" type="password">
+    </div>
+    <div>
+        <div>
+          
+        </div>
+    </div>
+    <button type="submit"
+        [disabled]="logInForm.pristine || logInForm.invalid" class="btn btn-success">
+        {{'login.button' | translate}}
+    </button>
+</form>

@@ -1,0 +1,35 @@
+{
+  "create-account": {
+    "username": "Nom d'utiliseur",
+    "password": "Mot de passe",
+    "passwordConfirm": "Confirmer votre mot de passe",
+    "button": "S'inscrire",
+    "validationMessages": {
+      "username": {
+        "required": "Nom d'utilisateur requis",
+        "minlength": "Longueur minimum : 2 caracteres",
+        "maxlength": "Longueur maximum : 20 caracteres"
+      },
+      "password": {
+        "required": "Mot de passe requis",
+        "pattern": "Minimum 8 caracteres, incluant 1 minuscule, 1 majuscule, un chiffre et un caractere special."
+      },
+      "passwordConfirm": {
+        "required": "Veuillez confirmer votre mot de passe",
+        "notSame": "Le mot de passe doit etre identique"
+      }
+    }
+  },
+  "login": {
+    "username": "Entrez votre nom d'utilisateur",
+    "password": "Entrez votre mot de passe",
+    "button": "Se connecter"
+  },
+  "navbar": {
+    "account": "Mon Compte",
+    "sign-in": "Se connecter",
+    "sign-up": "S'inscrire",
+    "contacts": "Contactez-nous",
+    "close" : "Fermer"
+  }
+}
