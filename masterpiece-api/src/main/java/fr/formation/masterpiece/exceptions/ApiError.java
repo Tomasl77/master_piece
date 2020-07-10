@@ -29,6 +29,6 @@ class ApiError {
 	super();
 	this.status = status;
 	this.message = message;
-	errors = Arrays.asList(error);
+	this.errors = Arrays.asList(error);
     }
 }

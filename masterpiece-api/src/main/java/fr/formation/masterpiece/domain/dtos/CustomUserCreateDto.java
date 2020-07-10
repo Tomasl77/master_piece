@@ -10,7 +10,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AccountRegisterDto {
+public class CustomUserCreateDto {
+
+    private final String message = "Must contains at least 8 characters, 1 uppercase, 1 lowercase, 1 digit and 1 special char";
+
+    private final String pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*~{}&.,§+=°_();/]).{8,30}$";
 
     @NotBlank
     @UniqueUser
@@ -19,9 +23,9 @@ public class AccountRegisterDto {
 
     @NotBlank
     @Size(min = 8, max = 30)
-    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*~{}&.,§+=°_();/]).{8,30}$")
+    @Pattern(regexp = pattern, message = message)
     private String password;
 
-    public AccountRegisterDto() {
+    public CustomUserCreateDto() {
     }
 }

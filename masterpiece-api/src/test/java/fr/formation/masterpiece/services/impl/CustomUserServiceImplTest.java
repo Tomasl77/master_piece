@@ -22,21 +22,21 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import fr.formation.masterpiece.domain.dtos.AccountRegisterDto;
+import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
 import fr.formation.masterpiece.domain.entities.Role;
-import fr.formation.masterpiece.repositories.AccountRepository;
+import fr.formation.masterpiece.repositories.CustomUserJpaRepository;
 
 @ExtendWith(MockitoExtension.class)
-class AccountServiceImplTest {
+class CustomUserServiceImplTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @InjectMocks
-    AccountServiceImpl service;
+    CustomUserServiceImpl service;
 
     @Mock
-    AccountRepository repository;
+    CustomUserJpaRepository repository;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -54,13 +54,13 @@ class AccountServiceImplTest {
 	// Given
 	Set<Role> setRole = new HashSet<>();
 	setRole.add(new Role("toto", true));
-	AccountRegisterDto userDto = new AccountRegisterDto();
+	CustomUserCreateDto userDto = new CustomUserCreateDto();
 	userDto.setUsername("Tomas");
 	userDto.setPassword("toto");
 	// When
 	when(repository.save(any())).thenReturn(userDto);
 	// then
-	mockMvc.perform(post("/accounts").content("{json}")
+	mockMvc.perform(post("/users").content("{json}")
 	        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
 	        .andExpect(status().isCreated());
     }

@@ -1,16 +1,16 @@
 package fr.formation.masterpiece.services;
 
-import fr.formation.masterpiece.domain.dtos.AccountRegisterDto;
+import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
-import fr.formation.masterpiece.domain.dtos.views.AccountViewDto;
+import fr.formation.masterpiece.domain.dtos.views.CustomUserInfoDto;
 
 public interface AccountService {
 
     boolean isValid(String username);
 
-    void create(AccountRegisterDto dto);
+    void create(CustomUserCreateDto dto);
 
-    AccountViewDto getOne(Long id);
+    CustomUserInfoDto getOne(Long id);
 
     UsernameCheckDto checkUsername(String username);
 
