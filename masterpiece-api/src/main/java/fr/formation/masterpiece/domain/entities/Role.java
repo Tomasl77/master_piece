@@ -1,10 +1,10 @@
 package fr.formation.masterpiece.domain.entities;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
+import fr.formation.masterpiece.commons.utils.BooleanConverter;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,17 +13,15 @@ import lombok.Setter;
 @Entity
 public class Role extends AbstractEntity {
 
-    @NotBlank
     @Column(name = "code", nullable = false, unique = true)
     String code;
 
-    @NotNull
-    @Column(nullable = false)
+    @Convert(converter = BooleanConverter.class)
+    @Column(length = 1, nullable = false)
     boolean defaultRole;
 
-    public Role(@NotBlank String code, @NotNull boolean defaultRole) {
+    public Role(String code) {
 	this.code = code;
-	this.defaultRole = defaultRole;
     }
 
     public Role() {

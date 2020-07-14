@@ -53,7 +53,7 @@ class CustomUserServiceImplTest {
     void should_create_user() throws Exception {
 	// Given
 	Set<Role> setRole = new HashSet<>();
-	setRole.add(new Role("toto", true));
+	setRole.add(new Role("toto"));
 	CustomUserCreateDto userDto = new CustomUserCreateDto();
 	userDto.setUsername("Tomas");
 	userDto.setPassword("toto");

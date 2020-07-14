@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
@@ -26,18 +27,22 @@ public class CustomUserServiceImpl implements AccountService {
 
     private ModelMapper modelMapper = new ModelMapper();
 
+    private final PasswordEncoder passwordEncoder;
+
     protected CustomUserServiceImpl(CustomUserJpaRepository repo,
-            RoleRepository roleRepository) {
+            RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
 	this.roleRepository = roleRepository;
 	this.userRepository = repo;
+	this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public void create(CustomUserCreateDto dto) {
+	String encodedPassword = passwordEncoder.encode(dto.getPassword());
 	Set<Role> role = new HashSet<>();
 	role.add(roleRepository.findByDefaultRole(true));
-	CustomUser account = new CustomUser(dto.getPassword(),
-	        dto.getUsername(), role, true);
+	CustomUser account = new CustomUser(encodedPassword, dto.getUsername(),
+	        role, true);
 	userRepository.save(account);
     }
 

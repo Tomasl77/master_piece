@@ -17,7 +17,7 @@ import { Token } from 'src/app/shared/token';
 export class LogInComponent implements OnInit {
 
   private grant_type: string = "password";
-  private client_id: string = "my-client-app"
+  private client_id: string = "masterpiece-web"
 
   public logInForm: FormGroup;
   private readonly passwordPatten = "^(?=.*?[A-Z])(?=.*?[a-z]).{8,}$";

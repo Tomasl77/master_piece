@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
-import fr.formation.masterpiece.domain.BooleanConverter;
+import fr.formation.masterpiece.commons.utils.BooleanConverter;
 import lombok.Getter;
 import lombok.Setter;
 
