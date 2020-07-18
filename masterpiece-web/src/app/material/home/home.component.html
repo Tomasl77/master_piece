@@ -6,27 +6,35 @@
       </button>
       <h1>Team Sharing</h1>
       <div fxFlex fxLayout fxLayoutAlign="end" fxHide.lt-md="true">
-        <a mat-button [routerLink]="'/accounts'"
+        <a href='http://localhost:8000/api/public/hello'> Public hello </a>
+        <a href='http://localhost:8000/api/userInfo'> user info </a>
+        <a href='http://localhost:8000/api/private/user'> user priv </a>
+        <a href='http://localhost:8000/api/private/admin'> admin </a>
+        <a href='http://localhost:8000/api/private/authenticated'> authen </a>
+        <a mat-button [routerLink]="['/accounts']"
           [routerLinkActive]="['active-red']">{{'navbar.account' | translate}}</a>
-        <a mat-button [routerLink]="'/login'" [routerLinkActive]="['active-red']">{{'navbar.sign-in' | translate}}</a>
-        <a mat-button [routerLink]="'/create-account'"
+        <a mat-button [routerLink]="['/login']" [routerLinkActive]="['active-red']">{{'navbar.sign-in' | translate}}</a>
+        <a mat-button [routerLink]="['/create-account']"
           [routerLinkActive]="['active-red']">{{'navbar.sign-up' | translate}}</a>
-        <a mat-button [routerLink]="'/contacts'"
+        <a mat-button [routerLink]="['/contacts']"
           [routerLinkActive]="['active-red']">{{'navbar.contacts' | translate}}</a>
         <img src="../../../assets/img/united-kingdom-flag.png" alt="" (click)="useLanguage('en')">
         <img src="../../../assets/img/french-flag.png" alt="" (click)="useLanguage('fr')">
       </div>
     </mat-toolbar>
   </div>
-
   <!-- Burger SideNavBar begins-->
   <mat-sidenav-container>
     <mat-sidenav #sidenav role="navigation">
       <mat-nav-list>
-        <a mat-list-item [routerLink]="'/accounts'" [routerLinkActive]="['active-red']">{{'navbar.account' | translate}}</a>
-        <a mat-list-item [routerLink]="'/login'" [routerLinkActive]="['active-red']">{{'navbar.sign-in' | translate}}</a>
-        <a mat-list-item [routerLink]="'/create-account'" [routerLinkActive]="['active-red']">{{'navbar.sign-up' | translate}}</a>
-        <a mat-list-item [routerLink]="'/contacts'" [routerLinkActive]="['active-red']">{{'navbar.contacts' | translate}}</a>
+        <a mat-list-item [routerLink]="'/accounts'"
+          [routerLinkActive]="['active-red']">{{'navbar.account' | translate}}</a>
+        <a mat-list-item [routerLink]="'/login'"
+          [routerLinkActive]="['active-red']">{{'navbar.sign-in' | translate}}</a>
+        <a mat-list-item [routerLink]="'/create-account'"
+          [routerLinkActive]="['active-red']">{{'navbar.sign-up' | translate}}</a>
+        <a mat-list-item [routerLink]="'/contacts'"
+          [routerLinkActive]="['active-red']">{{'navbar.contacts' | translate}}</a>
         <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>{{'navbar.close' | translate}}</a>
         <a a mat-list-item><img src="../../../assets/img/united-kingdom-flag.png" alt=""
             (click)="useLanguage('en')"></a>
@@ -34,8 +42,10 @@
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-      <div style="height: 88vh;">
-        <router-outlet></router-outlet>
+      <div class="sidenav">
+        <div class="container-custom" layout-align="center center" style="min-height:88vh;">
+          <router-outlet></router-outlet>
+        </div>
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>

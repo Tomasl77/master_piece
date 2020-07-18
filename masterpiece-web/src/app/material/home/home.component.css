@@ -16,3 +16,14 @@ a:hover {
 .active-red {
     color : red;
 }
+
+.sidenav {
+    height: 88vh;
+}
+
+/*
+.container-custom {
+    border: 2px solid red;
+    
+}
+*/

@@ -1,10 +1,11 @@
 package fr.formation.masterpiece.domain.dtos.views;
 
-public interface AccountViewDto {
+/**
+ * A projection of a {@code CustomUser} for user info.
+ */
+public interface CustomUserInfoDto {
 
     Long getId();
 
     String getUsername();
-
-    String getPassword();
 }

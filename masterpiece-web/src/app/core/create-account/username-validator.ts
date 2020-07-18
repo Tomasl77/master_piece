@@ -21,10 +21,10 @@ export class UsernameValidator {
       return new Promise((resolve) => {
         this.timeout = setTimeout(() => {
           if (control.value.length >= 2) {
-            this.http.get<object>(`http://localhost:8000/accounts/${control.value}/verify/`, {headers})
+            this.http.get<object>(`http://localhost:8000/users/${control.value}/verify/`, {headers})
               .subscribe(res => {
                 if (res) {
-                  resolve(null);
+                  resolve(console.log(res));
                 } else {
                   resolve({nameTaken: true});
                 }

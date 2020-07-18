@@ -3,14 +3,14 @@ import { FormGroup, FormBuilder, Validators, ControlContainer } from '@angular/f
 import { UsernameValidator } from './username-validator';
 import { HttpClient } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
-import { AccountRegistrationService } from '../account-registration.service';
-import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { CustomUserRegistrationService } from '../custom-user-registration.service';
 
 @Component({
   selector: 'app-create-account',
   templateUrl: './create-account.component.html',
   styleUrls: ['./create-account.component.css'],
-  providers: [AccountRegistrationService]
+  providers: [CustomUserRegistrationService]
 })
 export class CreateAccountComponent implements OnInit {
 
@@ -19,7 +19,7 @@ export class CreateAccountComponent implements OnInit {
 
   public signForm: FormGroup;
   constructor(private fb: FormBuilder, usernameValidator: UsernameValidator,
-    private readonly http: HttpClient, private translate: TranslateService, private accountService : AccountRegistrationService) {
+    private readonly http: HttpClient, private translate: TranslateService, private accountService : CustomUserRegistrationService) {
     this.signForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)], usernameValidator.validate.bind(usernameValidator)],
       password: ['', [Validators.required, Validators.pattern((this.passwordPatten))]],
@@ -67,11 +67,14 @@ export class CreateAccountComponent implements OnInit {
   }
 
   register() {
-    this.accountService.createAccount(this.signForm).subscribe();
-    this.signForm.reset();
-  }
-
-  findOne(id: number) {
-    this.accountService.getAccount(id).subscribe();
-  }
+    console.log(this.signForm.valueChanges);
+    this.accountService.createAccount(this.signForm).subscribe(
+      (data) => {
+        console.log("Inside create Account : " + data.username)
+        this.signForm.reset()
+      },
+      ((error) => { 
+        console.log(error)
+      })
+  )};
 }

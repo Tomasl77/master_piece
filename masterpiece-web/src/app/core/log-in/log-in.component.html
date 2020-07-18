@@ -1,4 +1,10 @@
-<form [formGroup]="logInForm" novalidate (submit)="logIn()">
+<div class="vertical-center black">
+    <form [formGroup]="logInForm" novalidate (submit)="logIn()">
+        
+        <input type="hidden" class="form-control" formControlName="client_id" [value]="my-client-app">
+        <input type="hidden" class="form-control" formControlName="grant_type" [value]="password">
+    
+   
     <div class="form-group">
         <label>{{'login.username' | translate}}</label>
         <input class="form-control" formControlName="username" type="text">
@@ -22,3 +28,5 @@
         {{'login.button' | translate}}
     </button>
 </form>
+    <div class="text-center">{{'login.no-account-yet' | translate}}</div>
+</div>

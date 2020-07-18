@@ -14,3 +14,12 @@ input {
     margin-left: 50%;
     transform: translateX(-50%);
 }
+/*
+.black {
+    border: 2px solid black;
+}
+*/
+.vertical-center {  
+    justify-content: center;
+    align-items: center;
+  }
