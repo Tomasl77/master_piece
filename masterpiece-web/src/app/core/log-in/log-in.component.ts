@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { LogInService } from './log-in.service';
 import { Observable } from 'rxjs';
 import { mapToMapExpression } from '@angular/compiler/src/render3/util';
-import { Token } from 'src/app/shared/token';
+import { Token } from "../../shared/token"
 
 @Component({
   selector: 'app-log-in',
@@ -43,7 +43,7 @@ export class LogInComponent implements OnInit {
         console.log(" data feubfp " + data)
       },
       (error) => {
-        console.log(error);
+        console.log(error.error);
       })
   }
 

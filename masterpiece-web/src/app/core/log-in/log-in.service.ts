@@ -24,10 +24,7 @@ export class LogInService {
     return this.http.post<any>(baseUrl + "/oauth/token", datas.toString(), this.HttpUploadOptions)
       .pipe(map((token: Token) => {
         window.localStorage.setItem('token', JSON.stringify(token));
-      }),
-      catchError(map((error : CustomError) => {
-        console.log(error);
-      }))
+      })
       );
   }
 }
