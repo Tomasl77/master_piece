@@ -1,5 +1,8 @@
 package fr.formation.masterpiece;
 
+import org.modelmapper.ModelMapper;
+import org.modelmapper.config.Configuration.AccessLevel;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -35,5 +38,14 @@ public class MasterpieceApiApplication {
 	urlBasedCorsConfigurationSource.registerCorsConfiguration("/**",
 	        corsConfiguration);
 	return new CorsFilter(urlBasedCorsConfigurationSource);
+    }
+
+    @Bean
+    protected ModelMapper modelMapper() {
+	ModelMapper mapper = new ModelMapper();
+	mapper.getConfiguration().setFieldMatchingEnabled(true)
+	        .setFieldAccessLevel(AccessLevel.PRIVATE)
+	        .setMatchingStrategy(MatchingStrategies.STANDARD);
+	return mapper;
     }
 }

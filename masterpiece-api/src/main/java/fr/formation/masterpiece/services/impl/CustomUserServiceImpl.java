@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +23,6 @@ public class CustomUserServiceImpl implements AccountService {
     private final CustomUserJpaRepository userRepository;
 
     private final RoleRepository roleRepository;
-
-    private ModelMapper modelMapper = new ModelMapper();
 
     private final PasswordEncoder passwordEncoder;
 
