@@ -14,17 +14,18 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
+import fr.formation.masterpiece.domain.dtos.CustomUserDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
 import fr.formation.masterpiece.domain.dtos.views.CustomUserInfoDto;
-import fr.formation.masterpiece.services.AccountService;
+import fr.formation.masterpiece.services.CustomUserService;
 
 @RestController
 @RequestMapping("/users")
 public class CustomUserController {
 
-    private AccountService service;
+    private CustomUserService service;
 
-    public CustomUserController(AccountService service) {
+    public CustomUserController(CustomUserService service) {
 	this.service = service;
     }
 
@@ -41,8 +42,8 @@ public class CustomUserController {
 
     @PostMapping
     @ResponseBody
-    public void create(@Valid @RequestBody CustomUserCreateDto dto) {
-	service.create(dto);
+    public CustomUserDto create(@Valid @RequestBody CustomUserCreateDto dto) {
+	return service.create(dto);
     }
 
     @DeleteMapping("/{id}")

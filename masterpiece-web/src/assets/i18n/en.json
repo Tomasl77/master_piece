@@ -31,6 +31,7 @@
     "sign-in" : "Sign in",
     "sign-up" : "Create Account",
     "contacts" : "Contact us",
+    "subject" : "Subject",
     "close" : "Close"
   }
 }

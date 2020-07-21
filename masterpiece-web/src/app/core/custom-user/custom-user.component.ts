@@ -5,6 +5,7 @@ import { CursorError } from '@angular/compiler/src/ml_parser/lexer';
 import { CustomErrorComponent } from 'src/app/shared/custom-error/custom-error.component';
 import { CustomUser } from '../custom-user';
 import { CustomUserRegistrationService } from '../custom-user-registration.service';
+import { CustomUserDto } from './CustomUserDto';
 
 
 @Component({
@@ -16,7 +17,7 @@ import { CustomUserRegistrationService } from '../custom-user-registration.servi
 export class CustomUserComponent implements OnInit, OnDestroy {
 
   @Input('id') id:number;
-  account: CustomUser;
+  account: CustomUserDto;
   error: any;
   private accountSubscription : Subscription;
 
@@ -35,6 +36,6 @@ export class CustomUserComponent implements OnInit, OnDestroy {
   findOne() {
     this.accountSubscription = this.service.getAccount(this.id).subscribe(
       account => this.account=account,
-      error=> console.log(JSON.stringify(error.error)));
+      error=> console.log((error.error)));
   }
 }

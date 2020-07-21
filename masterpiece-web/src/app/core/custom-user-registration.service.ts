@@ -15,12 +15,11 @@ export class CustomUserRegistrationService {
   constructor(private readonly http: HttpClient) { }
 
   createAccount(formData: FormGroup): Observable<CustomUserDto> {
-    return this.http.post<any>(this.baseUrl, formData.value).pipe(tap(()=> {}),
-      catchError(this.handleError))
+    return this.http.post<any>(this.baseUrl, formData.value);
     }
 
-  getAccount(id: number): Observable<CustomUser> {
-    return this.http.get<CustomUser>(`${this.baseUrl}/${id}`)
+  getAccount(id: number): Observable<CustomUserDto> {
+    return this.http.get<CustomUserDto>(`${this.baseUrl}/${id}`)
   }
   
   private handleError(error: HttpErrorResponse) {

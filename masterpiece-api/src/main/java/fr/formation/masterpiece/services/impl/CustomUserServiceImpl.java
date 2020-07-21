@@ -4,10 +4,13 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
+import fr.formation.masterpiece.domain.dtos.CustomUserDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
 import fr.formation.masterpiece.domain.dtos.views.CustomUserInfoDto;
 import fr.formation.masterpiece.domain.entities.CustomUser;
@@ -15,16 +18,19 @@ import fr.formation.masterpiece.domain.entities.Role;
 import fr.formation.masterpiece.exceptions.AccountNotFoundException;
 import fr.formation.masterpiece.repositories.CustomUserJpaRepository;
 import fr.formation.masterpiece.repositories.RoleRepository;
-import fr.formation.masterpiece.services.AccountService;
+import fr.formation.masterpiece.services.CustomUserService;
 
 @Service
-public class CustomUserServiceImpl implements AccountService {
+public class CustomUserServiceImpl implements CustomUserService {
 
     private final CustomUserJpaRepository userRepository;
 
     private final RoleRepository roleRepository;
 
     private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private ModelMapper mapper;
 
     protected CustomUserServiceImpl(CustomUserJpaRepository repo,
             RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
@@ -34,13 +40,14 @@ public class CustomUserServiceImpl implements AccountService {
     }
 
     @Override
-    public void create(CustomUserCreateDto dto) {
+    public CustomUserDto create(CustomUserCreateDto dto) {
 	String encodedPassword = passwordEncoder.encode(dto.getPassword());
 	Set<Role> role = new HashSet<>();
 	role.add(roleRepository.findByDefaultRole(true));
 	CustomUser account = new CustomUser(encodedPassword, dto.getUsername(),
 	        role, true);
-	userRepository.save(account);
+	CustomUser user = userRepository.save(account);
+	return mapper.map(user, CustomUserDto.class);
     }
 
     @Override

@@ -1,12 +1,7 @@
 <p>account works!</p>
 <div *ngIf="account">
   <h2>Username : {{account.username}}</h2>
-  <h2>Password : {{account.password}}</h2>
-</div>
-<div *ngIf="error">
-    <h2>Message : {{error.message}}</h2>
-    <h2>Error : {{error.errors}}</h2>
-    <h2>status : {{error.status}}</h2>
+  <h2>id : {{account.id}}</h2>
 </div>
 <label>id:
     <input [(ngModel)]="id" placeholder="id" type="number"/>

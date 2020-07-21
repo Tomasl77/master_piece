@@ -16,6 +16,8 @@
         <a mat-button [routerLink]="['/login']" [routerLinkActive]="['active-red']">{{'navbar.sign-in' | translate}}</a>
         <a mat-button [routerLink]="['/create-account']"
           [routerLinkActive]="['active-red']">{{'navbar.sign-up' | translate}}</a>
+          <a mat-button [routerLink]="['/subject']"
+          [routerLinkActive]="['active-red']">{{'navbar.subject' | translate}}</a>
         <a mat-button [routerLink]="['/contacts']"
           [routerLinkActive]="['active-red']">{{'navbar.contacts' | translate}}</a>
         <img src="../../../assets/img/united-kingdom-flag.png" alt="" (click)="useLanguage('en')">
@@ -33,6 +35,8 @@
           [routerLinkActive]="['active-red']">{{'navbar.sign-in' | translate}}</a>
         <a mat-list-item [routerLink]="'/create-account'"
           [routerLinkActive]="['active-red']">{{'navbar.sign-up' | translate}}</a>
+          <a mat-button [routerLink]="['/subject']"
+          [routerLinkActive]="['active-red']">{{'navbar.subject' | translate}}</a>
         <a mat-list-item [routerLink]="'/contacts'"
           [routerLinkActive]="['active-red']">{{'navbar.contacts' | translate}}</a>
         <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>{{'navbar.close' | translate}}</a>
