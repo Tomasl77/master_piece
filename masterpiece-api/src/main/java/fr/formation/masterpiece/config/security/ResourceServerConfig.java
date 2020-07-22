@@ -1,6 +1,7 @@
 package fr.formation.masterpiece.config.security;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -25,16 +26,15 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	// Disable CSRF, no need with JWT if not cookie-based.
 	// Disable CORS if API is public, better to enable in general.
 	// Anonymous is enabled by default.
-	http.httpBasic().disable().csrf().disable().cors().disable()
+	http.httpBasic().disable().csrf().disable()
+	        // .cors().disable()
 	        .sessionManagement()
 	        .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+	        .authorizeRequests().antMatchers(HttpMethod.OPTIONS).permitAll()
+	        .and()
 	        // "/api/public/**" for anyone even anonymous
-	        .authorizeRequests().antMatchers("/api/public/**").permitAll()
-	        /*
-	         * "/api/userInfo", "/api/private/**" for fully authenticated
-	         * (not anonymous)
-	         */
-	        .antMatchers("/api/userInfo", "/api/private/**")
-	        .authenticated();
+	        .authorizeRequests()
+	        .antMatchers("/api/login", "/api/create-account").permitAll()
+	        .antMatchers("/api/subject").authenticated();
     }
 }

@@ -1,11 +1,12 @@
 package fr.formation.masterpiece.services.impl;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.formation.masterpiece.domain.dtos.SubjectDto;
 import fr.formation.masterpiece.domain.entities.CustomUser;
 import fr.formation.masterpiece.domain.entities.Subject;
-import fr.formation.masterpiece.exceptions.AccountNotFoundException;
 import fr.formation.masterpiece.repositories.CustomUserJpaRepository;
 import fr.formation.masterpiece.repositories.SubjectRepository;
 import fr.formation.masterpiece.services.SubjectManagerService;
@@ -16,6 +17,9 @@ public class SubjectManagerServiceImpl implements SubjectManagerService {
     private final SubjectRepository repository;
 
     private final CustomUserJpaRepository userRepository;
+
+    @Autowired
+    private ModelMapper mapper;
 
     public SubjectManagerServiceImpl(SubjectRepository repository,
             CustomUserJpaRepository userRepository) {
@@ -29,10 +33,12 @@ public class SubjectManagerServiceImpl implements SubjectManagerService {
 	subject.setCategory(dto.getCategory());
 	subject.setDescription(dto.getDescription());
 	subject.setTitle(dto.getTitle());
-	CustomUser user = userRepository.findById(dto.getUserId())
-	        .orElseThrow(() -> new AccountNotFoundException(
-	                dto.getUserId() + " not found"));
+	CustomUser user = userRepository.getOne(dto.getUserId());
 	subject.setUser(user);
 	repository.save(subject);
+    }
+
+    public void create2(SubjectDto dto) {
+	mapper.map(dto, Subject.class);
     }
 }

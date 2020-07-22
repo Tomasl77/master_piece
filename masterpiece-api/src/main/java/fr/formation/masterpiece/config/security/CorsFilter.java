@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
+@Component
 @PropertySource("classpath:config.properties")
 public class CorsFilter implements Filter {
 
@@ -24,6 +26,9 @@ public class CorsFilter implements Filter {
             throws IOException, ServletException {
 	HttpServletResponse response = (HttpServletResponse) servletResponse;
 	response.setHeader("Access-Control-Allow-Origin", allowedOrigin);
+	response.setHeader("Access-Control-Allow-Credentials", "true");
+	response.setHeader("Access-Control-Allow-Headers",
+	        "x-request-with, Authorization");
 	filterChain.doFilter(servletRequest, servletResponse);
     }
 }

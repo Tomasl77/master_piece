@@ -9,6 +9,7 @@ import javax.validation.ConstraintViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -30,11 +31,10 @@ public class GlobalControllerExceptionHandler
             HttpStatus status, WebRequest request) {
 	List<String> errors = new ArrayList<>();
 	for (FieldError error : ex.getBindingResult().getFieldErrors()) {
-	    errors.add(error.getField() + ": " + error.getDefaultMessage());
+	    errors.add(error.getField() + ": " + error.getCode());
 	}
 	for (ObjectError error : ex.getBindingResult().getGlobalErrors()) {
-	    errors.add(
-	            error.getObjectName() + ": " + error.getDefaultMessage());
+	    errors.add(error.getObjectName() + ": " + error.getCode());
 	}
 	ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST,
 	        ex.getLocalizedMessage(), errors);
@@ -49,8 +49,7 @@ public class GlobalControllerExceptionHandler
 	String error = ex.getParameterName() + " parameter is missing";
 	ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST,
 	        ex.getLocalizedMessage(), error);
-	return new ResponseEntity<>(apiError, new HttpHeaders(),
-	        apiError.getStatus());
+	return errorToReturn(apiError);
     }
 
     @ExceptionHandler({ ConstraintViolationException.class })
@@ -64,8 +63,7 @@ public class GlobalControllerExceptionHandler
 	}
 	ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST,
 	        ex.getLocalizedMessage(), errors);
-	return new ResponseEntity<>(apiError, new HttpHeaders(),
-	        apiError.getStatus());
+	return errorToReturn(apiError);
     }
 
     @Override
@@ -79,8 +77,7 @@ public class GlobalControllerExceptionHandler
 	ex.getSupportedHttpMethods().forEach(t -> builder.append(t + " "));
 	ApiError apiError = new ApiError(HttpStatus.METHOD_NOT_ALLOWED,
 	        ex.getLocalizedMessage(), builder.toString());
-	return new ResponseEntity<>(apiError, new HttpHeaders(),
-	        apiError.getStatus());
+	return errorToReturn(apiError);
     }
 
     @Override
@@ -91,8 +88,17 @@ public class GlobalControllerExceptionHandler
 	        + ex.getRequestURL();
 	ApiError apiError = new ApiError(HttpStatus.NOT_FOUND,
 	        ex.getLocalizedMessage(), error);
-	return new ResponseEntity<>(apiError, new HttpHeaders(),
-	        apiError.getStatus());
+	return errorToReturn(apiError);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(
+            HttpMessageNotReadableException ex, HttpHeaders headers,
+            HttpStatus status, WebRequest request) {
+	String error = "JsonParseError";
+	ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST,
+	        ex.getMessage(), error);
+	return errorToReturn(apiError);
     }
 
     @ExceptionHandler({ AccountNotFoundException.class })
@@ -100,6 +106,19 @@ public class GlobalControllerExceptionHandler
             AccountNotFoundException ex) {
 	ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(),
 	        ex.getLocalizedMessage());
+	return errorToReturn(apiError);
+    }
+
+    @ExceptionHandler({ Exception.class })
+    public final ResponseEntity<Object> handleAllExceptions(Exception ex,
+            WebRequest request) {
+	String message = "Unexpected error";
+	ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR,
+	        ex.getMessage(), message);
+	return errorToReturn(apiError);
+    }
+
+    private ResponseEntity<Object> errorToReturn(ApiError apiError) {
 	return new ResponseEntity<>(apiError, new HttpHeaders(),
 	        apiError.getStatus());
     }
