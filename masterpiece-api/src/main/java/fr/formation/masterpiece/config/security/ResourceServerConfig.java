@@ -34,7 +34,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	        .and()
 	        // "/api/public/**" for anyone even anonymous
 	        .authorizeRequests()
-	        .antMatchers("/api/login", "/api/create-account").permitAll()
-	        .antMatchers("/api/subject").authenticated();
+	        .antMatchers("/api/login", "/api/create-account",
+	                "/api/users/**")
+	        .permitAll().antMatchers("/api/subject").authenticated();
     }
 }

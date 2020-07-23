@@ -1,9 +1,6 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AbstractControl} from '@angular/forms';
 import {Injectable} from '@angular/core';
-
-const headers = new HttpHeaders()
-            .set("Access-Control-Allow-Origin", "*");
             
 @Injectable({
   providedIn: 'root'
@@ -21,7 +18,7 @@ export class UsernameValidator {
       return new Promise((resolve) => {
         this.timeout = setTimeout(() => {
           if (control.value.length >= 2) {
-            this.http.get<object>(`http://localhost:8000/users/${control.value}/verify/`, {headers})
+            this.http.get<object>(`http://localhost:8000/users/${control.value}/verify/`)
               .subscribe(res => {
                 if (res) {
                   resolve(console.log(res));

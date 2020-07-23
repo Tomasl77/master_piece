@@ -1,0 +1,16 @@
+.form-group, .alert {
+    text-align: center;
+}
+
+.form-control, .alert {
+    width: 60%;
+}
+
+input, .alert {
+    margin: auto;
+}
+
+.btn {
+    margin-left: 50%;
+    transform: translateX(-50%);
+}

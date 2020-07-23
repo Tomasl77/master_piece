@@ -33,5 +33,10 @@
     "contacts" : "Contact us",
     "subject" : "Subject",
     "close" : "Close"
+  },
+  "subject" : {
+    "title" : "Insert a title",
+    "description":"Insert a short description",
+    "category" : "Choose category"
   }
 }

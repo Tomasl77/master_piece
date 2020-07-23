@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { CustomError } from '../shared/custom-error/custom-error';
 import { CustomUser } from './custom-user';
 import { CustomUserDto } from './custom-user/CustomUserDto';
+
 
 @Injectable()
 export class CustomUserRegistrationService {
