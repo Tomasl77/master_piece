@@ -10,7 +10,7 @@ import { MaterialModule } from './material/material.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { LogInService } from './core/log-in/log-in.service';
+import { AuthGuard } from './shared/services/auth-guard';
 
 @NgModule({
   declarations: [

@@ -10,7 +10,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 
 @Configuration
 @EnableResourceServer
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     /**
@@ -31,9 +31,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	        .sessionManagement()
 	        .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 	        .authorizeRequests().antMatchers(HttpMethod.OPTIONS).permitAll()
-	        .and()
-	        // "/api/public/**" for anyone even anonymous
-	        .authorizeRequests()
+	        .and().authorizeRequests()
 	        .antMatchers("/api/login", "/api/create-account",
 	                "/api/users/**")
 	        .permitAll().antMatchers("/api/subject").authenticated();

@@ -2,6 +2,7 @@ package fr.formation.masterpiece.controllers;
 
 import javax.validation.Valid;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import fr.formation.masterpiece.services.SubjectManagerService;
 
 @RestController
 @RequestMapping("/subject")
+@PreAuthorize("hasRole('ROLE_USER')")
 public class SubjectController {
 
     private final SubjectManagerService service;

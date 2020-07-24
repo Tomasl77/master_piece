@@ -1,4 +1,5 @@
 export interface CustomUserDto {
     username : string;
-    id: number
+    id: number;
+    token? : string
 }

@@ -10,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -106,6 +107,13 @@ public class GlobalControllerExceptionHandler
             AccountNotFoundException ex) {
 	ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(),
 	        ex.getLocalizedMessage());
+	return errorToReturn(apiError);
+    }
+
+    @ExceptionHandler({ AccessDeniedException.class })
+    public ResponseEntity<Object> accesDenied(AccessDeniedException ex) {
+	ApiError apiError = new ApiError(HttpStatus.FORBIDDEN,
+	        ex.getLocalizedMessage(), ex.getMessage());
 	return errorToReturn(apiError);
     }
 

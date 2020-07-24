@@ -32,11 +32,7 @@
     "sign-up": "S'inscrire",
     "contacts": "Contactez-nous",
     "subject": "Sujet",
-    "close" : "Fermer"
-  },
-  "subject": {
-    "title": "Inserer un titre",
-    "description":"Inserer une description",
-    "category": "Choisissez une catégorie"
+    "close" : "Fermer",
+    "logout" : "Se deconnecter"
   }
 }

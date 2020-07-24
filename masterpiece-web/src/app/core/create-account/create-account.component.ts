@@ -14,7 +14,6 @@ import { CustomUserRegistrationService } from '../custom-user-registration.servi
 })
 export class CreateAccountComponent implements OnInit {
 
-  private serverUrl = "http://localhost:8000/accounts";
   private readonly passwordPatten = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*~{}&.,§+=°_();/]).{8,30}$";
 
   public signForm: FormGroup;
