@@ -22,7 +22,4 @@ public class SubjectDto {
 
     @NotNull
     private Category category;
-
-    @NotNull
-    private Long userId;
 }

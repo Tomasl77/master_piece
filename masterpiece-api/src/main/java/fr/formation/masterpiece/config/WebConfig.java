@@ -11,12 +11,8 @@ public class WebConfig implements WebMvcConfigurer {
 
     /**
      * Defines the "/api" prefix for all {@code @RestController} in the
-     * application.
-     * <p>
-     * Configuring this way prevents conflicts and ease configuration with oauth
-     * authentication endpoints (<i>i.e.</i> {@code "/oauth/token"}). Specified
-     * in application properties would change the endpoint to
-     * {@code "/api/oauth/token"}) and impact security endpoints configuration.
+     * application (except the one for /oauth/token, since it's not a
+     * {@link RestController}.
      *
      * @param configurer a path configurer
      */

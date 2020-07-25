@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import fr.formation.masterpiece.config.security.SecurityHelper;
 import fr.formation.masterpiece.domain.dtos.SubjectDto;
 import fr.formation.masterpiece.domain.entities.CustomUser;
 import fr.formation.masterpiece.domain.entities.Subject;
@@ -29,11 +30,12 @@ public class SubjectManagerServiceImpl implements SubjectManagerService {
 
     @Override
     public void create(SubjectDto dto) {
+	Long id = SecurityHelper.getUserId();
 	Subject subject = new Subject();
 	subject.setCategory(dto.getCategory());
 	subject.setDescription(dto.getDescription());
 	subject.setTitle(dto.getTitle());
-	CustomUser user = userRepository.getOne(dto.getUserId());
+	CustomUser user = userRepository.getOne(id);
 	subject.setUser(user);
 	repository.save(subject);
     }
