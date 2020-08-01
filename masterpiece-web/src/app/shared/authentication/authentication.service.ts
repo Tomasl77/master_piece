@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { Token } from '@angular/compiler/src/ml_parser/lexer';
 import { Config } from 'src/assets/config-properties';
 import { HttpClient } from '@angular/common/http';
+import { TokenStorageService } from '../token-storage.service';
 
 
 @Injectable({
@@ -14,9 +15,10 @@ import { HttpClient } from '@angular/common/http';
 export class AuthenticationService {
 
   private loggedIn = new BehaviorSubject<boolean>(false);
-  constructor(private router : Router, private readonly http: HttpClient) { }
+  constructor(private router : Router, private readonly http: HttpClient, private tokenStorageService : TokenStorageService) { }
 
-  logIn(formData: FormGroup) {
+
+  logIn(formData: FormGroup) : any {
     let datas = new URLSearchParams();
     datas.set("username", formData.value.username);
     datas.set("password", formData.value.password);
@@ -24,13 +26,14 @@ export class AuthenticationService {
     datas.set("grant_type", formData.value.grant_type);
     return this.http.post<any>(Config.baseUrl + "/oauth/token", datas.toString(), Config.httpOptions.formUrlEncoded)
       .pipe(map((token: Token) => {
-        window.localStorage.setItem('token', JSON.stringify(token));
+        const token2 = this.tokenStorageService.mapToken(token);
+        window.localStorage.setItem('token', JSON.stringify(token2));
       })
       );
   }
 
   isAuthenticated(): boolean {
-    if(localStorage.getItem("token")){
+    if(this.tokenStorageService.getToken()){
       return true;
     }
     return false;

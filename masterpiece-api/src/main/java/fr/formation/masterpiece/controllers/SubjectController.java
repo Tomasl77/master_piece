@@ -12,8 +12,8 @@ import fr.formation.masterpiece.domain.dtos.SubjectDto;
 import fr.formation.masterpiece.services.SubjectManagerService;
 
 @RestController
-@RequestMapping("/subject")
-@PreAuthorize("hasRole('ROLE_USER')")
+@RequestMapping("/subjects")
+@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 public class SubjectController {
 
     private final SubjectManagerService service;

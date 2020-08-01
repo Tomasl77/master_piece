@@ -6,7 +6,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { mapToMapExpression } from '@angular/compiler/src/render3/util';
 import { Token } from "../../shared/token"
-import { AuthenticationService } from 'src/app/shared/services/authentication.service';
+import { AuthenticationService } from 'src/app/shared/authentication/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-log-in',
@@ -23,7 +24,7 @@ export class LogInComponent implements OnInit {
   private readonly passwordPatten = "^(?=.*?[A-Z])(?=.*?[a-z]).{8,}$";
 
   constructor(private fb: FormBuilder, usernameValidator: UsernameValidator,
-    private readonly http: HttpClient, translate: TranslateService, private authService: AuthenticationService) {
+    private readonly http: HttpClient, translate: TranslateService, private authService: AuthenticationService, private router : Router) {
     this.logInForm = this.fb.group({
       username: '',
       password: '',
@@ -39,7 +40,8 @@ export class LogInComponent implements OnInit {
 
   logIn() {
     this.authService.logIn(this.logInForm).subscribe(
-      (data) => {
+      () => {
+        this.router.navigate(['/accounts']),
         console.log(" LoggedIn successful")
       },
       (error) => {

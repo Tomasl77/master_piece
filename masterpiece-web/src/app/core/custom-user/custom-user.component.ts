@@ -30,7 +30,7 @@ export class CustomUserComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
+   
   }
 
   findOne() {

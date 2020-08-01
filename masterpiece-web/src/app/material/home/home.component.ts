@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/shared/services/authentication.service';
+import { AuthenticationService } from 'src/app/shared/authentication/authentication.service';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +10,7 @@ import { AuthenticationService } from 'src/app/shared/services/authentication.se
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private translate: TranslateService, private router : Router, private authService : AuthenticationService) { }
+  constructor(private translate: TranslateService, private router: Router, private authService: AuthenticationService) { }
 
   ngOnInit() {
   }
@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
     return this.authService.isAuthenticated();
   }
 
-  logout(){
+  logout() {
     this.authService.logout();
   }
 }

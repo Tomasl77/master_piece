@@ -7,7 +7,7 @@ import { LogInComponent } from './core/log-in/log-in.component';
 import { CustomErrorComponent } from './shared/custom-error/custom-error.component';
 import { CustomUserComponent } from './core/custom-user/custom-user.component';
 import { SubjectComponent } from './core/subject/subject.component';
-import { AuthGuard } from './shared/services/auth-guard';
+import { AuthGuard } from './shared/authentication/auth-guard';
 
 
 const routes: Routes = [
