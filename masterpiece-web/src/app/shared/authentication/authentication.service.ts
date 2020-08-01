@@ -26,8 +26,8 @@ export class AuthenticationService {
     datas.set("grant_type", formData.value.grant_type);
     return this.http.post<any>(Config.baseUrl + "/oauth/token", datas.toString(), Config.httpOptions.formUrlEncoded)
       .pipe(map((token: Token) => {
-        const token2 = this.tokenStorageService.mapToken(token);
-        window.localStorage.setItem('token', JSON.stringify(token2));
+        const mappedToken = this.tokenStorageService.mapToken(token);
+        window.localStorage.setItem('token', JSON.stringify(mappedToken));
       })
       );
   }

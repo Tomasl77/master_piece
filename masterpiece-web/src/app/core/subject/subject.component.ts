@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SubjectService } from './subject.service';
+import { MatSelectModule } from '@angular/material/select';
+import { Category } from './category.model';
+
 
 @Component({
   selector: 'app-subject',
@@ -11,7 +14,9 @@ import { SubjectService } from './subject.service';
 })
 export class SubjectComponent implements OnInit {
 
-  public subjectForm: FormGroup;
+  private subjectForm: FormGroup;
+  private keys = Object.keys;
+  private categorys = Category; 
 
   constructor(private translate: TranslateService, private formBuilder: FormBuilder, private subjectService: SubjectService) {
     this.subjectForm = this.formBuilder.group({
@@ -20,6 +25,7 @@ export class SubjectComponent implements OnInit {
       category: ''
     })
   }
+
 
   formErrors = {
     'title': '',
@@ -50,7 +56,7 @@ export class SubjectComponent implements OnInit {
 
   public postSubject() {
     this.subjectService.postSubject(this.subjectForm).subscribe(
-      () => console.log("success"), 
+      () => console.log("success"),
       (error) => console.log(error));
   }
 }

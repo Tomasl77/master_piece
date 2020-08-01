@@ -20,8 +20,9 @@ subject in progress
       </div>
     </div>
     <div class="form-group" [ngClass]="{'has-error' : formErrors.category}">
-      <label>{{'subject.category' | translate}}</label>
-      <input class="form-control" formControlName="category" type="description" (blur)="logValidationErrors()">
+      <select>
+        <option *ngFor="let category of keys(categorys)" [ngValue]="categorys[category]">{{category}}</option>
+      </select>
     </div>
     <button type="submit" [disabled]="subjectForm.pristine || subjectForm.invalid" class="btn btn-success">
      {{'subject.button' | translate}}
