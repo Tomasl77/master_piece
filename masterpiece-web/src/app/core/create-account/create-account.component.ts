@@ -69,7 +69,7 @@ export class CreateAccountComponent implements OnInit {
     console.log(this.signForm.valueChanges);
     this.accountService.createAccount(this.signForm).subscribe(
       (data) => {
-        console.log("Account created with success : " + data.username)
+        alert("Account created with success : " + data.username)
         this.signForm.reset()
       },
       ((error) => { 
