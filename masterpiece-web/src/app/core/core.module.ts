@@ -11,6 +11,7 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { CustomUserComponent } from './custom-user/custom-user.component';
 import { SubjectComponent } from './subject/subject.component';
+import { MatSelectModule, MatFormFieldModule } from '@angular/material';
 
 
 
@@ -27,6 +28,8 @@ import { SubjectComponent } from './subject/subject.component';
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatSelectModule,
+    MatFormFieldModule,
     TranslateModule.forChild({
       loader: {
           provide: TranslateLoader,

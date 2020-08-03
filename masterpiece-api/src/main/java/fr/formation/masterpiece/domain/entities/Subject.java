@@ -2,8 +2,6 @@ package fr.formation.masterpiece.domain.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
@@ -26,16 +24,15 @@ public class Subject extends AbstractEntity {
     @Column(name = "description", nullable = true, columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "category", nullable = false,
-            columnDefinition = "ENUM('FRONTEND', 'BACKEND', 'DATABASE', 'RIFT', 'OTHER')")
-    @Enumerated(EnumType.STRING)
-    private Category category;
+    @Column(name = "category", nullable = false)
+    private String category;
 
     @Column(name = "total_vote", nullable = false)
-    private int vote = 0;
+    private int vote;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false,
+    @JoinColumn(name = "requester_id", referencedColumnName = "id",
+            nullable = false,
             foreignKey = @ForeignKey(name = "FK_subject_user"))
     private CustomUser user;
 }

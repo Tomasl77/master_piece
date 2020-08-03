@@ -35,6 +35,7 @@ public class SubjectManagerServiceImpl implements SubjectManagerService {
 	subject.setCategory(dto.getCategory());
 	subject.setDescription(dto.getDescription());
 	subject.setTitle(dto.getTitle());
+	subject.setVote(0);
 	CustomUser user = userRepository.getOne(id);
 	subject.setUser(user);
 	repository.save(subject);

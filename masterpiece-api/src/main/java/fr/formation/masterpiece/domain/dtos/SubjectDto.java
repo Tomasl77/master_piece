@@ -5,7 +5,6 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
-import fr.formation.masterpiece.domain.entities.Category;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,5 +20,5 @@ public class SubjectDto {
     private String description;
 
     @NotNull
-    private Category category;
+    private String category;
 }

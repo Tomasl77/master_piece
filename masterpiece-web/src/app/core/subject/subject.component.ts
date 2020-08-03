@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { SubjectService } from './subject.service';
 import { MatSelectModule } from '@angular/material/select';
 import { Category } from './category.model';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-subject',
@@ -15,8 +15,13 @@ import { Category } from './category.model';
 export class SubjectComponent implements OnInit {
 
   private subjectForm: FormGroup;
-  private keys = Object.keys;
-  private categorys = Category; 
+  private categories = [
+    {name : "Front-End", value : "FRONTEND"},
+    {name :"Back-End", value : "BACKEND"},
+    {name :"Database", value : "DATABASE"},
+    {name :"Rift", value : "RIFT"},
+    {name :"Other", value : "OTHER"}
+  ];
 
   constructor(private translate: TranslateService, private formBuilder: FormBuilder, private subjectService: SubjectService) {
     this.subjectForm = this.formBuilder.group({
@@ -32,7 +37,12 @@ export class SubjectComponent implements OnInit {
     'description': ''
   }
 
+  private selectedCategory : string = "TOTO";
+
+  private selectedCategoryControl= new FormControl(this.selectedCategory);
+
   ngOnInit() {
+    this.categories = this.categories;
   }
 
   logValidationErrors(group: FormGroup = this.subjectForm): void {
