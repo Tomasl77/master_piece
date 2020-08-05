@@ -4,8 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Config } from 'src/assets/config-properties';
 import { TokenStorageService } from 'src/app/shared/token-storage.service';
-import { tokenName } from '@angular/compiler';
-import { Token } from 'src/app/shared/token';
+import { Token } from 'src/app/shared/models/token';
 
 @Injectable()
 export class SubjectService {

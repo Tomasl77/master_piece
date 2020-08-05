@@ -1,5 +1,5 @@
 import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
-import { Token } from '../token';
+import { Token } from '../models/token';
 import { AuthenticationService } from './authentication.service';
 import { Injectable } from '@angular/core';
 import { TokenStorageService } from '../token-storage.service';
