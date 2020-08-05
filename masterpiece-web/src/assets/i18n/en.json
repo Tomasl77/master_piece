@@ -31,6 +31,23 @@
     "sign-in" : "Sign in",
     "sign-up" : "Create Account",
     "contacts" : "Contact us",
-    "close" : "Close"
+    "subject" : "Subject",
+    "close" : "Close",
+    "logout" : "Log out"
+  },
+  "subject" : {
+    "title" : "Title of subject",
+    "description" : "Description of subject",
+    "category" : "Choose a category",
+    "button": "Submit",
+    "validationMessages" : {
+      "title" : {
+        "required": "Title is required",
+        "maxlength" :"Maximum length : 20 caracters"
+      },
+      "description" : {
+        "required" :"Description is required"
+      }
+    }
   }
 }

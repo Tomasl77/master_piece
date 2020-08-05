@@ -14,7 +14,6 @@ import { CustomUserRegistrationService } from '../custom-user-registration.servi
 })
 export class CreateAccountComponent implements OnInit {
 
-  private serverUrl = "http://localhost:8000/accounts";
   private readonly passwordPatten = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*~{}&.,§+=°_();/]).{8,30}$";
 
   public signForm: FormGroup;
@@ -70,7 +69,7 @@ export class CreateAccountComponent implements OnInit {
     console.log(this.signForm.valueChanges);
     this.accountService.createAccount(this.signForm).subscribe(
       (data) => {
-        console.log("Inside create Account : " + data.username)
+        alert("Account created with success : " + data.username)
         this.signForm.reset()
       },
       ((error) => { 

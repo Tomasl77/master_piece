@@ -6,14 +6,16 @@ import { ContactsComponent } from './core/contacts/contacts.component';
 import { LogInComponent } from './core/log-in/log-in.component';
 import { CustomErrorComponent } from './shared/custom-error/custom-error.component';
 import { CustomUserComponent } from './core/custom-user/custom-user.component';
+import { SubjectComponent } from './core/subject/subject.component';
+import { AuthGuard } from './shared/authentication/auth-guard';
 
 
 const routes: Routes = [
   {
-    path: '', redirectTo:'/login', pathMatch:'full'
+    path: '', redirectTo: '/login', pathMatch: 'full'
   },
   {
-    path: 'accounts', component: CustomUserComponent
+    path: 'accounts', component: CustomUserComponent, canActivate : [AuthGuard]
   },
   {
     path: 'create-account', component: CreateAccountComponent
@@ -23,7 +25,10 @@ const routes: Routes = [
   },
   {
     path: 'login', component: LogInComponent
-  }, 
+  },
+  {
+    path: 'subject', component: SubjectComponent, canActivate: [AuthGuard]
+  },
   {
     path: 'not-found', component: NotFoundComponent
   },
@@ -31,7 +36,7 @@ const routes: Routes = [
     path: 'error', component: CustomErrorComponent
   },
   {
-    path: '**', redirectTo : '/not-found', pathMatch : "full" 
+    path: '**', redirectTo: '/not-found', pathMatch: "full"
   }
 ];
 

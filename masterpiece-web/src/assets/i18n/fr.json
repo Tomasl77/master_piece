@@ -31,6 +31,24 @@
     "sign-in": "Se connecter",
     "sign-up": "S'inscrire",
     "contacts": "Contactez-nous",
-    "close" : "Fermer"
+    "subject": "Sujet",
+    "close" : "Fermer",
+    "logout" : "Se deconnecter"
+  },
+
+  "subject" : {
+    "title" : "Titre du sujet",
+    "description" : "Description du sujet",
+    "category" : "Choisissez une catégorie",
+    "button": "Poster",
+    "validationMessages" : {
+      "title" : {
+        "required": "Veuillez entrez un titre",
+        "maxlength" :"Longueur maximum : 20 caracteres"
+      },
+      "description" : {
+        "required" :"Veuillez entrer une description"
+      } 
+    }
   }
 }

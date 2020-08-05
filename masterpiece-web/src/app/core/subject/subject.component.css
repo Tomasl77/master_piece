@@ -1,12 +1,12 @@
-.form-group {
+.form-group, .alert {
     text-align: center;
 }
 
-.form-control {
+.form-control, .alert {
     width: 60%;
 }
 
-input {
+input,textarea, .alert {
     margin: auto;
 }
 
@@ -14,4 +14,3 @@ input {
     margin-left: 50%;
     transform: translateX(-50%);
 }
-

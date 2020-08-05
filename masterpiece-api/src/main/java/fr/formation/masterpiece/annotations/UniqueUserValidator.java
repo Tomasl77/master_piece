@@ -3,14 +3,14 @@ package fr.formation.masterpiece.annotations;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import fr.formation.masterpiece.services.AccountService;
+import fr.formation.masterpiece.services.CustomUserService;
 
 public class UniqueUserValidator
         implements ConstraintValidator<UniqueUser, String> {
 
-    private AccountService service;
+    private CustomUserService service;
 
-    public UniqueUserValidator(AccountService service) {
+    public UniqueUserValidator(CustomUserService service) {
 	this.service = service;
     }
 

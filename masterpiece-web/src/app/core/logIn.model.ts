@@ -3,4 +3,4 @@ export class logIn {
     password: string;
     grant_type: string;
     client_id: string
-}
+} 

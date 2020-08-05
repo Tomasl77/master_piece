@@ -3,16 +3,17 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { UsernameValidator } from '../create-account/username-validator';
 import { HttpClient } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
-import { LogInService } from './log-in.service';
 import { Observable } from 'rxjs';
 import { mapToMapExpression } from '@angular/compiler/src/render3/util';
 import { Token } from "../../shared/token"
+import { AuthenticationService } from 'src/app/shared/authentication/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-log-in',
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.css'],
-  providers: [LogInService]
+  providers: []
 })
 export class LogInComponent implements OnInit {
 
@@ -23,7 +24,7 @@ export class LogInComponent implements OnInit {
   private readonly passwordPatten = "^(?=.*?[A-Z])(?=.*?[a-z]).{8,}$";
 
   constructor(private fb: FormBuilder, usernameValidator: UsernameValidator,
-    private readonly http: HttpClient, translate: TranslateService, private logInService: LogInService) {
+    private readonly http: HttpClient, translate: TranslateService, private authService: AuthenticationService, private router : Router) {
     this.logInForm = this.fb.group({
       username: '',
       password: '',
@@ -38,9 +39,10 @@ export class LogInComponent implements OnInit {
   }
 
   logIn() {
-    this.logInService.logIn(this.logInForm).subscribe(
-      (data) => {
-        console.log(" data feubfp " + data)
+    this.authService.logIn(this.logInForm).subscribe(
+      () => {
+        this.router.navigate(['/accounts']),
+        console.log(" LoggedIn successful")
       },
       (error) => {
         console.log(error.error);

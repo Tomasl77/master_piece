@@ -10,6 +10,8 @@ import { LogInComponent } from './log-in/log-in.component';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { CustomUserComponent } from './custom-user/custom-user.component';
+import { SubjectComponent } from './subject/subject.component';
+import { MatSelectModule, MatFormFieldModule } from '@angular/material';
 
 
 
@@ -18,13 +20,16 @@ import { CustomUserComponent } from './custom-user/custom-user.component';
     CustomUserComponent,
     CreateAccountComponent,
     ContactsComponent,
-    LogInComponent],
+    LogInComponent,
+    SubjectComponent],
 
   imports: [
     FormsModule,
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatSelectModule,
+    MatFormFieldModule,
     TranslateModule.forChild({
       loader: {
           provide: TranslateLoader,
