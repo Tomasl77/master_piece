@@ -2,15 +2,24 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TokenStorageService } from '../token-storage.service';
+import { Token } from '../models/token';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpInterceptorService implements HttpInterceptor {
 
-  constructor() { }
+  constructor(private tokenStorageService : TokenStorageService) { }
   
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    throw new Error("Method not implemented.");
+    const token = this.tokenStorageService.getToken();
+    if(token) {
+      req = req.clone({
+        setHeaders : {
+          Authorization: "Bearer " + token.accessToken
+        }
+      })
+    }
+    return next.handle(req);
   }
 }
