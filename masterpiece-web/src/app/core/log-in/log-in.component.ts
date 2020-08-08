@@ -4,8 +4,7 @@ import { UsernameValidator } from '../create-account/username-validator';
 import { HttpClient } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { mapToMapExpression } from '@angular/compiler/src/render3/util';
-import { Token } from "../../shared/token"
+import { Token } from "../../shared/models/token"
 import { AuthenticationService } from 'src/app/shared/authentication/authentication.service';
 import { Router } from '@angular/router';
 

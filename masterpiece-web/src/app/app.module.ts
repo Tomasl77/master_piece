@@ -9,8 +9,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from './material/material.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { AuthGuard } from './shared/authentication/auth-guard';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpInterceptorService } from './shared/authentication/http-interceptor.service'
+
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { AuthGuard } from './shared/authentication/auth-guard';
       }
     })
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
