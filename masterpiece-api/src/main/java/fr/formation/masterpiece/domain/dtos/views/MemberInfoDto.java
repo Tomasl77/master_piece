@@ -3,7 +3,7 @@ package fr.formation.masterpiece.domain.dtos.views;
 /**
  * A projection of a {@code CustomUser} for user info.
  */
-public interface CustomUserInfoDto {
+public interface MemberInfoDto {
 
     Long getId();
 

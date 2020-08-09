@@ -5,11 +5,11 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import fr.formation.masterpiece.domain.dtos.views.CustomUserAuthDto;
-import fr.formation.masterpiece.domain.dtos.views.CustomUserInfoDto;
-import fr.formation.masterpiece.domain.entities.CustomUser;
+import fr.formation.masterpiece.domain.dtos.views.MemberInfoDto;
+import fr.formation.masterpiece.domain.entities.Member;
 
-public interface CustomUserJpaRepository
-        extends JpaRepository<CustomUser, Long> {
+public interface MemberJpaRepository
+        extends JpaRepository<Member, Long> {
 
     /**
      * Retrieves a projected view of the {@code CustomUser} with given username.
@@ -26,7 +26,7 @@ public interface CustomUserJpaRepository
      * @param id user id
      * @return a projected view
      */
-    Optional<CustomUserInfoDto> getById(Long id);
+    Optional<MemberInfoDto> getById(Long id);
 
     boolean existsByUsername(String username);
 }

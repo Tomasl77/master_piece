@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CustomUserCreateDto {
+public class MemberCreateDto {
 
     private final String message = "Must contains at least 8 characters, 1 uppercase, 1 lowercase, 1 digit and 1 special char";
 
@@ -26,6 +26,6 @@ public class CustomUserCreateDto {
     @Pattern(regexp = pattern, message = message)
     private String password;
 
-    public CustomUserCreateDto() {
+    public MemberCreateDto() {
     }
 }
