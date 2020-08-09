@@ -13,24 +13,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
-import fr.formation.masterpiece.domain.dtos.CustomUserDto;
+import fr.formation.masterpiece.domain.dtos.MemberCreateDto;
+import fr.formation.masterpiece.domain.dtos.MemberDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
-import fr.formation.masterpiece.domain.dtos.views.CustomUserInfoDto;
-import fr.formation.masterpiece.services.CustomUserService;
+import fr.formation.masterpiece.domain.dtos.views.MemberInfoDto;
+import fr.formation.masterpiece.services.MemberService;
 
 @RestController
 @RequestMapping("/users")
-public class CustomUserController {
+public class MemberController {
 
-    private CustomUserService service;
+    private MemberService service;
 
-    public CustomUserController(CustomUserService service) {
+    public MemberController(MemberService service) {
 	this.service = service;
     }
 
     @GetMapping("/{id}")
-    public CustomUserInfoDto getOne(@PathVariable("id") Long id) {
+    public MemberInfoDto getOne(@PathVariable("id") Long id) {
 	return service.getOne(id);
     }
 
@@ -42,7 +42,7 @@ public class CustomUserController {
 
     @PostMapping
     @ResponseBody
-    public CustomUserDto create(@Valid @RequestBody CustomUserCreateDto dto) {
+    public MemberDto create(@Valid @RequestBody MemberCreateDto dto) {
 	return service.create(dto);
     }
 

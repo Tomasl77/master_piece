@@ -29,4 +29,4 @@ build/
 
 ### VS Code ###
 .vscode/
-/.attach_pid3935
+/.attach_pid*

@@ -6,9 +6,12 @@ import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import fr.formation.masterpiece.commons.utils.BooleanConverter;
 import lombok.Getter;
@@ -17,16 +20,22 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class CustomUser extends AbstractEntity {
+@Table(uniqueConstraints = {
+        @UniqueConstraint(name = "UQ_username", columnNames = { "username" }) })
+public class Member extends AbstractEntity {
 
-    @Column(length = 255, nullable = false, unique = true)
+    @Column(length = 255, nullable = false)
     private String username;
 
     @Column(length = 255, nullable = false)
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "custom_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "member_role",
+            joinColumns = @JoinColumn(name = "user_id",
+                    foreignKey = @ForeignKey(name = "FK_member_role")),
+            inverseJoinColumns = @JoinColumn(name = "role_id",
+                    foreignKey = @ForeignKey(name = "FK_role_member")))
     private Set<Role> roles;
 
     @Convert(converter = BooleanConverter.class)
@@ -45,7 +54,7 @@ public class CustomUser extends AbstractEntity {
     @Column(length = 1, nullable = false)
     private boolean credentialsNonExpired;
 
-    protected CustomUser() {
+    protected Member() {
 	// Empty no-arg constructor (Hibernate)
     }
 
@@ -56,7 +65,7 @@ public class CustomUser extends AbstractEntity {
      * @param username a unique username
      * @param roles    some roles
      */
-    public CustomUser(String password, String username, Set<Role> roles) {
+    public Member(String password, String username, Set<Role> roles) {
 	this(password, username, roles, true);
     }
 
@@ -68,7 +77,7 @@ public class CustomUser extends AbstractEntity {
      * @param roles    some roles
      * @param enabled  {@code true} if enabled; {@code false} otherwise
      */
-    public CustomUser(String password, String username, Set<Role> roles,
+    public Member(String password, String username, Set<Role> roles,
             boolean enabled) {
 	this.password = password;
 	this.username = username;
@@ -76,13 +85,23 @@ public class CustomUser extends AbstractEntity {
 	this.enabled = enabled;
     }
 
+    public Member(String password, String username, Set<Role> roles,
+            boolean enabled, boolean accountNonExpired,
+            boolean accountNonLocked, boolean credentialsNonExpired) {
+	this.password = password;
+	this.username = username;
+	this.roles = roles;
+	this.enabled = enabled;
+	this.accountNonExpired = accountNonExpired;
+	this.accountNonLocked = accountNonLocked;
+	this.credentialsNonExpired = credentialsNonExpired;
+    }
+
     @Override
     public String toString() {
 	// password=[PROTECTED] for not displaying in logs
 	return "{id=" + id + ", username=" + username
 	        + ", password=[PROTECTED], roles=" + roles + ", enabled="
-	        + enabled + ", accountNonExpired=" + accountNonExpired
-	        + ", accountNonLocked=" + accountNonLocked
-	        + ", credentialsNonExpired=" + credentialsNonExpired + "}";
+	        + enabled + "}";
     }
 }

@@ -5,10 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CustomUserDto {
+public class MemberDto {
 
     private String username;
 
-    public CustomUserDto() {
+    public MemberDto() {
     }
 }

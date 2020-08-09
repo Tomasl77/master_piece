@@ -1,4 +1,4 @@
 package fr.formation.masterpiece.controllers;
 
-class CustomUserControllerTest {
+class MemberControllerTest {
 }

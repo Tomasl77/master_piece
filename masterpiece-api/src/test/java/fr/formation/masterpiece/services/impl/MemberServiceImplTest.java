@@ -22,21 +22,21 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
+import fr.formation.masterpiece.domain.dtos.MemberCreateDto;
 import fr.formation.masterpiece.domain.entities.Role;
-import fr.formation.masterpiece.repositories.CustomUserJpaRepository;
+import fr.formation.masterpiece.repositories.MemberJpaRepository;
 
 @ExtendWith(MockitoExtension.class)
-class CustomUserServiceImplTest {
+class MemberServiceImplTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @InjectMocks
-    CustomUserServiceImpl service;
+    MemberServiceImpl service;
 
     @Mock
-    CustomUserJpaRepository repository;
+    MemberJpaRepository repository;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -54,7 +54,7 @@ class CustomUserServiceImplTest {
 	// Given
 	Set<Role> setRole = new HashSet<>();
 	setRole.add(new Role("toto"));
-	CustomUserCreateDto userDto = new CustomUserCreateDto();
+	MemberCreateDto userDto = new MemberCreateDto();
 	userDto.setUsername("Tomas");
 	userDto.setPassword("toto");
 	// When

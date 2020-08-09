@@ -17,7 +17,7 @@ import fr.formation.masterpiece.domain.entities.Role;
 public class CustomUserDetails extends User {
 
     private static final long serialVersionUID = 5803283930339051994L;
-
+   
     private Long id;
 
     public CustomUserDetails(CustomUserAuthDto user) {

@@ -9,21 +9,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
-import fr.formation.masterpiece.domain.dtos.CustomUserDto;
+import fr.formation.masterpiece.domain.dtos.MemberCreateDto;
+import fr.formation.masterpiece.domain.dtos.MemberDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
-import fr.formation.masterpiece.domain.dtos.views.CustomUserInfoDto;
-import fr.formation.masterpiece.domain.entities.CustomUser;
+import fr.formation.masterpiece.domain.dtos.views.MemberInfoDto;
+import fr.formation.masterpiece.domain.entities.Member;
 import fr.formation.masterpiece.domain.entities.Role;
 import fr.formation.masterpiece.exceptions.AccountNotFoundException;
-import fr.formation.masterpiece.repositories.CustomUserJpaRepository;
+import fr.formation.masterpiece.repositories.MemberJpaRepository;
 import fr.formation.masterpiece.repositories.RoleRepository;
-import fr.formation.masterpiece.services.CustomUserService;
+import fr.formation.masterpiece.services.MemberService;
 
 @Service
-public class CustomUserServiceImpl implements CustomUserService {
+public class MemberServiceImpl implements MemberService {
 
-    private final CustomUserJpaRepository userRepository;
+    private final MemberJpaRepository memberRepository;
 
     private final RoleRepository roleRepository;
 
@@ -32,27 +32,27 @@ public class CustomUserServiceImpl implements CustomUserService {
     @Autowired
     private ModelMapper mapper;
 
-    protected CustomUserServiceImpl(CustomUserJpaRepository repo,
+    protected MemberServiceImpl(MemberJpaRepository repo,
             RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
 	this.roleRepository = roleRepository;
-	this.userRepository = repo;
+	this.memberRepository = repo;
 	this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public CustomUserDto create(CustomUserCreateDto dto) {
+    public MemberDto create(MemberCreateDto dto) {
 	String encodedPassword = passwordEncoder.encode(dto.getPassword());
 	Set<Role> role = new HashSet<>();
 	role.add(roleRepository.findByDefaultRole(true));
-	CustomUser account = new CustomUser(encodedPassword, dto.getUsername(),
-	        role, true);
-	CustomUser user = userRepository.save(account);
-	return mapper.map(user, CustomUserDto.class);
+	Member member = new Member(encodedPassword, dto.getUsername(), role,
+	        true, true, true, true);
+	Member user = memberRepository.save(member);
+	return mapper.map(user, MemberDto.class);
     }
 
     @Override
     public boolean isValid(String username) {
-	return !userRepository.existsByUsername(username);
+	return !memberRepository.existsByUsername(username);
     }
 
     @Override
@@ -62,8 +62,8 @@ public class CustomUserServiceImpl implements CustomUserService {
     }
 
     @Override
-    public CustomUserInfoDto getOne(Long id) {
-	Optional<CustomUserInfoDto> value = userRepository.getById(id);
+    public MemberInfoDto getOne(Long id) {
+	Optional<MemberInfoDto> value = memberRepository.getById(id);
 	if (value.isPresent()) {
 	    return value.get();
 	} else {
@@ -73,9 +73,9 @@ public class CustomUserServiceImpl implements CustomUserService {
 
     @Override
     public void deleteOne(Long id) {
-	Optional<CustomUserInfoDto> value = userRepository.getById(id);
+	Optional<MemberInfoDto> value = memberRepository.getById(id);
 	if (value.isPresent()) {
-	    userRepository.deleteById(id);
+	    memberRepository.deleteById(id);
 	} else {
 	    throw new AccountNotFoundException(
 	            "Can't delete account " + id + " because it's not created");
