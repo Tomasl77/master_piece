@@ -18,7 +18,7 @@ import lombok.Setter;
         indexes = { @Index(name = "IDX_subject_topic", columnList = "id") })
 public class Subject extends AbstractEntity {
 
-    @Column(name = "title", nullable = false, length = 20)
+    @Column(name = "title", nullable = false, length = 30)
     private String title;
 
     @Column(name = "description", nullable = true, columnDefinition = "TEXT")

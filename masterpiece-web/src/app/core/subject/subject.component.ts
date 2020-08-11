@@ -25,7 +25,7 @@ export class SubjectComponent implements OnInit {
 
   constructor(private translate: TranslateService, private formBuilder: FormBuilder, private subjectService: SubjectService) {
     this.subjectForm = this.formBuilder.group({
-      title: ['', [Validators.required, Validators.maxLength(20)]],
+      title: ['', [Validators.required, Validators.maxLength(30)]],
       description: ['', [Validators.required]],
       category: ''
     })
