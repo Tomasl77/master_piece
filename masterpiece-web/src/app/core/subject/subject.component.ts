@@ -3,7 +3,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { SubjectService } from './subject.service';
 import { MatSelectModule } from '@angular/material/select';
-import { Category } from './category.model';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
@@ -38,8 +37,6 @@ export class SubjectComponent implements OnInit {
   }
 
   private selectedCategory : string = "TOTO";
-
-  private selectedCategoryControl= new FormControl(this.selectedCategory);
 
   ngOnInit() {
     this.categories = this.categories;
