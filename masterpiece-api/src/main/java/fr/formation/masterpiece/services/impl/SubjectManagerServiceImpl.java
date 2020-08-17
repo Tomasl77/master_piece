@@ -44,4 +44,9 @@ public class SubjectManagerServiceImpl implements SubjectManagerService {
     public void create2(SubjectDto dto) {
 	mapper.map(dto, Subject.class);
     }
+
+    @Override
+    public void delete(Long id) {
+	repository.deleteById(id);
+    }
 }
