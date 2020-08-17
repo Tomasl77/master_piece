@@ -7,6 +7,12 @@ export const Config = {
     apiUrl: baseUrl + "/api",
     users: "/users",
     subjects: "/subjects",
+    actions: {
+      get : "/get",
+      create : "/create",
+      delete : "/delete",
+      update : "/update"
+    },
     httpOptions: {
         json: { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) },
         formUrlEncoded: { headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' }) 
