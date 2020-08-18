@@ -1,5 +1,3 @@
-subject in progress
-
 <form [formGroup]="subjectForm" novalidate (submit)="postSubject()">
   <div class="form-group" [ngClass]="{'has-error' : formErrors.title}">
     <label>{{'subject.title' | translate}}</label>
@@ -33,9 +31,10 @@ subject in progress
     {{'subject.button' | translate}}
   </button>
 </form>
+<div *ngIf="isAdmin()">
+  <label>id:
+   <input [(ngModel)]="id" placeholder="id" type="number"/>
+  </label>
 
-<label>id:
-  <input [(ngModel)]="id" placeholder="id" type="number"/>
-</label>
-
-<button (click)="deleteSubject()">Delete</button>
+  <button (click)="deleteSubject()">Delete</button>
+</div>

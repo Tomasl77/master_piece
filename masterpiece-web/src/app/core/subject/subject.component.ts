@@ -75,4 +75,8 @@ export class SubjectComponent implements OnInit {
       (error) => console.log(error)
     )
   }
+
+  isAdmin() : boolean {
+    return false;
+  }
 }

@@ -19,5 +19,4 @@ export class SubjectService {
   deleteSubject(id: number) {
     return this.http.delete<any>(Config.apiUrl + Config.subjects+ Config.actions.delete + `/${id}`);
   }
-
 }
