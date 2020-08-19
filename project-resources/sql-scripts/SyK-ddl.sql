@@ -12,9 +12,9 @@ Last update : 2020-08-12
 
 -- SCHEMA
 
-DROP SCHEMA IF EXISTS teamsharing;
-CREATE SCHEMA teamsharing;
-USE teamsharing;
+DROP SCHEMA IF EXISTS teamsharingdev;
+CREATE SCHEMA teamsharingdev;
+USE teamsharingdev;
 
 
 -- TABLE
@@ -39,7 +39,7 @@ CREATE TABLE `member` (
   `username` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UQ_username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /******************************
 ********* ROLE  TABLE *********
@@ -51,7 +51,7 @@ CREATE TABLE `role` (
   `default_role` varchar(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UQ_code` (`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 /******************************
