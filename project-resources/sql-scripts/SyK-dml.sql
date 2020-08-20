@@ -6,18 +6,21 @@ Last update : 2020-08-12
 
 */
 
-USE teamsharing;
+USE teamsharingdev;
 
-INSERT INTO `member` (id, account_non_expired, password, username, account_non_locked, credentials_non_expired, enabled)
+ALTER TABLE `role` AUTO_INCREMENT = 1;
+ALTER TABLE `member` AUTO_INCREMENT = 1;
+
+INSERT INTO `member` (account_non_expired, password, username, account_non_locked, credentials_non_expired, enabled)
 	VALUES 
-    (1,'T','$2a$10$JbSdgniSs9PoNJM3XN6qUuS9s6uVJwpS1fLIOddNemQgx8FuUw67O','Tomas','T','T','T'), -- password = Totototo9!
-	(2,'T','$2a$10$PxZEkHGLpGgeV8mO8ehxz..dGlyxwFo3FgTGfdC/2LqOYd8R4DI/a','Johanna','T','T','T'),  -- password = Joanhime77!
-    (3,'T','$2a$10$tToGMTh3vyXByVqOQHdk9uqbip3wm5rZz1GLbZSoaBB1ileL5w8qi','Lily','T','T','T');  -- password = Lily2709!
+    ('T','$2a$10$JbSdgniSs9PoNJM3XN6qUuS9s6uVJwpS1fLIOddNemQgx8FuUw67O','Tomas','T','T','T'), -- password = Totototo9!
+	('T','$2a$10$PxZEkHGLpGgeV8mO8ehxz..dGlyxwFo3FgTGfdC/2LqOYd8R4DI/a','Johanna','T','T','T'),  -- password = Joanhime77!
+    ('T','$2a$10$tToGMTh3vyXByVqOQHdk9uqbip3wm5rZz1GLbZSoaBB1ileL5w8qi','Lily','T','T','T');  -- password = Lily2709!
 
 INSERT INTO `role`(code, default_role) 
     VALUES 
-    (1,'ROLE_USER','T'), 
-    (2,'ROLE_ADMIN','F');
+    ('ROLE_USER','T'), 
+    ('ROLE_ADMIN','F');
 
 COMMIT;
 

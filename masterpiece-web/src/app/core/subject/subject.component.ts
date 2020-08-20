@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { SubjectService } from './subject.service';
 import { MatSelectModule } from '@angular/material/select';
-import { Category } from './category.model';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
@@ -13,6 +12,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   providers: [SubjectService]
 })
 export class SubjectComponent implements OnInit {
+
+  @Input('id')
+  id : number
 
   private subjectForm: FormGroup;
   private categories = [
@@ -36,10 +38,6 @@ export class SubjectComponent implements OnInit {
     'title': '',
     'description': ''
   }
-
-  private selectedCategory : string = "TOTO";
-
-  private selectedCategoryControl= new FormControl(this.selectedCategory);
 
   ngOnInit() {
     this.categories = this.categories;
@@ -67,6 +65,18 @@ export class SubjectComponent implements OnInit {
   public postSubject() {
     this.subjectService.postSubject(this.subjectForm).subscribe(
       () => console.log("success"),
-      (error) => console.log(error));
+      (error) => console.log(error)
+    );
+  }
+
+  public deleteSubject() {
+    this.subjectService.deleteSubject(this.id).subscribe(
+      ()=> console.log("Deleted with succes : " + this.id),
+      (error) => console.log(error)
+    )
+  }
+
+  isAdmin() : boolean {
+    return false;
   }
 }

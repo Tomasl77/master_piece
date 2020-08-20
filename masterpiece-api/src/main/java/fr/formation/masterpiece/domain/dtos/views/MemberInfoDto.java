@@ -1,7 +1,7 @@
 package fr.formation.masterpiece.domain.dtos.views;
 
 /**
- * A projection of a {@code CustomUser} for user info.
+ * A projection of a {@see Member} for user info.
  */
 public interface MemberInfoDto {
 
