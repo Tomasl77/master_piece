@@ -15,10 +15,7 @@
           [routerLinkActive]="['active-red']" *ngIf="!isAuthenticated()">{{'navbar.sign-up' | translate}}</a>
         <button [matMenuTriggerFor]="subject" mat-button [routerLinkActive]="['active-red']"
           *ngIf="isAuthenticated()">{{'navbar.subject.dropdown' | translate}}</button>
-          <mat-menu #subject="matMenu">
-            <a mat-menu-item [routerLink]="['/subject']">{{'navbar.subject.post' | translate}}</a>
-            <a mat-menu-item [routerLink]="['/accounts']">{{'navbar.subject.delete' | translate}}</a>
-          </mat-menu>
+         
         <a mat-button [routerLink]="['/contacts']"
           [routerLinkActive]="['active-red']">{{'navbar.contacts' | translate}}</a>
         <img src="../../../assets/img/united-kingdom-flag.png" alt="" (click)="useLanguage('en')">
@@ -33,12 +30,12 @@
         <a mat-list-item [routerLink]="'/accounts'" [routerLinkActive]="['active-red']"
           *ngIf="isAuthenticated()">{{'navbar.account' | translate}}</a>
         <a mat-list-item [routerLink]="'/login'"
-          [routerLinkActive]="['active-red']">{{'navbar.sign-in' | translate}}</a>
-        <a mat-button (click)="logout()" *ngIf="isAuthenticated()">{{'navbar.logout' | translate}}</a>
+          [routerLinkActive]="['active-red']" *ngIf="!isAuthenticated()">{{'navbar.sign-in' | translate}}</a>
+        <a mat-list-item (click)="logout()" *ngIf="isAuthenticated()">{{'navbar.logout' | translate}}</a>
         <a mat-list-item [routerLink]="'/create-account'" [routerLinkActive]="['active-red']"
           *ngIf="!isAuthenticated()">{{'navbar.sign-up' | translate}}</a>
-        <a mat-button [routerLink]="['/subject']" [routerLinkActive]="['active-red']"
-          *ngIf="isAuthenticated()">{{'navbar.subject' | translate}}</a>
+        <a mat-list-item [matMenuTriggerFor]="subject" [routerLinkActive]="['active-red']"
+          *ngIf="isAuthenticated()">{{'navbar.subject.dropdown' | translate}}</a>
         <a mat-list-item [routerLink]="'/contacts'"
           [routerLinkActive]="['active-red']">{{'navbar.contacts' | translate}}</a>
         <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>{{'navbar.close' | translate}}</a>
@@ -57,3 +54,8 @@
   </mat-sidenav-container>
   <!-- Burger SideNavBar ends-->
 </section>
+
+<mat-menu #subject="matMenu">
+  <a mat-menu-item [routerLink]="['/subject']">{{'navbar.subject.post' | translate}}</a>
+  <a mat-menu-item [routerLink]="['/accounts']">{{'navbar.subject.delete' | translate}}</a>
+</mat-menu>
