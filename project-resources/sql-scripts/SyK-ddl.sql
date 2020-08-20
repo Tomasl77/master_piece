@@ -2,7 +2,7 @@
 DDL script for teamsharing database
 Script can be used on mysql database.
 
-Last update : 2020-08-12
+Last update : 2020-08-20
 
 */
 
