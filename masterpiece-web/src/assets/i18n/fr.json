@@ -31,7 +31,11 @@
     "sign-in": "Se connecter",
     "sign-up": "S'inscrire",
     "contacts": "Contactez-nous",
-    "subject": "Sujet",
+    "subject": {
+      "dropdown" : "Sujet",
+        "post": "Créer un sujet",
+        "delete" : "Effacer un sujet"
+    },
     "close" : "Fermer",
     "logout" : "Se deconnecter"
   },

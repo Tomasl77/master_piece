@@ -13,8 +13,12 @@
         <a mat-button (click)="logout()" *ngIf="isAuthenticated()">{{'navbar.logout' | translate}}</a>
         <a mat-button [routerLink]="['/create-account']"
           [routerLinkActive]="['active-red']" *ngIf="!isAuthenticated()">{{'navbar.sign-up' | translate}}</a>
-        <a mat-button [routerLink]="['/subject']" [routerLinkActive]="['active-red']"
-          *ngIf="isAuthenticated()">{{'navbar.subject' | translate}}</a>
+        <button [matMenuTriggerFor]="subject" mat-button [routerLinkActive]="['active-red']"
+          *ngIf="isAuthenticated()">{{'navbar.subject.dropdown' | translate}}</button>
+          <mat-menu #subject="matMenu">
+            <a mat-menu-item [routerLink]="['/subject']">{{'navbar.subject.post' | translate}}</a>
+            <a mat-menu-item [routerLink]="['/accounts']">{{'navbar.subject.delete' | translate}}</a>
+          </mat-menu>
         <a mat-button [routerLink]="['/contacts']"
           [routerLinkActive]="['active-red']">{{'navbar.contacts' | translate}}</a>
         <img src="../../../assets/img/united-kingdom-flag.png" alt="" (click)="useLanguage('en')">
