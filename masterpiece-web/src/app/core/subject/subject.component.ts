@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { SubjectService } from './subject.service';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-subject',
@@ -14,7 +15,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 export class SubjectComponent implements OnInit {
 
   @Input('id')
-  id : number
+  id : number;
+
+  target: string;
 
   private subjectForm: FormGroup;
   private categories = [
@@ -25,7 +28,7 @@ export class SubjectComponent implements OnInit {
     {name :"Other", value : "OTHER"}
   ];
 
-  constructor(private translate: TranslateService, private formBuilder: FormBuilder, private subjectService: SubjectService) {
+  constructor(private translate: TranslateService, private formBuilder: FormBuilder, private subjectService: SubjectService,  private activatedRoute: ActivatedRoute) {
     this.subjectForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(30)]],
       description: ['', [Validators.required]],
@@ -40,6 +43,10 @@ export class SubjectComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.target = params.get("target");
+      console.log("target : : : " + this.target);
+    });
     this.categories = this.categories;
   }
 
@@ -77,6 +84,6 @@ export class SubjectComponent implements OnInit {
   }
 
   isAdmin() : boolean {
-    return false;
+    return true;
   }
 }

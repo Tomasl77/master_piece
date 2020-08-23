@@ -1,3 +1,4 @@
+<div *ngIf="target =='post'">
 <form [formGroup]="subjectForm" novalidate (submit)="postSubject()">
   <div class="form-group" [ngClass]="{'has-error' : formErrors.title}">
     <label>{{'subject.title' | translate}}</label>
@@ -31,7 +32,8 @@
     {{'subject.button' | translate}}
   </button>
 </form>
-<div *ngIf="isAdmin()">
+</div>
+<div *ngIf="isAdmin() && target=='delete'">
   <label>id:
    <input [(ngModel)]="id" placeholder="id" type="number"/>
   </label>
