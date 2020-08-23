@@ -14,6 +14,11 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
   }
+
+public isActive(url : string) {
+  return this.router.url.includes('/subject');
+}
+
   useLanguage(language: string) {
     this.translate.use(language);
   }

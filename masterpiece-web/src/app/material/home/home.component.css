@@ -13,14 +13,21 @@ a:hover {
     color : lightcoral;
 }
 
-.active-red {
-    color : red;
+.active-white {
+    color : white;
 }
 
 .sidenav {
     height: 88vh;
 }
 
+mat-toolbar {
+    background-color : #e9041e;
+}
+
+a {
+    text-decoration-line: none;
+}
 /*
 .container-custom {
     border: 2px solid red;

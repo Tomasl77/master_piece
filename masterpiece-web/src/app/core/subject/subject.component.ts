@@ -45,7 +45,6 @@ export class SubjectComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(params => {
       this.target = params.get("target");
-      console.log("target : : : " + this.target);
     });
     this.categories = this.categories;
   }
