@@ -16,9 +16,11 @@ export class CreateAccountComponent implements OnInit {
 
   private readonly passwordPatten = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*~{}&.,§+=°_();/]).{8,30}$";
 
+  private validationMessage : string = "create-account.validationMessages";
+
   public signForm: FormGroup;
   constructor(private fb: FormBuilder, usernameValidator: UsernameValidator,
-    private readonly http: HttpClient, private translate: TranslateService, private accountService : CustomUserRegistrationService) {
+    private translate: TranslateService, private accountService : CustomUserRegistrationService) {
     this.signForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)], usernameValidator.validate.bind(usernameValidator)],
       password: ['', [Validators.required, Validators.pattern((this.passwordPatten))]],
@@ -42,7 +44,7 @@ export class CreateAccountComponent implements OnInit {
         if (abstractControl && !abstractControl.valid && ((abstractControl.touched) || (abstractControl.dirty))) {
           for (const errorKey in abstractControl.errors) {
             if (errorKey) {
-              const err = this.translate.instant('create-account.validationMessages.' + key +'.'+ errorKey);
+              const err = this.translate.instant(`${this.validationMessage}.${key}.${errorKey}`);
               this.formErrors[key] += err;
             }
           };
@@ -51,7 +53,7 @@ export class CreateAccountComponent implements OnInit {
     })
   }
 
-  checkPasswords(group: FormGroup) {
+  private checkPasswords(group: FormGroup) {
     let pass = group.get('password').value;
     let confirmPass = group.get('passwordConfirm').value;
     if (pass !== confirmPass) {
@@ -73,6 +75,7 @@ export class CreateAccountComponent implements OnInit {
         this.signForm.reset()
       },
       ((error) => { 
+
         console.log(error)
       })
   )};

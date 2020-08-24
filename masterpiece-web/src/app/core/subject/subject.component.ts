@@ -46,7 +46,7 @@ export class SubjectComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(params => {
       this.target = params.get("target");
     });
-    this.categories = this.categories;
+    
   }
 
   logValidationErrors(group: FormGroup = this.subjectForm): void {
@@ -70,7 +70,10 @@ export class SubjectComponent implements OnInit {
 
   public postSubject() {
     this.subjectService.postSubject(this.subjectForm).subscribe(
-      () => console.log("success"),
+      () => {
+        console.log("success"),
+        this.subjectForm.reset()
+      },
       (error) => console.log(error)
     );
   }

@@ -8,7 +8,8 @@
       "username": {
         "required": "Nom d'utilisateur requis",
         "minlength": "Longueur minimum : 2 caracteres",
-        "maxlength": "Longueur maximum : 20 caracteres"
+        "maxlength": "Longueur maximum : 20 caracteres",
+        "nameTaken": "Le nom est déjà utilisé"
       },
       "password": {
         "required": "Mot de passe requis",
