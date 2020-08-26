@@ -5,6 +5,7 @@ import { SubjectService } from './subject.service';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from 'src/app/shared/authentication/authentication.service';
 
 @Component({
   selector: 'app-subject',
@@ -15,20 +16,26 @@ import { ActivatedRoute } from '@angular/router';
 export class SubjectComponent implements OnInit {
 
   @Input('id')
-  id : number;
+  id: number;
 
   target: string;
 
   private subjectForm: FormGroup;
   private categories = [
-    {name : "Front-End", value : "FRONTEND"},
-    {name :"Back-End", value : "BACKEND"},
-    {name :"Database", value : "DATABASE"},
-    {name :"Rift", value : "RIFT"},
-    {name :"Other", value : "OTHER"}
+    { name: "Front-End", value: "FRONTEND" },
+    { name: "Back-End", value: "BACKEND" },
+    { name: "Database", value: "DATABASE" },
+    { name: "Rift", value: "RIFT" },
+    { name: "Other", value: "OTHER" }
   ];
 
-  constructor(private translate: TranslateService, private formBuilder: FormBuilder, private subjectService: SubjectService,  private activatedRoute: ActivatedRoute) {
+  constructor(
+    private translate: TranslateService,
+    private formBuilder: FormBuilder,
+    private subjectService: SubjectService,
+    private activatedRoute: ActivatedRoute,
+    private authenService : AuthenticationService
+  ) {
     this.subjectForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(30)]],
       description: ['', [Validators.required]],
@@ -46,7 +53,7 @@ export class SubjectComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(params => {
       this.target = params.get("target");
     });
-    
+    console.log(this.authenService.currentUserValue());
   }
 
   logValidationErrors(group: FormGroup = this.subjectForm): void {
@@ -72,7 +79,7 @@ export class SubjectComponent implements OnInit {
     this.subjectService.postSubject(this.subjectForm).subscribe(
       () => {
         console.log("success"),
-        this.subjectForm.reset()
+          this.subjectForm.reset()
       },
       (error) => console.log(error)
     );
@@ -80,12 +87,12 @@ export class SubjectComponent implements OnInit {
 
   public deleteSubject() {
     this.subjectService.deleteSubject(this.id).subscribe(
-      ()=> console.log("Deleted with succes : " + this.id),
+      () => console.log("Deleted with succes : " + this.id),
       (error) => console.log(error)
     )
   }
 
-  isAdmin() : boolean {
+  isAdmin(): boolean {
     return true;
   }
 }

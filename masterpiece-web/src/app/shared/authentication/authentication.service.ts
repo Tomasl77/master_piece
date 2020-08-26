@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { map } from 'rxjs/operators';
@@ -7,6 +7,7 @@ import { Token } from '@angular/compiler/src/ml_parser/lexer';
 import { Config } from 'src/assets/config-properties';
 import { HttpClient } from '@angular/common/http';
 import { TokenStorageService } from '../token-storage.service';
+import { User } from '../models/user.model';
 
 
 @Injectable({
@@ -14,11 +15,19 @@ import { TokenStorageService } from '../token-storage.service';
 })
 export class AuthenticationService {
 
-  private loggedIn = new BehaviorSubject<boolean>(false);
-  constructor(private router : Router, private readonly http: HttpClient, private tokenStorageService : TokenStorageService) { }
+  private currentUserSubject: BehaviorSubject<User>;
+  public currentUser: Observable<User>;
 
+  constructor(private router: Router, private readonly http: HttpClient, private tokenStorageService: TokenStorageService) {
+    this.currentUserSubject = new BehaviorSubject<User>(this.mapUserInfos());
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
 
-  logIn(formData: FormGroup) : any {
+  public currentUserValue(): User {
+    return this.currentUserSubject.value;
+  }
+
+  logIn(formData: FormGroup): any {
     let datas = new URLSearchParams();
     datas.set("username", formData.value.username);
     datas.set("password", formData.value.password);
@@ -33,15 +42,30 @@ export class AuthenticationService {
   }
 
   isAuthenticated(): boolean {
-    if(this.tokenStorageService.getToken()){
+    if (this.tokenStorageService.getToken()) {
       return true;
     }
     return false;
   }
-  
- 
+
+
   logout(): void {
     localStorage.removeItem("token");
     this.router.navigate(['/login'])
   }
+
+  mapUserInfos(): User {
+    const token = this.tokenStorageService.getToken();
+    if(token != null) {
+      console.log(token);
+      const jwtDecoded = this.parseJwt(token);
+      return new User(jwtDecoded.username, jwtDecoded.user_id, jwtDecoded.authorithies);
+    }
+  }
+
+  parseJwt(token) {
+    var base64Url = token.get('accessToken');
+    var base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(atob(base64));
+  };
 }
