@@ -12,15 +12,15 @@ export class UsernameValidator {
   constructor(private readonly http: HttpClient) {
   }
 
-  private isValid : UsernameCheckDto;
+  private checkUsername : UsernameCheckDto;
 
   validate(control: AbstractControl) {
     return new Promise((resolve) => {
       if ((control.dirty)) {
         this.http.get<UsernameCheckDto>(Config.apiUrl + Config.users + `/${control.value}/verify/`)
           .subscribe(response => {
-            this.isValid = response;
-            if (this.isValid.valid) {
+            this.checkUsername = response;
+            if (this.checkUsername.valid) {
               resolve();
             } else {
               resolve({nameTaken: true});
