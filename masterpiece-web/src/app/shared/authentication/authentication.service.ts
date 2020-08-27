@@ -57,14 +57,13 @@ export class AuthenticationService {
   mapUserInfos(): User {
     const token = this.tokenStorageService.getToken();
     if(token != null) {
-      console.log(token);
-      const jwtDecoded = this.parseJwt(token);
-      return new User(jwtDecoded.username, jwtDecoded.user_id, jwtDecoded.authorithies);
+      const jwtDecoded = this.parseJwt(token.accessToken);
+      return new User(jwtDecoded.user_name, jwtDecoded.userId, jwtDecoded.authorities);
     }
   }
 
-  parseJwt(token) {
-    var base64Url = token.get('accessToken');
+  parseJwt(token: string) {
+    var base64Url = token.split('.')[1];
     var base64 = base64Url.replace('-', '+').replace('_', '/');
     return JSON.parse(atob(base64));
   };
