@@ -10,7 +10,11 @@ import { AuthenticationService } from 'src/app/shared/authentication/authenticat
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private translate: TranslateService, private router: Router, private authService: AuthenticationService) { }
+  constructor(
+    private translate: TranslateService, 
+    private router: Router, 
+    private authenticationService: AuthenticationService
+    ) { }
 
   ngOnInit() {
   }
@@ -24,10 +28,18 @@ public isActive(url : string) {
   }
 
   isAuthenticated() {
-    return this.authService.isAuthenticated();
+    return this.authenticationService.isAuthenticated();
+  }
+
+  /** 
+  Need to explicitly return both currentUserValue and isAdmin().
+  If only isAdmin() is return, if there's no logged in user = > undefined currentUserValue
+  */
+  isAdmin() : boolean{
+    return this.authenticationService.currentUserValue && this.authenticationService.currentUserValue.isAdmin();
   }
 
   logout() {
-    this.authService.logout();
+    this.authenticationService.logout();
   }
 }

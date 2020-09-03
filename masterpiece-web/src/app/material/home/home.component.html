@@ -58,5 +58,5 @@
 <!-- Dropdown menu for Subject Component-->
 <mat-menu #subject="matMenu">
   <a mat-menu-item [routerLink]="['/subject', {target: 'post'}]">{{'navbar.subject.post' | translate}}</a>
-  <a mat-menu-item [routerLink]="['/subject', {target: 'delete'}]">{{'navbar.subject.delete' | translate}}</a>
+  <a mat-menu-item [routerLink]="['/subject', {target: 'delete'}]" *ngIf="isAdmin()">{{'navbar.subject.delete' | translate}}</a>
 </mat-menu>

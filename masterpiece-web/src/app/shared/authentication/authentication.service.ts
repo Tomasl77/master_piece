@@ -23,7 +23,7 @@ export class AuthenticationService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  public currentUserValue(): User {
+  public get currentUserValue(): User {
     return this.currentUserSubject.value;
   }
 
@@ -37,6 +37,8 @@ export class AuthenticationService {
       .pipe(map((token: Token) => {
         const mappedToken = this.tokenStorageService.mapToken(token);
         window.localStorage.setItem('token', JSON.stringify(mappedToken));
+        const user =  this.mapUserInfos();
+        this.currentUserSubject.next(user);
       })
       );
   }
@@ -51,6 +53,7 @@ export class AuthenticationService {
 
   logout(): void {
     localStorage.removeItem("token");
+    this.currentUserSubject.next(null);
     this.router.navigate(['/login'])
   }
 
@@ -58,7 +61,8 @@ export class AuthenticationService {
     const token = this.tokenStorageService.getToken();
     if(token != null) {
       const jwtDecoded = this.parseJwt(token.accessToken);
-      return new User(jwtDecoded.user_name, jwtDecoded.userId, jwtDecoded.authorities);
+      const user = new User(jwtDecoded.user_name, jwtDecoded.userId, jwtDecoded.authorities); 
+      return user;
     }
   }
 

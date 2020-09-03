@@ -15,7 +15,7 @@ const routes: Routes = [
     path: '', redirectTo: '/login', pathMatch: 'full'
   },
   {
-    path: 'accounts', component: CustomUserComponent, canActivate : [AuthGuard]
+    path: 'accounts', component: CustomUserComponent, canActivate : [AuthGuard], data: { roles: ["ROLE_ADMIN", "ROLE_USER"]}
   },
   {
     path: 'create-account', component: CreateAccountComponent
@@ -27,7 +27,7 @@ const routes: Routes = [
     path: 'login', component: LogInComponent
   },
   {
-    path: 'subject', component: SubjectComponent, canActivate: [AuthGuard]
+    path: 'subject', component: SubjectComponent, canActivate: [AuthGuard], data: { roles: ["ROLE_ADMIN", "ROLE_USER"]}
   },
   {
     path: 'not-found', component: NotFoundComponent

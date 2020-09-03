@@ -34,7 +34,7 @@ export class SubjectComponent implements OnInit {
     private formBuilder: FormBuilder,
     private subjectService: SubjectService,
     private activatedRoute: ActivatedRoute,
-    private authenService : AuthenticationService
+    private authenthicationService : AuthenticationService
   ) {
     this.subjectForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(30)]],
@@ -53,7 +53,7 @@ export class SubjectComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(params => {
       this.target = params.get("target");
     });
-    console.log(this.authenService.currentUserValue());
+    console.log(this.authenthicationService.currentUserValue);
   }
 
   logValidationErrors(group: FormGroup = this.subjectForm): void {
@@ -93,6 +93,6 @@ export class SubjectComponent implements OnInit {
   }
 
   isAdmin(): boolean {
-    return true;
+    return this.authenthicationService.currentUserValue.isAdmin();
   }
 }
