@@ -35,6 +35,7 @@
     "subject": {
       "dropdown" : "Sujet",
         "post": "Créer un sujet",
+        "vote": "Voir / Voter pour un sujet",
         "delete" : "Effacer un sujet"
     },
     "close" : "Fermer",

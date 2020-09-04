@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LayoutComponent } from './layout/layout.component';
-import { HomeComponent } from './home/home.component';
+import { NavbarComponent } from './navbar/navbar.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule } from '@angular/material';
 import { CoreModule } from '../core/core.module';
@@ -13,7 +13,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router'
 
 @NgModule({
-  declarations: [LayoutComponent, HomeComponent],
+  declarations: [LayoutComponent, NavbarComponent],
   imports: [
     RouterModule,
     CommonModule,
@@ -36,7 +36,7 @@ import { RouterModule } from '@angular/router'
   ],
   exports: [
     LayoutComponent,
-    HomeComponent
+    NavbarComponent
   ]
 })
 export class MaterialModule { }

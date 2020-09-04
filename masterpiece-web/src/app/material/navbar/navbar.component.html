@@ -10,14 +10,14 @@
           *ngIf="isAuthenticated()">{{'navbar.account' | translate}}</a>
         <a mat-button [routerLink]="['/login']" [routerLinkActive]="['active-white']"
           *ngIf="!isAuthenticated()">{{'navbar.sign-in' | translate}}</a>
-        <a mat-button (click)="logout()" *ngIf="isAuthenticated()">{{'navbar.logout' | translate}}</a>
         <a mat-button [routerLink]="['/create-account']" [routerLinkActive]="['active-white']"
           *ngIf="!isAuthenticated()">{{'navbar.sign-up' | translate}}</a>
-        <a [matMenuTriggerFor]="subject" mat-button [routerLinkActive]="['active-white']" [class.active-white]="isActive('subject')"
+        <a [matMenuTriggerFor]="subject" mat-button [routerLinkActive]="['active-white']"
+          [class.active-white]="isActive('subject')"
           *ngIf="isAuthenticated()">{{'navbar.subject.dropdown' | translate}}</a>
-
         <a mat-button [routerLink]="['/contacts']"
           [routerLinkActive]="['active-white']">{{'navbar.contacts' | translate}}</a>
+        <a mat-button (click)="logout()" *ngIf="isAuthenticated()">{{'navbar.logout' | translate}}</a>
         <img src="../../../assets/img/united-kingdom-flag.png" alt="" (click)="useLanguage('en')">
         <img src="../../../assets/img/french-flag.png" alt="" (click)="useLanguage('fr')">
       </div>
@@ -31,14 +31,14 @@
           *ngIf="isAuthenticated()">{{'navbar.account' | translate}}</a>
         <a mat-list-item [routerLink]="'/login'" [routerLinkActive]="['active-white']"
           *ngIf="!isAuthenticated()">{{'navbar.sign-in' | translate}}</a>
-        <a mat-list-item (click)="logout()" *ngIf="isAuthenticated()">{{'navbar.logout' | translate}}</a>
         <a mat-list-item [routerLink]="'/create-account'" [routerLinkActive]="['active-white']"
           *ngIf="!isAuthenticated()">{{'navbar.sign-up' | translate}}</a>
-        <a mat-list-item [matMenuTriggerFor]="subject" [routerLinkActive]="['active-white']"
-          *ngIf="isAuthenticated()">{{'navbar.subject.dropdown' | translate}}</a>
+        <a mat-list-item [matMenuTriggerFor]="subject" [routerLinkActive]="['active-white']" *ngIf="isAuthenticated()"
+          [class.active-white]="isActive('subject')">{{'navbar.subject.dropdown' | translate}}</a>
         <a mat-list-item [routerLink]="'/contacts'"
           [routerLinkActive]="['active-white']">{{'navbar.contacts' | translate}}</a>
         <a mat-list-item (click)="sidenav.toggle()" mat-list-item>{{'navbar.close' | translate}}</a>
+        <a mat-list-item (click)="logout()" *ngIf="isAuthenticated()">{{'navbar.logout' | translate}}</a>
         <a a mat-list-item><img src="../../../assets/img/united-kingdom-flag.png" alt=""
             (click)="useLanguage('en')"></a>
         <a a mat-list-item><img src="../../../assets/img/french-flag.png" alt="" (click)="useLanguage('fr')"></a>
@@ -57,6 +57,8 @@
 
 <!-- Dropdown menu for Subject Component-->
 <mat-menu #subject="matMenu">
-  <a mat-menu-item [routerLink]="['/subject', {target: 'post'}]">{{'navbar.subject.post' | translate}}</a>
-  <a mat-menu-item [routerLink]="['/subject', {target: 'delete'}]" *ngIf="isAdmin()">{{'navbar.subject.delete' | translate}}</a>
+  <a mat-menu-item [routerLink]="['/subject', {action: 'post'}]">{{'navbar.subject.post' | translate}}</a>
+  <a mat-menu-item [routerLink]="['/subject', {action: 'vote'}]">{{'navbar.subject.vote' | translate}}</a>
+  <a class="adminOnly" mat-menu-item [routerLink]="['/subject', {action: 'delete'}]"
+    *ngIf="isAdmin()">{{'navbar.subject.delete' | translate}}</a>
 </mat-menu>

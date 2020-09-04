@@ -35,6 +35,7 @@
     "subject": {
       "dropdown": "Subject",
       "post": "Create subject",
+      "vote": "View / Vote for subject",
       "delete": "Delete subject"
     },
     "close": "Close",

@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/shared/authentication/authentication.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.css']
 })
-export class HomeComponent implements OnInit {
+export class NavbarComponent implements OnInit {
 
   constructor(
     private translate: TranslateService, 

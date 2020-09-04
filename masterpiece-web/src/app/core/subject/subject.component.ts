@@ -18,7 +18,7 @@ export class SubjectComponent implements OnInit {
   @Input('id')
   id: number;
 
-  target: string;
+  action: string;
 
   private subjectForm: FormGroup;
   private categories = [
@@ -51,7 +51,7 @@ export class SubjectComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(params => {
-      this.target = params.get("target");
+      this.action = params.get("action");
     });
     console.log(this.authenthicationService.currentUserValue);
   }
