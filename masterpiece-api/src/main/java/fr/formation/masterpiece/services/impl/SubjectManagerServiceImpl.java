@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 
 import fr.formation.masterpiece.config.security.SecurityHelper;
 import fr.formation.masterpiece.domain.dtos.SubjectDto;
-import fr.formation.masterpiece.domain.entities.Member;
+import fr.formation.masterpiece.domain.entities.UserAuth;
 import fr.formation.masterpiece.domain.entities.Subject;
-import fr.formation.masterpiece.repositories.MemberJpaRepository;
+import fr.formation.masterpiece.repositories.UserJpaRepository;
 import fr.formation.masterpiece.repositories.SubjectRepository;
 import fr.formation.masterpiece.services.SubjectManagerService;
 
@@ -17,13 +17,13 @@ public class SubjectManagerServiceImpl implements SubjectManagerService {
 
     private final SubjectRepository repository;
 
-    private final MemberJpaRepository userRepository;
+    private final UserJpaRepository userRepository;
 
     @Autowired
     private ModelMapper mapper;
 
     public SubjectManagerServiceImpl(SubjectRepository repository,
-            MemberJpaRepository userRepository) {
+            UserJpaRepository userRepository) {
 	this.repository = repository;
 	this.userRepository = userRepository;
     }
@@ -36,7 +36,7 @@ public class SubjectManagerServiceImpl implements SubjectManagerService {
 	subject.setDescription(dto.getDescription());
 	subject.setTitle(dto.getTitle());
 	subject.setVote(0);
-	Member user = userRepository.getOne(id);
+	UserAuth user = userRepository.getOne(id);
 	subject.setUser(user);
 	repository.save(subject);
     }

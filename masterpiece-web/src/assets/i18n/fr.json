@@ -1,6 +1,7 @@
 {
   "create-account": {
     "username": "Nom d'utiliseur",
+    "email" : "Courriel",
     "password": "Mot de passe",
     "passwordConfirm": "Confirmer votre mot de passe",
     "button": "S'inscrire",
@@ -10,6 +11,10 @@
         "minlength": "Longueur minimum : 2 caracteres",
         "maxlength": "Longueur maximum : 20 caracteres",
         "nameTaken": "Le nom est déjà utilisé"
+      },
+      "email" : {
+        "email" : "Adresse non valide",
+        "required": "Veuillez entrer une adresse courriel"
       },
       "password": {
         "required": "Mot de passe requis",

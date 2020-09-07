@@ -1,9 +1,5 @@
 import { Component, OnInit, Input, Optional, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
-import { CursorError } from '@angular/compiler/src/ml_parser/lexer';
-import { CustomErrorComponent } from 'src/app/shared/custom-error/custom-error.component';
-import { CustomUser } from '../custom-user';
+import { Subscription } from 'rxjs';
 import { CustomUserRegistrationService } from '../custom-user-registration.service';
 import { CustomUserDto } from './CustomUserDto';
 

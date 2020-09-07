@@ -8,6 +8,15 @@
        {{formErrors.username}}
      </div>
    </div>
+   <div class="form-group" [ngClass]="{'has-error' : formErrors.email}">
+    <label>{{'create-account.email' | translate}}</label>
+    <input class="form-control" formControlName="email" type="email" (blur)="logValidationErrors()">
+  </div>
+  <div>
+    <div *ngIf="formErrors.email" class="alert alert-danger">
+      {{formErrors.email}}
+    </div>
+  </div>
    <div class="form-group" [ngClass]="{'has-error' : formErrors.password}">
      <label>{{'create-account.password' | translate}}</label>
      <input class="form-control" formControlName="password" type="password" (blur)="logValidationErrors()">

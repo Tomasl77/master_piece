@@ -1,6 +1,7 @@
 {
   "create-account": {
     "username": "User name",
+    "email" : "E-mail",
     "password": "Password",
     "passwordConfirm": "Confirm your password",
     "button": "Sign Up",
@@ -10,6 +11,10 @@
         "minlength": "Minimum length : 2 characters",
         "maxlength": "Maximum length : 20 caracters",
         "nameTaken" : "Username already taken"
+      },
+      "email": {
+        "email" : "Invalid address",
+        "required":"Must be a valid email address"
       },
       "password": {
         "required": "Password is required",

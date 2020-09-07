@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.formation.masterpiece.domain.dtos.MemberCreateDto;
 import fr.formation.masterpiece.domain.dtos.MemberDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
-import fr.formation.masterpiece.domain.dtos.views.MemberInfoDto;
+import fr.formation.masterpiece.domain.dtos.views.MemberInfoViewDto;
 import fr.formation.masterpiece.services.MemberService;
 
 @RestController
@@ -30,7 +30,7 @@ public class MemberController {
     }
 
     @GetMapping("/{id}")
-    public MemberInfoDto getOne(@PathVariable("id") Long id) {
+    public MemberInfoViewDto getOne(@PathVariable("id") Long id) {
 	return service.getOne(id);
     }
 

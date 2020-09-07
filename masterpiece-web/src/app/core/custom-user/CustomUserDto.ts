@@ -1,5 +1,6 @@
+import { User } from 'src/app/shared/models/user.model';
+
 export interface CustomUserDto {
-    username : string;
-    id: number;
-    token? : string
+    email : string;
+    user: User;
 }

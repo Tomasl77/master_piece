@@ -19,9 +19,13 @@ export class CreateAccountComponent implements OnInit {
   private validationMessage : string = "create-account.validationMessages";
 
   public signForm: FormGroup;
+
+  private formToReturn : FormGroup;
+
   constructor(private fb: FormBuilder, usernameValidator: UsernameValidator,
     private translate: TranslateService, private accountService : CustomUserRegistrationService) {
     this.signForm = this.fb.group({
+      email:['', [Validators.required, Validators.email]],
       username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)], usernameValidator.validate.bind(usernameValidator)],
       password: ['', [Validators.required, Validators.pattern((this.passwordPatten))]],
       passwordConfirm: ['', [Validators.required]]
@@ -30,6 +34,7 @@ export class CreateAccountComponent implements OnInit {
 
   formErrors = {
     'username': '',
+    'email':'',
     'password': '',
     'passwordConfirm': ''
   }
@@ -67,11 +72,21 @@ export class CreateAccountComponent implements OnInit {
     });
   }
 
+  constructForm(formData = this.signForm) : FormGroup {
+    return this.fb.group({
+      email : [formData.value.email],
+      user : this.fb.group({
+        username : [formData.value.username],
+        password : [formData.value.password]
+      })
+    })
+  }
+
   register() {
-    console.log(this.signForm.valueChanges);
-    this.accountService.createAccount(this.signForm).subscribe(
+    console.log(this.signForm.value.username);
+    this.accountService.createAccount(this.constructForm(this.signForm)).subscribe(
       (data) => {
-        alert("Account created with success : " + data.username)
+        alert("Account created with success : " + data.user.username)
         this.signForm.reset()
       },
       ((error) => { 
