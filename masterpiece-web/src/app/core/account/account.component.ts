@@ -1,19 +1,19 @@
 import { Component, OnInit, Input, Optional, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CustomUserRegistrationService } from '../custom-user-registration.service';
-import { CustomUserDto } from './CustomUserDto';
+import { AccountDto } from './accountDto';
 
 
 @Component({
   selector: 'app-account',
-  templateUrl: './custom-user.component.html',
-  styleUrls: ['./custom-user.component.css'],
+  templateUrl: './account.component.html',
+  styleUrls: ['./account.component.css'],
   providers:[CustomUserRegistrationService]
 })
-export class CustomUserComponent implements OnInit, OnDestroy {
+export class AccountComponent implements OnInit, OnDestroy {
 
   @Input('id') id:number;
-  account: CustomUserDto;
+  account: AccountDto;
   error: any;
   private accountSubscription : Subscription;
 

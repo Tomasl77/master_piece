@@ -9,7 +9,7 @@ import { LogInComponent } from './log-in/log-in.component';
 
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import { CustomUserComponent } from './custom-user/custom-user.component';
+import { AccountComponent } from './account/account.component';
 import { SubjectComponent } from './subject/subject.component';
 import { MatSelectModule, MatFormFieldModule } from '@angular/material';
 
@@ -17,7 +17,7 @@ import { MatSelectModule, MatFormFieldModule } from '@angular/material';
 
 @NgModule({
   declarations: [
-    CustomUserComponent,
+    AccountComponent,
     CreateAccountComponent,
     ContactsComponent,
     LogInComponent,
@@ -40,7 +40,7 @@ import { MatSelectModule, MatFormFieldModule } from '@angular/material';
   ],
   
   exports: [
-    CustomUserComponent,
+    AccountComponent,
     CreateAccountComponent,
     ContactsComponent,
     LogInComponent
