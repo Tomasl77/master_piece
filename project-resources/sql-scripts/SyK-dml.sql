@@ -2,14 +2,14 @@
 DML script for teamsharing database
 Script can be used with mysql
 
-Last update : 2020-08-20
+Last update : 2020-09-08
 
 */
 
 USE teamsharingdev;
 
 
-INSERT INTO `member` (account_non_expired, password, username, account_non_locked, credentials_non_expired, enabled)
+INSERT INTO `user` (account_non_expired, password, username, account_non_locked, credentials_non_expired, enabled)
 	VALUES 
     ('T','$2a$10$JbSdgniSs9PoNJM3XN6qUuS9s6uVJwpS1fLIOddNemQgx8FuUw67O','Tomas','T','T','T'), -- password = Totototo9!
 	('T','$2a$10$PxZEkHGLpGgeV8mO8ehxz..dGlyxwFo3FgTGfdC/2LqOYd8R4DI/a','Johanna','T','T','T'),  -- password = Joanhime77!
@@ -22,13 +22,19 @@ INSERT INTO `role`(code, default_role)
 
 COMMIT;
 
-SET @Tomas = (SELECT id  FROM teamsharingdev.member WHERE username = 'Tomas');
-SET @Johanna = (SELECT id  FROM teamsharingdev.member WHERE username = 'Johanna');
-SET @Lily = (SELECT id  FROM teamsharingdev.member WHERE username = 'Lily');
+SET @Tomas = (SELECT id  FROM teamsharingdev.user WHERE username = 'Tomas');
+SET @Johanna = (SELECT id  FROM teamsharingdev.user WHERE username = 'Johanna');
+SET @Lily = (SELECT id  FROM teamsharingdev.user WHERE username = 'Lily');
 SET @user = (SELECT id FROM teamsharingdev.role WHERE code = 'ROLE_USER');
 SET @admin = (SELECT id FROM teamsharingdev.role WHERE code = 'ROLE_ADMIN');
 
-INSERT INTO `member_role` (user_id, role_id) 
+INSERT INTO `member` (email, user_id)
+	VALUES
+    ('lily@gmail.com', @Lily),
+    ('tomas@gmail.com', @Tomas),
+    ('johanna@gmail.com', @Johanna);
+
+INSERT INTO `user_role` (user_id, role_id) 
     VALUES 
     (@Tomas,@user),
     (@Lily,@user),
