@@ -19,7 +19,7 @@ import lombok.Setter;
         @UniqueConstraint(name = "UQ_email", columnNames = { "email" }) })
 public class Member extends AbstractEntity {
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, length = 255)
     private String email;
 
     @OneToOne(cascade = CascadeType.ALL)
