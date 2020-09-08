@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Optional, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { CustomUserRegistrationService } from '../custom-user-registration.service';
+import { MemberRegistrationService } from '../member-registration.service';
 import { AccountDto } from './accountDto';
 
 
@@ -8,7 +8,7 @@ import { AccountDto } from './accountDto';
   selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css'],
-  providers:[CustomUserRegistrationService]
+  providers:[MemberRegistrationService]
 })
 export class AccountComponent implements OnInit, OnDestroy {
 
@@ -17,7 +17,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   error: any;
   private accountSubscription : Subscription;
 
-  constructor(private service : CustomUserRegistrationService) { }
+  constructor(private service : MemberRegistrationService) { }
   
   ngOnDestroy(): void {
     if(this.accountSubscription) {

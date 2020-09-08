@@ -4,13 +4,13 @@ import { UsernameValidator } from './username-validator';
 import { HttpClient } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
 import { catchError } from 'rxjs/operators';
-import { CustomUserRegistrationService } from '../custom-user-registration.service';
+import { MemberRegistrationService } from '../member-registration.service';
 
 @Component({
   selector: 'app-create-account',
   templateUrl: './create-account.component.html',
   styleUrls: ['./create-account.component.css'],
-  providers: [CustomUserRegistrationService]
+  providers: [MemberRegistrationService]
 })
 export class CreateAccountComponent implements OnInit {
 
@@ -23,7 +23,7 @@ export class CreateAccountComponent implements OnInit {
   private formToReturn : FormGroup;
 
   constructor(private fb: FormBuilder, usernameValidator: UsernameValidator,
-    private translate: TranslateService, private accountService : CustomUserRegistrationService) {
+    private translate: TranslateService, private accountService : MemberRegistrationService) {
     this.signForm = this.fb.group({
       email:['', [Validators.required, Validators.email, Validators.maxLength(255)]],
       username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)], usernameValidator.validate.bind(usernameValidator)],
