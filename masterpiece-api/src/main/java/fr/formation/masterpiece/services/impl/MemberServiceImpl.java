@@ -86,8 +86,7 @@ public class MemberServiceImpl implements MemberService {
 	if (value.isPresent()) {
 	    memberRepository.deleteById(id);
 	} else {
-	    throw new AccountNotFoundException(
-	            "Can't delete account " + id + " because it's not created");
+	    throw new AccountNotFoundException("Invalid id : " + id);
 	}
     }
 }

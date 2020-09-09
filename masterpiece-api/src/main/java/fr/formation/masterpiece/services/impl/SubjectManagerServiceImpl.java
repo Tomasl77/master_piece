@@ -1,11 +1,12 @@
 package fr.formation.masterpiece.services.impl;
 
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import fr.formation.masterpiece.config.security.SecurityHelper;
 import fr.formation.masterpiece.domain.dtos.SubjectDto;
+import fr.formation.masterpiece.domain.dtos.views.SubjectViewDto;
 import fr.formation.masterpiece.domain.entities.Member;
 import fr.formation.masterpiece.domain.entities.Subject;
 import fr.formation.masterpiece.repositories.MemberRepository;
@@ -15,16 +16,13 @@ import fr.formation.masterpiece.services.SubjectManagerService;
 @Service
 public class SubjectManagerServiceImpl implements SubjectManagerService {
 
-    private final SubjectRepository repository;
+    private final SubjectRepository subjectRepository;
 
     private final MemberRepository memberRepository;
 
-    @Autowired
-    private ModelMapper mapper;
-
     public SubjectManagerServiceImpl(SubjectRepository repository,
             MemberRepository memberRepository) {
-	this.repository = repository;
+	this.subjectRepository = repository;
 	this.memberRepository = memberRepository;
     }
 
@@ -39,15 +37,16 @@ public class SubjectManagerServiceImpl implements SubjectManagerService {
 	subject.setVote(0);
 	Member member = memberRepository.getOne(memberId);
 	subject.setMember(member);
-	repository.save(subject);
-    }
-
-    public void create2(SubjectDto dto) {
-	mapper.map(dto, Subject.class);
+	subjectRepository.save(subject);
     }
 
     @Override
     public void delete(Long id) {
-	repository.deleteById(id);
+	subjectRepository.deleteById(id);
+    }
+
+    @Override
+    public List<SubjectViewDto> getAll() {
+	return subjectRepository.getAllProjectedBy();
     }
 }
