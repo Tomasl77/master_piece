@@ -11,21 +11,21 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import fr.formation.masterpiece.domain.dtos.views.MemberInfoViewDto;
-import fr.formation.masterpiece.security.annotations.MockAdminForTests;
+import fr.formation.masterpiece.domain.dtos.views.SubjectViewDto;
+import fr.formation.masterpiece.security.annotations.MockUserForTests;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @ActiveProfiles(profiles = "dev")
-class MemberControllerTest {
+class SubjectControllerTest {
 
     @Autowired
-    private MemberController memberController;
+    private SubjectController subjectController;
 
     @Test
-    @MockAdminForTests
+    @MockUserForTests
     void should_return_all_subject() {
-	List<MemberInfoViewDto> actual = memberController.getAll();
-	assertEquals(3, actual.size());
+	List<SubjectViewDto> actual = subjectController.getAll();
+	assertEquals(14, actual.size());
     }
 }

@@ -1,6 +1,7 @@
 package fr.formation.masterpiece.services.impl;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -88,5 +89,10 @@ public class MemberServiceImpl implements MemberService {
 	} else {
 	    throw new AccountNotFoundException("Invalid id : " + id);
 	}
+    }
+
+    @Override
+    public List<MemberInfoViewDto> getAll() {
+	return memberRepository.getAllProjectedBy();
     }
 }

@@ -15,16 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.formation.masterpiece.domain.dtos.SubjectDto;
 import fr.formation.masterpiece.domain.dtos.views.SubjectViewDto;
-import fr.formation.masterpiece.services.SubjectManagerService;
+import fr.formation.masterpiece.services.SubjectService;
 
 @RestController
 @RequestMapping("/subjects")
 @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 public class SubjectController {
 
-    private final SubjectManagerService service;
+    private final SubjectService service;
 
-    public SubjectController(SubjectManagerService service) {
+    public SubjectController(SubjectService service) {
 	this.service = service;
     }
 

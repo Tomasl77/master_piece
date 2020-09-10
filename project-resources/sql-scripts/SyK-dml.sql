@@ -48,6 +48,16 @@ INSERT INTO `subject` (category, description, title, total_vote, requester_id)
     ('FRONTEND', 'My knowledge of Angular modals is nearly zero. I need someone to help me', 'Angular 8 Modals', 3, @Tomas),
     ('BACKEND', 'JPQL, Derived queries... Someone could tell me how to request database properly from my springboot app, please?', 'Spring database requests', 2, @Lily),
     ('BACKEND', 'I need some serious stuff on how to handle errors in my spring app. Anyone\'s good on this?', 'Spring errors handling', 2, @Johanna),
-    ('DATABASE', 'I need some basics on mysql join queries', 'Mysql queries', 1, @Johanna);
+    ('DATABASE', 'I need some basics on mysql join queries', 'Mysql queries', 1, @Johanna),
+    ('FRONTEND', 'Angular testing methods', 'Angular 8Test', 3, @Tomas),
+    ('BACKEND', 'Spring data jpa', 'Spring', 5, @Lily),
+    ('BACKEND', 'Junit 5 is a revolution. I need some skills ! ', 'JUnit 5', 8, @Johanna),
+    ('DATABASE', 'MySql 8. Need some tips on queries', 'Mysql 8', 0, @Johanna),
+    ('FRONTEND', 'How to make a pagination in Angular client-side', 'Angular 8 pagination', 13, @Tomas),
+    ('FRONTEND', 'I want to know stuff about redux', 'React/Redux', 2, @Tomas),
+    ('FRONTEND', 'I need some help with Ajax.', 'Ajax', 7, @Lily),
+    ('BACKEND', 'How effective is node.js? Someone can tell me more about?', 'Node JS', 10, @Lily),
+	('RIFT', 'Someone please explain me MDX call', 'Rift MDX', 9, @Johanna),
+    ('OTHER', 'How to improve skills by making a good tech watch', 'Misc', 5, @Johanna);
 
 COMMIT;

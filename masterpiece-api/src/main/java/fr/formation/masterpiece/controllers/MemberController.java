@@ -1,16 +1,16 @@
 package fr.formation.masterpiece.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
-import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.formation.masterpiece.domain.dtos.MemberCreateDto;
@@ -23,7 +23,7 @@ import fr.formation.masterpiece.services.MemberService;
 @RequestMapping("/users")
 public class MemberController {
 
-    private MemberService service;
+    private final MemberService service;
 
     public MemberController(MemberService service) {
 	this.service = service;
@@ -41,14 +41,18 @@ public class MemberController {
     }
 
     @PostMapping
-    @ResponseBody
     public MemberDto create(@Valid @RequestBody MemberCreateDto dto) {
 	return service.create(dto);
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteAccount(@PathVariable("id") Long id) {
 	service.deleteOne(id);
+    }
+
+    @GetMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public List<MemberInfoViewDto> getAll() {
+	return service.getAll();
     }
 }

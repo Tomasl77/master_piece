@@ -1,5 +1,7 @@
 package fr.formation.masterpiece.services;
 
+import java.util.List;
+
 import fr.formation.masterpiece.domain.dtos.MemberCreateDto;
 import fr.formation.masterpiece.domain.dtos.MemberDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
@@ -16,4 +18,6 @@ public interface MemberService {
     UsernameCheckDto checkUsername(String username);
 
     void deleteOne(Long id);
+
+    List<MemberInfoViewDto> getAll();
 }

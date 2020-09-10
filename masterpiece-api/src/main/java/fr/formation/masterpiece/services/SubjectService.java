@@ -5,7 +5,7 @@ import java.util.List;
 import fr.formation.masterpiece.domain.dtos.SubjectDto;
 import fr.formation.masterpiece.domain.dtos.views.SubjectViewDto;
 
-public interface SubjectManagerService {
+public interface SubjectService {
 
     void create(SubjectDto dto);
 

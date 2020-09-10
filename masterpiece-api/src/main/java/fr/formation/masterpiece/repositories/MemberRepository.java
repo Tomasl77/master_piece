@@ -1,5 +1,6 @@
 package fr.formation.masterpiece.repositories;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,4 +15,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("select id from Member m where m.user.id = :id")
     Long getMemberIdByUserId(Long id);
+
+    List<MemberInfoViewDto> getAllProjectedBy();
 }
