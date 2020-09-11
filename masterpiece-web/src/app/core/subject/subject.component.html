@@ -41,7 +41,10 @@
 
 <!-- vote -->
 <div *ngIf="action==='vote'">
-  vote section here
+  <div *ngFor="let subject of subjects">
+    <p>{{subject.description}}</p>
+    <p>{{subject.memberUserUsername}}</p>
+  </div>
 </div>
 
 

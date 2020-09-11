@@ -1,11 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { SubjectService } from './subject.service';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { AuthenticationService } from 'src/app/shared/authentication/authentication.service';
+import { Subject } from './subject.model';
 
 @Component({
   selector: 'app-subject',
@@ -13,12 +14,14 @@ import { AuthenticationService } from 'src/app/shared/authentication/authenticat
   styleUrls: ['./subject.component.css'],
   providers: [SubjectService]
 })
-export class SubjectComponent implements OnInit {
+export class SubjectComponent implements OnInit, OnChanges {
 
   @Input('id')
   id: number;
 
   action: string;
+
+  subjects: Subject[];
 
   private subjectForm: FormGroup;
   private categories = [
@@ -34,13 +37,16 @@ export class SubjectComponent implements OnInit {
     private formBuilder: FormBuilder,
     private subjectService: SubjectService,
     private activatedRoute: ActivatedRoute,
-    private authenthicationService : AuthenticationService
+    private authenthicationService: AuthenticationService
   ) {
     this.subjectForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(30)]],
       description: ['', [Validators.required]],
       category: ''
     })
+  }
+  ngOnChanges() {
+
   }
 
 
@@ -50,10 +56,20 @@ export class SubjectComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activatedRoute.paramMap.subscribe(params => {
-      this.action = params.get("action");
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.action = params["action"];
+      this.customInit();
     });
-    console.log(this.authenthicationService.currentUserValue);
+  }
+  
+  customInit() {
+    if (this.action === "vote") {
+      this.subjectService.getAllSubject().subscribe(
+        (subjects: Subject[]) => {
+          this.subjects = subjects;
+          console.log(this.subjects)
+        });
+    }
   }
 
   logValidationErrors(group: FormGroup = this.subjectForm): void {
@@ -94,5 +110,16 @@ export class SubjectComponent implements OnInit {
 
   isAdmin(): boolean {
     return this.authenthicationService.currentUserValue.isAdmin();
+  }
+
+  getSubjects() {
+    console.log("before call");
+    this.subjectService.getAllSubject().subscribe(
+      (subjects: Subject[]) => {
+        this.subjects = subjects;
+        console.log(this.subjects)
+      },
+      error => console.log(error)
+    );
   }
 }
