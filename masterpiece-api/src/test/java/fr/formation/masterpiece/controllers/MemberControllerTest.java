@@ -24,7 +24,7 @@ class MemberControllerTest {
 
     @Test
     @MockAdminForTests
-    void should_return_all_subject() {
+    void should_return_all_member() {
 	List<MemberInfoViewDto> actual = memberController.getAll();
 	assertEquals(3, actual.size());
     }

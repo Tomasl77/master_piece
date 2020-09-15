@@ -43,7 +43,7 @@
 <div *ngIf="action==='vote'">
   <div *ngFor="let subject of subjects">
     <p>{{subject.description}}</p>
-    <p>{{subject.memberUserUsername}}</p>
+    <p>{{subject.member.user.id}}</p>
   </div>
 </div>
 

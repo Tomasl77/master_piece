@@ -56,8 +56,8 @@ public class MemberServiceImpl implements MemberService {
 	        dto.getUser().getUsername(), role, true, true, true, true);
 	Member memberToSave = new Member(dto.getEmail(), userAuth);
 	Member user = memberRepository.save(memberToSave);
-	MemberDto dtos = mapper.map(user, MemberDto.class);
-	return dtos;
+	MemberDto dtoToReturn = mapper.map(user, MemberDto.class);
+	return dtoToReturn;
     }
 
     @Override

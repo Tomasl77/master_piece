@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { SubjectService } from './subject.service';
@@ -7,6 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ActivatedRoute, Params } from '@angular/router';
 import { AuthenticationService } from 'src/app/shared/authentication/authentication.service';
 import { Subject } from './subject.model';
+import { Subscription } from 'rxjs';
+import { HttpRequestHandler } from 'src/app/shared/http-helper/http-request-handler';
 
 @Component({
   selector: 'app-subject',
@@ -14,7 +16,7 @@ import { Subject } from './subject.model';
   styleUrls: ['./subject.component.css'],
   providers: [SubjectService]
 })
-export class SubjectComponent implements OnInit, OnChanges {
+export class SubjectComponent implements OnInit, OnDestroy {
 
   @Input('id')
   id: number;
@@ -22,6 +24,10 @@ export class SubjectComponent implements OnInit, OnChanges {
   action: string;
 
   subjects: Subject[];
+
+  private getAllSubjectsSubscription : Subscription;
+  private deleteSubjectSubscription : Subscription;
+  private postSubjectSubscription: Subscription;
 
   private subjectForm: FormGroup;
   private categories = [
@@ -37,7 +43,8 @@ export class SubjectComponent implements OnInit, OnChanges {
     private formBuilder: FormBuilder,
     private subjectService: SubjectService,
     private activatedRoute: ActivatedRoute,
-    private authenthicationService: AuthenticationService
+    private authenthicationService: AuthenticationService,
+    private http : HttpRequestHandler
   ) {
     this.subjectForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(30)]],
@@ -45,10 +52,6 @@ export class SubjectComponent implements OnInit, OnChanges {
       category: ''
     })
   }
-  ngOnChanges() {
-
-  }
-
 
   formErrors = {
     'title': '',
@@ -60,6 +63,11 @@ export class SubjectComponent implements OnInit, OnChanges {
       this.action = params["action"];
       this.customInit();
     });
+  }
+
+  ngOnDestroy() {
+    this.subjectService.unsubscribe(this.deleteSubjectSubscription);
+      
   }
   
   customInit() {
@@ -92,7 +100,8 @@ export class SubjectComponent implements OnInit, OnChanges {
   }
 
   public postSubject() {
-    this.subjectService.postSubject(this.subjectForm).subscribe(
+    const request = this.subjectService.postSubject(this.subjectForm);
+    this.postSubjectSubscription = request.subscribe(
       () => {
         console.log("success"),
           this.subjectForm.reset()
@@ -102,24 +111,25 @@ export class SubjectComponent implements OnInit, OnChanges {
   }
 
   public deleteSubject() {
-    this.subjectService.deleteSubject(this.id).subscribe(
+    const request = this.subjectService.deleteSubject(this.id);
+    this.deleteSubjectSubscription = request.subscribe(
       () => console.log("Deleted with succes : " + this.id),
       (error) => console.log(error)
     )
   }
 
-  isAdmin(): boolean {
-    return this.authenthicationService.currentUserValue.isAdmin();
-  }
-
   getSubjects() {
-    console.log("before call");
-    this.subjectService.getAllSubject().subscribe(
+    const request = this.subjectService.getAllSubject()
+    this.getAllSubjectsSubscription = request.subscribe(
       (subjects: Subject[]) => {
         this.subjects = subjects;
         console.log(this.subjects)
       },
       error => console.log(error)
     );
+  }
+  
+  isAdmin(): boolean {
+    return this.authenthicationService.currentUserValue.isAdmin();
   }
 }
