@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ControlContainer } from '@angular/forms';
 import { UsernameValidator } from './username-validator';
-import { HttpClient } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
-import { catchError } from 'rxjs/operators';
 import { MemberRegistrationService } from '../member-registration.service';
+import { LogInComponent } from '../log-in/log-in.component'
 
 @Component({
   selector: 'app-create-account',
   templateUrl: './create-account.component.html',
   styleUrls: ['./create-account.component.css'],
-  providers: [MemberRegistrationService]
+  providers: [MemberRegistrationService, LogInComponent]
 })
 export class CreateAccountComponent implements OnInit {
 
@@ -23,7 +22,7 @@ export class CreateAccountComponent implements OnInit {
   private formToReturn : FormGroup;
 
   constructor(private fb: FormBuilder, usernameValidator: UsernameValidator,
-    private translate: TranslateService, private accountService : MemberRegistrationService) {
+    private translate: TranslateService, private accountService : MemberRegistrationService, private logInComponent : LogInComponent) {
     this.signForm = this.fb.group({
       email:['', [Validators.required, Validators.email, Validators.maxLength(255)]],
       username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)], usernameValidator.validate.bind(usernameValidator)],
@@ -83,14 +82,14 @@ export class CreateAccountComponent implements OnInit {
   }
 
   register() {
-    console.log(this.signForm.value.username);
+    const username : string = this.signForm.value.username;
+    const pwd : string = this.signForm.value.password;
     this.accountService.createAccount(this.constructForm(this.signForm)).subscribe(
       (data) => {
-        alert("Account created with success : " + data.user.username)
+        this.logInComponent.createAndLogIn(username, pwd);
         this.signForm.reset()
       },
       ((error) => { 
-
         console.log(error)
       })
   )};
