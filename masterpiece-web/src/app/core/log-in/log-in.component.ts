@@ -32,8 +32,6 @@ export class LogInComponent implements OnInit {
     });
   }
 
-  private token: Token;
-
   ngOnInit() {
   }
 
@@ -47,5 +45,9 @@ export class LogInComponent implements OnInit {
         console.log(error.error);
       })
   }
-
+  createAndLogIn(username: string, password : string): void {
+    this.logInForm.value.username = username;
+    this.logInForm.value.password = password;
+    this.logIn();
+  }
 }
