@@ -17,10 +17,6 @@ export class HttpRequestHandler {
         return this.http.get(url)
       }
     
-      public put(url: string, inputs: any): Observable<any> {
-        return this.http.put(url, inputs)
-      }
-    
       public delete(url: string) : Observable<any> {
         return this.http.delete(url);
       }

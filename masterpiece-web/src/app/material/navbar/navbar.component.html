@@ -4,7 +4,7 @@
       <button mat-icon-button fxShow="true" fxHide.gt-sm="true">
         <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
       </button>
-      <h1>Team Sharing</h1>
+      <h1>Share Your Knowlegde</h1>
       <div fxFlex fxLayout fxLayoutAlign="end" fxHide.lt-md="true">
         <a mat-button [routerLink]="['/accounts']" [routerLinkActive]="['active-white']"
           *ngIf="isAuthenticated()">{{'navbar.account' | translate}}</a>

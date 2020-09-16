@@ -5,5 +5,6 @@ export interface Subject{
     title : string;
     description : string;
     category : string;
+    vote: number;
     member : Member;
 }

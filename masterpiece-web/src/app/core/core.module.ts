@@ -12,6 +12,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { AccountComponent } from './account/account.component';
 import { SubjectComponent } from './subject/subject.component';
 import { MatSelectModule, MatFormFieldModule } from '@angular/material';
+import { AgGridModule } from 'ag-grid-angular';
 
 
 
@@ -36,7 +37,8 @@ import { MatSelectModule, MatFormFieldModule } from '@angular/material';
           useFactory: HttpLoaderFactory,
           deps: [HttpClient]
       }
-  })
+  }),
+  AgGridModule.withComponents([])
   ],
   
   exports: [

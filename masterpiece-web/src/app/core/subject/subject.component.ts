@@ -2,8 +2,6 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges, OnDestroy } from '@
 import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { SubjectService } from './subject.service';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { ActivatedRoute, Params } from '@angular/router';
 import { AuthenticationService } from 'src/app/shared/authentication/authentication.service';
 import { Subject } from './subject.model';
@@ -25,8 +23,8 @@ export class SubjectComponent implements OnInit, OnDestroy {
 
   subjects: Subject[];
 
-  private getAllSubjectsSubscription : Subscription;
-  private deleteSubjectSubscription : Subscription;
+  private getAllSubjectsSubscription: Subscription;
+  private deleteSubjectSubscription: Subscription;
   private postSubjectSubscription: Subscription;
 
   private subjectForm: FormGroup;
@@ -43,8 +41,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private subjectService: SubjectService,
     private activatedRoute: ActivatedRoute,
-    private authenthicationService: AuthenticationService,
-    private http : HttpRequestHandler
+    private authenthicationService: AuthenticationService
   ) {
     this.subjectForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(30)]],
@@ -58,6 +55,23 @@ export class SubjectComponent implements OnInit, OnDestroy {
     'description': ''
   }
 
+  /* ag-grid */
+  columnDefs = [
+    { headerName: 'id', field: 'id', hide: true},
+    { headerName: 'Title', field: 'title', sortable: true, filter: true },
+    { headerName: 'Description', field: 'description', sortable: true, filter: true },
+    { headerName: 'Category', field: 'category', sortable: true, filter: true },
+    { headerName: 'Vote', field: 'vote', sortable: true, filter: true },
+    { headerName: 'Requester mail', field: 'member.email', sortable: true, filter: true },
+    { headerName: 'Delete', 
+      hide: !this.isAdmin() }
+    
+  ];
+
+  rowData: Subject[];
+
+  /* end ag-grid */
+
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.action = params["action"];
@@ -67,14 +81,16 @@ export class SubjectComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subjectService.unsubscribe(this.deleteSubjectSubscription);
-      
+    this.subjectService.unsubscribe(this.getAllSubjectsSubscription);
+    this.subjectService.unsubscribe(this.postSubjectSubscription);
   }
-  
+
   customInit() {
     if (this.action === "vote") {
       this.subjectService.getAllSubject().subscribe(
         (subjects: Subject[]) => {
           this.subjects = subjects;
+          this.rowData = subjects;
           console.log(this.subjects)
         });
     }
@@ -122,13 +138,13 @@ export class SubjectComponent implements OnInit, OnDestroy {
     const request = this.subjectService.getAllSubject()
     this.getAllSubjectsSubscription = request.subscribe(
       (subjects: Subject[]) => {
-        this.subjects = subjects;
-        console.log(this.subjects)
+        this.rowData = subjects;
+        console.log(this.rowData)
       },
       error => console.log(error)
     );
   }
-  
+
   isAdmin(): boolean {
     return this.authenthicationService.currentUserValue.isAdmin();
   }

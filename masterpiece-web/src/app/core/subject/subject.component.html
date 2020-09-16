@@ -41,9 +41,10 @@
 
 <!-- vote -->
 <div *ngIf="action==='vote'">
-  <div *ngFor="let subject of subjects">
-    <p>{{subject.description}}</p>
-    <p>{{subject.member.user.id}}</p>
+  <div class="ag-grid-flex">
+    <ag-grid-angular style="width: 100%;" class="ag-theme-alpine" [rowData]="rowData"
+      [columnDefs]="columnDefs" pagination="true" paginationPageSize=10 domLayout='autoHeight'>
+    </ag-grid-angular>
   </div>
 </div>
 

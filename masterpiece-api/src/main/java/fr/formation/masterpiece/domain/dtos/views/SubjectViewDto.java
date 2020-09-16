@@ -12,6 +12,8 @@ public interface SubjectViewDto {
 
     String getCategory();
 
+    Long getVote();
+
     @Value("#{target.member}")
     MemberInfoViewDto getMember();
 }

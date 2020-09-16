@@ -9,11 +9,14 @@ import { MaterialRoutingModule } from '../material/material-routing'
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router'
 
 @NgModule({
-  declarations: [LayoutComponent, NavbarComponent],
+  declarations: [
+    LayoutComponent,
+    NavbarComponent
+  ],
   imports: [
     RouterModule,
     CommonModule,
