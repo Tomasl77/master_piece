@@ -1,5 +1,5 @@
 package fr.formation.masterpiece.services;
 
-public interface TopicsManagerService {
+public interface TopicService {
     //empty constructor
 }

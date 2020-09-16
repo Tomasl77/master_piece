@@ -1,10 +1,15 @@
 package fr.formation.masterpiece.services;
 
-import fr.formation.masterpiece.domain.dtos.SubjectDto;
+import java.util.List;
 
-public interface SubjectManagerService {
+import fr.formation.masterpiece.domain.dtos.SubjectDto;
+import fr.formation.masterpiece.domain.dtos.views.SubjectViewDto;
+
+public interface SubjectService {
 
     void create(SubjectDto dto);
 
     void delete(Long id);
+
+    List<SubjectViewDto> getAll();
 }

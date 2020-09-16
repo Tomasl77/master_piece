@@ -13,14 +13,25 @@ a:hover {
     color : lightcoral;
 }
 
-.active-red {
-    color : red;
+.active-white {
+    color : white;
 }
 
 .sidenav {
     height: 88vh;
 }
 
+mat-toolbar, mat-sidenav {
+    background-color : #e9041e;
+}
+
+a {
+    text-decoration-line: none;
+}
+
+.adminOnly {
+    color : #e9041e;
+}
 /*
 .container-custom {
     border: 2px solid red;

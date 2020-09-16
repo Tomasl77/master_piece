@@ -1,14 +1,20 @@
 {
   "create-account": {
     "username": "User name",
+    "email" : "E-mail",
     "password": "Password",
     "passwordConfirm": "Confirm your password",
-    "button" : "Sign Up",
+    "button": "Sign Up",
     "validationMessages": {
       "username": {
         "required": "User name is required",
         "minlength": "Minimum length : 2 characters",
-        "maxlength": "Maximum length : 20 caracters"
+        "maxlength": "Maximum length : 20 caracters",
+        "nameTaken" : "Username already taken"
+      },
+      "email": {
+        "email" : "Invalid address",
+        "required":"Must be a valid email address"
       },
       "password": {
         "required": "Password is required",
@@ -20,33 +26,38 @@
       }
     }
   },
-  "login" : {
-    "username" : "Please, enter your user name",
-    "password" : "Enter your password",
-    "button" : "Log In",
-    "no-account-yet" : "No account ? Click to register"
+  "login": {
+    "username": "Please, enter your user name",
+    "password": "Enter your password",
+    "button": "Log In",
+    "no-account-yet": "No account ? Click to register"
   },
-  "navbar" : {
-    "account" : "My account",
-    "sign-in" : "Sign in",
-    "sign-up" : "Create Account",
-    "contacts" : "Contact us",
-    "subject" : "Subject",
-    "close" : "Close",
-    "logout" : "Log out"
+  "navbar": {
+    "account": "My account",
+    "sign-in": "Sign in",
+    "sign-up": "Create Account",
+    "contacts": "Contact us",
+    "subject": {
+      "dropdown": "Subject",
+      "post": "Create subject",
+      "vote": "View / Vote for subject",
+      "delete": "Delete subject"
+    },
+    "close": "Close",
+    "logout": "Log out"
   },
-  "subject" : {
-    "title" : "Title of subject",
-    "description" : "Description of subject",
-    "category" : "Choose a category",
+  "subject": {
+    "title": "Title of subject",
+    "description": "Description of subject",
+    "category": "Choose a category",
     "button": "Submit",
-    "validationMessages" : {
-      "title" : {
+    "validationMessages": {
+      "title": {
         "required": "Title is required",
-        "maxlength" :"Maximum length : 20 caracters"
+        "maxlength": "Maximum length : 20 caracters"
       },
-      "description" : {
-        "required" :"Description is required"
+      "description": {
+        "required": "Description is required"
       }
     }
   }

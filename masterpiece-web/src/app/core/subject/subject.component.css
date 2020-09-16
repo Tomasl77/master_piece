@@ -10,7 +10,18 @@ input,textarea, .alert {
     margin: auto;
 }
 
+button {
+    background-color: #e9041e;
+}
+
 .btn {
     margin-left: 50%;
     transform: translateX(-50%);
+}
+.ag-grid-flex {
+    border: 2px solid black;
+}
+
+ag-grid-angular {
+    align-items: center;
 }

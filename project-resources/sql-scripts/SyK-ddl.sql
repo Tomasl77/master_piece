@@ -2,7 +2,7 @@
 DDL script for teamsharing database
 Script can be used on mysql database.
 
-Last update : 2020-08-12
+Last update : 2020-09-08
 
 */
 
@@ -19,17 +19,18 @@ USE teamsharingdev;
 
 -- TABLE
 
-DROP TABLE IF EXISTS `member`;
+DROP TABLE IF EXISTS `user`;
 DROP TABLE IF EXISTS `role`;
-DROP TABLE IF EXISTS `member_role`;
+DROP TABLE IF EXISTS `user_role`;
 DROP TABLE IF EXISTS `subject`;
+DROP TABLE IF EXISTS `member`;
 
 
 /******************************
-******** MEMBER  TABLE ********
+******** USER  TABLE ********
 ******************************/
 
-CREATE TABLE `member` (
+CREATE TABLE `user` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `account_non_expired` varchar(1) NOT NULL,
   `account_non_locked` varchar(1) NOT NULL,
@@ -55,17 +56,32 @@ CREATE TABLE `role` (
 
 
 /******************************
-****** MEMBER_ROLE  TABLE******
+****** USER_ROLE  TABLE******
 ******************************/
 
-CREATE TABLE `member_role` (
+CREATE TABLE `user_role` (
   `user_id` bigint NOT NULL,
   `role_id` bigint NOT NULL,
   PRIMARY KEY (`user_id`,`role_id`),
-  KEY `FK_role_member` (`role_id`),
-  CONSTRAINT `FK_member_role` FOREIGN KEY (`user_id`) REFERENCES `member` (`id`),
-  CONSTRAINT `FK_role_member` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
+  KEY `FK_role_user` (`role_id`),
+  CONSTRAINT `FK_user_role` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `FK_role_user` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/******************************
+******** MEMBER  TABLE ********
+******************************/
+
+CREATE TABLE `member` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `user_id` bigint NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UQ_email` (`email`),
+  CONSTRAINT `FK_member_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+ 
+
 
 /******************************
 ******** SUBJECT TABLE ********
@@ -81,6 +97,6 @@ CREATE TABLE `subject` (
   PRIMARY KEY (`id`),
   KEY `IDX_subject_topic` (`id`),
   KEY `FK_subject_user` (`requester_id`),
-  CONSTRAINT `FK_subject_user` FOREIGN KEY (`requester_id`) REFERENCES `member` (`id`)
+  CONSTRAINT `FK_subject_user` FOREIGN KEY (`requester_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
