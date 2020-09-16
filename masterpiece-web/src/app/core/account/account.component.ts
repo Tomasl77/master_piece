@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Optional, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthenticationService } from 'src/app/shared/authentication/authentication.service';
+import { Member } from 'src/app/shared/models/member.model';
 import { MemberRegistrationService } from '../member-registration.service';
-import { AccountDto } from './accountDto';
 
 
 @Component({
@@ -14,7 +14,7 @@ import { AccountDto } from './accountDto';
 export class AccountComponent implements OnInit, OnDestroy {
 
   id:number;
-  account: AccountDto;
+  account: Member;
   error: any;
   private accountSubscription : Subscription;
 
