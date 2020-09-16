@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Optional, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { AuthenticationService } from 'src/app/shared/authentication/authentication.service';
 import { MemberRegistrationService } from '../member-registration.service';
 import { AccountDto } from './accountDto';
 
@@ -12,29 +13,24 @@ import { AccountDto } from './accountDto';
 })
 export class AccountComponent implements OnInit, OnDestroy {
 
-  @Input('id') id:number;
+  id:number;
   account: AccountDto;
   error: any;
   private accountSubscription : Subscription;
 
-  constructor(private service : MemberRegistrationService) { }
+  constructor(private service : MemberRegistrationService, private authenthicationService: AuthenticationService) { }
   
-  ngOnDestroy(): void {
-    if(this.accountSubscription) {
-      this.accountSubscription.unsubscribe
-    }
-  }
-
   ngOnInit() {
-   
-  }
-
-  findOne() {
+    this.id = this.authenthicationService.currentUserValue.userId;
     this.accountSubscription = this.service.getAccount(this.id).subscribe(
       account => {
         this.account=account,
         console.log(this.account)
       },
       error=> console.log((error.error)));
+  }
+
+  ngOnDestroy(): void {
+    this.service.unsubscribe(this.accountSubscription);
   }
 }

@@ -73,7 +73,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberInfoViewDto getOne(Long id) {
-	Optional<MemberInfoViewDto> value = memberRepository.getById(id);
+	Long memberId = memberRepository.getMemberIdByUserId(id);
+	Optional<MemberInfoViewDto> value = memberRepository.getById(memberId);
 	if (value.isPresent()) {
 	    return value.get();
 	} else {

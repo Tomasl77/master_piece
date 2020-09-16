@@ -62,7 +62,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
     { headerName: 'Description', field: 'description', sortable: true, filter: true },
     { headerName: 'Category', field: 'category', sortable: true, filter: true },
     { headerName: 'Vote', field: 'vote', sortable: true, filter: true },
-    { headerName: 'Requester mail', field: 'member.email', sortable: true, filter: true },
+    { headerName: 'Requester', field: 'member.user.username', sortable: true, filter: true },
     { headerName: 'Delete', 
       hide: !this.isAdmin() }
     

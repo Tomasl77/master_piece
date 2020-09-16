@@ -59,6 +59,6 @@
 <mat-menu #subject="matMenu">
   <a mat-menu-item [routerLink]="['/subject', {action: 'post'}]">{{'navbar.subject.post' | translate}}</a>
   <a mat-menu-item [routerLink]="['/subject', {action: 'vote'}]">{{'navbar.subject.vote' | translate}}</a>
-  <a class="adminOnly" mat-menu-item [routerLink]="['/subject', {action: 'delete'}]"
-    *ngIf="isAdmin()">{{'navbar.subject.delete' | translate}}</a>
+  <!-- <a class="adminOnly" mat-menu-item [routerLink]="['/subject', {action: 'delete'}]"
+    *ngIf="isAdmin()">{{'navbar.subject.delete' | translate}}</a> -->
 </mat-menu>
