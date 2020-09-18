@@ -34,5 +34,5 @@ public class Subject extends AbstractEntity {
     @JoinColumn(name = "requester_id", referencedColumnName = "id",
             nullable = false,
             foreignKey = @ForeignKey(name = "FK_subject_user"))
-    private Member member;
+    private CustomUser user;
 }

@@ -2,6 +2,7 @@ package fr.formation.masterpiece.domain.entities;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -22,7 +24,7 @@ import lombok.Setter;
 @Setter
 @Table(name = "user", uniqueConstraints = {
         @UniqueConstraint(name = "UQ_username", columnNames = { "username" }) })
-public class UserAuth extends AbstractEntity {
+public class CustomUser extends AbstractEntity {
 
     @Column(length = 255, nullable = false)
     private String username;
@@ -54,7 +56,13 @@ public class UserAuth extends AbstractEntity {
     @Column(length = 1, nullable = false)
     private boolean credentialsNonExpired;
 
-    protected UserAuth() {
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_info_id", nullable = false,
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(name = "FK_user_userinfos"))
+    private UserInfo info;
+
+    protected CustomUser() {
 	// Empty no-arg constructor (Hibernate)
     }
 
@@ -65,7 +73,7 @@ public class UserAuth extends AbstractEntity {
      * @param username a unique username
      * @param roles    some roles
      */
-    public UserAuth(String password, String username, Set<Role> roles) {
+    public CustomUser(String password, String username, Set<Role> roles) {
 	this(password, username, roles, true);
     }
 
@@ -77,7 +85,7 @@ public class UserAuth extends AbstractEntity {
      * @param roles    some roles
      * @param enabled  {@code true} if enabled; {@code false} otherwise
      */
-    public UserAuth(String password, String username, Set<Role> roles,
+    public CustomUser(String password, String username, Set<Role> roles,
             boolean enabled) {
 	this.password = password;
 	this.username = username;
@@ -85,9 +93,10 @@ public class UserAuth extends AbstractEntity {
 	this.enabled = enabled;
     }
 
-    public UserAuth(String password, String username, Set<Role> roles,
+    public CustomUser(String password, String username, Set<Role> roles,
             boolean enabled, boolean accountNonExpired,
-            boolean accountNonLocked, boolean credentialsNonExpired) {
+            boolean accountNonLocked, boolean credentialsNonExpired,
+            UserInfo info) {
 	this.password = password;
 	this.username = username;
 	this.roles = roles;
@@ -95,6 +104,7 @@ public class UserAuth extends AbstractEntity {
 	this.accountNonExpired = accountNonExpired;
 	this.accountNonLocked = accountNonLocked;
 	this.credentialsNonExpired = credentialsNonExpired;
+	this.info = info;
     }
 
     @Override
@@ -102,6 +112,6 @@ public class UserAuth extends AbstractEntity {
 	// password=[PROTECTED] for not displaying in logs
 	return "{id=" + id + ", username=" + username
 	        + ", password=[PROTECTED], roles=" + roles + ", enabled="
-	        + enabled + "}";
+	        + enabled + "infos = " + info + "}";
     }
 }

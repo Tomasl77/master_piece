@@ -73,10 +73,10 @@ export class CreateAccountComponent implements OnInit {
 
   constructForm(formData = this.signForm) : FormGroup {
     return this.fb.group({
-      email : [formData.value.email],
-      user : this.fb.group({
-        username : [formData.value.username],
-        password : [formData.value.password]
+      username : [formData.value.username],
+      password : [formData.value.password],
+      userInfo : this.fb.group({
+        email : [formData.value.email]            
       })
     })
   }
@@ -85,7 +85,7 @@ export class CreateAccountComponent implements OnInit {
     const username : string = this.signForm.value.username;
     const pwd : string = this.signForm.value.password;
     this.accountService.createAccount(this.constructForm(this.signForm)).subscribe(
-      (data) => {
+      () => {
         this.logInComponent.createAndLogIn(username, pwd);
         this.signForm.reset()
       },

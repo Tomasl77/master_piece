@@ -4,7 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { Observable, Subscription, throwError } from 'rxjs';
 import { AccountDto } from './account/accountDto';
 import { Config } from 'src/assets/config-properties';
-import { Member } from '../shared/models/member.model';
+import { CustomUser } from '../shared/models/custom-user.model';
 import { HttpRequestHandler } from '../shared/http-helper/http-request-handler';
 
 
@@ -17,7 +17,7 @@ export class MemberRegistrationService {
     return this.http.post(Config.apiUrl + Config.users, formData.value);
   }
 
-  getAccount(id: number): Observable<Member> {
+  getAccount(id: number): Observable<CustomUser> {
     return this.http.get(`${Config.apiUrl + Config.users}/${id}`)
   }
 
