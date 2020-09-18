@@ -6,17 +6,17 @@ import org.springframework.stereotype.Service;
 
 import fr.formation.masterpiece.config.security.CustomUserDetails;
 import fr.formation.masterpiece.domain.dtos.views.CustomUserAuthDto;
-import fr.formation.masterpiece.domain.dtos.views.UserInfoViewDto;
+import fr.formation.masterpiece.domain.dtos.views.CustomUserViewDto;
 import fr.formation.masterpiece.exceptions.ResourceNotFoundException;
 import fr.formation.masterpiece.repositories.UserJpaRepository;
-import fr.formation.masterpiece.services.MemberDetailsService;
+import fr.formation.masterpiece.services.UserInfoDetailsService;
 
 @Service
-public class MemberDetailsServiceImpl implements MemberDetailsService {
+public class UserInfoDetailsServiceImpl implements UserInfoDetailsService {
 
     private final UserJpaRepository repo;
 
-    protected MemberDetailsServiceImpl(UserJpaRepository repo) {
+    protected UserInfoDetailsServiceImpl(UserJpaRepository repo) {
 	this.repo = repo;
     }
 
@@ -32,7 +32,7 @@ public class MemberDetailsServiceImpl implements MemberDetailsService {
 
     // Throws ResourceNotFoundException (restful practice)
     @Override
-    public UserInfoViewDto getCurrentUserInfo(Long id) {
+    public CustomUserViewDto getCurrentUserInfo(Long id) {
 	return repo.getById(id).orElseThrow(
 	        () -> new ResourceNotFoundException("with id:" + id));
     }

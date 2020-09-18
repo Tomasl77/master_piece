@@ -13,24 +13,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.formation.masterpiece.domain.dtos.MemberCreateDto;
-import fr.formation.masterpiece.domain.dtos.MemberDto;
+import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
+import fr.formation.masterpiece.domain.dtos.CustomUserDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
-import fr.formation.masterpiece.domain.dtos.views.MemberInfoViewDto;
-import fr.formation.masterpiece.services.MemberService;
+import fr.formation.masterpiece.domain.dtos.views.CustomUserViewDto;
+import fr.formation.masterpiece.services.UserService;
 
 @RestController
 @RequestMapping("/users")
-public class MemberController {
+public class UserController {
 
-    private final MemberService service;
+    private final UserService service;
 
-    public MemberController(MemberService service) {
+    public UserController(UserService service) {
 	this.service = service;
     }
 
     @GetMapping("/{id}")
-    public MemberInfoViewDto getOne(@PathVariable("id") Long id) {
+    public CustomUserViewDto getOne(@PathVariable("id") Long id) {
 	return service.getOne(id);
     }
 
@@ -41,7 +41,7 @@ public class MemberController {
     }
 
     @PostMapping
-    public MemberDto create(@Valid @RequestBody MemberCreateDto dto) {
+    public CustomUserDto create(@Valid @RequestBody CustomUserCreateDto dto) {
 	return service.create(dto);
     }
 
@@ -52,7 +52,7 @@ public class MemberController {
 
     @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public List<MemberInfoViewDto> getAll() {
+    public List<CustomUserViewDto> getAll() {
 	return service.getAll();
     }
 }

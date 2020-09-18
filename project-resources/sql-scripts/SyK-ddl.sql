@@ -2,7 +2,7 @@
 DDL script for teamsharing database
 Script can be used on mysql database.
 
-Last update : 2020-09-08
+Last update : 2020-09-18
 
 */
 
@@ -12,18 +12,29 @@ Last update : 2020-09-08
 
 -- SCHEMA
 
-DROP SCHEMA IF EXISTS teamsharingdev;
-CREATE SCHEMA teamsharingdev;
+CREATE SCHEMA IF NOT EXISTS teamsharingdev;
 USE teamsharingdev;
 
 
 -- TABLE
-
-DROP TABLE IF EXISTS `user`;
-DROP TABLE IF EXISTS `role`;
-DROP TABLE IF EXISTS `user_role`;
 DROP TABLE IF EXISTS `subject`;
-DROP TABLE IF EXISTS `member`;
+DROP TABLE IF EXISTS `user_role`;
+DROP TABLE IF EXISTS `role`;
+DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `user_info`;
+
+
+/******************************
+******* USERINFO  TABLE *******
+******************************/
+
+CREATE TABLE `user_info` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UQ_email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+ 
 
 
 /******************************
@@ -38,8 +49,10 @@ CREATE TABLE `user` (
   `enabled` varchar(1) NOT NULL,
   `password` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
+  `user_info_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `UQ_username` (`username`)
+  UNIQUE KEY `UQ_username` (`username`),
+  CONSTRAINT `FK_user_user_info` FOREIGN KEY (`user_info_id`) REFERENCES `user_info` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /******************************
@@ -68,19 +81,6 @@ CREATE TABLE `user_role` (
   CONSTRAINT `FK_role_user` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-/******************************
-******** MEMBER  TABLE ********
-******************************/
-
-CREATE TABLE `member` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) NOT NULL,
-  `user_id` bigint NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UQ_email` (`email`),
-  CONSTRAINT `FK_member_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
- 
 
 
 /******************************

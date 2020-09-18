@@ -1,7 +1,5 @@
 package fr.formation.masterpiece.domain.dtos.views;
 
-import org.springframework.beans.factory.annotation.Value;
-
 public interface SubjectViewDto {
 
     Long getId();
@@ -14,6 +12,5 @@ public interface SubjectViewDto {
 
     Long getVote();
 
-    @Value("#{target.member}")
-    MemberInfoViewDto getMember();
+    CustomUserViewDto getUser();
 }

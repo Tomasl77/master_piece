@@ -3,12 +3,7 @@ package fr.formation.masterpiece.domain.dtos;
 import lombok.Getter;
 
 @Getter
-public class MemberDto {
+public class UserInfoDto {
 
     private String email;
-
-    private UserDto user;
-
-    public MemberDto() {
-    }
 }

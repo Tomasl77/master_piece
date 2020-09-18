@@ -23,7 +23,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
-import fr.formation.masterpiece.services.MemberDetailsService;
+import fr.formation.masterpiece.services.UserInfoDetailsService;
 
 @Configuration
 @EnableAuthorizationServer
@@ -52,14 +52,14 @@ public class AuthorizationServerConfig
 
     // Custom user details service to authenticate users with username and
     // password from the database
-    private final MemberDetailsService userDetailsService;
+    private final UserInfoDetailsService userDetailsService;
 
     // Custom token converter to store custom info within access token
     private final CustomAccessTokenConverter customAccessTokenConverter;
 
     protected AuthorizationServerConfig(
             AuthenticationManager authenticationManagerBean,
-            MemberDetailsService userDetailsService,
+            UserInfoDetailsService userDetailsService,
             CustomAccessTokenConverter customAccessTokenConverter) {
 	authenticationManager = authenticationManagerBean;
 	this.userDetailsService = userDetailsService;

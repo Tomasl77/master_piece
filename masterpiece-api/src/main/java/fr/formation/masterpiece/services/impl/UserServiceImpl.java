@@ -10,53 +10,47 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import fr.formation.masterpiece.domain.dtos.MemberCreateDto;
-import fr.formation.masterpiece.domain.dtos.MemberDto;
+import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
+import fr.formation.masterpiece.domain.dtos.CustomUserDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
-import fr.formation.masterpiece.domain.dtos.views.MemberInfoViewDto;
-import fr.formation.masterpiece.domain.entities.Member;
+import fr.formation.masterpiece.domain.dtos.views.CustomUserViewDto;
 import fr.formation.masterpiece.domain.entities.Role;
-import fr.formation.masterpiece.domain.entities.UserAuth;
+import fr.formation.masterpiece.domain.entities.CustomUser;
+import fr.formation.masterpiece.domain.entities.UserInfo;
 import fr.formation.masterpiece.exceptions.AccountNotFoundException;
-import fr.formation.masterpiece.repositories.MemberRepository;
 import fr.formation.masterpiece.repositories.RoleRepository;
 import fr.formation.masterpiece.repositories.UserJpaRepository;
-import fr.formation.masterpiece.services.MemberService;
+import fr.formation.masterpiece.services.UserService;
 
 @Service
-public class MemberServiceImpl implements MemberService {
+public class UserServiceImpl implements UserService {
 
     private final UserJpaRepository userRepository;
 
     private final RoleRepository roleRepository;
-
-    private final MemberRepository memberRepository;
 
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
     private ModelMapper mapper;
 
-    protected MemberServiceImpl(UserJpaRepository userRepo,
-            RoleRepository roleRepository, MemberRepository memberRepository,
-            PasswordEncoder passwordEncoder) {
+    protected UserServiceImpl(UserJpaRepository userRepo,
+            RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
 	this.roleRepository = roleRepository;
 	this.userRepository = userRepo;
-	this.memberRepository = memberRepository;
 	this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public MemberDto create(MemberCreateDto dto) {
-	String encodedPassword = passwordEncoder
-	        .encode(dto.getUser().getPassword());
+    public CustomUserDto create(CustomUserCreateDto dto) {
+	String encodedPassword = passwordEncoder.encode(dto.getPassword());
 	Set<Role> role = new HashSet<>();
 	role.add(roleRepository.findByDefaultRole(true));
-	UserAuth userAuth = new UserAuth(encodedPassword,
-	        dto.getUser().getUsername(), role, true, true, true, true);
-	Member memberToSave = new Member(dto.getEmail(), userAuth);
-	Member user = memberRepository.save(memberToSave);
-	MemberDto dtoToReturn = mapper.map(user, MemberDto.class);
+	UserInfo userInfo = new UserInfo(dto.getUserInfo().getEmail());
+	CustomUser userAuth = new CustomUser(encodedPassword, dto.getUsername(),
+	        role, true, true, true, true, userInfo);
+	CustomUser user = userRepository.save(userAuth);
+	CustomUserDto dtoToReturn = mapper.map(user, CustomUserDto.class);
 	return dtoToReturn;
     }
 
@@ -72,8 +66,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberInfoViewDto getOne(Long id) {
-	Optional<MemberInfoViewDto> value = memberRepository.getById(id);
+    public CustomUserViewDto getOne(Long id) {
+	Optional<CustomUserViewDto> value = userRepository.getById(id);
 	if (value.isPresent()) {
 	    return value.get();
 	} else {
@@ -83,16 +77,16 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void deleteOne(Long id) {
-	Optional<MemberInfoViewDto> value = memberRepository.getById(id);
+	Optional<CustomUserViewDto> value = userRepository.getById(id);
 	if (value.isPresent()) {
-	    memberRepository.deleteById(id);
+	    userRepository.deleteById(id);
 	} else {
 	    throw new AccountNotFoundException("Invalid id : " + id);
 	}
     }
 
     @Override
-    public List<MemberInfoViewDto> getAll() {
-	return memberRepository.getAllProjectedBy();
+    public List<CustomUserViewDto> getAll() {
+	return userRepository.getAllProjectedBy();
     }
 }
