@@ -60,5 +60,9 @@
         "required": "Description is required"
       }
     }
+  },
+  "account" : {
+    "welcome" : "Welcome",
+    "email" : "Your e-mail"
   }
 }

@@ -61,5 +61,9 @@
         "required" :"Veuillez entrer une description"
       } 
     }
+  },
+  "account" : {
+    "welcome" : "Bienvenue",
+    "email" : "Votre courriel"
   }
 }
