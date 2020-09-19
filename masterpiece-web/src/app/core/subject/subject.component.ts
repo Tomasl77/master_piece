@@ -7,6 +7,7 @@ import { AuthenticationService } from 'src/app/shared/authentication/authenticat
 import { Subject } from './subject.model';
 import { Subscription } from 'rxjs';
 import { HttpRequestHandler } from 'src/app/shared/http-helper/http-request-handler';
+import { GridOptions } from 'ag-grid-community';
 
 @Component({
   selector: 'app-subject',
@@ -15,13 +16,16 @@ import { HttpRequestHandler } from 'src/app/shared/http-helper/http-request-hand
   providers: [SubjectService]
 })
 export class SubjectComponent implements OnInit, OnDestroy {
-
-  @Input('id')
-  id: number;
-
-  action: string;
-
-  subjects: Subject[];
+  
+  private action: string;
+  
+  private formErrors = {
+    'title': '',
+    'description': ''
+  }
+  private subjects: Subject[];
+  private rowData: Subject[];
+  private gridOptions: GridOptions;
 
   private getAllSubjectsSubscription: Subscription;
   private deleteSubjectSubscription: Subscription;
@@ -47,30 +51,27 @@ export class SubjectComponent implements OnInit, OnDestroy {
       title: ['', [Validators.required, Validators.maxLength(30)]],
       description: ['', [Validators.required]],
       category: ''
-    })
-  }
+    }),
 
-  formErrors = {
-    'title': '',
-    'description': ''
+    /* ag-grid */
+    this.gridOptions = {
+      defaultColDef: { sortable:true, filter: true},
+      columnDefs: [
+        { headerName: 'id', field: 'id', hide: true},
+        { headerName: 'Title', field: 'title', sortable: true, filter: true },
+        { headerName: 'Description', field: 'description', sortable: true, filter: true },
+        { headerName: 'Category', field: 'category', sortable: true, filter: true },
+        { headerName: 'Vote', field: 'vote', sortable: true, filter: true },
+        { headerName: 'Requester', field: 'user.username', sortable: true, filter: true },
+        { headerName: 'Delete', 
+        hide: !this.isAdmin() }
+      ],
+      pagination:true,
+      paginationPageSize:10
+    }
   }
-
-  /* ag-grid */
-  columnDefs = [
-    { headerName: 'id', field: 'id', hide: true},
-    { headerName: 'Title', field: 'title', sortable: true, filter: true },
-    { headerName: 'Description', field: 'description', sortable: true, filter: true },
-    { headerName: 'Category', field: 'category', sortable: true, filter: true },
-    { headerName: 'Vote', field: 'vote', sortable: true, filter: true },
-    { headerName: 'Requester', field: 'user.username', sortable: true, filter: true },
-    { headerName: 'Delete', 
-      hide: !this.isAdmin() }
     
-  ];
 
-  rowData: Subject[];
-
-  /* end ag-grid */
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -86,6 +87,10 @@ export class SubjectComponent implements OnInit, OnDestroy {
   }
 
   customInit() {
+    this.getSubjectsIfVotePanel();
+  }
+
+  public getSubjectsIfVotePanel() {
     if (this.action === "vote") {
       this.subjectService.getAllSubject().subscribe(
         (subjects: Subject[]) => {
@@ -96,7 +101,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
     }
   }
 
-  logValidationErrors(group: FormGroup = this.subjectForm): void {
+  private logValidationErrors(group: FormGroup = this.subjectForm): void {
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
       if (abstractControl instanceof FormGroup) {
@@ -126,10 +131,10 @@ export class SubjectComponent implements OnInit, OnDestroy {
     );
   }
 
-  public deleteSubject() {
-    const request = this.subjectService.deleteSubject(this.id);
+  public deleteSubject(id:number) {
+    const request = this.subjectService.deleteSubject(id);
     this.deleteSubjectSubscription = request.subscribe(
-      () => console.log("Deleted with succes : " + this.id),
+      () => console.log("Deleted with succes : " + id),
       (error) => console.log(error)
     )
   }

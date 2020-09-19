@@ -42,8 +42,12 @@
 <!-- vote -->
 <div *ngIf="action==='vote'">
   <div class="ag-grid-flex">
-    <ag-grid-angular style="width: 100%;" class="ag-theme-alpine" [rowData]="rowData"
-      [columnDefs]="columnDefs" pagination="true" paginationPageSize=10 domLayout='autoHeight'>
+    <ag-grid-angular 
+      style="width: 100%;" 
+      class="ag-theme-alpine" 
+      [rowData]="rowData"
+      [gridOptions]="gridOptions"
+      domLayout='autoHeight'>
     </ag-grid-angular>
   </div>
 </div>
