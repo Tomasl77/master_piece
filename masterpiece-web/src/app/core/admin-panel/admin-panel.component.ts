@@ -16,9 +16,6 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
   private allUsersSubscription : Subscription;
   private rowData : CustomUser[];
   private gridOptions : GridOptions;
-  private username;
-  private email : string;
-  private delete : string;
   private columnDefs : ColDef[];
   
 
@@ -32,9 +29,9 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getAllUsers();
-    this.changeColumnLang();
-    this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
-      this.changeColumnLang();
+    this.getUsersWithLang();
+    this.translateService.onLangChange.subscribe(() => {
+      this.getUsersWithLang();
   });
   }
 
@@ -52,15 +49,15 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     );
   }
 
-  private changeColumnLang() : void {
-    this.username = this.translateService.instant('ag-grid.username');
-      this.email = this.translateService.instant('ag-grid.email');
-      this.delete = this.translateService.instant('ag-grid.delete');
+  private getUsersWithLang() : void {
+      const username = this.translateService.instant('ag-grid.username');
+      const email = this.translateService.instant('ag-grid.email');
+      const deleteBut = this.translateService.instant('ag-grid.delete');
       this.columnDefs = [
         { headerName: 'id', field:'id', hide: true },
-        { headerName: this.username, field: 'username' },
-        { headerName: this.email, field : 'info.email' },
-        { headerName: this.delete}
+        { headerName: username, field: 'username' },
+        { headerName: email, field : 'info.email' },
+        { headerName: deleteBut}
       ]
   }
 }
