@@ -50,6 +50,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
   }
 
   private getUsersWithLang() : void {
+    this.translateService.get('language').subscribe((translate: string)=> {
       const username = this.translateService.instant('ag-grid.username');
       const email = this.translateService.instant('ag-grid.email');
       const deleteBut = this.translateService.instant('ag-grid.delete');
@@ -59,5 +60,6 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
         { headerName: email, field : 'info.email' },
         { headerName: deleteBut}
       ]
+    })
   }
 }
