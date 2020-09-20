@@ -75,9 +75,19 @@
     "email" : "Your e-mail"
   },
 
+
   "ag-grid": {
-    "username": "Username",
-    "email": "E-mail",
+    "admin-panel" : {
+      "username": "Username",
+      "email": "E-mail"  
+    },
+    "subject": {
+      "title": "Title",
+      "description": "Description",
+      "category": "Category",
+      "vote": "N° of vote",
+      "requester": "Requester"
+    },
     "delete": "Delete"
   },
 

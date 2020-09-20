@@ -29,9 +29,9 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getAllUsers();
-    this.getUsersWithLang();
+    this.getTableHeaderWithLang();
     this.translateService.onLangChange.subscribe(() => {
-      this.getUsersWithLang();
+      this.getTableHeaderWithLang();
   });
   }
 
@@ -49,17 +49,21 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     );
   }
 
-  private getUsersWithLang() : void {
+  private getTableHeaderWithLang() : void {
     this.translateService.get('language').subscribe((translate: string)=> {
-      const username = this.translateService.instant('ag-grid.username');
-      const email = this.translateService.instant('ag-grid.email');
+      const username = this.translateService.instant('ag-grid.admin-panel.username');
+      const email = this.translateService.instant('ag-grid.admin-panel.email');
       const deleteBut = this.translateService.instant('ag-grid.delete');
       this.columnDefs = [
         { headerName: 'id', field:'id', hide: true },
-        { headerName: username, field: 'username' },
-        { headerName: email, field : 'info.email' },
-        { headerName: deleteBut}
+        { headerName: this.translate('ag-grid.admin-panel.username'), field: 'username' },
+        { headerName: this.translate('ag-grid.admin-panel.email'), field : 'info.email' },
+        { headerName: this.translate('ag-grid.delete')}
       ]
     })
+  }
+
+  private translate(stringToTranslate: string): string {
+    return this.translateService.instant(stringToTranslate);
   }
 }

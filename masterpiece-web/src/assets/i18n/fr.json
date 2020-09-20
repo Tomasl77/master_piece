@@ -76,8 +76,17 @@
   },
 
   "ag-grid": {
-    "username": "Nom d'utilisateur",
-    "email": "Courriel",
+    "admin-panel": {
+      "username": "Nom d'utilisateur",
+      "email": "Courriel"
+    },
+    "subject": {
+      "title": "Titre",
+      "description": "Description",
+      "category": "Categorie",
+      "vote": "N° de vote",
+      "requester": "Demandeur"
+    },
     "delete": "Supprimer"
   },
   

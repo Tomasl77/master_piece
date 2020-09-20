@@ -7,7 +7,7 @@ import { AuthenticationService } from 'src/app/shared/authentication/authenticat
 import { Subject } from './subject.model';
 import { Subscription } from 'rxjs';
 import { HttpRequestHandler } from 'src/app/shared/http-helper/http-request-handler';
-import { GridOptions } from 'ag-grid-community';
+import { ColDef, GridOptions } from 'ag-grid-community';
 
 @Component({
   selector: 'app-subject',
@@ -26,6 +26,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
   private subjects: Subject[];
   private rowData: Subject[];
   private gridOptions: GridOptions;
+  private columnDefs: ColDef[];
 
   private getAllSubjectsSubscription: Subscription;
   private deleteSubjectSubscription: Subscription;
@@ -41,7 +42,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
   ];
 
   constructor(
-    private translate: TranslateService,
+    private translateService: TranslateService,
     private formBuilder: FormBuilder,
     private subjectService: SubjectService,
     private activatedRoute: ActivatedRoute,
@@ -56,16 +57,6 @@ export class SubjectComponent implements OnInit, OnDestroy {
     /* ag-grid */
     this.gridOptions = {
       defaultColDef: { sortable:true, filter: true},
-      columnDefs: [
-        { headerName: 'id', field: 'id', hide: true},
-        { headerName: 'Title', field: 'title', sortable: true, filter: true },
-        { headerName: 'Description', field: 'description', sortable: true, filter: true },
-        { headerName: 'Category', field: 'category', sortable: true, filter: true },
-        { headerName: 'Vote', field: 'vote', sortable: true, filter: true },
-        { headerName: 'Requester', field: 'user.username', sortable: true, filter: true },
-        { headerName: 'Delete', 
-        hide: !this.isAdmin() }
-      ],
       pagination:true,
       paginationPageSize:10
     }
@@ -77,7 +68,12 @@ export class SubjectComponent implements OnInit, OnDestroy {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.action = params["action"];
       this.customInit();
+      this.getTableHeaderWithLang();
+    this.translateService.onLangChange.subscribe(() => {
+      this.getTableHeaderWithLang();
+  })
     });
+   
   }
 
   ngOnDestroy() {
@@ -88,6 +84,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
 
   customInit() {
     this.getSubjectsIfVotePanel();
+    
   }
 
   public getSubjectsIfVotePanel() {
@@ -111,7 +108,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
         if (abstractControl && !abstractControl.valid && ((abstractControl.touched) || (abstractControl.dirty))) {
           for (const errorKey in abstractControl.errors) {
             if (errorKey) {
-              const err = this.translate.instant('subject.validationMessages.' + key + '.' + errorKey);
+              const err = this.translateService.instant('subject.validationMessages.' + key + '.' + errorKey);
               this.formErrors[key] += err;
             }
           };
@@ -148,6 +145,28 @@ export class SubjectComponent implements OnInit, OnDestroy {
       },
       error => console.log(error)
     );
+  }
+
+  private getTableHeaderWithLang() : void {
+    this.translateService.get('language').subscribe((translate: string)=> {
+      const title = this.translateService.instant('ag-grid.subject.title');
+      const email = this.translateService.instant('ag-grid.subject.description');
+      const category = this.translateService.instant('ag-grid.category');
+      this.columnDefs = [
+        { headerName: 'id', field: 'id', hide: true},
+        { headerName: this.translate('ag-grid.subject.title'), field: 'title', sortable: true, filter: true },
+        { headerName: this.translate('ag-grid.subject.description'), field: 'description', sortable: true, filter: true },
+        { headerName: this.translate('ag-grid.subject.category'), field: 'category', sortable: true, filter: true },
+        { headerName: this.translate('ag-grid.subject.vote'), field: 'vote', sortable: true, filter: true },
+        { headerName: this.translate('ag-grid.subject.requester'), field: 'user.username', sortable: true, filter: true },
+        { headerName: this.translate('ag-grid.delete'), 
+        hide: !this.isAdmin() }
+      ]
+    })
+  }
+
+  private translate(stringToTranslate: string): string {
+    return this.translateService.instant(stringToTranslate);
   }
 
   isAdmin(): boolean {
