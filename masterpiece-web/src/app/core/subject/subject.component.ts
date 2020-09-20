@@ -58,10 +58,14 @@ export class SubjectComponent implements OnInit, OnDestroy {
     this.gridOptions = {
       defaultColDef: { sortable:true, filter: true},
       pagination:true,
-      paginationPageSize:10
+      paginationPageSize:10,
+      onFirstDataRendered: this.sizeColumnsToFit
     }
   }
-    
+
+  public sizeColumnsToFit(gridOptions: GridOptions) {
+    gridOptions.api.sizeColumnsToFit();
+  }    
 
 
   ngOnInit() {
@@ -148,10 +152,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
   }
 
   private getTableHeaderWithLang() : void {
-    this.translateService.get('language').subscribe((translate: string)=> {
-      const title = this.translateService.instant('ag-grid.subject.title');
-      const email = this.translateService.instant('ag-grid.subject.description');
-      const category = this.translateService.instant('ag-grid.category');
+    this.translateService.get('language').subscribe(()=> {
       this.columnDefs = [
         { headerName: 'id', field: 'id', hide: true},
         { headerName: this.translate('ag-grid.subject.title'), field: 'title', sortable: true, filter: true },

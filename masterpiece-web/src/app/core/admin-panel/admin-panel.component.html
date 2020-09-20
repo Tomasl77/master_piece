@@ -1,9 +1,10 @@
-<ag-grid-angular 
-    style="width: 100%;" 
-    class="ag-theme-alpine" 
-    [rowData]="rowData"
-    [columnDefs]="columnDefs"
-    [gridOptions]="gridOptions"
-    domLayout='autoHeight'>
-    (gridReady)="onGridReady($event)"
-</ag-grid-angular>
+<div class="grid-container">
+    <ag-grid-angular 
+        style="width: 100%;" 
+        class="ag-theme-alpine" 
+        [rowData]="rowData"
+        [columnDefs]="columnDefs"
+        [gridOptions]="gridOptions"
+        domLayout='autoHeight'>
+    </ag-grid-angular>
+</div>

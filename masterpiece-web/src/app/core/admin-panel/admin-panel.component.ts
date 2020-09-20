@@ -1,6 +1,6 @@
 import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
-import { ColDef, GridOptions } from 'ag-grid-community';
+import { ColDef, GridApi, GridOptions } from 'ag-grid-community';
 import { Subscription } from 'rxjs';
 import { CustomUser } from 'src/app/shared/models/custom-user.model';
 import { UserRegistrationService } from '../user-registration.service';
@@ -23,7 +23,8 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     this.gridOptions = {
       defaultColDef: { sortable: true, filter: true},
       pagination: true,
-      paginationPageSize: 10
+      paginationPageSize: 10,
+      onFirstDataRendered: this.sizeColumnsToFit
     }
   }
 
@@ -61,6 +62,10 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
         { headerName: this.translate('ag-grid.delete')}
       ]
     })
+  }
+
+  public sizeColumnsToFit(gridOptions: GridOptions) {
+    gridOptions.api.sizeColumnsToFit();
   }
 
   private translate(stringToTranslate: string): string {
