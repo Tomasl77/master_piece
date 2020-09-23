@@ -13,6 +13,7 @@ import { LogInComponent } from './log-in/log-in.component';
 import { AccountComponent } from './account/account.component';
 import { SubjectComponent } from './subject/subject.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { BtnCellRenderer } from '../shared/btn-cell-renderer.component';
 
 
 
@@ -39,7 +40,7 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
           deps: [HttpClient]
       }
   }),
-  AgGridModule.withComponents([])
+  AgGridModule.withComponents([BtnCellRenderer])
   ],
   
   exports: [

@@ -11,6 +11,8 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpInterceptorService } from './shared/authentication/http-interceptor.service'
+import { AgGridModule } from 'ag-grid-angular';
+import { BtnCellRenderer } from './shared/btn-cell-renderer.component';
 
 
 @NgModule({
@@ -31,7 +33,8 @@ import { HttpInterceptorService } from './shared/authentication/http-interceptor
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    AgGridModule.withComponents([BtnCellRenderer])
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
   bootstrap: [AppComponent]
