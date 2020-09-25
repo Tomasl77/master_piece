@@ -1,4 +1,21 @@
 {
+  "navbar": {
+    "account": "Mon Compte",
+    "sign-in": "Se connecter",
+    "sign-up": "S'inscrire",
+    "contacts": "Contactez-nous",
+    "admin-panel" : "Panneau d'administration",
+    "subject": {
+      "dropdown" : "Sujet",
+        "post": "Créer un sujet",
+        "vote": "Voir / Voter pour un sujet",
+        "delete" : "Effacer un sujet"
+    },
+    "close" : "Fermer",
+    "logout" : "Se deconnecter"
+  },
+
+
   "create-account": {
     "username": "Nom d'utiliseur",
     "email" : "Courriel",
@@ -26,26 +43,15 @@
       }
     }
   },
+
+
   "login": {
     "username": "Entrez votre nom d'utilisateur",
     "password": "Entrez votre mot de passe",
     "button": "Se connecter",
     "no-account-yet" : "Pas de compte? Créez-en un"
   },
-  "navbar": {
-    "account": "Mon Compte",
-    "sign-in": "Se connecter",
-    "sign-up": "S'inscrire",
-    "contacts": "Contactez-nous",
-    "subject": {
-      "dropdown" : "Sujet",
-        "post": "Créer un sujet",
-        "vote": "Voir / Voter pour un sujet",
-        "delete" : "Effacer un sujet"
-    },
-    "close" : "Fermer",
-    "logout" : "Se deconnecter"
-  },
+  
 
   "subject" : {
     "title" : "Titre du sujet",
@@ -61,5 +67,30 @@
         "required" :"Veuillez entrer une description"
       } 
     }
+  },
+
+
+  "account" : {
+    "welcome" : "Bienvenue",
+    "email" : "Votre courriel"
+  },
+
+  "ag-grid": {
+    "admin-panel": {
+      "username": "Nom d'utilisateur",
+      "email": "Courriel"
+    },
+    "subject": {
+      "title": "Titre",
+      "description": "Description",
+      "category": "Categorie",
+      "vote": "N° de vote",
+      "requester": "Demandeur"
+    },
+    "delete": "Supprimer"
+  },
+  
+  "admin-panel" : {
+
   }
 }

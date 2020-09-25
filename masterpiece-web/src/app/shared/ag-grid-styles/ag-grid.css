@@ -1,3 +1,9 @@
-.ag-theme-alpine {
-    border : 2px solid red;
+.grid-container {
+    margin: 10px auto;
+}
+
+@media screen and (max-width: 972px) {
+    .grid-container {
+        width: 100%;
+    }
 }

@@ -2,14 +2,14 @@ import { Component, OnInit, Input, Optional, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthenticationService } from 'src/app/shared/authentication/authentication.service';
 import { CustomUser } from 'src/app/shared/models/custom-user.model';
-import { MemberRegistrationService } from '../member-registration.service';
+import { UserRegistrationService } from '../user-registration.service';
 
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css'],
-  providers:[MemberRegistrationService]
+  providers:[UserRegistrationService]
 })
 export class AccountComponent implements OnInit, OnDestroy {
 
@@ -18,7 +18,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   error: any;
   private accountSubscription : Subscription;
 
-  constructor(private service : MemberRegistrationService, private authenthicationService: AuthenticationService) { }
+  constructor(private service : UserRegistrationService, private authenthicationService: AuthenticationService) { }
   
   ngOnInit() {
     this.id = this.authenthicationService.currentUserValue.userId;

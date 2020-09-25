@@ -1,4 +1,21 @@
 {
+  "navbar": {
+    "account": "My account",
+    "sign-in": "Sign in",
+    "sign-up": "Create Account",
+    "contacts": "Contact us",
+    "admin-panel" : "Admin Panel",
+    "subject": {
+      "dropdown": "Subject",
+      "post": "Create subject",
+      "vote": "View / Vote for subject",
+      "delete": "Delete subject"
+    },
+    "close": "Close",
+    "logout": "Log out"
+  },
+  
+
   "create-account": {
     "username": "User name",
     "email" : "E-mail",
@@ -26,26 +43,16 @@
       }
     }
   },
+
+
   "login": {
     "username": "Please, enter your user name",
     "password": "Enter your password",
     "button": "Log In",
     "no-account-yet": "No account ? Click to register"
   },
-  "navbar": {
-    "account": "My account",
-    "sign-in": "Sign in",
-    "sign-up": "Create Account",
-    "contacts": "Contact us",
-    "subject": {
-      "dropdown": "Subject",
-      "post": "Create subject",
-      "vote": "View / Vote for subject",
-      "delete": "Delete subject"
-    },
-    "close": "Close",
-    "logout": "Log out"
-  },
+
+
   "subject": {
     "title": "Title of subject",
     "description": "Description of subject",
@@ -60,5 +67,32 @@
         "required": "Description is required"
       }
     }
+  },
+
+
+  "account" : {
+    "welcome" : "Welcome",
+    "email" : "Your e-mail"
+  },
+
+
+  "ag-grid": {
+    "admin-panel" : {
+      "username": "Username",
+      "email": "E-mail"  
+    },
+    "subject": {
+      "title": "Title",
+      "description": "Description",
+      "category": "Category",
+      "vote": "N° of vote",
+      "requester": "Requester"
+    },
+    "delete": "Delete"
+  },
+
+  
+  "admin-panel" : {
+
   }
 }

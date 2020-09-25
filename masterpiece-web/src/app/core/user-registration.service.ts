@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
 import { Observable, Subscription, throwError } from 'rxjs';
 import { AccountDto } from './account/accountDto';
@@ -9,7 +8,7 @@ import { HttpRequestHandler } from '../shared/http-helper/http-request-handler';
 
 
 @Injectable()
-export class MemberRegistrationService {
+export class UserRegistrationService {
 
   constructor(private readonly http: HttpRequestHandler) { }
 
@@ -19,6 +18,14 @@ export class MemberRegistrationService {
 
   getAccount(id: number): Observable<CustomUser> {
     return this.http.get(`${Config.apiUrl + Config.users}/${id}`)
+  }
+
+  getAllUsers(): Observable<CustomUser[]> {
+    return this.http.get(Config.apiUrl + Config.users)
+  }
+
+  deleteUser(id: number): Observable<any> {
+    return this.http.delete(Config.apiUrl + Config.users+ Config.actions.delete+ `/{id}`)
   }
 
   unsubscribe(subscription: Subscription) {
