@@ -15,8 +15,12 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
       this.params = params;
     }
   
-    onClick($event : Function) {
-      this.params.clicked(this.params.value);
+    onClick($event: Function) {
+      const params = {
+        event: $event,
+        rowData: this.params.node.data
+      }
+      this.params.onClick(params);
     }
   
     refresh(params: any): boolean {

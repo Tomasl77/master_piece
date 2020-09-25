@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { CustomUser } from 'src/app/shared/models/custom-user.model';
 import { UserRegistrationService } from '../user-registration.service';
 import { BtnCellRenderer } from '../../shared/btn-cell-renderer.component'
+import { User } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-admin-panel',
@@ -81,6 +82,8 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
   }
 
   public deleteUser(params: any) {
+    const user:User = params.rowData;
+    console.log(user);
     this.deleteUserSubscription = this.userRegistrationService.deleteUser(3).subscribe(
 
     )
