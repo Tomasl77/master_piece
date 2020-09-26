@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ColDef, GridOptions } from 'ag-grid-community';
 import { Subscription } from 'rxjs';
@@ -6,33 +6,37 @@ import { CustomUser } from 'src/app/shared/models/custom-user.model';
 import { UserRegistrationService } from '../user-registration.service';
 import { BtnCellRenderer } from '../../shared/btn-cell-renderer.component'
 import { User } from 'src/app/shared/models/user.model';
+import { ConfirmationModalComponent } from 'src/app/shared/modals/confirmation-modal/confirmation-modal.component';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-admin-panel',
   templateUrl: './admin-panel.component.html',
   styleUrls: ['./admin-panel.component.css'],
-  providers: [UserRegistrationService]
+  providers: [UserRegistrationService, ConfirmationModalComponent]
 })
 export class AdminPanelComponent implements OnInit, OnDestroy {
 
-  private allUsersSubscription : Subscription;
+  private allUsersSubscription: Subscription;
   private deleteUserSubscription: Subscription;
-  private rowData : CustomUser[];
-  private gridOptions : GridOptions;
-  private columnDefs : ColDef[];
+  private rowData: CustomUser[];
+  private gridOptions: GridOptions;
+  private columnDefs: ColDef[];
   private frameworkComponents = {};
 
-
-  constructor(private userRegistrationService : UserRegistrationService, private translateService : TranslateService) { 
+  constructor(private userRegistrationService: UserRegistrationService,
+    private translateService: TranslateService,
+    public dialog: MatDialog
+  ) {
     this.gridOptions = {
-      defaultColDef: { sortable: true, filter: true},
+      defaultColDef: { sortable: true, filter: true },
       pagination: true,
       paginationPageSize: 10,
       onFirstDataRendered: this.sizeColumnsToFit
     },
-    this.frameworkComponents = {
-      btnCellRenderer: BtnCellRenderer
-    }
+      this.frameworkComponents = {
+        btnCellRenderer: BtnCellRenderer
+      }
   }
 
   ngOnInit() {
@@ -40,7 +44,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     this.getTableHeaderWithLang();
     this.translateService.onLangChange.subscribe(() => {
       this.getTableHeaderWithLang();
-  });
+    });
   }
 
   ngOnDestroy(): void {
@@ -50,7 +54,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
   private getAllUsers() {
     this.allUsersSubscription = this.userRegistrationService.getAllUsers().subscribe(
-      ((users : CustomUser[]) => {
+      ((users: CustomUser[]) => {
         this.rowData = users;
         console.log(this.rowData)
       }),
@@ -58,19 +62,43 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     );
   }
 
-  private getTableHeaderWithLang() : void {
-    this.translateService.get('language').subscribe((translate: string)=> {
+  openDialog(user: CustomUser){
+    console.log('Inside OpenDialog');
+    console.log(user);
+    const dialogRef = this.dialog.open(ConfirmationModalComponent, {
+      width:'50%',
+      minWidth: '300px',
+      height:'60%',
+      data: 
+        {user : user,
+        action: 'delete'},
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(user.id);
+      result == 'confirm' ? this.deleteUser(user.id): null;
+    })
+  }
+  
+  deleteUser(id: number) {
+    this.deleteUserSubscription = this.userRegistrationService.deleteUser(id).subscribe(response=> {
+      console.log(response);
+    });
+  }
+
+  private getTableHeaderWithLang(): void {
+    this.translateService.get('language').subscribe((translate: string) => {
       const username = this.translateService.instant('ag-grid.admin-panel.username');
       const email = this.translateService.instant('ag-grid.admin-panel.email');
       const deleteBut = this.translateService.instant('ag-grid.delete');
       this.columnDefs = [
-        { headerName: 'id', field:'id', hide: true },
+        { headerName: 'id', field: 'id', hide: true },
         { headerName: this.translate('ag-grid.admin-panel.username'), field: 'username' },
-        { headerName: this.translate('ag-grid.admin-panel.email'), field : 'info.email' },
-        { headerName: this.translate('ag-grid.delete'), 
+        { headerName: this.translate('ag-grid.admin-panel.email'), field: 'info.email' },
+        {
+          headerName: this.translate('ag-grid.delete'),
           cellRenderer: 'btnCellRenderer',
           cellRendererParams: {
-            onClick: this.deleteUser.bind(this)
+            onClick: this.openDeleteModal.bind(this)
           }
         }
       ]
@@ -81,12 +109,9 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     gridOptions.api.sizeColumnsToFit();
   }
 
-  public deleteUser(params: any) {
-    const user:User = params.rowData;
-    console.log(user);
-    this.deleteUserSubscription = this.userRegistrationService.deleteUser(3).subscribe(
-
-    )
+  public openDeleteModal(params: any) {
+    const user: CustomUser = params.rowData;
+    this.openDialog(user);
   };
 
   private translate(stringToTranslate: string): string {

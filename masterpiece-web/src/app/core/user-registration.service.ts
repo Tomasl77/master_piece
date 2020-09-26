@@ -25,7 +25,7 @@ export class UserRegistrationService {
   }
 
   deleteUser(id: number): Observable<any> {
-    return this.http.delete(Config.apiUrl + Config.users+ Config.actions.delete+ `/{id}`)
+    return this.http.delete(Config.apiUrl + Config.users+ Config.actions.delete+ `/${id}`)
   }
 
   unsubscribe(subscription: Subscription) {

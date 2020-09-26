@@ -10,9 +10,11 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
   export class BtnCellRenderer implements ICellRendererAngularComp {
     
     private params: any;
+    btnClass:string ;
   
     agInit(params: any): void {
       this.params = params;
+      this.btnClass = "mat-raised-button";
     }
   
     onClick($event: Function) {
