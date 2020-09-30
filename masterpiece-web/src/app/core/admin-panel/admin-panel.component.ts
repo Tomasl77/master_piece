@@ -95,7 +95,8 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
           headerName: this.translate('ag-grid.delete'),
           cellRenderer: 'btnCellRenderer',
           cellRendererParams: {
-            onClick: this.openDeleteModal.bind(this)
+            onClick: this.openDeleteModal.bind(this),
+            btnClass : "btn btn-success"
           }
         }
       ]

@@ -6,7 +6,7 @@ import { AuthenticationService } from './authentication/authentication.service';
 @Component({
     selector: 'btnCellRenderer',
     template: `
-      <button [disabled]="isCurrentlyLog()" (click)="onClick($event)">Click me!</button>
+      <button class="{{btnClass}}" [disabled]="isCurrentlyLog()" (click)="onClick($event)">Delete</button>
     `,
   })
   export class BtnCellRenderer implements ICellRendererAngularComp {
@@ -18,7 +18,7 @@ import { AuthenticationService } from './authentication/authentication.service';
   
     agInit(params: any): void {
       this.params = params;
-      this.btnClass = "mat-raised-button";
+      this.btnClass = this.params.btnClass;
     }
   
     onClick($event: Function) {
