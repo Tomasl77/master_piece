@@ -45,7 +45,7 @@ public class UserController {
 	return service.create(dto);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteAccount(@PathVariable("id") Long id) {
 	service.deleteOne(id);
     }

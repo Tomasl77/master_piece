@@ -69,8 +69,9 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
       minWidth: '300px',
       height:'60%',
       data: 
-        {user : user,
-        action: 'delete'},
+        {dataToProcess : user.username,
+        action: 'delete',
+        object: "user"},
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(user.id);
@@ -96,7 +97,9 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
           cellRenderer: 'btnCellRenderer',
           cellRendererParams: {
             onClick: this.openDeleteModal.bind(this),
-            btnClass : "btn btn-success"
+            btnClass : "btn btn-success",
+            label: "Delete",
+            isPanelAdmin: true,
           }
         }
       ]

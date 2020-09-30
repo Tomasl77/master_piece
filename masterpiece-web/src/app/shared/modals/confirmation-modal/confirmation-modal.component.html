@@ -1,8 +1,8 @@
   <h1 mat-dialog-title>Confirmation required</h1>
   <div mat-dialog-content>
-    <p>You are about to {{data.action}} user : {{data.user.username}}</p>
+    <p>You are about to {{data.action}} {{data.object}} : {{data.dataToProcess}}</p>
   </div>
   <div mat-dialog-actions>
     <button mat-button mat-dialog-close="no">No</button>
-    <button mat-button mat-dialog-close="confirm" cdkFocusInitial>Confirm {{data.action}}</button>
+    <button mat-button mat-dialog-close="confirm" class="btn btn-success">Confirm {{data.action}}</button>
   </div>

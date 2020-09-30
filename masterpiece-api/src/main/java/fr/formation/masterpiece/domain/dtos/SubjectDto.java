@@ -1,7 +1,6 @@
 package fr.formation.masterpiece.domain.dtos;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -19,6 +18,6 @@ public class SubjectDto {
     @NotBlank
     private String description;
 
-    @NotNull
+    @NotBlank
     private String category;
 }

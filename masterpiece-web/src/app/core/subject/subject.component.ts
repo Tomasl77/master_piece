@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { SubjectService } from './subject.service';
@@ -6,19 +6,21 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { AuthenticationService } from 'src/app/shared/authentication/authentication.service';
 import { Subject } from './subject.model';
 import { Subscription } from 'rxjs';
-import { HttpRequestHandler } from 'src/app/shared/http-helper/http-request-handler';
 import { ColDef, GridOptions } from 'ag-grid-community';
+import { MatDialog } from '@angular/material';
+import { ConfirmationModalComponent } from 'src/app/shared/modals/confirmation-modal/confirmation-modal.component';
+import { BtnCellRenderer } from 'src/app/shared/btn-cell-renderer.component';
 
 @Component({
   selector: 'app-subject',
   templateUrl: './subject.component.html',
   styleUrls: ['./subject.component.css'],
-  providers: [SubjectService]
+  providers: [SubjectService, ConfirmationModalComponent]
 })
 export class SubjectComponent implements OnInit, OnDestroy {
-  
+
   private action: string;
-  
+
   private formErrors = {
     'title': '',
     'description': ''
@@ -27,6 +29,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
   private rowData: Subject[];
   private gridOptions: GridOptions;
   private columnDefs: ColDef[];
+  private frameworkComponents = {};
 
   private getAllSubjectsSubscription: Subscription;
   private deleteSubjectSubscription: Subscription;
@@ -46,26 +49,30 @@ export class SubjectComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private subjectService: SubjectService,
     private activatedRoute: ActivatedRoute,
-    private authenthicationService: AuthenticationService
+    private authenthicationService: AuthenticationService,
+    private dialog: MatDialog
   ) {
     this.subjectForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(30)]],
       description: ['', [Validators.required]],
-      category: ''
+      category: ['', [Validators.required]]
     }),
 
-    /* ag-grid */
-    this.gridOptions = {
-      defaultColDef: { sortable:true, filter: true},
-      pagination:true,
-      paginationPageSize:10,
-      onFirstDataRendered: this.sizeColumnsToFit
-    }
+      /* ag-grid */
+      this.gridOptions = {
+        defaultColDef: { sortable: true, filter: true },
+        pagination: true,
+        paginationPageSize: 10,
+        onFirstDataRendered: this.sizeColumnsToFit
+      },
+      this.frameworkComponents = {
+        btnCellRenderer: BtnCellRenderer
+      }
   }
 
   public sizeColumnsToFit(gridOptions: GridOptions) {
     gridOptions.api.sizeColumnsToFit();
-  }    
+  }
 
 
   ngOnInit() {
@@ -73,11 +80,11 @@ export class SubjectComponent implements OnInit, OnDestroy {
       this.action = params["action"];
       this.customInit();
       this.getTableHeaderWithLang();
-    this.translateService.onLangChange.subscribe(() => {
-      this.getTableHeaderWithLang();
-  })
+      this.translateService.onLangChange.subscribe(() => {
+        this.getTableHeaderWithLang();
+      })
     });
-   
+
   }
 
   ngOnDestroy() {
@@ -88,7 +95,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
 
   customInit() {
     this.getSubjectsIfVotePanel();
-    
+
   }
 
   public getSubjectsIfVotePanel() {
@@ -97,7 +104,6 @@ export class SubjectComponent implements OnInit, OnDestroy {
         (subjects: Subject[]) => {
           this.subjects = subjects;
           this.rowData = subjects;
-          console.log(this.subjects)
         });
     }
   }
@@ -125,17 +131,18 @@ export class SubjectComponent implements OnInit, OnDestroy {
     const request = this.subjectService.postSubject(this.subjectForm);
     this.postSubjectSubscription = request.subscribe(
       () => {
-        console.log("success"),
-          this.subjectForm.reset()
+        this.subjectForm.reset(),
+          this.action = "vote",
+          this.getSubjectsIfVotePanel()
       },
       (error) => console.log(error)
     );
   }
 
-  public deleteSubject(id:number) {
+  public deleteSubject(id: number) {
     const request = this.subjectService.deleteSubject(id);
     this.deleteSubjectSubscription = request.subscribe(
-      () => console.log("Deleted with succes : " + id),
+      () => this.getSubjects(),
       (error) => console.log(error)
     )
   }
@@ -145,29 +152,57 @@ export class SubjectComponent implements OnInit, OnDestroy {
     this.getAllSubjectsSubscription = request.subscribe(
       (subjects: Subject[]) => {
         this.rowData = subjects;
-        console.log(this.rowData)
       },
       error => console.log(error)
     );
   }
 
-  private getTableHeaderWithLang() : void {
-    this.translateService.get('language').subscribe(()=> {
+  private getTableHeaderWithLang(): void {
+    this.translateService.get('language').subscribe(() => {
       this.columnDefs = [
-        { headerName: 'id', field: 'id', hide: true},
+        { headerName: 'id', field: 'id', hide: true },
         { headerName: this.translate('ag-grid.subject.title'), field: 'title', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.subject.description'), field: 'description', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.subject.category'), field: 'category', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.subject.vote'), field: 'vote', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.subject.requester'), field: 'user.username', sortable: true, filter: true },
-        { headerName: this.translate('ag-grid.delete'), 
-        hide: !this.isAdmin() }
+        {
+          headerName: this.translate('ag-grid.delete'),
+          cellRenderer: 'btnCellRenderer',
+          cellRendererParams: {
+            onClick: this.openDeleteModal.bind(this),
+            btnClass: "btn btn-success",
+            label: "Delete"
+          }
+        }
       ]
     })
   }
 
   private translate(stringToTranslate: string): string {
     return this.translateService.instant(stringToTranslate);
+  }
+
+  public openDeleteModal(params: any) {
+    const subject: Subject = params.rowData;
+    this.openDialog(subject);
+  };
+
+  openDialog(subject: Subject) {
+    const dialogRef = this.dialog.open(ConfirmationModalComponent, {
+      width: '50%',
+      minWidth: '300px',
+      height: '60%',
+      data:
+      {
+        dataToProcess: subject.title,
+        action: 'delete',
+        object: "subject"
+      },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      result == 'confirm' ? this.deleteSubject(subject.id) : dialogRef.close();
+    })
   }
 
   isAdmin(): boolean {
