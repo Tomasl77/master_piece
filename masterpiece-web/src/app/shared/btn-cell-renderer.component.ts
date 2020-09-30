@@ -1,14 +1,18 @@
+import { prepareEventListenerParameters } from '@angular/compiler/src/render3/view/template';
 import { Component } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
+import { AuthenticationService } from './authentication/authentication.service';
 
 @Component({
     selector: 'btnCellRenderer',
     template: `
-      <button (click)="onClick($event)">Click me!</button>
+      <button [disabled]="isCurrentlyLog()" (click)="onClick($event)">Click me!</button>
     `,
   })
   export class BtnCellRenderer implements ICellRendererAngularComp {
     
+  constructor(private authenticationService: AuthenticationService){}
+
     private params: any;
     btnClass:string ;
   
@@ -27,5 +31,9 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
   
     refresh(params: any): boolean {
         throw new Error('Method not implemented.');
+    }
+
+    isCurrentlyLog() : boolean {
+      return this.authenticationService.currentUserValue.userId === this.params.node.data.id;
     }
   }

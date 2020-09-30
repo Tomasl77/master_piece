@@ -63,7 +63,6 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
   }
 
   openDialog(user: CustomUser){
-    console.log('Inside OpenDialog');
     console.log(user);
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {
       width:'50%',
@@ -75,21 +74,19 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(user.id);
-      result == 'confirm' ? this.deleteUser(user.id): null;
+      result == 'confirm' ? this.deleteUser(user.id): dialogRef.close();
     })
   }
   
   deleteUser(id: number) {
     this.deleteUserSubscription = this.userRegistrationService.deleteUser(id).subscribe(response=> {
-      console.log(response);
+      console.log("response : "+ response);
+      this.getAllUsers();
     });
   }
 
   private getTableHeaderWithLang(): void {
     this.translateService.get('language').subscribe((translate: string) => {
-      const username = this.translateService.instant('ag-grid.admin-panel.username');
-      const email = this.translateService.instant('ag-grid.admin-panel.email');
-      const deleteBut = this.translateService.instant('ag-grid.delete');
       this.columnDefs = [
         { headerName: 'id', field: 'id', hide: true },
         { headerName: this.translate('ag-grid.admin-panel.username'), field: 'username' },
