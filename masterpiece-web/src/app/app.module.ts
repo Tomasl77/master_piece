@@ -13,11 +13,14 @@ import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common
 import { HttpInterceptorService } from './shared/authentication/http-interceptor.service'
 import { AgGridModule } from 'ag-grid-angular';
 import { BtnCellRenderer } from './shared/btn-cell-renderer.component';
+import {  MatDialog, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
+import { ConfirmationModalComponent } from './shared/modals/confirmation-modal/confirmation-modal.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ConfirmationModalComponent
   ],
   imports: [
     BrowserModule,
@@ -26,6 +29,7 @@ import { BtnCellRenderer } from './shared/btn-cell-renderer.component';
     BrowserAnimationsModule,
     FlexLayoutModule,
     MaterialModule,
+    MatDialogModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -36,8 +40,11 @@ import { BtnCellRenderer } from './shared/btn-cell-renderer.component';
     }),
     AgGridModule.withComponents([BtnCellRenderer])
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
-  bootstrap: [AppComponent]
+  providers: [MatDialog,{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }, {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
+  bootstrap: [AppComponent],
+  entryComponents: [
+    ConfirmationModalComponent
+  ]
 })
 export class AppModule { }
 

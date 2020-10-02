@@ -93,6 +93,23 @@ public class CustomUser extends AbstractEntity {
 	this.enabled = enabled;
     }
 
+    /**
+     * Creates a new custom user.
+     *
+     * @param password              an encrypted password
+     * @param username              a unique username
+     * @param roles                 some roles
+     * @param enabled               {@code true} if enabled; {@code false}
+     *                              otherwise
+     * @param accountNonExpired     {@code true} if non expired; {@code false}
+     *                              otherwise
+     * @param accountNonLocked      {@code true} if non locked; {@code false}
+     *                              otherwise
+     * @param credentialsNonExpired {@code true} if non expired; {@code false}
+     *                              otherwise
+     * @param info                  some additional info like email
+     * @author tomas
+     */
     public CustomUser(String password, String username, Set<Role> roles,
             boolean enabled, boolean accountNonExpired,
             boolean accountNonLocked, boolean credentialsNonExpired,
