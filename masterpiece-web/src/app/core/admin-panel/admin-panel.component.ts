@@ -65,9 +65,9 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
   openDialog(user: CustomUser){
     console.log(user);
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {
-      width:'50%',
-      minWidth: '300px',
-      height:'60%',
+      position: {
+        top: "50px"
+      },
       data: 
         {dataToProcess : user.username,
         action: 'delete',

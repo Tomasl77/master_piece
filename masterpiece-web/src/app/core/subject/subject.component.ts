@@ -50,8 +50,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
     private subjectService: SubjectService,
     private activatedRoute: ActivatedRoute,
     private authenthicationService: AuthenticationService,
-    private dialog: MatDialog
-  ) {
+    private dialog: MatDialog  ) {
     this.subjectForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(30)]],
       description: ['', [Validators.required]],
@@ -170,7 +169,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
           headerName: this.translate('ag-grid.delete'),
           cellRenderer: 'btnCellRenderer',
           cellRendererParams: {
-            onClick: this.openDeleteModal.bind(this),
+           
             btnClass: "btn btn-success",
             label: "Delete"
           }
@@ -183,28 +182,9 @@ export class SubjectComponent implements OnInit, OnDestroy {
     return this.translateService.instant(stringToTranslate);
   }
 
-  public openDeleteModal(params: any) {
-    const subject: Subject = params.rowData;
-    this.openDialog(subject);
-  };
+  
 
-  openDialog(subject: Subject) {
-    const dialogRef = this.dialog.open(ConfirmationModalComponent, {
-      width: '50%',
-      minWidth: '300px',
-      height: '60%',
-      data:
-      {
-        dataToProcess: subject.title,
-        action: 'delete',
-        object: "subject"
-      },
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      result == 'confirm' ? this.deleteSubject(subject.id) : dialogRef.close();
-    })
-  }
-
+  
   isAdmin(): boolean {
     return this.authenthicationService.currentUserValue.isAdmin();
   }
