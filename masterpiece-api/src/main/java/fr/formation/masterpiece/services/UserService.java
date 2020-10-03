@@ -4,6 +4,7 @@ import java.util.List;
 
 import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
 import fr.formation.masterpiece.domain.dtos.CustomUserDto;
+import fr.formation.masterpiece.domain.dtos.UpdateUserInfoDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
 import fr.formation.masterpiece.domain.dtos.views.CustomUserViewDto;
 
@@ -20,4 +21,6 @@ public interface UserService {
     List<CustomUserViewDto> getAll();
 
     CustomUserDto create(CustomUserCreateDto dto);
+
+    void update(UpdateUserInfoDto user);
 }

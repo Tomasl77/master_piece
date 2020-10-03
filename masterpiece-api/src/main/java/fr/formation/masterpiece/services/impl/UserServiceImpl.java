@@ -12,10 +12,11 @@ import org.springframework.stereotype.Service;
 
 import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
 import fr.formation.masterpiece.domain.dtos.CustomUserDto;
+import fr.formation.masterpiece.domain.dtos.UpdateUserInfoDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
 import fr.formation.masterpiece.domain.dtos.views.CustomUserViewDto;
-import fr.formation.masterpiece.domain.entities.Role;
 import fr.formation.masterpiece.domain.entities.CustomUser;
+import fr.formation.masterpiece.domain.entities.Role;
 import fr.formation.masterpiece.domain.entities.UserInfo;
 import fr.formation.masterpiece.exceptions.AccountNotFoundException;
 import fr.formation.masterpiece.repositories.RoleRepository;
@@ -88,5 +89,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<CustomUserViewDto> getAll() {
 	return userRepository.getAllProjectedBy();
+    }
+
+    @Override
+    public void update(UpdateUserInfoDto userDto) {
+	CustomUser infoToSave = mapper.map(userDto, CustomUser.class);
+	userRepository.save(infoToSave);
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.formation.masterpiece.annotations.HasRoleAdmin;
 import fr.formation.masterpiece.domain.dtos.SubjectDto;
 import fr.formation.masterpiece.domain.dtos.views.SubjectViewDto;
 import fr.formation.masterpiece.services.SubjectService;
@@ -34,6 +35,7 @@ public class SubjectController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @HasRoleAdmin
     public void deleteSubject(@PathVariable Long id) {
 	service.delete(id);
     }

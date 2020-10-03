@@ -8,6 +8,7 @@ import { BtnCellRenderer } from '../../shared/btn-cell-renderer.component'
 import { User } from 'src/app/shared/models/user.model';
 import { ConfirmationModalComponent } from 'src/app/shared/modals/confirmation-modal/confirmation-modal.component';
 import { MatDialog, MatDialogRef } from '@angular/material';
+import { AuthenticationService } from 'src/app/shared/authentication/authentication.service';
 
 @Component({
   selector: 'app-admin-panel',
@@ -26,7 +27,8 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
   constructor(private userRegistrationService: UserRegistrationService,
     private translateService: TranslateService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private authenthicationService: AuthenticationService,
   ) {
     this.gridOptions = {
       defaultColDef: { sortable: true, filter: true },
@@ -94,6 +96,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
         { headerName: this.translate('ag-grid.admin-panel.email'), field: 'info.email' },
         {
           headerName: this.translate('ag-grid.delete'),
+          hide: !this.isAdmin(),
           cellRenderer: 'btnCellRenderer',
           cellRendererParams: {
             onClick: this.openDeleteModal.bind(this),
@@ -117,5 +120,9 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
   private translate(stringToTranslate: string): string {
     return this.translateService.instant(stringToTranslate);
+  }
+
+  isAdmin(): boolean {
+    return this.authenthicationService.currentUserValue.isAdmin();
   }
 }
