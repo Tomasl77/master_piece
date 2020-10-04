@@ -20,10 +20,8 @@ export class LogInComponent implements OnInit {
   private client_id: string = "masterpiece-web"
 
   public logInForm: FormGroup;
-  private readonly passwordPatten = "^(?=.*?[A-Z])(?=.*?[a-z]).{8,}$";
-
-  constructor(private fb: FormBuilder, usernameValidator: UsernameValidator,
-    private readonly http: HttpClient, translate: TranslateService, private authService: AuthenticationService, private router : Router) {
+  
+  constructor(private fb: FormBuilder, private authService: AuthenticationService, private router : Router) {
     this.logInForm = this.fb.group({
       username: '',
       password: '',

@@ -72,7 +72,14 @@
 
   "account" : {
     "welcome" : "Welcome",
-    "email" : "Your e-mail"
+    "email" : "Your e-mail",
+    "button" : "Modify",
+    "validationMessages" : {
+      "email" : {
+        "email": "Invalid address",
+        "required":"Must be a valid email address"
+      }
+    }
   },
 
 

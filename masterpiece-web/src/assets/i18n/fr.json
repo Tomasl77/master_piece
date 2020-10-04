@@ -72,7 +72,14 @@
 
   "account" : {
     "welcome" : "Bienvenue",
-    "email" : "Votre courriel"
+    "email" : "Votre courriel",
+    "button" : "Modifier",
+    "validationMessages" : {
+      "email" : {
+        "email": "Adresse non valide",
+        "required": "Veuillez entrer une adresse courriel"
+      }
+    }
   },
 
   "ag-grid": {

@@ -1,0 +1,33 @@
+.form-control, .alert {
+    width: 300px;
+}
+
+input, .alert {
+    margin: auto;
+}
+
+.form-group, .alert, h2 {
+    text-align: center;
+    
+}
+.flex {
+    display: flex;
+}
+
+.inline-input {
+    width: 30%;
+    min-width: 450px;
+    margin: auto;
+    align-items: center;
+    justify-content: space-around;
+}
+
+@media screen and (max-width: 449px) {
+    .flex {
+      display: block;
+    }
+    .inline-input {
+        width: 100%;
+        min-width: 200px;
+    }
+  }

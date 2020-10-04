@@ -1,4 +1,18 @@
-<div *ngIf="account">
-  <h2>{{'account.welcome' | translate}} {{account.username}}</h2>
-  <h3>{{'account.email' | translate}} : {{account.info.email}}</h3>
+<div *ngIf="account"
+>
+<h2>{{'account.welcome' | translate}} {{account.username}}</h2>
+<form [formGroup]="updateUserForm">
+  <div class="form-group" [ngClass]="{'has-error' : formErrors.email}">
+    <div class= "flex inline-input">
+    {{'account.email' | translate}}
+    <input class="form-control" formControlName="email" type="email" placeholder="{{account.info.email}}" (blur)="logValidationErrors()">
+    <button type="submit" [disabled]="updateUserForm.pristine || updateUserForm.invalid" class="btn btn-success">{{'account.button' | translate}}</button>
+    </div>
+    <div>
+      <div *ngIf="formErrors.email" class="alert alert-danger">
+        {{formErrors.email}}
+      </div>
+    </div>
+  </div>
+</form>
 </div>

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, ControlContainer } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UsernameValidator } from './username-validator';
 import { TranslateService } from '@ngx-translate/core';
 import { UserRegistrationService } from '../user-registration.service';
 import { LogInComponent } from '../log-in/log-in.component'
+import { Config } from 'src/assets/config-properties';
 
 @Component({
   selector: 'app-create-account',
@@ -13,9 +14,7 @@ import { LogInComponent } from '../log-in/log-in.component'
 })
 export class CreateAccountComponent implements OnInit {
 
-  private readonly passwordPatten = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*~{}&.,§+=°_();/]).{8,30}$";
-
-  private validationMessage : string = "create-account.validationMessages";
+  private readonly validationMessage : string = "create-account.validationMessages";
 
   public signForm: FormGroup;
 
@@ -26,7 +25,7 @@ export class CreateAccountComponent implements OnInit {
     this.signForm = this.fb.group({
       email:['', [Validators.required, Validators.email, Validators.maxLength(255)]],
       username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)], usernameValidator.validate.bind(usernameValidator)],
-      password: ['', [Validators.required, Validators.pattern((this.passwordPatten))]],
+      password: ['', [Validators.required, Validators.pattern((Config.passwordPattern))]],
       passwordConfirm: ['', [Validators.required]]
     }, { validators: this.checkPasswords });
   }
