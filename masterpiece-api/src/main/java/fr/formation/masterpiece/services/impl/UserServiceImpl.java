@@ -2,7 +2,6 @@ package fr.formation.masterpiece.services.impl;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import org.modelmapper.ModelMapper;
@@ -69,22 +68,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public CustomUserViewDto getOne(Long id) {
-	Optional<CustomUserViewDto> value = userRepository.getById(id);
-	if (value.isPresent()) {
-	    return value.get();
-	} else {
-	    throw new AccountNotFoundException("Id not found : " + id);
-	}
+	return userRepository.getById(id).orElseThrow(
+	        () -> new AccountNotFoundException("Id not found : " + id));
     }
 
     @Override
     public void deleteOne(Long id) {
-	Optional<CustomUserViewDto> value = userRepository.getById(id);
-	if (value.isPresent()) {
-	    userRepository.deleteById(id);
-	} else {
-	    throw new AccountNotFoundException("Invalid id : " + id);
-	}
+	userRepository.getById(id).orElseThrow(
+	        () -> new AccountNotFoundException("Invalid id : " + id));
     }
 
     @Override
@@ -95,9 +86,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(UpdateUserInfoDto userDto) {
 	Long userId = SecurityHelper.getUserId();
-	CustomUser actualUser = userRepository.findById(userId).get();
-	UserInfo infoToUpdate = mapper.map(userDto, UserInfo.class);
-	actualUser.setInfo(infoToUpdate);
+	CustomUser actualUser = userRepository.findById(userId).orElseThrow(
+	        () -> new AccountNotFoundException("No account found"));
+	mapper.map(userDto, actualUser);
 	userRepository.save(actualUser);
     }
 }
