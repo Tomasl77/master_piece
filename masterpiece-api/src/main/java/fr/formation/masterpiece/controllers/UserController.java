@@ -59,10 +59,9 @@ public class UserController {
 	return service.getAll();
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping
     @HasRoleUser
     public void update(@Valid @RequestBody UpdateUserInfoDto user) {
-	UpdateUserInfoDto dto = user;
 	service.update(user);
     }
 }

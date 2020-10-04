@@ -4,11 +4,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import fr.formation.masterpiece.config.AbstractService;
 import fr.formation.masterpiece.config.security.SecurityHelper;
 import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
 import fr.formation.masterpiece.domain.dtos.CustomUserDto;
@@ -24,16 +23,13 @@ import fr.formation.masterpiece.repositories.UserJpaRepository;
 import fr.formation.masterpiece.services.UserService;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends AbstractService implements UserService {
 
     private final UserJpaRepository userRepository;
 
     private final RoleRepository roleRepository;
 
     private final PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private ModelMapper mapper;
 
     protected UserServiceImpl(UserJpaRepository userRepo,
             RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
@@ -51,7 +47,7 @@ public class UserServiceImpl implements UserService {
 	CustomUser userAuth = new CustomUser(encodedPassword, dto.getUsername(),
 	        role, true, true, true, true, userInfo);
 	CustomUser user = userRepository.save(userAuth);
-	CustomUserDto dtoToReturn = mapper.map(user, CustomUserDto.class);
+	CustomUserDto dtoToReturn = modelMapper.map(user, CustomUserDto.class);
 	return dtoToReturn;
     }
 
@@ -88,7 +84,7 @@ public class UserServiceImpl implements UserService {
 	Long userId = SecurityHelper.getUserId();
 	CustomUser actualUser = userRepository.findById(userId).orElseThrow(
 	        () -> new AccountNotFoundException("No account found"));
-	mapper.map(userDto, actualUser);
+	merge(userDto, actualUser);
 	userRepository.save(actualUser);
     }
 }
