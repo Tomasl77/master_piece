@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import fr.formation.masterpiece.config.security.SecurityHelper;
 import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
 import fr.formation.masterpiece.domain.dtos.CustomUserDto;
 import fr.formation.masterpiece.domain.dtos.UpdateUserInfoDto;
@@ -93,7 +94,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(UpdateUserInfoDto userDto) {
-	CustomUser infoToSave = mapper.map(userDto, CustomUser.class);
-	userRepository.save(infoToSave);
+	Long userId = SecurityHelper.getUserId();
+	CustomUser actualUser = userRepository.findById(userId).get();
+	UserInfo infoToUpdate = mapper.map(userDto, UserInfo.class);
+	actualUser.setInfo(infoToUpdate);
+	userRepository.save(actualUser);
     }
 }

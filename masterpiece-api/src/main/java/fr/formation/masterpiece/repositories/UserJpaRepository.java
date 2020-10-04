@@ -30,4 +30,6 @@ public interface UserJpaRepository extends JpaRepository<CustomUser, Long> {
     boolean existsByUsername(String username);
 
     List<CustomUserViewDto> getAllProjectedBy();
+
+    Long findUserInfoIdById(Long id);
 }
