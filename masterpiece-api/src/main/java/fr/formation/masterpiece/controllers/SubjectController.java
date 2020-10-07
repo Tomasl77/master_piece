@@ -37,7 +37,7 @@ public class SubjectController {
     @DeleteMapping("/delete/{id}")
     @HasRoleAdmin
     public void deleteSubject(@PathVariable Long id) {
-	service.delete(id);
+	service.deleteOne(id);
     }
 
     @GetMapping

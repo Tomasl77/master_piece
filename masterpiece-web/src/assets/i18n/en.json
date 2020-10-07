@@ -89,8 +89,7 @@
     "button" : "Modify",
     "validationMessages" : {
       "email" : {
-        "email": "Invalid address",
-        "required":"Must be a valid email address"
+        "email": "Invalid address"
       }
     }
   },

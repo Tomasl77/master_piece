@@ -29,19 +29,19 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private service : UserRegistrationService,
+    private userService : UserRegistrationService,
     private authenthicationService: AuthenticationService,
     private fb: FormBuilder,
     private translate : TranslateService
     ) {
     this.updateUserForm = this.fb.group({
-      email:['', [Validators.required, Validators.email, Validators.maxLength(255)]],
+      email:['', [Validators.email, Validators.maxLength(255)]],
     })
   };
   
   ngOnInit() {
     this.id = this.authenthicationService.currentUserValue.userId;
-    this.accountSubscription = this.service.getAccount(this.id).subscribe(
+    this.accountSubscription = this.userService.getAccount(this.id).subscribe(
       account => {
         this.account=account,
         console.log(this.account)
@@ -53,7 +53,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.service.unsubscribe(this.accountSubscription);
+    this.userService.unsubscribe(this.accountSubscription);
   }
 
   logValidationErrors(group: FormGroup = this.updateUserForm): void {
@@ -73,5 +73,13 @@ export class AccountComponent implements OnInit, OnDestroy {
         }
       }
     })
+  }
+
+  modify() {
+    console.log(this.updateUserForm);
+    this.userService.updateUser(this.updateUserForm).subscribe(
+      data => console.log("Your email has been modified successfully"), 
+      error => console.log("error : "+ JSON.stringify(error))
+    );
   }
 }

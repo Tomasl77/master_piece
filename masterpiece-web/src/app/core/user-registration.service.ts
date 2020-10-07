@@ -12,20 +12,26 @@ export class UserRegistrationService {
 
   constructor(private readonly http: HttpRequestHandler) { }
 
+  private readonly baseUrl = Config.apiUrl + Config.users;
+
   createAccount(formData: FormGroup): Observable<AccountDto> {
-    return this.http.post(Config.apiUrl + Config.users, formData.value);
+    return this.http.post(this.baseUrl, formData.value);
   }
 
   getAccount(id: number): Observable<CustomUser> {
-    return this.http.get(`${Config.apiUrl + Config.users}/${id}`)
+    return this.http.get(`${this.baseUrl}/${id}`)
   }
 
   getAllUsers(): Observable<CustomUser[]> {
-    return this.http.get(Config.apiUrl + Config.users)
+    return this.http.get(this.baseUrl)
   }
 
   deleteUser(id: number): Observable<any> {
-    return this.http.delete(Config.apiUrl + Config.users+ Config.actions.delete+ `/${id}`)
+    return this.http.delete(this.baseUrl+ Config.actions.delete+ `/${id}`)
+  }
+
+  updateUser(formData :FormGroup) {
+    return this.http.update(this.baseUrl + Config.actions.update, formData.value)
   }
 
   unsubscribe(subscription: Subscription) {

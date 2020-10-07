@@ -9,7 +9,7 @@ public interface SubjectService {
 
     void create(SubjectDto dto);
 
-    void delete(Long id);
+    void deleteOne(Long id);
 
     List<SubjectViewDto> getAll();
 }

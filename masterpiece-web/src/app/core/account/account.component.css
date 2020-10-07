@@ -1,10 +1,17 @@
-.form-control, .alert {
+.form-control {
     width: 300px;
 }
 
 input, .alert {
     margin: auto;
 }
+
+.alert-danger {
+    width: 30%;
+    min-width: 450px;
+    margin-top: 20px;
+}
+
 
 .form-group, .alert, h2 {
     text-align: center;
@@ -19,15 +26,19 @@ input, .alert {
     min-width: 450px;
     margin: auto;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
-@media screen and (max-width: 449px) {
+.account-btn {
+    margin: 0px 50px;
+}
+
+@media screen and (max-width: 850px) {
     .flex {
       display: block;
     }
-    .inline-input {
+    .inline-input, .alert-danger {
         width: 100%;
         min-width: 200px;
     }
-  }
+}

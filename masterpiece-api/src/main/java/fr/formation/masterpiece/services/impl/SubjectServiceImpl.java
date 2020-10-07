@@ -38,7 +38,7 @@ public class SubjectServiceImpl extends AbstractService
     }
 
     @Override
-    public void delete(Long id) {
+    public void deleteOne(Long id) {
 	subjectRepository.deleteById(id);
     }
 
