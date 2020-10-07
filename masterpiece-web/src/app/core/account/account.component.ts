@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { AuthenticationService } from 'src/app/shared/authentication/authentication.service';
 import { CustomUser } from 'src/app/shared/models/custom-user.model';
 import { UserRegistrationService } from '../user-registration.service';
+import { EmailValidator } from '../validators/email-validator';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   private readonly validationMessage : string = "account.validationMessages";
 
-
+  isEmailValid: boolean;
   id:number;
   account: CustomUser;
   error: any;
@@ -32,10 +33,11 @@ export class AccountComponent implements OnInit, OnDestroy {
     private userService : UserRegistrationService,
     private authenthicationService: AuthenticationService,
     private fb: FormBuilder,
-    private translate : TranslateService
+    private translate : TranslateService,
+    private emailValidator: EmailValidator
     ) {
     this.updateUserForm = this.fb.group({
-      email:['', [Validators.email, Validators.maxLength(255)]],
+      email:['', [Validators.email, Validators.maxLength(255)], this.emailValidator.validate.bind(this.emailValidator)],
     })
   };
   
@@ -46,10 +48,12 @@ export class AccountComponent implements OnInit, OnDestroy {
         this.account=account,
         console.log(this.account)
       },
-      error=> console.log((error.error)));
-      this.updateUserForm.valueChanges.subscribe((data) => {
-        this.logValidationErrors(this.updateUserForm);
-      });
+      error=> console.log((error.error)
+      )
+    );
+    this.updateUserForm.valueChanges.subscribe(() => {
+      this.logValidationErrors(this.updateUserForm)
+    });
   }
 
   ngOnDestroy(): void {

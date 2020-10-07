@@ -16,11 +16,11 @@ export class UsernameValidator {
 
   validate(control: AbstractControl) {
     return new Promise((resolve) => {
-      if ((control.dirty)) {
+      if ((control.touched && control.value)) {
         this.http.get<UsernameCheckDto>(Config.apiUrl + Config.users + `/${control.value}/verify/`)
           .subscribe(response => {
             this.checkUsername = response;
-            if (this.checkUsername.valid) {
+            if (this.checkUsername.isValid) {
               resolve();
             } else {
               resolve({nameTaken: true});
@@ -32,5 +32,3 @@ export class UsernameValidator {
     });
   };
 }
-
-

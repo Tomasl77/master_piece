@@ -1,28 +1,26 @@
 package fr.formation.masterpiece.annotations;
 
 import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import javax.validation.Constraint;
 import javax.validation.Payload;
 
 /**
- * Custom annotation to ensure username is unique
+ * Custom annotation to ensure email is unique
  *
- * @author tomas
+ * @author Tomas LOBGEOIS
  *
  */
 @Documented
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(RUNTIME)
 @Target(FIELD)
-@Constraint(validatedBy = UniqueUserValidator.class)
-public @interface UniqueUser {
+public @interface UniqueEmail {
 
-    String message() default "Username already taken";
+    String message() default "Email already taken";
 
     Class<?>[] groups() default {};
 

@@ -20,11 +20,16 @@ export class CreateAccountComponent implements OnInit {
 
   private formToReturn : FormGroup;
 
-  constructor(private fb: FormBuilder, usernameValidator: UsernameValidator,
-    private translate: TranslateService, private accountService : UserRegistrationService, private logInComponent : LogInComponent) {
+  constructor(
+    private fb: FormBuilder, 
+    private usernameValidator: UsernameValidator,
+    private translate: TranslateService, 
+    private accountService : UserRegistrationService, 
+    private logInComponent : LogInComponent
+    ) {
     this.signForm = this.fb.group({
       email:['', [Validators.required, Validators.email, Validators.maxLength(255)]],
-      username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)], usernameValidator.validate.bind(usernameValidator)],
+      username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)], this.usernameValidator.validate.bind(this.usernameValidator)],
       password: ['', [Validators.required, Validators.pattern((Config.passwordPattern))]],
       passwordConfirm: ['', [Validators.required]]
     }, { validators: this.checkPasswords });

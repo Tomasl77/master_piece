@@ -32,4 +32,6 @@ public interface UserJpaRepository extends JpaRepository<CustomUser, Long> {
     List<CustomUserViewDto> getAllProjectedBy();
 
     Long findUserInfoIdById(Long id);
+
+    boolean existsByInfoEmail(String email);
 }

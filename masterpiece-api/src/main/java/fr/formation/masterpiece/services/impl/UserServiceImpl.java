@@ -12,6 +12,7 @@ import fr.formation.masterpiece.config.security.SecurityHelper;
 import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
 import fr.formation.masterpiece.domain.dtos.CustomUserDto;
 import fr.formation.masterpiece.domain.dtos.UpdateUserInfoDto;
+import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
 import fr.formation.masterpiece.domain.dtos.views.CustomUserViewDto;
 import fr.formation.masterpiece.domain.entities.CustomUser;
@@ -86,5 +87,16 @@ public class UserServiceImpl extends AbstractService implements UserService {
 	        () -> new AccountNotFoundException("No account found"));
 	merge(userDto, actualUser);
 	userRepository.save(actualUser);
+    }
+
+    @Override
+    public boolean isEmailValid(String email) {
+	return !userRepository.existsByInfoEmail(email);
+    }
+
+    @Override
+    public UserEmailCheckDto checkEmail(String email) {
+	boolean valid = this.isEmailValid(email);
+	return new UserEmailCheckDto(valid);
     }
 }

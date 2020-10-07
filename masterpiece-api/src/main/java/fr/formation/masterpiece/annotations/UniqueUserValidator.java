@@ -14,6 +14,11 @@ public class UniqueUserValidator
 	this.service = service;
     }
 
+    /**
+     * Method to check if username is valid or already in use
+     *
+     * returns a boolean
+     */
     @Override
     public boolean isValid(String username,
             ConstraintValidatorContext context) {

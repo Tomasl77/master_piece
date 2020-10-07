@@ -89,7 +89,8 @@
     "button" : "Modify",
     "validationMessages" : {
       "email" : {
-        "email": "Invalid address"
+        "email": "Invalid address",
+        "mailTaken": "Email already taken"
       }
     }
   },

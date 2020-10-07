@@ -9,7 +9,7 @@ import { HttpRequestHandler } from '../shared/http-helper/http-request-handler';
 
 @Injectable()
 export class UserRegistrationService {
-
+  
   constructor(private readonly http: HttpRequestHandler) { }
 
   private readonly baseUrl = Config.apiUrl + Config.users;

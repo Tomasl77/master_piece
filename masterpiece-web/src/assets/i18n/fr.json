@@ -89,7 +89,7 @@
     "validationMessages" : {
       "email" : {
         "email": "Adresse non valide",
-        "required": "Veuillez entrer une adresse courriel"
+        "mailTaken": "Courriel déjà utilisé"
       }
     }
   },

@@ -22,7 +22,7 @@ export class HttpRequestHandler {
     }
 
     public update(url: string, inputs: any) {
-      return this.http.put(url, inputs)
+      return this.http.patch(url, inputs)
     }
 
     public unsubscribe(subscription: Subscription): void {
