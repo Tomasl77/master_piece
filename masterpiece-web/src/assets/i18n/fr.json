@@ -1,4 +1,7 @@
 {
+  "action": {
+    "delete":"effacer"
+  },
   "navbar": {
     "account": "Mon Compte",
     "sign-in": "Se connecter",
@@ -13,6 +16,15 @@
     },
     "close" : "Fermer",
     "logout" : "Se deconnecter"
+  },
+
+  "dialog" : {
+    "confirmation-header": "Confirmation requise",
+    "confirmation-dialog" : "Vous êtes sur le point d'",
+    "confirm":"Confirmer",
+    "delete" : "effacer",
+    "user" : "l'utilisateur",
+    "subject" : "le sujet"
   },
 
 
@@ -98,6 +110,6 @@
   },
   
   "admin-panel" : {
-
+    "label-delete" : "Supprimer"
   }
 }

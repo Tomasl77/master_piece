@@ -1,10 +1,10 @@
   <div class="dialog-container">
-    <h1 mat-dialog-title>Confirmation required</h1>
+    <h1 mat-dialog-title>{{'dialog.confirmation-header' | translate}}</h1>
     <div mat-dialog-content>
-      <p>You are about to {{data.action}} {{data.object}} : {{data.dataToProcess}}</p>
+      <p>{{'dialog.confirmation-dialog' | translate}}{{data.action}} {{data.object}} : {{data.dataToProcess}}</p>
     </div>
     <div mat-dialog-actions align="end">
       <button mat-button mat-dialog-close="no" class="btn btn-success">No</button>
-      <button mat-button mat-dialog-close="confirm" class="btn btn-success red">Confirm {{data.action}}</button>
+      <button mat-button mat-dialog-close="confirm" class="btn btn-success red">{{'dialog.confirm' | translate}}</button>
     </div>
   </div>

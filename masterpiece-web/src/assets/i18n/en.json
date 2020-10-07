@@ -1,4 +1,8 @@
 {
+  "action": {
+    "delete" : "delete"
+  },
+
   "navbar": {
     "account": "My account",
     "sign-in": "Sign in",
@@ -13,6 +17,15 @@
     },
     "close": "Close",
     "logout": "Log out"
+  },
+
+  "dialog" : {
+    "confirmation-header": "Confirmation required",
+    "confirmation-dialog" : "You are about to ",
+    "confirm" : "Confirm",
+    "delete" : "delete",
+    "user" : "user",
+    "subject" : "subject"
   },
   
 
@@ -100,6 +113,6 @@
 
   
   "admin-panel" : {
-
+    "label-delete" : "Delete"
   }
 }
