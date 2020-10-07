@@ -1,3 +1,3 @@
 export interface EmailCheckDto {
-    isValid: boolean;
+    valid: boolean;
 }

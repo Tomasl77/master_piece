@@ -44,7 +44,8 @@
       },
       "email": {
         "email" : "Invalid address",
-        "required":"Must be a valid email address"
+        "required":"Must be a valid email address",
+        "mailTaken": "Email already taken"
       },
       "password": {
         "required": "Password is required",

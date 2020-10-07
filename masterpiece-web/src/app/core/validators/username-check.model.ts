@@ -1,3 +1,3 @@
 export interface UsernameCheckDto {
-    isValid : boolean;
+    valid : boolean;
 }

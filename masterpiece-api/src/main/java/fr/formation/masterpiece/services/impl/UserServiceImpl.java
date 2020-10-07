@@ -59,8 +59,8 @@ public class UserServiceImpl extends AbstractService implements UserService {
 
     @Override
     public UsernameCheckDto checkUsername(String username) {
-	boolean valid = this.isValid(username);
-	return new UsernameCheckDto(valid);
+	boolean isValid = this.isValid(username);
+	return new UsernameCheckDto(isValid);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
 
     @Override
     public UserEmailCheckDto checkEmail(String email) {
-	boolean valid = this.isEmailValid(email);
-	return new UserEmailCheckDto(valid);
+	boolean isValid = this.isEmailValid(email);
+	return new UserEmailCheckDto(isValid);
     }
 }

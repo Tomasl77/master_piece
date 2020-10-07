@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UsernameValidator } from './username-validator';
+import { UsernameValidator } from '../validators/username-validator';
 import { TranslateService } from '@ngx-translate/core';
 import { UserRegistrationService } from '../user-registration.service';
 import { LogInComponent } from '../log-in/log-in.component'
 import { Config } from 'src/assets/config-properties';
+import { EmailValidator } from '../validators/email-validator';
 
 @Component({
   selector: 'app-create-account',
@@ -25,10 +26,11 @@ export class CreateAccountComponent implements OnInit {
     private usernameValidator: UsernameValidator,
     private translate: TranslateService, 
     private accountService : UserRegistrationService, 
-    private logInComponent : LogInComponent
+    private logInComponent : LogInComponent,
+    private emailValidator: EmailValidator
     ) {
     this.signForm = this.fb.group({
-      email:['', [Validators.required, Validators.email, Validators.maxLength(255)]],
+      email:['', [Validators.required, Validators.email, Validators.maxLength(255)], this.emailValidator.validate.bind(this.emailValidator)],
       username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)], this.usernameValidator.validate.bind(this.usernameValidator)],
       password: ['', [Validators.required, Validators.pattern((Config.passwordPattern))]],
       passwordConfirm: ['', [Validators.required]]
