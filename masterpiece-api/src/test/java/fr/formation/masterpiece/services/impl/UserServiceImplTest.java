@@ -41,7 +41,7 @@ class UserServiceImplTest extends JUnitConfigTest {
     }
 
     @Test
-    public void should_return_email_dto() {
+    public void should_return_email_not_valid_to_string() {
 	String expected = "{isValid: false}";
 	String actual = "lily@gmail.com";
 	assertEquals(expected, userService.checkEmail(actual).toString());
@@ -56,5 +56,12 @@ class UserServiceImplTest extends JUnitConfigTest {
     public void should_throw_account_not_found_exception() {
 	assertThrows(AccountNotFoundException.class,
 	        () -> userService.getOne(5L));
+    }
+
+    @Test
+    public void should_return_username_not_valid_to_string() {
+	String expected = "{isValid: false}";
+	String actual = "Lily";
+	assertEquals(expected, userService.checkUsername(actual).toString());
     }
 }
