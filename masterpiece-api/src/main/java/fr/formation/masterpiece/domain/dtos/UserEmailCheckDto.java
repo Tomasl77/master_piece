@@ -12,4 +12,9 @@ public class UserEmailCheckDto {
     public UserEmailCheckDto(boolean isValid) {
 	this.isValid = isValid;
     }
+
+    @Override
+    public String toString() {
+	return "{isValid: " + isValid + "}";
+    }
 }
