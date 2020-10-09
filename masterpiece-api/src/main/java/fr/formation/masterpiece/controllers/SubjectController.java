@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.formation.masterpiece.annotations.HasRoleAdmin;
+import fr.formation.masterpiece.domain.dtos.SubjectCreateDto;
 import fr.formation.masterpiece.domain.dtos.SubjectDto;
 import fr.formation.masterpiece.domain.dtos.views.SubjectViewDto;
 import fr.formation.masterpiece.services.SubjectService;
@@ -32,8 +33,8 @@ public class SubjectController {
     }
 
     @PostMapping
-    public void postSubject(@Valid @RequestBody SubjectDto dto) {
-	service.create(dto);
+    public SubjectDto postSubject(@Valid @RequestBody SubjectCreateDto dto) {
+	return service.create(dto);
     }
 
     @DeleteMapping("/delete/{id}")

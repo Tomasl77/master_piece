@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import fr.formation.masterpiece.config.AbstractService;
 import fr.formation.masterpiece.config.security.SecurityHelper;
+import fr.formation.masterpiece.domain.dtos.SubjectCreateDto;
 import fr.formation.masterpiece.domain.dtos.SubjectDto;
 import fr.formation.masterpiece.domain.dtos.views.SubjectViewDto;
 import fr.formation.masterpiece.domain.entities.CustomUser;
@@ -29,12 +30,13 @@ public class SubjectServiceImpl extends AbstractService
     }
 
     @Override
-    public void create(SubjectDto subjectDto) {
+    public SubjectDto create(SubjectCreateDto subjectDto) {
 	Long userId = SecurityHelper.getUserId();
 	CustomUser user = userRepository.getOne(userId);
 	Subject subject = convert(subjectDto, Subject.class);
 	subject.setUser(user);
-	subjectRepository.save(subject);
+	Subject subjectToSave = subjectRepository.save(subject);
+	return modelMapper.map(subjectToSave, SubjectDto.class);
     }
 
     @Override
