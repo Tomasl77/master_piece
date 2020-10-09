@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.formation.masterpiece.annotations.HasRoleUser;
 import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
 import fr.formation.masterpiece.domain.dtos.CustomUserDto;
+import fr.formation.masterpiece.domain.dtos.CustomUserPatchDto;
 import fr.formation.masterpiece.domain.dtos.UpdateUserInfoDto;
 import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
@@ -62,8 +63,9 @@ public class UserController {
 
     @PatchMapping("/update")
     @HasRoleUser
-    public void update(@Valid @RequestBody UpdateUserInfoDto user) {
-	service.update(user);
+    public CustomUserPatchDto update(
+            @Valid @RequestBody UpdateUserInfoDto user) {
+	return service.update(user);
     }
 
     @GetMapping("/{email}/mail-verify")

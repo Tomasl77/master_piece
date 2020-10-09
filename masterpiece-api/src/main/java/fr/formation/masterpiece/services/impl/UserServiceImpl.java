@@ -11,6 +11,7 @@ import fr.formation.masterpiece.config.AbstractService;
 import fr.formation.masterpiece.config.security.SecurityHelper;
 import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
 import fr.formation.masterpiece.domain.dtos.CustomUserDto;
+import fr.formation.masterpiece.domain.dtos.CustomUserPatchDto;
 import fr.formation.masterpiece.domain.dtos.UpdateUserInfoDto;
 import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
@@ -80,12 +81,13 @@ public class UserServiceImpl extends AbstractService implements UserService {
     }
 
     @Override
-    public void update(UpdateUserInfoDto userDto) {
+    public CustomUserPatchDto update(UpdateUserInfoDto userDto) {
 	Long userId = SecurityHelper.getUserId();
 	CustomUser actualUser = userRepository.findById(userId).orElseThrow(
 	        () -> new AccountNotFoundException("No account found"));
 	merge(userDto, actualUser);
-	userRepository.save(actualUser);
+	CustomUser savedUser = userRepository.save(actualUser);
+	return modelMapper.map(savedUser, CustomUserPatchDto.class);
     }
 
     @Override

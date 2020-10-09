@@ -4,6 +4,7 @@ import java.util.List;
 
 import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
 import fr.formation.masterpiece.domain.dtos.CustomUserDto;
+import fr.formation.masterpiece.domain.dtos.CustomUserPatchDto;
 import fr.formation.masterpiece.domain.dtos.UpdateUserInfoDto;
 import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
@@ -25,7 +26,7 @@ public interface UserService {
 
     CustomUserDto create(CustomUserCreateDto dto);
 
-    void update(UpdateUserInfoDto user);
+    CustomUserPatchDto update(UpdateUserInfoDto user);
 
     UserEmailCheckDto checkEmail(String email);
 }
