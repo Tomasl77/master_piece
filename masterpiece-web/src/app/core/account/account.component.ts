@@ -24,6 +24,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   error: any;
   private accountSubscription : Subscription;
   private updateUserForm: FormGroup;
+  private newMail: string;
 
   formErrors = {
     'email':''
@@ -82,7 +83,11 @@ export class AccountComponent implements OnInit, OnDestroy {
   modify() {
     console.log(this.updateUserForm);
     this.userService.updateUser(this.updateUserForm).subscribe(
-      data => console.log("Your email has been modified successfully"), 
+      (data :CustomUser) => {
+        console.log(data.info.email);
+        this.newMail = "Your email has been changed. New mail : " + data.info.email;
+        this.updateUserForm.reset();
+      }, 
       error => console.log("error : "+ JSON.stringify(error))
     );
   }

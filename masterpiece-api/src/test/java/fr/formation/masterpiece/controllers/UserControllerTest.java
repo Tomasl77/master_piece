@@ -15,7 +15,6 @@ import fr.formation.masterpiece.domain.dtos.CustomUserDto;
 import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
 import fr.formation.masterpiece.domain.dtos.views.CustomUserViewDto;
-import fr.formation.masterpiece.repositories.UserJpaRepository;
 import fr.formation.masterpiece.security.annotations.MockAdminForTests;
 
 class UserControllerTest extends JUnitConfigTest {
@@ -27,9 +26,6 @@ class UserControllerTest extends JUnitConfigTest {
 
     @Autowired
     private UserController userController;
-
-    @Autowired
-    private UserJpaRepository userRepository;
 
     @Test
     @MockAdminForTests

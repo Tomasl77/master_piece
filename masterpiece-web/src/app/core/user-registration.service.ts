@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable, Subscription, throwError } from 'rxjs';
-import { AccountDto } from './account/accountDto';
+import { AccountDto } from '../shared/models/accountDto';
 import { Config } from 'src/assets/config-properties';
 import { CustomUser } from '../shared/models/custom-user.model';
 import { HttpRequestHandler } from '../shared/http-helper/http-request-handler';

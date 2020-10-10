@@ -1,3 +1,3 @@
-export interface userInfo {
+export interface UserInfo {
     email : string;
 }
