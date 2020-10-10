@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, ControlContainer } from '@angular/forms';
-import { UsernameValidator } from './username-validator';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UsernameValidator } from '../validators/username-validator';
 import { TranslateService } from '@ngx-translate/core';
 import { UserRegistrationService } from '../user-registration.service';
 import { LogInComponent } from '../log-in/log-in.component'
+import { Config } from 'src/assets/config-properties';
+import { EmailValidator } from '../validators/email-validator';
 
 @Component({
   selector: 'app-create-account',
@@ -13,20 +15,24 @@ import { LogInComponent } from '../log-in/log-in.component'
 })
 export class CreateAccountComponent implements OnInit {
 
-  private readonly passwordPatten = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*~{}&.,§+=°_();/]).{8,30}$";
-
-  private validationMessage : string = "create-account.validationMessages";
+  private readonly validationMessage : string = "create-account.validationMessages";
 
   public signForm: FormGroup;
 
   private formToReturn : FormGroup;
 
-  constructor(private fb: FormBuilder, usernameValidator: UsernameValidator,
-    private translate: TranslateService, private accountService : UserRegistrationService, private logInComponent : LogInComponent) {
+  constructor(
+    private fb: FormBuilder, 
+    private usernameValidator: UsernameValidator,
+    private translate: TranslateService, 
+    private accountService : UserRegistrationService, 
+    private logInComponent : LogInComponent,
+    private emailValidator: EmailValidator
+    ) {
     this.signForm = this.fb.group({
-      email:['', [Validators.required, Validators.email, Validators.maxLength(255)]],
-      username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)], usernameValidator.validate.bind(usernameValidator)],
-      password: ['', [Validators.required, Validators.pattern((this.passwordPatten))]],
+      email:['', [Validators.required, Validators.email, Validators.maxLength(255)], this.emailValidator.validate.bind(this.emailValidator)],
+      username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)], this.usernameValidator.validate.bind(this.usernameValidator)],
+      password: ['', [Validators.required, Validators.pattern((Config.passwordPattern))]],
       passwordConfirm: ['', [Validators.required]]
     }, { validators: this.checkPasswords });
   }

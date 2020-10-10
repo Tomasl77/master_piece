@@ -7,14 +7,19 @@ import javax.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.formation.masterpiece.annotations.HasRoleUser;
 import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
 import fr.formation.masterpiece.domain.dtos.CustomUserDto;
+import fr.formation.masterpiece.domain.dtos.CustomUserPatchDto;
+import fr.formation.masterpiece.domain.dtos.UpdateUserInfoDto;
+import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
 import fr.formation.masterpiece.domain.dtos.views.CustomUserViewDto;
 import fr.formation.masterpiece.services.UserService;
@@ -54,5 +59,17 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<CustomUserViewDto> getAll() {
 	return service.getAll();
+    }
+
+    @PatchMapping("/update")
+    @HasRoleUser
+    public CustomUserPatchDto update(
+            @Valid @RequestBody UpdateUserInfoDto user) {
+	return service.update(user);
+    }
+
+    @GetMapping("/{email}/mail-verify")
+    public UserEmailCheckDto checkEmail(@PathVariable("email") String email) {
+	return service.checkEmail(email);
     }
 }

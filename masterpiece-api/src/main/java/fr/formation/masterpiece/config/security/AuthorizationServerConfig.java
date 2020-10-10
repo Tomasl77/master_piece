@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -57,13 +56,17 @@ public class AuthorizationServerConfig
     // Custom token converter to store custom info within access token
     private final CustomAccessTokenConverter customAccessTokenConverter;
 
+    private final PasswordEncoder passwordEncoder;
+
     protected AuthorizationServerConfig(
             AuthenticationManager authenticationManagerBean,
             UserInfoDetailsService userDetailsService,
-            CustomAccessTokenConverter customAccessTokenConverter) {
+            CustomAccessTokenConverter customAccessTokenConverter,
+            PasswordEncoder passwordEncoder) {
 	authenticationManager = authenticationManagerBean;
 	this.userDetailsService = userDetailsService;
 	this.customAccessTokenConverter = customAccessTokenConverter;
+	this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -144,19 +147,9 @@ public class AuthorizationServerConfig
     public void configure(ClientDetailsServiceConfigurer clients)
             throws Exception {
 	clients.inMemory().withClient("masterpiece-web")
-	        .secret(passwordEncoder().encode("")).scopes("trusted")
+	        .secret(passwordEncoder.encode("")).scopes("trusted")
 	        .authorizedGrantTypes("password", "refresh_token")
 	        .accessTokenValiditySeconds(accessTokenValiditySeconds)
 	        .refreshTokenValiditySeconds(refreshTokenValiditySeconds);
-    }
-
-    /**
-     * The password encoder bean for the application. Used for client and users.
-     *
-     * @return a password encoder
-     */
-    @Bean
-    protected PasswordEncoder passwordEncoder() {
-	return new BCryptPasswordEncoder();
     }
 }

@@ -1,7 +1,7 @@
-import { userInfo } from './user-info.model';
+import { UserInfo } from './user-info.model';
 
 export interface CustomUser {
     id : number;
     username : string;
-    info : userInfo;
+    info : UserInfo;
 }

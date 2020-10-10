@@ -5,7 +5,7 @@ import { AuthenticationService } from './authentication/authentication.service';
 @Component({
   selector: 'btnCellRenderer',
   template: `
-      <button class="{{btnClass}}" type="button" [disabled]="isCurrentlyLog() && isPanelAdmin()" (click)="onClick($event)">{{label}}</button>
+      <button class="{{btnClass}}" type="button" [hidden]="isCurrentlyLog() && isPanelAdmin()" (click)="onClick($event)">{{label}}</button>
     `
 })
 export class BtnCellRenderer implements ICellRendererAngularComp {

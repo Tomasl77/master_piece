@@ -5,27 +5,35 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import fr.formation.masterpiece.config.JUnitConfigTest;
+import fr.formation.masterpiece.domain.dtos.SubjectCreateDto;
+import fr.formation.masterpiece.domain.dtos.SubjectDto;
 import fr.formation.masterpiece.domain.dtos.views.SubjectViewDto;
 import fr.formation.masterpiece.security.annotations.MockUserForTests;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
-@ActiveProfiles(profiles = "dev")
-class SubjectControllerTest {
+class SubjectControllerTest extends JUnitConfigTest {
 
     @Autowired
     private SubjectController subjectController;
+
+    private final String json = "{\"category\": \"BACKEND\","
+            + "	\"description\": \"demo sur sql\","
+            + "	\"title\": \"Test create subject\"" + "}";
 
     @Test
     @MockUserForTests
     void should_return_all_subject() {
 	List<SubjectViewDto> actual = subjectController.getAll();
 	assertEquals(14, actual.size());
+    }
+
+    @Test
+    @MockUserForTests
+    void should_create_subject() {
+	SubjectCreateDto dto = jsonConvert(json, SubjectCreateDto.class);
+	SubjectDto tested = subjectController.postSubject(dto);
+	assertEquals("Test create subject", tested.getTitle());
     }
 }

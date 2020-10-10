@@ -18,4 +18,9 @@ public class UserInfoCreateDto {
 
     public UserInfoCreateDto() {
     }
+
+    @Override
+    public String toString() {
+	return "{email: " + email + "}";
+    }
 }

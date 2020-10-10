@@ -1,4 +1,8 @@
 {
+  "action": {
+    "delete" : "delete"
+  },
+
   "navbar": {
     "account": "My account",
     "sign-in": "Sign in",
@@ -13,6 +17,15 @@
     },
     "close": "Close",
     "logout": "Log out"
+  },
+
+  "dialog" : {
+    "confirmation-header": "Confirmation required",
+    "confirmation-dialog" : "You are about to ",
+    "confirm" : "Confirm",
+    "delete" : "delete",
+    "user" : "user",
+    "subject" : "subject"
   },
   
 
@@ -31,7 +44,8 @@
       },
       "email": {
         "email" : "Invalid address",
-        "required":"Must be a valid email address"
+        "required":"Must be a valid email address",
+        "mailTaken": "Email already taken"
       },
       "password": {
         "required": "Password is required",
@@ -72,7 +86,15 @@
 
   "account" : {
     "welcome" : "Welcome",
-    "email" : "Your e-mail"
+    "email" : "Your e-mail",
+    "button" : "Modify",
+    "newMail": "Your email has been changed. New mail: ",
+    "validationMessages" : {
+      "email" : {
+        "email": "Invalid address",
+        "mailTaken": "Email already taken"
+      }
+    }
   },
 
 
@@ -93,6 +115,6 @@
 
   
   "admin-panel" : {
-
+    "label-delete" : "Delete"
   }
 }

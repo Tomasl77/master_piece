@@ -10,6 +10,12 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+/**
+ * Custom annotation to ensure username is unique
+ *
+ * @author tomas
+ *
+ */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(FIELD)

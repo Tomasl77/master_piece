@@ -167,6 +167,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
         { headerName: this.translate('ag-grid.subject.requester'), field: 'user.username', sortable: true, filter: true },
         {
           headerName: this.translate('ag-grid.delete'),
+          hide: !this.isAdmin(),
           cellRenderer: 'btnCellRenderer',
           cellRendererParams: {
             onClick: this.openDeleteModal.bind(this),

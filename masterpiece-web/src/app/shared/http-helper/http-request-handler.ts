@@ -11,19 +11,24 @@ export class HttpRequestHandler {
 
     public post(url:string, inputs:any): Observable<any> {
         return this.http.post(url, inputs);
-      }
-    
-      public get(url: string): Observable<any> {
-        return this.http.get(url)
-      }
-    
-      public delete(url: string) : Observable<any> {
-        return this.http.delete(url);
-      }
+    }
+  
+    public get(url: string): Observable<any> {
+      return this.http.get(url)
+    }
+  
+    public delete(url: string) : Observable<any> {
+      return this.http.delete(url);
+    }
+
+    public update(url: string, inputs: any) {
+      return this.http.patch(url, inputs)
+    }
 
     public unsubscribe(subscription: Subscription): void {
         if (subscription) {
             subscription.unsubscribe();
         }
     }
+
 }

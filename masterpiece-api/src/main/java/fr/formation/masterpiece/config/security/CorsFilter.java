@@ -30,7 +30,7 @@ public class CorsFilter implements Filter {
 	response.setHeader("Access-Control-Allow-Headers",
 	        "x-request-with, Authorization, content-type");
 	response.setHeader("Access-Control-Allow-Methods",
-	        "GET, POST, OPTIONS, PUT, DELETE");
+	        "GET, POST, OPTIONS, PATCH, DELETE");
 	filterChain.doFilter(servletRequest, servletResponse);
     }
 }

@@ -1,4 +1,7 @@
 {
+  "action": {
+    "delete":"effacer"
+  },
   "navbar": {
     "account": "Mon Compte",
     "sign-in": "Se connecter",
@@ -13,6 +16,15 @@
     },
     "close" : "Fermer",
     "logout" : "Se deconnecter"
+  },
+
+  "dialog" : {
+    "confirmation-header": "Confirmation requise",
+    "confirmation-dialog" : "Vous êtes sur le point d'",
+    "confirm":"Confirmer",
+    "delete" : "effacer",
+    "user" : "l'utilisateur",
+    "subject" : "le sujet"
   },
 
 
@@ -31,7 +43,8 @@
       },
       "email" : {
         "email" : "Adresse non valide",
-        "required": "Veuillez entrer une adresse courriel"
+        "required": "Veuillez entrer une adresse courriel",
+        "mailTaken": "Courriel déjà utilisé"
       },
       "password": {
         "required": "Mot de passe requis",
@@ -72,7 +85,15 @@
 
   "account" : {
     "welcome" : "Bienvenue",
-    "email" : "Votre courriel"
+    "email" : "Votre courriel",
+    "button" : "Modifier",
+    "newMail" : "Votre courriel a été modifier. Nouveau courriel: ",
+    "validationMessages" : {
+      "email" : {
+        "email": "Adresse non valide",
+        "mailTaken": "Courriel déjà utilisé"
+      }
+    }
   },
 
   "ag-grid": {
@@ -91,6 +112,6 @@
   },
   
   "admin-panel" : {
-
+    "label-delete" : "Supprimer"
   }
 }

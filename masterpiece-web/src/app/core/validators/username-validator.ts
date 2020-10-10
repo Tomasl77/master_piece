@@ -16,7 +16,7 @@ export class UsernameValidator {
 
   validate(control: AbstractControl) {
     return new Promise((resolve) => {
-      if ((control.dirty)) {
+      if ((control.dirty && control.value)) {
         this.http.get<UsernameCheckDto>(Config.apiUrl + Config.users + `/${control.value}/verify/`)
           .subscribe(response => {
             this.checkUsername = response;
@@ -32,5 +32,3 @@ export class UsernameValidator {
     });
   };
 }
-
-

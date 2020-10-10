@@ -12,4 +12,13 @@ public class UsernameCheckDto {
     public UsernameCheckDto(boolean valid) {
 	this.valid = valid;
     }
+
+    public UsernameCheckDto() {
+	//
+    }
+
+    @Override
+    public String toString() {
+	return "{isValid: " + valid + "}";
+    }
 }
