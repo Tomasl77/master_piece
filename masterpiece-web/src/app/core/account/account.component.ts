@@ -86,6 +86,10 @@ export class AccountComponent implements OnInit, OnDestroy {
       (data :CustomUser) => {
         console.log(data.info.email);
         this.newMail = "Your email has been changed. New mail : " + data.info.email;
+        setTimeout(()=> {
+          this.newMail = null
+        }, 2000)
+        this.ngOnInit();
         this.updateUserForm.reset();
       }, 
       error => console.log("error : "+ JSON.stringify(error))
