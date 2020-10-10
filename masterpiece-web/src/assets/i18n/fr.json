@@ -87,6 +87,7 @@
     "welcome" : "Bienvenue",
     "email" : "Votre courriel",
     "button" : "Modifier",
+    "newMail" : "Votre courriel a été modifier. Nouveau courriel: ",
     "validationMessages" : {
       "email" : {
         "email": "Adresse non valide",

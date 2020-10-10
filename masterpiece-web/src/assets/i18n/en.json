@@ -88,6 +88,7 @@
     "welcome" : "Welcome",
     "email" : "Your e-mail",
     "button" : "Modify",
+    "newMail": "Your email has been changed. New mail: ",
     "validationMessages" : {
       "email" : {
         "email": "Invalid address",

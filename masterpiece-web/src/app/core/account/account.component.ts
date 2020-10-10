@@ -85,7 +85,7 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.userService.updateUser(this.updateUserForm).subscribe(
       (data :CustomUser) => {
         const mailChanged = data.info.email;
-        this.newMail = "Your email has been changed. New mail : " + mailChanged;
+        this.newMail = this.translate.instant("account.newMail") + mailChanged;
         setTimeout(()=> {
           this.newMail = null
         }, 2000)
