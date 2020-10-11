@@ -5,8 +5,13 @@ Script can be used with mysql
 Last update : 2020-09-18
 
 */
+USE teamsharingtest;
 
-USE teamsharingdev;
+DELETE FROM user_info;
+DELETE FROM user;
+DELETE FROM role;
+DELETE FROM user_role;
+DELETE FROM subject;
 
 INSERT INTO `user_info` (email)
 	VALUES
