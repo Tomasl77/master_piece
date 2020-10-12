@@ -44,6 +44,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   
   ngOnInit() {
     this.id = this.authenthicationService.currentUserValue.userId;
+    console.log("id from surrentUser value = " + this.id);
     this.accountSubscription = this.userService.getAccount(this.id).subscribe(
       account => {
         this.account=account,
