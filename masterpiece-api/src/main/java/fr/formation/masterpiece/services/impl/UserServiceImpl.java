@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 
 import fr.formation.masterpiece.config.AbstractService;
 import fr.formation.masterpiece.config.security.SecurityHelper;
-import fr.formation.masterpiece.domain.dtos.UserProfilePatchDto;
 import fr.formation.masterpiece.domain.dtos.UpdateUserProfileDto;
 import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
 import fr.formation.masterpiece.domain.dtos.UserProfileCreateDto;
 import fr.formation.masterpiece.domain.dtos.UserProfileDto;
+import fr.formation.masterpiece.domain.dtos.UserProfilePatchDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
 import fr.formation.masterpiece.domain.dtos.views.UserProfileViewDto;
 import fr.formation.masterpiece.domain.entities.Role;
@@ -81,7 +81,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
 
     @Override
     public void deleteOne(Long id) {
-	userRepository.deleteById(id);
+	userProfileRepository.deleteById(id);
     }
 
     @Override
@@ -91,12 +91,14 @@ public class UserServiceImpl extends AbstractService implements UserService {
 
     @Override
     public UserProfilePatchDto update(UpdateUserProfileDto userDto) {
-	Long userId = SecurityHelper.getUserId();
-	UserCredentials actualUser = userRepository.findById(userId)
+	Long userCredentialsId = SecurityHelper.getUserId();
+	Long userId = userProfileRepository
+	        .getUserProfileIdByUserId(userCredentialsId);
+	UserProfile actualUser = userProfileRepository.findById(userId)
 	        .orElseThrow(
 	                () -> new AccountNotFoundException("No account found"));
 	merge(userDto, actualUser);
-	UserCredentials savedUser = userRepository.save(actualUser);
+	UserProfile savedUser = userProfileRepository.save(actualUser);
 	return modelMapper.map(savedUser, UserProfilePatchDto.class);
     }
 

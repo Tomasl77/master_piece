@@ -33,7 +33,7 @@ public class SubjectServiceImpl extends AbstractService
     public SubjectDto create(SubjectCreateDto subjectDto) {
 	Long userCredentialsId = SecurityHelper.getUserId();
 	Long userId = userProfileRepository
-	        .getMemberIdByUserId(userCredentialsId);
+	        .getUserProfileIdByUserId(userCredentialsId);
 	UserProfile user = userProfileRepository.getOne(userId);
 	Subject subject = convert(subjectDto, Subject.class);
 	subject.setUser(user);

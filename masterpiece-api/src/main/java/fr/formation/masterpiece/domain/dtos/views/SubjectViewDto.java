@@ -12,5 +12,5 @@ public interface SubjectViewDto {
 
     Long getVote();
 
-    UserCredentialsViewDto getUser();
+    UserProfileViewDto getUser();
 }
