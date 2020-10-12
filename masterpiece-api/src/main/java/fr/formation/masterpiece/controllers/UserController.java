@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -14,12 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.formation.masterpiece.annotations.HasRoleAdmin;
 import fr.formation.masterpiece.annotations.HasRoleUser;
-import fr.formation.masterpiece.domain.dtos.UserProfilePatchDto;
 import fr.formation.masterpiece.domain.dtos.UpdateUserProfileDto;
 import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
 import fr.formation.masterpiece.domain.dtos.UserProfileCreateDto;
 import fr.formation.masterpiece.domain.dtos.UserProfileDto;
+import fr.formation.masterpiece.domain.dtos.UserProfilePatchDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
 import fr.formation.masterpiece.domain.dtos.views.UserProfileViewDto;
 import fr.formation.masterpiece.services.UserService;
@@ -35,6 +35,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+    @HasRoleUser
     public UserProfileViewDto getOne(@PathVariable("id") Long id) {
 	return service.getOne(id);
     }
@@ -51,12 +52,13 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @HasRoleAdmin
     public void deleteAccount(@PathVariable("id") Long id) {
 	service.deleteOne(id);
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @HasRoleAdmin
     public List<UserProfileViewDto> getAll() {
 	return service.getAll();
     }

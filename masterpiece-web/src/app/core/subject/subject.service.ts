@@ -28,7 +28,7 @@ export class SubjectService {
         title : subject.title,
         description : subject.description,
         category : subject.category,
-        user : subject.user,
+        user : subject.user.credentials.username,
         vote : subject.vote
       })
     )));

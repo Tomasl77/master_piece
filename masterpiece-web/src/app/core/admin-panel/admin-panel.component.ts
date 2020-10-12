@@ -2,10 +2,9 @@ import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/c
 import { TranslateService } from '@ngx-translate/core';
 import { ColDef, GridOptions } from 'ag-grid-community';
 import { Subscription } from 'rxjs';
-import { CustomUser } from 'src/app/shared/models/custom-user.model';
+import { UserProfile } from 'src/app/shared/models/user-profile.model';
 import { UserRegistrationService } from '../user-registration.service';
 import { BtnCellRenderer } from '../../shared/btn-cell-renderer.component'
-import { User } from 'src/app/shared/models/user.model';
 import { ConfirmationModalComponent } from 'src/app/shared/modals/confirmation-modal/confirmation-modal.component';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { AuthenticationService } from 'src/app/shared/authentication/authentication.service';
@@ -20,7 +19,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
   private allUsersSubscription: Subscription;
   private deleteUserSubscription: Subscription;
-  private rowData: CustomUser[];
+  private rowData: UserProfile[];
   private gridOptions: GridOptions;
   private columnDefs: ColDef[];
   private frameworkComponents = {};
@@ -56,7 +55,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
   private getAllUsers() {
     this.allUsersSubscription = this.userRegistrationService.getAllUsers().subscribe(
-      ((users: CustomUser[]) => {
+      ((users: UserProfile[]) => {
         this.rowData = users;
         console.log(this.rowData)
       }),
@@ -64,14 +63,14 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     );
   }
 
-  openDialog(user: CustomUser){
+  openDialog(user: UserProfile){
     console.log(user);
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {
       position: {
         top: "50px"
       },
       data: 
-        {dataToProcess : user.username,
+        {dataToProcess : user.credentials.username,
         action: this.translate('dialog.delete'),
         object: this.translate('dialog.user')
       },
@@ -115,7 +114,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
   }
 
   public openDeleteModal(params: any) {
-    const user: CustomUser = params.rowData;
+    const user: UserProfile = params.rowData;
     this.openDialog(user);
   };
 
