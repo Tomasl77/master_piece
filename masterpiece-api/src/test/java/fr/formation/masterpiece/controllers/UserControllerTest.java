@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,6 +14,7 @@ import fr.formation.masterpiece.domain.dtos.UserProfileDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
 import fr.formation.masterpiece.domain.dtos.views.UserProfileViewDto;
 import fr.formation.masterpiece.security.annotations.MockAdminForTests;
+import fr.formation.masterpiece.security.annotations.MockUserForTests;
 
 class UserControllerTest extends JUnitConfigTest {
 
@@ -28,19 +27,13 @@ class UserControllerTest extends JUnitConfigTest {
     private UserController userController;
 
     @Test
-    @MockAdminForTests
-    void should_return_all_member() {
-	List<UserProfileViewDto> actual = userController.getAll();
-	assertEquals(4, actual.size());
-    }
-
-    @Test
     void should_return_username_not_valid() {
 	UsernameCheckDto tested = userController.checkUsername("Tomas");
 	assertFalse(tested.isValid());
     }
 
     @Test
+    @MockUserForTests
     void should_get_by_id() {
 	UserProfileViewDto tested = userController.getOne(1L);
 	assertEquals("Tomas", tested.getCredentials().getUsername());

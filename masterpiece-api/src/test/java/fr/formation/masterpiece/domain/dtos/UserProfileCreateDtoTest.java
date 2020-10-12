@@ -19,7 +19,7 @@ class UserProfileCreateDtoTest extends JUnitConfigTest {
     void should_return_to_string() {
 	UserProfileCreateDto tested = new UserProfileCreateDto();
 	tested.setEmail("johanna@gmail.com");
-	String expected = "{email: johanna@gmail.com}";
+	String expected = "{email: johanna@gmail.com , credentials = null}";
 	assertEquals(expected, tested.toString());
     }
 }

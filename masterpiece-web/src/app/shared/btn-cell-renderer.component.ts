@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
+import { UserRegistrationService } from '../core/user-registration.service';
 import { AuthenticationService } from './authentication/authentication.service';
+import { UserProfile } from './models/user-profile.model';
 
 @Component({
   selector: 'btnCellRenderer',
@@ -10,12 +12,13 @@ import { AuthenticationService } from './authentication/authentication.service';
 })
 export class BtnCellRenderer implements ICellRendererAngularComp {
 
-  constructor(private authenticationService: AuthenticationService) { }
+  constructor(private authenticationService: AuthenticationService, private userService: UserRegistrationService) { }
 
   private params: any;
   private btnClass: string;
   private label: string;
   private panelAdmin: boolean
+  private userId: number;
 
   agInit(params: any): void {
     this.params = params;
@@ -40,7 +43,10 @@ export class BtnCellRenderer implements ICellRendererAngularComp {
     return this.params.isPanelAdmin
   }
 
-  isCurrentlyLog(): boolean {
+  /* isCurrentlyLog(): boolean {
     return this.authenticationService.currentUserValue.userId === this.params.node.data.id;
+  }*/
+
+  isCurrentlyLog(): boolean {
   }
 }
