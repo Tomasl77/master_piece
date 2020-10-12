@@ -1,15 +1,15 @@
 package fr.formation.masterpiece.repositories;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import fr.formation.masterpiece.domain.dtos.views.CustomUserAuthDto;
-import fr.formation.masterpiece.domain.dtos.views.CustomUserViewDto;
-import fr.formation.masterpiece.domain.entities.CustomUser;
+import fr.formation.masterpiece.domain.dtos.views.UserCredentialsViewDto;
+import fr.formation.masterpiece.domain.entities.UserCredentials;
 
-public interface UserJpaRepository extends JpaRepository<CustomUser, Long> {
+public interface UserCredentialsRepository
+        extends JpaRepository<UserCredentials, Long> {
 
     /**
      * Retrieves a projected view of the {@code UserAuth} with given username.
@@ -25,13 +25,7 @@ public interface UserJpaRepository extends JpaRepository<CustomUser, Long> {
      * @param id user id
      * @return a projected view
      */
-    Optional<CustomUserViewDto> getById(Long id);
+    Optional<UserCredentialsViewDto> getById(Long id);
 
     boolean existsByUsername(String username);
-
-    List<CustomUserViewDto> getAllProjectedBy();
-
-    Long findUserInfoIdById(Long id);
-
-    boolean existsByInfoEmail(String email);
 }

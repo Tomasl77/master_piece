@@ -9,10 +9,10 @@ import fr.formation.masterpiece.config.security.SecurityHelper;
 import fr.formation.masterpiece.domain.dtos.SubjectCreateDto;
 import fr.formation.masterpiece.domain.dtos.SubjectDto;
 import fr.formation.masterpiece.domain.dtos.views.SubjectViewDto;
-import fr.formation.masterpiece.domain.entities.CustomUser;
 import fr.formation.masterpiece.domain.entities.Subject;
+import fr.formation.masterpiece.domain.entities.UserProfile;
 import fr.formation.masterpiece.repositories.SubjectRepository;
-import fr.formation.masterpiece.repositories.UserJpaRepository;
+import fr.formation.masterpiece.repositories.UserProfileRepository;
 import fr.formation.masterpiece.services.SubjectService;
 
 @Service
@@ -21,18 +21,20 @@ public class SubjectServiceImpl extends AbstractService
 
     private final SubjectRepository subjectRepository;
 
-    private final UserJpaRepository userRepository;
+    private final UserProfileRepository userProfileRepository;
 
     public SubjectServiceImpl(SubjectRepository repository,
-            UserJpaRepository userRepository) {
+            UserProfileRepository userProfileRepository) {
 	this.subjectRepository = repository;
-	this.userRepository = userRepository;
+	this.userProfileRepository = userProfileRepository;
     }
 
     @Override
     public SubjectDto create(SubjectCreateDto subjectDto) {
-	Long userId = SecurityHelper.getUserId();
-	CustomUser user = userRepository.getOne(userId);
+	Long userCredentialsId = SecurityHelper.getUserId();
+	Long userId = userProfileRepository
+	        .getMemberIdByUserId(userCredentialsId);
+	UserProfile user = userProfileRepository.getOne(userId);
 	Subject subject = convert(subjectDto, Subject.class);
 	subject.setUser(user);
 	Subject subjectToSave = subjectRepository.save(subject);

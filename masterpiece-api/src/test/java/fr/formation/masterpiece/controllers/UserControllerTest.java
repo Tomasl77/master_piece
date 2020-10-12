@@ -10,19 +10,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import fr.formation.masterpiece.config.JUnitConfigTest;
-import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
-import fr.formation.masterpiece.domain.dtos.CustomUserDto;
 import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
+import fr.formation.masterpiece.domain.dtos.UserProfileCreateDto;
+import fr.formation.masterpiece.domain.dtos.UserProfileDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
-import fr.formation.masterpiece.domain.dtos.views.CustomUserViewDto;
+import fr.formation.masterpiece.domain.dtos.views.UserProfileViewDto;
 import fr.formation.masterpiece.security.annotations.MockAdminForTests;
 
 class UserControllerTest extends JUnitConfigTest {
 
-    private final String jsonCreateUser = "{ \n"
-            + "    \"username\" : \"Thierry\",\n"
-            + "    \"password\" : \"Thierry9!\",\n" + "    \"userInfo\": {\n"
-            + "        \"email\" : \"thierry@gmail.com\"\n" + "    }  \n" + "}";
+    private final String jsonCreateUser = "{   \"email\": \"thierry@gmail.com\",\n"
+            + "    \"credentials\": {\n"
+            + "         \"username\" : \"Thierry\",\n"
+            + "        \"password\" : \"Benjahmsin9!\"\n" + "    }  \n" + "}";
 
     @Autowired
     private UserController userController;
@@ -30,7 +30,7 @@ class UserControllerTest extends JUnitConfigTest {
     @Test
     @MockAdminForTests
     void should_return_all_member() {
-	List<CustomUserViewDto> actual = userController.getAll();
+	List<UserProfileViewDto> actual = userController.getAll();
 	assertEquals(4, actual.size());
     }
 
@@ -42,9 +42,9 @@ class UserControllerTest extends JUnitConfigTest {
 
     @Test
     void should_get_by_id() {
-	CustomUserViewDto tested = userController.getOne(1L);
-	assertEquals("Tomas", tested.getUsername());
-	assertEquals("tomas@gmail.com", tested.getInfo().getEmail());
+	UserProfileViewDto tested = userController.getOne(1L);
+	assertEquals("Tomas", tested.getCredentials().getUsername());
+	assertEquals("tomas@gmail.com", tested.getEmail());
     }
 
     @Test
@@ -57,12 +57,12 @@ class UserControllerTest extends JUnitConfigTest {
     @MockAdminForTests
     void should_create_user() {
 	int actual = userController.getAll().size();
-	CustomUserCreateDto dto = jsonConvert(jsonCreateUser,
-	        CustomUserCreateDto.class);
-	CustomUserDto tested = userController.create(dto);
+	UserProfileCreateDto dto = jsonConvert(jsonCreateUser,
+	        UserProfileCreateDto.class);
+	UserProfileDto tested = userController.create(dto);
 	int expected = userController.getAll().size();
-	assertEquals("Thierry", tested.getUsername());
-	assertEquals("thierry@gmail.com", tested.getInfo().getEmail());
+	assertEquals("Thierry", tested.getCredentials().getUsername());
+	assertEquals("thierry@gmail.com", tested.getEmail());
 	assertEquals(expected, actual + 1);
     }
 }

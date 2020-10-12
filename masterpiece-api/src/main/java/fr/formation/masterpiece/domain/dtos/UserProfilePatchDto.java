@@ -1,12 +1,12 @@
 package fr.formation.masterpiece.domain.dtos;
 
-import javax.validation.constraints.NotBlank;
-
 import lombok.Getter;
 
 @Getter
-public class UpdateUserInfoDto {
+public class UserProfilePatchDto {
 
-    @NotBlank
     private String email;
+
+    public UserProfilePatchDto() {
+    }
 }

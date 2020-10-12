@@ -33,6 +33,6 @@ public class Subject extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "requester_id", referencedColumnName = "id",
             nullable = false,
-            foreignKey = @ForeignKey(name = "FK_subject_user"))
-    private CustomUser user;
+            foreignKey = @ForeignKey(name = "FK_subject_userprofile"))
+    private UserProfile user;
 }
