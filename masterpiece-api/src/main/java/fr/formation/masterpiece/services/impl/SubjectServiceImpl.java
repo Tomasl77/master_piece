@@ -11,6 +11,7 @@ import fr.formation.masterpiece.domain.dtos.SubjectDto;
 import fr.formation.masterpiece.domain.dtos.views.SubjectViewDto;
 import fr.formation.masterpiece.domain.entities.Subject;
 import fr.formation.masterpiece.domain.entities.UserProfile;
+import fr.formation.masterpiece.exceptions.AccountNotFoundException;
 import fr.formation.masterpiece.repositories.SubjectRepository;
 import fr.formation.masterpiece.repositories.UserProfileRepository;
 import fr.formation.masterpiece.services.SubjectService;
@@ -34,7 +35,8 @@ public class SubjectServiceImpl extends AbstractService
 	Long userCredentialsId = SecurityHelper.getUserId();
 	Long userId = userProfileRepository
 	        .getUserProfileIdByUserId(userCredentialsId);
-	UserProfile user = userProfileRepository.getOne(userId);
+	UserProfile user = userProfileRepository.getById(userId).orElseThrow(
+	        () -> new AccountNotFoundException("Account not found"));
 	Subject subject = convert(subjectDto, Subject.class);
 	subject.setUser(user);
 	Subject subjectToSave = subjectRepository.save(subject);
@@ -43,11 +45,13 @@ public class SubjectServiceImpl extends AbstractService
 
     @Override
     public void deleteOne(Long id) {
-	subjectRepository.deleteById(id);
+	Subject deleted = convert(subjectRepository.getOne(id), Subject.class);
+	subjectRepository.delete(deleted);
     }
 
     @Override
     public List<SubjectViewDto> getAll() {
-	return subjectRepository.getAllProjectedBy();
+	List<Subject> subjects = subjectRepository.getAllProjectedBy();
+	return convertList(subjects, SubjectViewDto.class);
     }
 }

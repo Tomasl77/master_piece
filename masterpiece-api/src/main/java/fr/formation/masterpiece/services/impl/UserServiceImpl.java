@@ -76,18 +76,23 @@ public class UserServiceImpl extends AbstractService implements UserService {
     @Override
     public UserProfileViewDto getOne(Long id) {
 	Long userProfileId = userProfileRepository.getUserProfileIdByUserId(id);
-	return userProfileRepository.getById(userProfileId).orElseThrow(
-	        () -> new AccountNotFoundException("Id not found : " + id));
+	UserProfile userProfile = userProfileRepository.getById(userProfileId)
+	        .orElseThrow(() -> new AccountNotFoundException(
+	                "Account not found"));
+	return convert(userProfile, UserProfileViewDto.class);
     }
 
     @Override
     public void deleteOne(Long id) {
-	userProfileRepository.deleteById(id);
+	UserProfile deleted = convert(userProfileRepository.getOne(id),
+	        UserProfile.class);
+	userProfileRepository.delete(deleted);
     }
 
     @Override
     public List<UserProfileViewDto> getAll() {
-	return userProfileRepository.getAllProjectedBy();
+	List<UserProfile> users = userProfileRepository.getAllProjectedBy();
+	return convertList(users, UserProfileViewDto.class);
     }
 
     @Override

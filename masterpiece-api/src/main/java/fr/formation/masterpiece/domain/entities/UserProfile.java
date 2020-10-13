@@ -9,6 +9,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +26,7 @@ public class UserProfile extends AbstractEntity {
     private String email;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_credentials_id", nullable = false,
             referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "FK_usercredentials_user"))

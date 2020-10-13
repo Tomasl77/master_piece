@@ -1,8 +1,17 @@
 package fr.formation.masterpiece.domain.dtos.views;
 
-public interface UserCredentialsViewDto {
+import lombok.Getter;
+import lombok.Setter;
 
-    Long getId();
+@Getter
+@Setter
+public class UserCredentialsViewDto {
 
-    String getUsername();
+    private Long id;
+
+    private String username;
+
+    public UserCredentialsViewDto() {
+	//
+    }
 }

@@ -1,16 +1,21 @@
 package fr.formation.masterpiece.domain.dtos.views;
 
-public interface SubjectViewDto {
+import lombok.Getter;
+import lombok.Setter;
 
-    Long getId();
+@Getter
+@Setter
+public class SubjectViewDto {
 
-    String getTitle();
+    private Long id;
 
-    String getDescription();
+    private String title;
 
-    String getCategory();
+    private String description;
 
-    Long getVote();
+    private String category;
 
-    UserProfileViewDto getUser();
+    private Long vote;
+
+    private UserProfileViewDto user;
 }
