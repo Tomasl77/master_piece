@@ -1,6 +1,5 @@
 package fr.formation.masterpiece.domain.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -34,7 +33,7 @@ public class Subject extends AbstractEntity {
     @Column(name = "total_vote", nullable = false)
     private int vote;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "requester_id", referencedColumnName = "id",
             nullable = false,

@@ -40,7 +40,7 @@ export class BtnCellRenderer implements ICellRendererAngularComp {
   }
 
   isPanelAdmin(): boolean {
-    return this.params.isPanelAdmin || false
+    return this.params.isPanelAdmin
   }
 
   isCurrentlyLog(): boolean {
