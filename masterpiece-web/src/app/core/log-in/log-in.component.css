@@ -1,12 +1,12 @@
-.form-group {
+.form-group, .alert{
     text-align: center;
 }
 
-.form-control {
+.form-control, .alert {
     width: 60%;
 }
 
-input {
+input, .alert {
     margin: auto;
 }
 

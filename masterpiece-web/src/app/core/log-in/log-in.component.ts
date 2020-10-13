@@ -17,7 +17,8 @@ import { Router } from '@angular/router';
 export class LogInComponent implements OnInit {
 
   private grant_type: string = "password";
-  private client_id: string = "masterpiece-web"
+  private client_id: string = "masterpiece-web";
+  private badCredentials: string;
 
   public logInForm: FormGroup;
   
@@ -40,7 +41,11 @@ export class LogInComponent implements OnInit {
         console.log(" LoggedIn successful")
       },
       (error) => {
-        console.log(error.error);
+        console.log(error);
+        this.badCredentials = error.error.error;
+        setTimeout(()=> {
+          this.badCredentials = null
+        }, 2000)
       })
   }
   createAndLogIn(username: string, password : string): void {
