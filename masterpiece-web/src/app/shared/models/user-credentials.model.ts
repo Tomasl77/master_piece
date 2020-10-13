@@ -1,3 +1,3 @@
-export interface UserCredentials {
+export class UserCredentials {
     username: string;
 }

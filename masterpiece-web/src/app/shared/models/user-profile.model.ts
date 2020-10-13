@@ -1,6 +1,6 @@
 import { UserCredentials } from './user-credentials.model';
 
-export interface UserProfile {
+export class UserProfile {
     id : number;
     email : string;
     credentials : UserCredentials;

@@ -40,13 +40,11 @@ export class BtnCellRenderer implements ICellRendererAngularComp {
   }
 
   isPanelAdmin(): boolean {
-    return this.params.isPanelAdmin
+    return this.params.isPanelAdmin || false
   }
-
-  /* isCurrentlyLog(): boolean {
-    return this.authenticationService.currentUserValue.userId === this.params.node.data.id;
-  }*/
 
   isCurrentlyLog(): boolean {
+    return this.authenticationService.currentUserValue.userId === this.params.node.data.id;
   }
+
 }
