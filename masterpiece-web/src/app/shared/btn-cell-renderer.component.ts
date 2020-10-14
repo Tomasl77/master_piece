@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
-import { UserRegistrationService } from '../core/user-registration.service';
 import { AuthenticationService } from './authentication/authentication.service';
-import { UserProfile } from './models/user-profile.model';
 
 @Component({
   selector: 'btnCellRenderer',
@@ -12,7 +10,7 @@ import { UserProfile } from './models/user-profile.model';
 })
 export class BtnCellRenderer implements ICellRendererAngularComp {
 
-  constructor(private authenticationService: AuthenticationService, private userService: UserRegistrationService) { }
+  constructor(private authenticationService: AuthenticationService) { }
 
   private params: any;
   private btnClass: string;
@@ -46,5 +44,4 @@ export class BtnCellRenderer implements ICellRendererAngularComp {
   isCurrentlyLog(): boolean {
     return this.authenticationService.currentUserValue.userId === this.params.node.data.id;
   }
-
 }

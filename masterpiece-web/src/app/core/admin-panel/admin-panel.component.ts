@@ -23,7 +23,6 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
   private gridOptions: GridOptions;
   private columnDefs: ColDef[];
   private frameworkComponents = {};
-  private userProfileId;
 
   constructor(private userRegistrationService: UserRegistrationService,
     private translateService: TranslateService,

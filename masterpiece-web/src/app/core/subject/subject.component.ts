@@ -103,6 +103,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
         (subjects: Subject[]) => {
           this.subjects = subjects;
           this.rowData = subjects;
+          console.log(this.rowData);
         });
     }
   }
@@ -152,7 +153,10 @@ export class SubjectComponent implements OnInit, OnDestroy {
       (subjects: Subject[]) => {
         this.rowData = subjects;
       },
-      error => console.log(error)
+      (error) => {
+        console.log(error);
+        console.log("error")
+      }
     );
   }
 
