@@ -47,7 +47,7 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.accountSubscription = this.userService.getAccount(this.id).subscribe(
       account => {
         this.account=account,
-        console.log(this.account)
+        console.log(account)
       },
       error=> console.log((error.error)
       )

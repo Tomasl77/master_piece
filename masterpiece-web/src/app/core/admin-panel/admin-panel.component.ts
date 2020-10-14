@@ -91,7 +91,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
   private getTableHeaderWithLang(): void {
     this.translateService.get('language').subscribe((translate: string) => {
       this.columnDefs = [
-        { headerName: 'id', field: 'id', hide: true },
+        { headerName: 'id', field: 'crendentials.id', hide: true },
         { headerName: this.translate('ag-grid.admin-panel.username'), field: 'credentials.username' },
         { headerName: this.translate('ag-grid.admin-panel.email'), field: 'email' },
         {

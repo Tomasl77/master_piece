@@ -11,6 +11,8 @@ public class UserCredentialsViewDto {
 
     private String username;
 
+    private boolean isLoggedIn;
+
     public UserCredentialsViewDto() {
 	//
     }

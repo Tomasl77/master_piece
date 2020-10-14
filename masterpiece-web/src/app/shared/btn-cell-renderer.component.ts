@@ -42,6 +42,6 @@ export class BtnCellRenderer implements ICellRendererAngularComp {
   }
 
   isCurrentlyLog(): boolean {
-    return this.authenticationService.currentUserValue.userId === this.params.node.data.id;
+    return this.authenticationService.currentUserValue.userId === this.params.node.data.credentials.id;
   }
 }

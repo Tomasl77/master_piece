@@ -12,4 +12,8 @@ public class UserProfileViewDto {
     private String email;
 
     UserCredentialsViewDto credentials;
+
+    public UserProfileViewDto() {
+	//
+    }
 }
