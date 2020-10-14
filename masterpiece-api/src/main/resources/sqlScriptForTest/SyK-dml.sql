@@ -7,12 +7,11 @@ Last update : 2020-09-18
 */
 USE teamsharingtest;
 
-DELETE FROM `subject`;
+DELETE FROM subject;
 DELETE FROM user_role;
-DELETE FROM `user`;
+DELETE FROM user;
 DELETE FROM user_profile;
-DELETE FROM `role`;
-
+DELETE FROM role;
 
 INSERT INTO `role`(code, default_role) 
     VALUES 
@@ -30,12 +29,12 @@ INSERT INTO `user` (account_non_expired, password, username, account_non_locked,
 
 COMMIT; 
 
-SET @Tomas = (SELECT id  FROM teamsharingdev.user WHERE username= 'Tomas');
-SET @Johanna = (SELECT id  FROM teamsharingdev.user WHERE username = 'Johanna');
-SET @Lily = (SELECT id  FROM teamsharingdev.user WHERE username = 'Lily');
-SET @Benjamin = (SELECT id FROM teamsharingdev.user WHERE username = 'Benjamin');
-SET @user = (SELECT id FROM teamsharingdev.role WHERE code = 'ROLE_USER');
-SET @admin = (SELECT id FROM teamsharingdev.role WHERE code = 'ROLE_ADMIN');
+SET @Tomas = (SELECT id  FROM teamsharingtest.user WHERE username= 'Tomas');
+SET @Johanna = (SELECT id  FROM teamsharingtest.user WHERE username = 'Johanna');
+SET @Lily = (SELECT id  FROM teamsharingtest.user WHERE username = 'Lily');
+SET @Benjamin = (SELECT id FROM teamsharingtest.user WHERE username = 'Benjamin');
+SET @user = (SELECT id FROM teamsharingtest.role WHERE code = 'ROLE_USER');
+SET @admin = (SELECT id FROM teamsharingtest.role WHERE code = 'ROLE_ADMIN');
 
 INSERT INTO `user_role` (user_id, role_id) 
     VALUES 
@@ -58,10 +57,10 @@ INSERT INTO `user_profile` (email, user_credentials_id)
 
 COMMIT;
 
-SET @Tomas = (SELECT id  FROM teamsharingdev.user_profile WHERE email= 'tomas@gmail.com');
-SET @Johanna = (SELECT id  FROM teamsharingdev.user_profile WHERE email= 'johanna@gmail.com');
-SET @Lily = (SELECT id  FROM teamsharingdev.user_profile WHERE email = 'lily@gmail.com');
-SET @Benjamin = (SELECT id FROM teamsharingdev.user_profile WHERE email = 'benjamin@gmail.com');
+SET @Tomas = (SELECT id  FROM teamsharingtest.user_profile WHERE email= 'tomas@gmail.com');
+SET @Johanna = (SELECT id  FROM teamsharingtest.user_profile WHERE email= 'johanna@gmail.com');
+SET @Lily = (SELECT id  FROM teamsharingtest.user_profile WHERE email = 'lily@gmail.com');
+SET @Benjamin = (SELECT id FROM teamsharingtest.user_profile WHERE email = 'benjamin@gmail.com');
 
 INSERT INTO `subject` (category, description, title, total_vote, requester_id) 
     VALUES 
