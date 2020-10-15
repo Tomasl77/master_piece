@@ -12,6 +12,7 @@ import fr.formation.masterpiece.domain.dtos.views.SubjectViewDto;
 import fr.formation.masterpiece.domain.entities.Subject;
 import fr.formation.masterpiece.domain.entities.UserProfile;
 import fr.formation.masterpiece.exceptions.AccountNotFoundException;
+import fr.formation.masterpiece.exceptions.ResourceNotFoundException;
 import fr.formation.masterpiece.repositories.SubjectRepository;
 import fr.formation.masterpiece.repositories.UserProfileRepository;
 import fr.formation.masterpiece.services.SubjectService;
@@ -45,7 +46,9 @@ public class SubjectServiceImpl extends AbstractService
 
     @Override
     public void deleteOne(Long id) {
-	Subject deleted = convert(subjectRepository.getOne(id), Subject.class);
+	Subject deleted = subjectRepository.findById(id)
+	        .orElseThrow(() -> new ResourceNotFoundException(
+	                "Resource not found : " + id));
 	subjectRepository.delete(deleted);
     }
 

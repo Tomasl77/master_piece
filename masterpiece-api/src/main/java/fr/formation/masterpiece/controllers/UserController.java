@@ -51,7 +51,7 @@ public class UserController {
 	return service.create(dto);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("{id}")
     @HasRoleAdmin
     public void deleteAccount(@PathVariable("id") Long id) {
 	service.deleteOne(id);
@@ -63,7 +63,7 @@ public class UserController {
 	return service.getAll();
     }
 
-    @PatchMapping("/update")
+    @PatchMapping
     @HasRoleUser
     public UserProfilePatchDto update(
             @Valid @RequestBody UpdateUserProfileDto user) {

@@ -27,11 +27,11 @@ export class UserRegistrationService {
   }
 
   deleteUser(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl+ Config.actions.delete+ `/${id}`)
+    return this.http.delete(this.baseUrl+ `/${id}`)
   }
 
   updateUser(formData :FormGroup) {
-    return this.http.update(this.baseUrl + Config.actions.update, formData.value)
+    return this.http.update(this.baseUrl, formData.value)
   }
 
   unsubscribe(subscription: Subscription) {

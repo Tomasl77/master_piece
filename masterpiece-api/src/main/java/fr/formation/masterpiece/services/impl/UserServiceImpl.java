@@ -84,8 +84,9 @@ public class UserServiceImpl extends AbstractService implements UserService {
 
     @Override
     public void deleteOne(Long id) {
-	UserProfile deleted = convert(userProfileRepository.getOne(id),
-	        UserProfile.class);
+	UserProfile deleted = userProfileRepository.findById(id)
+	        .orElseThrow(() -> new AccountNotFoundException(
+	                "Account not found : " + id));
 	userProfileRepository.delete(deleted);
     }
 
