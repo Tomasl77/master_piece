@@ -9,47 +9,56 @@ import org.springframework.stereotype.Service;
 
 import fr.formation.masterpiece.config.AbstractService;
 import fr.formation.masterpiece.config.security.SecurityHelper;
-import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
-import fr.formation.masterpiece.domain.dtos.CustomUserDto;
-import fr.formation.masterpiece.domain.dtos.CustomUserPatchDto;
-import fr.formation.masterpiece.domain.dtos.UpdateUserInfoDto;
+import fr.formation.masterpiece.domain.dtos.UpdateUserProfileDto;
 import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
+import fr.formation.masterpiece.domain.dtos.UserProfileCreateDto;
+import fr.formation.masterpiece.domain.dtos.UserProfileDto;
+import fr.formation.masterpiece.domain.dtos.UserProfilePatchDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
-import fr.formation.masterpiece.domain.dtos.views.CustomUserViewDto;
-import fr.formation.masterpiece.domain.entities.CustomUser;
+import fr.formation.masterpiece.domain.dtos.views.UserProfileViewDto;
 import fr.formation.masterpiece.domain.entities.Role;
-import fr.formation.masterpiece.domain.entities.UserInfo;
+import fr.formation.masterpiece.domain.entities.UserCredentials;
+import fr.formation.masterpiece.domain.entities.UserProfile;
 import fr.formation.masterpiece.exceptions.AccountNotFoundException;
 import fr.formation.masterpiece.repositories.RoleRepository;
-import fr.formation.masterpiece.repositories.UserJpaRepository;
+import fr.formation.masterpiece.repositories.UserCredentialsRepository;
+import fr.formation.masterpiece.repositories.UserProfileRepository;
 import fr.formation.masterpiece.services.UserService;
 
 @Service
 public class UserServiceImpl extends AbstractService implements UserService {
 
-    private final UserJpaRepository userRepository;
+    private final UserCredentialsRepository userRepository;
+
+    private final UserProfileRepository userProfileRepository;
 
     private final RoleRepository roleRepository;
 
     private final PasswordEncoder passwordEncoder;
 
-    protected UserServiceImpl(UserJpaRepository userRepo,
-            RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    protected UserServiceImpl(UserCredentialsRepository userRepo,
+            RoleRepository roleRepository, PasswordEncoder passwordEncoder,
+            UserProfileRepository userProfileRepository) {
 	this.roleRepository = roleRepository;
 	this.userRepository = userRepo;
 	this.passwordEncoder = passwordEncoder;
+	this.userProfileRepository = userProfileRepository;
     }
 
     @Override
-    public CustomUserDto create(CustomUserCreateDto dto) {
-	String encodedPassword = passwordEncoder.encode(dto.getPassword());
+    public UserProfileDto create(UserProfileCreateDto dto) {
+	String encodedPassword = passwordEncoder
+	        .encode(dto.getCredentials().getPassword());
 	Set<Role> role = new HashSet<>();
 	role.add(roleRepository.findByDefaultRole(true));
-	UserInfo userInfo = new UserInfo(dto.getUserInfo().getEmail());
-	CustomUser userAuth = new CustomUser(encodedPassword, dto.getUsername(),
-	        role, true, true, true, true, userInfo);
-	CustomUser user = userRepository.save(userAuth);
-	CustomUserDto dtoToReturn = modelMapper.map(user, CustomUserDto.class);
+	UserProfile userProfile = new UserProfile(dto.getEmail());
+	UserCredentials credentials = new UserCredentials(encodedPassword,
+	        dto.getCredentials().getUsername(), role, true, true, true,
+	        true);
+	userProfile.setCredentials(credentials);
+	UserProfile user = userProfileRepository.save(userProfile);
+	UserProfileDto dtoToReturn = modelMapper.map(user,
+	        UserProfileDto.class);
 	return dtoToReturn;
     }
 
@@ -65,34 +74,44 @@ public class UserServiceImpl extends AbstractService implements UserService {
     }
 
     @Override
-    public CustomUserViewDto getOne(Long id) {
-	return userRepository.getById(id).orElseThrow(
-	        () -> new AccountNotFoundException("Id not found : " + id));
+    public UserProfileViewDto getOne(Long id) {
+	Long userProfileId = userProfileRepository.getUserProfileIdByUserId(id);
+	UserProfile userProfile = userProfileRepository.getById(userProfileId)
+	        .orElseThrow(() -> new AccountNotFoundException(
+	                "Account not found"));
+	return convert(userProfile, UserProfileViewDto.class);
     }
 
     @Override
     public void deleteOne(Long id) {
-	userRepository.deleteById(id);
+	UserProfile deleted = userProfileRepository.findById(id)
+	        .orElseThrow(() -> new AccountNotFoundException(
+	                "Account not found : " + id));
+	userProfileRepository.delete(deleted);
     }
 
     @Override
-    public List<CustomUserViewDto> getAll() {
-	return userRepository.getAllProjectedBy();
+    public List<UserProfileViewDto> getAll() {
+	List<UserProfile> users = userProfileRepository.getAllProjectedBy();
+	return convertList(users, UserProfileViewDto.class);
     }
 
     @Override
-    public CustomUserPatchDto update(UpdateUserInfoDto userDto) {
-	Long userId = SecurityHelper.getUserId();
-	CustomUser actualUser = userRepository.findById(userId).orElseThrow(
-	        () -> new AccountNotFoundException("No account found"));
+    public UserProfilePatchDto update(UpdateUserProfileDto userDto) {
+	Long userCredentialsId = SecurityHelper.getUserId();
+	Long userId = userProfileRepository
+	        .getUserProfileIdByUserId(userCredentialsId);
+	UserProfile actualUser = userProfileRepository.findById(userId)
+	        .orElseThrow(
+	                () -> new AccountNotFoundException("No account found"));
 	merge(userDto, actualUser);
-	CustomUser savedUser = userRepository.save(actualUser);
-	return modelMapper.map(savedUser, CustomUserPatchDto.class);
+	UserProfile savedUser = userProfileRepository.save(actualUser);
+	return modelMapper.map(savedUser, UserProfilePatchDto.class);
     }
 
     @Override
     public boolean isEmailValid(String email) {
-	return !userRepository.existsByInfoEmail(email);
+	return !userProfileRepository.existsByEmail(email);
     }
 
     @Override

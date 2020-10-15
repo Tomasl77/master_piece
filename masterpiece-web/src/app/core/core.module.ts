@@ -8,7 +8,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { CreateAccountComponent } from './create-account/create-account.component';
-import { ContactsComponent } from './contacts/contacts.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { AccountComponent } from './account/account.component';
 import { SubjectComponent } from './subject/subject.component';
@@ -21,7 +20,6 @@ import { BtnCellRenderer } from '../shared/btn-cell-renderer.component';
   declarations: [
     AccountComponent,
     CreateAccountComponent,
-    ContactsComponent,
     LogInComponent,
     SubjectComponent,
     AdminPanelComponent],
@@ -46,7 +44,6 @@ import { BtnCellRenderer } from '../shared/btn-cell-renderer.component';
   exports: [
     AccountComponent,
     CreateAccountComponent,
-    ContactsComponent,
     LogInComponent
   ]
 })

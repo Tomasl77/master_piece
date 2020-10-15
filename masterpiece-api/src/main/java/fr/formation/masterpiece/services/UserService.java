@@ -2,13 +2,13 @@ package fr.formation.masterpiece.services;
 
 import java.util.List;
 
-import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
-import fr.formation.masterpiece.domain.dtos.CustomUserDto;
-import fr.formation.masterpiece.domain.dtos.CustomUserPatchDto;
-import fr.formation.masterpiece.domain.dtos.UpdateUserInfoDto;
+import fr.formation.masterpiece.domain.dtos.UserProfilePatchDto;
+import fr.formation.masterpiece.domain.dtos.UpdateUserProfileDto;
 import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
+import fr.formation.masterpiece.domain.dtos.UserProfileCreateDto;
+import fr.formation.masterpiece.domain.dtos.UserProfileDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
-import fr.formation.masterpiece.domain.dtos.views.CustomUserViewDto;
+import fr.formation.masterpiece.domain.dtos.views.UserProfileViewDto;
 
 public interface UserService {
 
@@ -16,17 +16,17 @@ public interface UserService {
 
     boolean isEmailValid(String email);
 
-    CustomUserViewDto getOne(Long id);
+    UserProfileViewDto getOne(Long id);
 
     UsernameCheckDto checkUsername(String username);
 
     void deleteOne(Long id);
 
-    List<CustomUserViewDto> getAll();
+    List<UserProfileViewDto> getAll();
 
-    CustomUserDto create(CustomUserCreateDto dto);
+    UserProfileDto create(UserProfileCreateDto dto);
 
-    CustomUserPatchDto update(UpdateUserInfoDto user);
+    UserProfilePatchDto update(UpdateUserProfileDto user);
 
     UserEmailCheckDto checkEmail(String email);
 }

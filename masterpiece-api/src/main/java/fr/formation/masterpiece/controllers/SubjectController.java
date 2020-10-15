@@ -37,7 +37,7 @@ public class SubjectController {
 	return service.create(dto);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     @HasRoleAdmin
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void deleteSubject(@PathVariable Long id) {

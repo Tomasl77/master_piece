@@ -19,8 +19,8 @@
         <input class="form-control" formControlName="password" type="password">
     </div>
     <div>
-        <div>
-          
+        <div *ngIf="badCredentials" class="alert alert-danger">
+            {{badCredentials}}
         </div>
     </div>
     <button type="submit"

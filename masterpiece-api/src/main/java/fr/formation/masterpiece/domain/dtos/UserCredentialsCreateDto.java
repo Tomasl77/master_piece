@@ -1,6 +1,5 @@
 package fr.formation.masterpiece.domain.dtos;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -11,7 +10,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CustomUserCreateDto {
+public class UserCredentialsCreateDto {
 
     private final String message = "Must contains at least 8 characters, 1 uppercase, 1 lowercase, 1 digit and 1 special char";
 
@@ -27,9 +26,6 @@ public class CustomUserCreateDto {
     @Pattern(regexp = pattern, message = message)
     private String password;
 
-    @Valid
-    UserInfoCreateDto userInfo;
-
-    public CustomUserCreateDto() {
+    public UserCredentialsCreateDto() {
     }
 }

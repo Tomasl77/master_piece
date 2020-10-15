@@ -6,19 +6,21 @@ import { Subject } from './subject.model';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpRequestHandler } from 'src/app/shared/http-helper/http-request-handler';
+import { config } from 'process';
 
 @Injectable()
 export class SubjectService {
     
+  private readonly baseUrl = Config.apiUrl + Config.subjects;
 
   constructor(private readonly http: HttpRequestHandler, public tokenService : TokenStorageService) { }
 
   postSubject(form : FormGroup) {
-    return this.http.post(Config.apiUrl + Config.subjects, form.value)
+    return this.http.post(this.baseUrl, form.value)
   }
 
   deleteSubject(id: number) {
-    return this.http.delete(Config.apiUrl + Config.subjects+ Config.actions.delete + `/${id}`);
+    return this.http.delete(this.baseUrl + `/${id}`);
   }
 
   getAllSubject(): Observable<Subject[]> {
@@ -28,7 +30,7 @@ export class SubjectService {
         title : subject.title,
         description : subject.description,
         category : subject.category,
-        user : subject.user,
+        user : subject.user.credentials.username,
         vote : subject.vote
       })
     )));

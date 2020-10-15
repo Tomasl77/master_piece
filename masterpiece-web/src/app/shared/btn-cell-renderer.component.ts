@@ -16,6 +16,7 @@ export class BtnCellRenderer implements ICellRendererAngularComp {
   private btnClass: string;
   private label: string;
   private panelAdmin: boolean
+  private userId: number;
 
   agInit(params: any): void {
     this.params = params;
@@ -41,6 +42,6 @@ export class BtnCellRenderer implements ICellRendererAngularComp {
   }
 
   isCurrentlyLog(): boolean {
-    return this.authenticationService.currentUserValue.userId === this.params.node.data.id;
+    return this.authenticationService.currentUserValue.userId === this.params.node.data.credentials.id;
   }
 }

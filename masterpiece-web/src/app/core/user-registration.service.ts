@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { Observable, Subscription, throwError } from 'rxjs';
 import { AccountDto } from '../shared/models/accountDto';
 import { Config } from 'src/assets/config-properties';
-import { CustomUser } from '../shared/models/custom-user.model';
+import { UserProfile } from '../shared/models/user-profile.model';
 import { HttpRequestHandler } from '../shared/http-helper/http-request-handler';
 
 
@@ -18,20 +18,20 @@ export class UserRegistrationService {
     return this.http.post(this.baseUrl, formData.value);
   }
 
-  getAccount(id: number): Observable<CustomUser> {
+  getAccount(id: number): Observable<UserProfile> {
     return this.http.get(`${this.baseUrl}/${id}`)
   }
 
-  getAllUsers(): Observable<CustomUser[]> {
+  getAllUsers(): Observable<UserProfile[]> {
     return this.http.get(this.baseUrl)
   }
 
   deleteUser(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl+ Config.actions.delete+ `/${id}`)
+    return this.http.delete(this.baseUrl+ `/${id}`)
   }
 
   updateUser(formData :FormGroup) {
-    return this.http.update(this.baseUrl + Config.actions.update, formData.value)
+    return this.http.update(this.baseUrl, formData.value)
   }
 
   unsubscribe(subscription: Subscription) {
