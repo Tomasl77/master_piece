@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -14,14 +13,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.formation.masterpiece.annotations.HasRoleAdmin;
 import fr.formation.masterpiece.annotations.HasRoleUser;
-import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
-import fr.formation.masterpiece.domain.dtos.CustomUserDto;
-import fr.formation.masterpiece.domain.dtos.CustomUserPatchDto;
-import fr.formation.masterpiece.domain.dtos.UpdateUserInfoDto;
+import fr.formation.masterpiece.domain.dtos.UpdateUserProfileDto;
 import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
+import fr.formation.masterpiece.domain.dtos.UserProfileCreateDto;
+import fr.formation.masterpiece.domain.dtos.UserProfileDto;
+import fr.formation.masterpiece.domain.dtos.UserProfilePatchDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
-import fr.formation.masterpiece.domain.dtos.views.CustomUserViewDto;
+import fr.formation.masterpiece.domain.dtos.views.UserProfileViewDto;
 import fr.formation.masterpiece.services.UserService;
 
 @RestController
@@ -35,7 +35,8 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public CustomUserViewDto getOne(@PathVariable("id") Long id) {
+    @HasRoleUser
+    public UserProfileViewDto getOne(@PathVariable("id") Long id) {
 	return service.getOne(id);
     }
 
@@ -46,25 +47,26 @@ public class UserController {
     }
 
     @PostMapping
-    public CustomUserDto create(@Valid @RequestBody CustomUserCreateDto dto) {
+    public UserProfileDto create(@Valid @RequestBody UserProfileCreateDto dto) {
 	return service.create(dto);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("{id}")
+    @HasRoleAdmin
     public void deleteAccount(@PathVariable("id") Long id) {
 	service.deleteOne(id);
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public List<CustomUserViewDto> getAll() {
+    @HasRoleAdmin
+    public List<UserProfileViewDto> getAll() {
 	return service.getAll();
     }
 
-    @PatchMapping("/update")
+    @PatchMapping
     @HasRoleUser
-    public CustomUserPatchDto update(
-            @Valid @RequestBody UpdateUserInfoDto user) {
+    public UserProfilePatchDto update(
+            @Valid @RequestBody UpdateUserProfileDto user) {
 	return service.update(user);
     }
 

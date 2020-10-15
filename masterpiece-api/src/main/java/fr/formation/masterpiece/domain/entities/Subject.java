@@ -8,6 +8,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,8 +34,9 @@ public class Subject extends AbstractEntity {
     private int vote;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "requester_id", referencedColumnName = "id",
             nullable = false,
-            foreignKey = @ForeignKey(name = "FK_subject_user"))
-    private CustomUser user;
+            foreignKey = @ForeignKey(name = "FK_subject_userprofile"))
+    private UserProfile user;
 }

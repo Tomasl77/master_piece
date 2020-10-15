@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 
 import fr.formation.masterpiece.config.JUnitConfigTest;
 
-class CustomUserDtoTest extends JUnitConfigTest {
+class UserProfileDtoTest extends JUnitConfigTest {
 
     @Test
     void should_construct() {
-	CustomUserDto tested = new CustomUserDto();
+	UserProfileDto tested = new UserProfileDto();
 	assertNotNull(tested);
     }
 }

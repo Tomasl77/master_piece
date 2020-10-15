@@ -1,5 +1,6 @@
 package fr.formation.masterpiece.domain.dtos;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -9,18 +10,21 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserInfoCreateDto {
+public class UserProfileCreateDto {
 
     @Email
     @NotBlank
     @Size(max = 255)
     private String email;
 
-    public UserInfoCreateDto() {
+    @Valid
+    UserCredentialsCreateDto credentials;
+
+    public UserProfileCreateDto() {
     }
 
     @Override
     public String toString() {
-	return "{email: " + email + "}";
+	return "{email: " + email + " , credentials = " + credentials + "}";
     }
 }

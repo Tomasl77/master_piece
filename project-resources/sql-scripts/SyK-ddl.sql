@@ -2,7 +2,7 @@
 DDL script for teamsharing database
 Script can be used on mysql database.
 
-Last update : 2020-09-18
+Last update : 2020-10-14
 
 */
 
@@ -20,22 +20,8 @@ USE teamsharingdev;
 DROP TABLE IF EXISTS `subject`;
 DROP TABLE IF EXISTS `user_role`;
 DROP TABLE IF EXISTS `role`;
+DROP TABLE IF EXISTS `user_profile`;
 DROP TABLE IF EXISTS `user`;
-DROP TABLE IF EXISTS `user_info`;
-
-
-/******************************
-******* USERINFO  TABLE *******
-******************************/
-
-CREATE TABLE `user_info` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UQ_email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
- 
-
 
 /******************************
 ******** USER  TABLE ********
@@ -49,11 +35,24 @@ CREATE TABLE `user` (
   `enabled` varchar(1) NOT NULL,
   `password` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
-  `user_info_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `UQ_username` (`username`),
-  CONSTRAINT `FK_user_user_info` FOREIGN KEY (`user_info_id`) REFERENCES `user_info` (`id`)
+  UNIQUE KEY `UQ_username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/******************************
+******* USERINFO  TABLE *******
+******************************/
+
+CREATE TABLE `user_profile` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `user_credentials_id` bigint NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UQ_email` (`email`),
+  CONSTRAINT `FK_usercredentials_user` FOREIGN KEY (`user_credentials_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
 
 /******************************
 ********* ROLE  TABLE *********
@@ -97,6 +96,6 @@ CREATE TABLE `subject` (
   PRIMARY KEY (`id`),
   KEY `IDX_subject_topic` (`id`),
   KEY `FK_subject_user` (`requester_id`),
-  CONSTRAINT `FK_subject_user` FOREIGN KEY (`requester_id`) REFERENCES `user` (`id`)
+  CONSTRAINT `FK_subject_userprofile` FOREIGN KEY (`requester_id`) REFERENCES `user_profile` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 

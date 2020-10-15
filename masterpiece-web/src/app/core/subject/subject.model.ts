@@ -1,4 +1,4 @@
-import { CustomUser } from 'src/app/shared/models/custom-user.model';
+import { UserProfile } from 'src/app/shared/models/user-profile.model';
 
 export interface Subject{
     id : number;
@@ -6,5 +6,5 @@ export interface Subject{
     description : string;
     category : string;
     vote: number;
-    user : CustomUser;
+    user : UserProfile;
 }
