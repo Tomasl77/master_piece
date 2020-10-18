@@ -1,5 +1,6 @@
 package fr.formation.masterpiece.domain.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -8,16 +9,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "subject",
+@Table(name = "subjects",
         indexes = { @Index(name = "IDX_subject_topic", columnList = "id") })
 public class Subject extends AbstractEntity {
 
@@ -33,8 +31,7 @@ public class Subject extends AbstractEntity {
     @Column(name = "total_vote", nullable = false)
     private int vote;
 
-    @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne(cascade = { CascadeType.REFRESH })
     @JoinColumn(name = "requester_id", referencedColumnName = "id",
             nullable = false,
             foreignKey = @ForeignKey(name = "FK_subject_userprofile"))
