@@ -1,5 +1,7 @@
 package fr.formation.masterpiece.domain.entities;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,8 +13,13 @@ class UserCredentialsTest extends JUnitConfigTest {
 
     @Test
     void should_construct_username_password_roles() {
+	Role role = new Role("ROLE_USER");
 	Set<Role> roles = new HashSet<>();
-	UserCredentials credentials = new UserCredentials("password",
-	        "username", roles);
+	roles.add(role);
+	UserCredentials tested = new UserCredentials("password", "Johanna",
+	        roles);
+	assertEquals("password", tested.getPassword());
+	assertEquals("Johanna", tested.getUsername());
+	assertEquals(1, tested.getRoles().size());
     }
 }
