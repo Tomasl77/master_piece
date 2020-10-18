@@ -117,8 +117,8 @@ public class UserCredentials extends AbstractEntity {
     @Override
     public String toString() {
 	// password=[PROTECTED] for not displaying in logs
-	return "{id=" + id + ", username=" + username
-	        + ", password=[PROTECTED], roles=" + roles + ", enabled="
+	return "{id: " + id + ", username: " + username
+	        + ", password: [PROTECTED], roles: " + roles + ", enabled: "
 	        + enabled + "}";
     }
 }

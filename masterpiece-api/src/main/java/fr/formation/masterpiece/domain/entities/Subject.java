@@ -36,4 +36,11 @@ public class Subject extends AbstractEntity {
             nullable = false,
             foreignKey = @ForeignKey(name = "FK_subject_userprofile"))
     private UserProfile user;
+
+    @Override
+    public String toString() {
+	return "{title: " + title + ", description: " + description
+	        + ", category: " + category + ", vote: " + vote + ", user: "
+	        + user + "}";
+    }
 }

@@ -106,7 +106,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
 	                () -> new AccountNotFoundException("No account found"));
 	merge(userDto, actualUser);
 	UserProfile savedUser = userProfileRepository.save(actualUser);
-	return modelMapper.map(savedUser, UserProfilePatchDto.class);
+	return convert(savedUser, UserProfilePatchDto.class);
     }
 
     @Override

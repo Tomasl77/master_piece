@@ -43,6 +43,6 @@ public class UserProfile extends AbstractEntity {
 
     @Override
     public String toString() {
-	return "{email =" + email + "credentials = " + credentials + "}";
+	return "{email: " + email + ", credentials: " + credentials + "}";
     }
 }

@@ -2,7 +2,7 @@
 DDL script for teamsharing database
 Script can be used on mysql database.
 
-Last update : 2020-10-14
+Last update : 2020-10-16
 
 */
 
@@ -17,17 +17,17 @@ USE teamsharingdev;
 
 
 -- TABLE
-DROP TABLE IF EXISTS `subject`;
+DROP TABLE IF EXISTS `subjects`;
 DROP TABLE IF EXISTS `user_role`;
-DROP TABLE IF EXISTS `role`;
-DROP TABLE IF EXISTS `user_profile`;
-DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `user_profiles`;
+DROP TABLE IF EXISTS `roles`;
+DROP TABLE IF EXISTS `users`;
 
 /******************************
 ******** USER  TABLE ********
 ******************************/
 
-CREATE TABLE `user` (
+CREATE TABLE `users` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `account_non_expired` varchar(1) NOT NULL,
   `account_non_locked` varchar(1) NOT NULL,
@@ -43,13 +43,13 @@ CREATE TABLE `user` (
 ******* USERINFO  TABLE *******
 ******************************/
 
-CREATE TABLE `user_profile` (
+CREATE TABLE `user_profiles` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
   `user_credentials_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UQ_email` (`email`),
-  CONSTRAINT `FK_usercredentials_user` FOREIGN KEY (`user_credentials_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
+  CONSTRAINT `FK_usercredentials_user` FOREIGN KEY (`user_credentials_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
@@ -58,7 +58,7 @@ CREATE TABLE `user_profile` (
 ********* ROLE  TABLE *********
 ******************************/
 
-CREATE TABLE `role` (
+CREATE TABLE `roles` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `code` varchar(255) NOT NULL,
   `default_role` varchar(1) NOT NULL,
@@ -76,8 +76,8 @@ CREATE TABLE `user_role` (
   `role_id` bigint NOT NULL,
   PRIMARY KEY (`user_id`,`role_id`),
   KEY `FK_role_user` (`role_id`),
-  CONSTRAINT `FK_user_role` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `FK_role_user` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
+  CONSTRAINT `FK_user_role` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `FK_role_user` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
@@ -86,7 +86,7 @@ CREATE TABLE `user_role` (
 ******** SUBJECT TABLE ********
 ******************************/
 
-CREATE TABLE `subject` (
+CREATE TABLE `subjects` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `category` varchar(20) NOT NULL,
   `description` text,
@@ -96,6 +96,5 @@ CREATE TABLE `subject` (
   PRIMARY KEY (`id`),
   KEY `IDX_subject_topic` (`id`),
   KEY `FK_subject_user` (`requester_id`),
-  CONSTRAINT `FK_subject_userprofile` FOREIGN KEY (`requester_id`) REFERENCES `user_profile` (`id`)
+  CONSTRAINT `FK_subject_userprofile` FOREIGN KEY (`requester_id`) REFERENCES `user_profiles` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
