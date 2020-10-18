@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import fr.formation.masterpiece.domain.entities.UserProfile;
 
@@ -18,5 +19,5 @@ public interface UserProfileRepository
     Optional<UserProfile> getById(Long id);
 
     @Query("select id from UserProfile u where u.credentials.id = :id")
-    Long getUserProfileIdByUserId(Long id);
+    Long getUserProfileIdByUserId(@Param("id") Long id);
 }

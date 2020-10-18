@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,7 @@ import fr.formation.masterpiece.domain.entities.UserCredentials;
 import fr.formation.masterpiece.domain.entities.UserProfile;
 import fr.formation.masterpiece.exceptions.AccountNotFoundException;
 import fr.formation.masterpiece.repositories.RoleRepository;
+import fr.formation.masterpiece.repositories.SubjectRepository;
 import fr.formation.masterpiece.repositories.UserCredentialsRepository;
 import fr.formation.masterpiece.repositories.UserProfileRepository;
 import fr.formation.masterpiece.services.UserService;
@@ -34,15 +37,19 @@ public class UserServiceImpl extends AbstractService implements UserService {
 
     private final RoleRepository roleRepository;
 
+    private final SubjectRepository subjectRepository;
+
     private final PasswordEncoder passwordEncoder;
 
-    protected UserServiceImpl(UserCredentialsRepository userRepo,
-            RoleRepository roleRepository, PasswordEncoder passwordEncoder,
-            UserProfileRepository userProfileRepository) {
-	this.roleRepository = roleRepository;
-	this.userRepository = userRepo;
-	this.passwordEncoder = passwordEncoder;
+    public UserServiceImpl(UserCredentialsRepository userRepository,
+            UserProfileRepository userProfileRepository,
+            RoleRepository roleRepository, SubjectRepository subjectRepository,
+            PasswordEncoder passwordEncoder) {
+	this.userRepository = userRepository;
 	this.userProfileRepository = userProfileRepository;
+	this.roleRepository = roleRepository;
+	this.subjectRepository = subjectRepository;
+	this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -82,8 +89,10 @@ public class UserServiceImpl extends AbstractService implements UserService {
 	return convert(userProfile, UserProfileViewDto.class);
     }
 
+    @Transactional(rollbackOn = { AccountNotFoundException.class })
     @Override
     public void deleteOne(Long id) {
+	subjectRepository.deleteSubjectsAssociatedToUser(id);
 	UserProfile deleted = userProfileRepository.findById(id)
 	        .orElseThrow(() -> new AccountNotFoundException(
 	                "Account not found : " + id));

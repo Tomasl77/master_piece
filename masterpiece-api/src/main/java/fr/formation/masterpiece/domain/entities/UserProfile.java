@@ -1,13 +1,10 @@
 package fr.formation.masterpiece.domain.entities;
 
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -30,9 +27,6 @@ public class UserProfile extends AbstractEntity {
             referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "FK_usercredentials_user"))
     private UserCredentials credentials;
-
-    @OneToMany(mappedBy = "user", orphanRemoval = true)
-    private List<Subject> subjects;
 
     public UserProfile() {
     }
