@@ -21,7 +21,7 @@ import fr.formation.masterpiece.domain.dtos.views.UserProfileViewDto;
 import fr.formation.masterpiece.domain.entities.Role;
 import fr.formation.masterpiece.domain.entities.UserCredentials;
 import fr.formation.masterpiece.domain.entities.UserProfile;
-import fr.formation.masterpiece.exceptions.AccountNotFoundException;
+import fr.formation.masterpiece.exceptions.ResourceNotFoundException;
 import fr.formation.masterpiece.repositories.RoleRepository;
 import fr.formation.masterpiece.repositories.SubjectRepository;
 import fr.formation.masterpiece.repositories.UserCredentialsRepository;
@@ -84,18 +84,18 @@ public class UserServiceImpl extends AbstractService implements UserService {
     public UserProfileViewDto getOne(Long id) {
 	Long userProfileId = userProfileRepository.getUserProfileIdByUserId(id);
 	UserProfile userProfile = userProfileRepository.getById(userProfileId)
-	        .orElseThrow(() -> new AccountNotFoundException(
+	        .orElseThrow(() -> new ResourceNotFoundException(
 	                "Account not found"));
 	return convert(userProfile, UserProfileViewDto.class);
     }
 
-    @Transactional(rollbackOn = { AccountNotFoundException.class })
+    @Transactional
     @Override
     public void deleteOne(Long id) {
-	subjectRepository.deleteSubjectsAssociatedToUser(id);
 	UserProfile deleted = userProfileRepository.findById(id)
-	        .orElseThrow(() -> new AccountNotFoundException(
+	        .orElseThrow(() -> new ResourceNotFoundException(
 	                "Account not found : " + id));
+	subjectRepository.deleteSubjectsAssociatedToUser(id);
 	userProfileRepository.delete(deleted);
     }
 
@@ -111,8 +111,8 @@ public class UserServiceImpl extends AbstractService implements UserService {
 	Long userId = userProfileRepository
 	        .getUserProfileIdByUserId(userCredentialsId);
 	UserProfile actualUser = userProfileRepository.findById(userId)
-	        .orElseThrow(
-	                () -> new AccountNotFoundException("No account found"));
+	        .orElseThrow(() -> new ResourceNotFoundException(
+	                "No account found"));
 	merge(userDto, actualUser);
 	UserProfile savedUser = userProfileRepository.save(actualUser);
 	return convert(savedUser, UserProfilePatchDto.class);

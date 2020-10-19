@@ -102,9 +102,9 @@ public class GlobalControllerExceptionHandler
 	return errorToReturn(apiError);
     }
 
-    @ExceptionHandler({ AccountNotFoundException.class })
-    public ResponseEntity<Object> idNotFoundException(
-            AccountNotFoundException ex) {
+    @ExceptionHandler({ ResourceNotFoundException.class })
+    public ResponseEntity<Object> resourceNotFoundException(
+            ResourceNotFoundException ex) {
 	ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(),
 	        ex.getLocalizedMessage());
 	return errorToReturn(apiError);

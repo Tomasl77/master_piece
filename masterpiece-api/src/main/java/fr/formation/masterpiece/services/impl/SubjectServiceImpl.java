@@ -11,7 +11,6 @@ import fr.formation.masterpiece.domain.dtos.SubjectDto;
 import fr.formation.masterpiece.domain.dtos.views.SubjectViewDto;
 import fr.formation.masterpiece.domain.entities.Subject;
 import fr.formation.masterpiece.domain.entities.UserProfile;
-import fr.formation.masterpiece.exceptions.AccountNotFoundException;
 import fr.formation.masterpiece.exceptions.ResourceNotFoundException;
 import fr.formation.masterpiece.repositories.SubjectRepository;
 import fr.formation.masterpiece.repositories.UserProfileRepository;
@@ -37,7 +36,7 @@ public class SubjectServiceImpl extends AbstractService
 	Long userId = userProfileRepository
 	        .getUserProfileIdByUserId(userCredentialsId);
 	UserProfile user = userProfileRepository.getById(userId).orElseThrow(
-	        () -> new AccountNotFoundException("Account not found"));
+	        () -> new ResourceNotFoundException("Account not found"));
 	Subject subject = convert(subjectDto, Subject.class);
 	subject.setUser(user);
 	Subject subjectToSave = subjectRepository.save(subject);
