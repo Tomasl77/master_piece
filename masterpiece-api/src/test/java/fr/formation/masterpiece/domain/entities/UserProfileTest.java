@@ -16,7 +16,7 @@ class UserProfileTest extends JUnitConfigTest {
     void void_should_set_email() {
 	UserProfile tested = new UserProfile();
 	tested.setEmail("aeris@gmail.com");
-	assertEquals("aeris@gmail.com", tested);
+	assertEquals("aeris@gmail.com", tested.getEmail());
     }
 
     void should_set_user_credentials() {

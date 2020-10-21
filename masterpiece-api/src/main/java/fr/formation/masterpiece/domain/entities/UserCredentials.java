@@ -20,7 +20,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "users", uniqueConstraints = {
+@Table(name = "user_credentials", uniqueConstraints = {
         @UniqueConstraint(name = "UQ_username", columnNames = { "username" }) })
 public class UserCredentials extends AbstractEntity {
 

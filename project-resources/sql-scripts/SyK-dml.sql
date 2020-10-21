@@ -2,7 +2,7 @@
 DML script for teamsharing database
 Script can be used with mysql
 
-Last update : 2020-10-16
+Last update : 2020-10-21
 
 */
 
@@ -11,7 +11,7 @@ USE teamsharingdev;
 DELETE FROM `subjects`;
 DELETE FROM user_role;
 DELETE FROM user_profiles;
-DELETE FROM `users`;
+DELETE FROM `user_credentials`;
 DELETE FROM `roles`;
 
 
@@ -22,7 +22,7 @@ INSERT INTO `roles`(code, default_role)
 
 COMMIT;
 
-INSERT INTO `users` (account_non_expired, password, username, account_non_locked, credentials_non_expired, enabled)
+INSERT INTO `user_credentials` (account_non_expired, password, username, account_non_locked, credentials_non_expired, enabled)
 	VALUES 
     ('T','$2a$10$JbSdgniSs9PoNJM3XN6qUuS9s6uVJwpS1fLIOddNemQgx8FuUw67O','Tomas','T','T','T'), -- password = Totototo9!
 	('T','$2a$10$PxZEkHGLpGgeV8mO8ehxz..dGlyxwFo3FgTGfdC/2LqOYd8R4DI/a','Johanna','T','T','T'),  -- password = Joanhime77!
@@ -31,10 +31,10 @@ INSERT INTO `users` (account_non_expired, password, username, account_non_locked
 
 COMMIT; 
 
-SET @Tomas = (SELECT id  FROM teamsharingdev.users WHERE username= 'Tomas');
-SET @Johanna = (SELECT id  FROM teamsharingdev.users WHERE username = 'Johanna');
-SET @Lily = (SELECT id  FROM teamsharingdev.users WHERE username = 'Lily');
-SET @Benjamin = (SELECT id FROM teamsharingdev.users WHERE username = 'Benjamin');
+SET @Tomas = (SELECT id  FROM teamsharingdev.user_credentials WHERE username= 'Tomas');
+SET @Johanna = (SELECT id  FROM teamsharingdev.user_credentials WHERE username = 'Johanna');
+SET @Lily = (SELECT id  FROM teamsharingdev.user_credentials WHERE username = 'Lily');
+SET @Benjamin = (SELECT id FROM teamsharingdev.user_credentials WHERE username = 'Benjamin');
 SET @user = (SELECT id FROM teamsharingdev.roles WHERE code = 'ROLE_USER');
 SET @admin = (SELECT id FROM teamsharingdev.roles WHERE code = 'ROLE_ADMIN');
 

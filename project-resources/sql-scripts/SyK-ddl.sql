@@ -2,7 +2,7 @@
 DDL script for teamsharing database
 Script can be used on mysql database.
 
-Last update : 2020-10-16
+Last update : 2020-10-21
 
 */
 
@@ -21,13 +21,13 @@ DROP TABLE IF EXISTS `subjects`;
 DROP TABLE IF EXISTS `user_role`;
 DROP TABLE IF EXISTS `user_profiles`;
 DROP TABLE IF EXISTS `roles`;
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `user_credentials`;
 
 /******************************
 ******** USER  TABLE ********
 ******************************/
 
-CREATE TABLE `users` (
+CREATE TABLE `user_credentials` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `account_non_expired` varchar(1) NOT NULL,
   `account_non_locked` varchar(1) NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE `user_profiles` (
   `user_credentials_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UQ_email` (`email`),
-  CONSTRAINT `FK_usercredentials_user` FOREIGN KEY (`user_credentials_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+  CONSTRAINT `FK_usercredentials_user` FOREIGN KEY (`user_credentials_id`) REFERENCES `user_credentials` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
@@ -76,7 +76,7 @@ CREATE TABLE `user_role` (
   `role_id` bigint NOT NULL,
   PRIMARY KEY (`user_id`,`role_id`),
   KEY `FK_role_user` (`role_id`),
-  CONSTRAINT `FK_user_role` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `FK_user_role` FOREIGN KEY (`user_id`) REFERENCES `user_credentials` (`id`),
   CONSTRAINT `FK_role_user` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
