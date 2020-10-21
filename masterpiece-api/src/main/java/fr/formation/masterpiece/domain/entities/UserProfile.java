@@ -25,7 +25,7 @@ public class UserProfile extends AbstractEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_credentials_id", nullable = false,
             referencedColumnName = "id",
-            foreignKey = @ForeignKey(name = "FK_usercredentials_user"))
+            foreignKey = @ForeignKey(name = "FK_userprofile_usercredentials"))
     private UserCredentials credentials;
 
     public UserProfile() {

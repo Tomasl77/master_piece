@@ -49,7 +49,7 @@ CREATE TABLE `user_profiles` (
   `user_credentials_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UQ_email` (`email`),
-  CONSTRAINT `FK_usercredentials_user` FOREIGN KEY (`user_credentials_id`) REFERENCES `user_credentials` (`id`) ON DELETE CASCADE
+  CONSTRAINT `FK_userprofile_usercredentials` FOREIGN KEY (`user_credentials_id`) REFERENCES `user_credentials` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
