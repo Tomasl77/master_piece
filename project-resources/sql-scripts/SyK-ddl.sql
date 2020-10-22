@@ -98,3 +98,19 @@ CREATE TABLE `subjects` (
   KEY `FK_subject_user` (`requester_id`),
   CONSTRAINT `FK_subject_userprofile` FOREIGN KEY (`requester_id`) REFERENCES `user_profiles` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/******************************
+**** SHARING_SESSION TABLE ****
+******************************/
+
+CREATE TABLE `sharing_sessions` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `start_time` datetime NOT NULL,
+  `end_time` datetime NOT NULL,
+  `subjects_id` bigint NOT NULL,
+  `user_profiles_id` bigint NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `UQ_starttime` (`start_time`),
+  CONSTRAINT `FK_sharingsession_subject` FOREIGN KEY (`subjects_id`) REFERENCES `subjects` (`id`),
+  CONSTRAINT `FK_sharingsession_userprofile` FOREIGN KEY (`user_profiles_id`) REFERENCES `user_profiles` (`id`))
+ENGINE = InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

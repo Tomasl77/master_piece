@@ -4,7 +4,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
-import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -15,8 +14,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "subjects",
-        indexes = { @Index(name = "IDX_subject_topic", columnList = "id") })
+@Table(name = "subjects")
 public class Subject extends AbstractEntity {
 
     @Column(name = "title", nullable = false, length = 30)
