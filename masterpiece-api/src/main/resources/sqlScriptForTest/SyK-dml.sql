@@ -8,6 +8,7 @@ Last update : 2020-10-21
 
 USE teamsharingtest;
 
+DELETE FROM `sharing_sessions`;
 DELETE FROM `subjects`;
 DELETE FROM user_role;
 DELETE FROM user_profiles;
@@ -31,12 +32,12 @@ INSERT INTO `user_credentials` (account_non_expired, password, username, account
 
 COMMIT; 
 
-SET @Tomas = (SELECT id  FROM teamsharingtest.user_credentials WHERE username= 'Tomas');
-SET @Johanna = (SELECT id  FROM teamsharingtest.user_credentials WHERE username = 'Johanna');
-SET @Lily = (SELECT id  FROM teamsharingtest.user_credentials WHERE username = 'Lily');
-SET @Benjamin = (SELECT id FROM teamsharingtest.user_credentials WHERE username = 'Benjamin');
-SET @user = (SELECT id FROM teamsharingtest.roles WHERE code = 'ROLE_USER');
-SET @admin = (SELECT id FROM teamsharingtest.roles WHERE code = 'ROLE_ADMIN');
+SET @Tomas = (SELECT id  FROM user_credentials WHERE username= 'Tomas');
+SET @Johanna = (SELECT id  FROM user_credentials WHERE username = 'Johanna');
+SET @Lily = (SELECT id  FROM user_credentials WHERE username = 'Lily');
+SET @Benjamin = (SELECT id FROM user_credentials WHERE username = 'Benjamin');
+SET @user = (SELECT id FROM roles WHERE code = 'ROLE_USER');
+SET @admin = (SELECT id FROM roles WHERE code = 'ROLE_ADMIN');
 
 INSERT INTO `user_role` (user_id, role_id) 
     VALUES 
@@ -59,10 +60,10 @@ INSERT INTO `user_profiles` (email, user_credentials_id)
 
 COMMIT;
 
-SET @Tomas = (SELECT id  FROM teamsharingtest.user_profiles WHERE email= 'tomas@gmail.com');
-SET @Johanna = (SELECT id  FROM teamsharingtest.user_profiles WHERE email= 'johanna@gmail.com');
-SET @Lily = (SELECT id  FROM teamsharingtest.user_profiles WHERE email = 'lily@gmail.com');
-SET @Benjamin = (SELECT id FROM teamsharingtest.user_profiles WHERE email = 'benjamin@gmail.com');
+SET @Tomas = (SELECT id  FROM user_profiles WHERE email= 'tomas@gmail.com');
+SET @Johanna = (SELECT id  FROM user_profiles WHERE email= 'johanna@gmail.com');
+SET @Lily = (SELECT id  FROM user_profiles WHERE email = 'lily@gmail.com');
+SET @Benjamin = (SELECT id FROM user_profiles WHERE email = 'benjamin@gmail.com');
 
 INSERT INTO `subjects` (category, description, title, total_vote, requester_id) 
     VALUES 
@@ -82,3 +83,9 @@ INSERT INTO `subjects` (category, description, title, total_vote, requester_id)
     ('OTHER', 'How to improve skills by making a good tech watch', 'Misc', 5, @Johanna);
 
 COMMIT;
+
+SET @angular8modals = (SELECT id FROM subjects WHERE title = "Angular 8 Modals");
+
+INSERT INTO `sharing_sessions` (`start_time`, `end_time`, `subject_id`, `user_profile_id`)
+	VALUES
+    ('2020-12-12 14:30:00', '2020-12-12 15:30:00', @angular8modals ,@Tomas);

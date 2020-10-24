@@ -33,10 +33,10 @@ public class SubjectServiceImpl extends AbstractService
     @Override
     public SubjectDto create(SubjectCreateDto subjectDto) {
 	Long userCredentialsId = SecurityHelper.getUserId();
-	Long userId = userProfileRepository
-	        .getUserProfileIdByUserId(userCredentialsId);
-	UserProfile user = userProfileRepository.getById(userId).orElseThrow(
-	        () -> new ResourceNotFoundException("Account not found"));
+	UserProfile user = userProfileRepository
+	        .findProfileWithUserCredentialsId(userCredentialsId)
+	        .orElseThrow(() -> new ResourceNotFoundException(
+	                "Account not found"));
 	Subject subject = convert(subjectDto, Subject.class);
 	subject.setUser(user);
 	Subject subjectToSave = subjectRepository.save(subject);

@@ -82,8 +82,8 @@ public class UserServiceImpl extends AbstractService implements UserService {
 
     @Override
     public UserProfileViewDto getOne(Long id) {
-	Long userProfileId = userProfileRepository.getUserProfileIdByUserId(id);
-	UserProfile userProfile = userProfileRepository.getById(userProfileId)
+	UserProfile userProfile = userProfileRepository
+	        .findProfileWithUserCredentialsId(id)
 	        .orElseThrow(() -> new ResourceNotFoundException(
 	                "Account not found"));
 	return convert(userProfile, UserProfileViewDto.class);
@@ -108,9 +108,8 @@ public class UserServiceImpl extends AbstractService implements UserService {
     @Override
     public UserProfilePatchDto update(UpdateUserProfileDto userDto) {
 	Long userCredentialsId = SecurityHelper.getUserId();
-	Long userId = userProfileRepository
-	        .getUserProfileIdByUserId(userCredentialsId);
-	UserProfile actualUser = userProfileRepository.findById(userId)
+	UserProfile actualUser = userProfileRepository
+	        .findProfileWithUserCredentialsId(userCredentialsId)
 	        .orElseThrow(() -> new ResourceNotFoundException(
 	                "No account found"));
 	merge(userDto, actualUser);

@@ -36,14 +36,13 @@ public class SharingSessionServiceImpl extends AbstractService
     @Override
     public void create(SharingSessionCreateDto dto) {
 	Long userId = SecurityHelper.getUserId();
-	Long lecturerId = userProfileRepository
-	        .getUserProfileIdByUserId(userId);
-	UserProfile userProfile = userProfileRepository.findById(lecturerId)
-	        .orElseThrow(() -> new ResourceNotFoundException());
-	Subject subject = subjectRepository.findById(dto.getSubjectId())
-	        .orElseThrow(() -> new ResourceNotFoundException());
+	UserProfile user = userProfileRepository
+	        .findProfileWithUserCredentialsId(userId)
+	        .orElseThrow(() -> new ResourceNotFoundException(
+	                "No account found"));
+	Subject subject = subjectRepository.getOne(dto.getSubjectId());
 	SharingSession session = convert(dto, SharingSession.class);
-	session.setUserProfile(userProfile);
+	session.setUserProfile(user);
 	session.setSubject(subject);
 	sharingSessionRepository.save(session);
     }
