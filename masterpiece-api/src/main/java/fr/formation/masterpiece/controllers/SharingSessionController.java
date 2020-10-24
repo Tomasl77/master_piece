@@ -1,6 +1,9 @@
 package fr.formation.masterpiece.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +24,7 @@ public class SharingSessionController {
     }
 
     @PostMapping
-    void create(SharingSessionCreateDto dto) {
+    void create(@RequestBody @Valid SharingSessionCreateDto dto) {
+	this.sharingSessionService.create(dto);
     }
 }
