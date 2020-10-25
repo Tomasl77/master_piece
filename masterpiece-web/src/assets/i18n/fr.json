@@ -121,5 +121,8 @@
   
   "admin-panel" : {
     "label-delete" : "Supprimer"
+  },
+  "d-p": {
+    "start-time" :"Choississez une date et une heure"
   }
 }

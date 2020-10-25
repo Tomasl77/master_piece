@@ -122,5 +122,9 @@
   
   "admin-panel" : {
     "label-delete" : "Delete"
+  },
+
+  "d-p": {
+    "start-time" :"Choose date and time"
   }
 }

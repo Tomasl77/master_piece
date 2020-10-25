@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
@@ -9,10 +9,15 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class DateTimeDialogComponentComponent {
 
+  private dateTimeForm: FormGroup;
+
   constructor(
     public dialogRef: MatDialogRef<DateTimeDialogComponentComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
-  
-  private formGroup : FormGroup;
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private formBuilder: FormBuilder
+  ) {
+    this.dateTimeForm = this.formBuilder.group({
+      startTime: ['', [Validators.required]]
+    })
+  }
 }

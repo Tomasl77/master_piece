@@ -171,7 +171,6 @@ export class SubjectComponent implements OnInit, OnDestroy {
         { headerName: this.translate('ag-grid.subject.vote'), field: 'vote', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.subject.requester'), field: 'user', sortable: true, filter: true },
         {
-          headerName: this.translate('ag-grid.present'),
           sortable: false,
           filter:false,
           cellStyle:  { border: "none" },
@@ -183,7 +182,6 @@ export class SubjectComponent implements OnInit, OnDestroy {
           }
         },
         {
-          headerName: this.translate('ag-grid.delete'),
           sortable: false,
           filter:false,
           hide: !this.isAdmin(),
@@ -192,7 +190,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
           cellRendererParams: {
             onClick: this.openDeleteModal.bind(this),
             btnClass: "btn btn-success",
-            label: "Delete"
+            label: this.translate("btnRenderer.delete")
           }
         }
       ]
@@ -237,7 +235,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
       },
       data:
       {
-        dataToProcess: subject.title
+        subject: subject
       },
     });
     dialogRef.afterClosed().subscribe(result => {
