@@ -2,6 +2,13 @@
   "action": {
     "delete":"effacer"
   },
+  
+  "btnRenderer": {
+    "delete": "Supprimer",
+    "present": "Presenter"
+  },
+
+
   "navbar": {
     "account": "Mon Compte",
     "sign-in": "Se connecter",
@@ -108,7 +115,8 @@
       "vote": "N° de vote",
       "requester": "Demandeur"
     },
-    "delete": "Supprimer"
+    "delete": "Supprimer",
+    "present": "Presenter"
   },
   
   "admin-panel" : {

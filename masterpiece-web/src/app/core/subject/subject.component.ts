@@ -4,12 +4,13 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { SubjectService } from './subject.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { AuthenticationService } from 'src/app/shared/authentication/authentication.service';
-import { Subject } from './subject.model';
+import { Subject } from '../../shared/models/subject.model';
 import { Subscription } from 'rxjs';
 import { ColDef, GridOptions } from 'ag-grid-community';
 import { MatDialog } from '@angular/material';
 import { ConfirmationModalComponent } from 'src/app/shared/modals/confirmation-modal/confirmation-modal.component';
 import { BtnCellRenderer } from 'src/app/shared/btn-cell-renderer.component';
+import { DateTimeDialogComponentComponent } from 'src/app/shared/modals/date-time-dialog-component/date-time-dialog-component.component';
 
 @Component({
   selector: 'app-subject',
@@ -170,8 +171,23 @@ export class SubjectComponent implements OnInit, OnDestroy {
         { headerName: this.translate('ag-grid.subject.vote'), field: 'vote', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.subject.requester'), field: 'user', sortable: true, filter: true },
         {
+          headerName: this.translate('ag-grid.present'),
+          sortable: false,
+          filter:false,
+          cellStyle:  { border: "none" },
+          cellRenderer: 'btnCellRenderer',
+          cellRendererParams: {
+            onClick: this.openPresentModal.bind(this),
+            btnClass: "btn btn-success",
+            label: this.translate("btnRenderer.present")
+          }
+        },
+        {
           headerName: this.translate('ag-grid.delete'),
+          sortable: false,
+          filter:false,
           hide: !this.isAdmin(),
+          cellStyle:  { border: "none" },
           cellRenderer: 'btnCellRenderer',
           cellRendererParams: {
             onClick: this.openDeleteModal.bind(this),
@@ -187,12 +203,17 @@ export class SubjectComponent implements OnInit, OnDestroy {
     return this.translateService.instant(stringToTranslate);
   }
 
-  public openDeleteModal(params: any) {
+  private openPresentModal(params :any) {
     const subject: Subject = params.rowData;
-    this.openDialog(subject);
+    this.openDateTimeDialog(subject);
+  }
+
+  private openDeleteModal(params: any) {
+    const subject: Subject = params.rowData;
+    this.openConfirmDialog(subject, 'delete', 'subject');
   };
 
-  openDialog(subject: Subject) {
+  openConfirmDialog(subject: Subject, action: String, object: String) {
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {
       position: {
         top: "50px"
@@ -200,12 +221,27 @@ export class SubjectComponent implements OnInit, OnDestroy {
       data:
       {
         dataToProcess: subject.title,
-        action: 'delete',
-        object: "subject"
+        action: action,
+        object: object
       },
     });
     dialogRef.afterClosed().subscribe(result => {
       result == 'confirm' ? this.deleteSubject(subject.id) : dialogRef.close();
+    })
+  }
+
+  openDateTimeDialog(subject: Subject) {
+    const dialogRef = this.dialog.open(DateTimeDialogComponentComponent, {
+      position: {
+        top: "50px"
+      },
+      data:
+      {
+        dataToProcess: subject.title
+      },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      result == 'confirm' ? console.log("confirmation" + subject.title) : dialogRef.close();
     })
   }
 

@@ -3,6 +3,11 @@
     "delete" : "delete"
   },
 
+  "btnRenderer": {
+    "delete": "Delete",
+    "present": "Present"
+  },
+
   "navbar": {
     "account": "My account",
     "sign-in": "Sign in",
@@ -110,7 +115,8 @@
       "vote": "N° of vote",
       "requester": "Requester"
     },
-    "delete": "Delete"
+    "delete": "Delete",
+    "present":"Present"
   },
 
   

@@ -37,8 +37,7 @@ export class LogInComponent implements OnInit {
   logIn() {
     this.authService.logIn(this.logInForm).subscribe(
       () => {
-        this.router.navigate(['/accounts']),
-        console.log(" LoggedIn successful")
+        this.router.navigate(['/accounts'])
       },
       (error) => {
         console.log(error);

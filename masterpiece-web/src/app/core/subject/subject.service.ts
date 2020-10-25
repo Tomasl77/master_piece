@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Config } from 'src/assets/config-properties';
 import { TokenStorageService } from 'src/app/shared/token-storage.service';
-import { Subject } from './subject.model';
+import { Subject } from '../../shared/models/subject.model';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpRequestHandler } from 'src/app/shared/http-helper/http-request-handler';

@@ -30,6 +30,7 @@ class SubjectControllerTest extends JUnitConfigTest {
     }
 
     @Test
+    @MockUserForTests
     void should_create_subject() {
 	SubjectCreateDto dto = jsonConvert(json, SubjectCreateDto.class);
 	SubjectDto tested = subjectController.postSubject(dto);
