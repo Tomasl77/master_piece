@@ -96,6 +96,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
         { headerName: this.translate('ag-grid.admin-panel.email'), field: 'email' },
         {
           headerName: this.translate('ag-grid.delete'),
+          cellStyle:  { border: "none" },
           hide: !this.isAdmin(),
           cellRenderer: 'btnCellRenderer',
           cellRendererParams: {
