@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
@@ -7,17 +7,24 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
   templateUrl: './date-time-dialog-component.component.html',
   styleUrls: ['./date-time-dialog-component.component.css']
 })
-export class DateTimeDialogComponentComponent {
+export class DateTimeDialogComponentComponent implements OnInit {
 
   private dateTimeForm: FormGroup;
+
+  private startTime: FormControl;
 
   constructor(
     public dialogRef: MatDialogRef<DateTimeDialogComponentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder
   ) {
-    this.dateTimeForm = this.formBuilder.group({
-      startTime: ['', [Validators.required]]
-    })
+    
+  }
+  ngOnInit(): void {
+    this.onChanges();
+  }
+
+  private onChanges() : void{
+
   }
 }

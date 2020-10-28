@@ -239,7 +239,8 @@ export class SubjectComponent implements OnInit, OnDestroy {
       },
     });
     dialogRef.afterClosed().subscribe(result => {
-      result == 'confirm' ? console.log("confirmation" + subject.title) : dialogRef.close();
+      console.log(result);
+      result == 'confirm' ? console.log("confirmation : " + subject.title) : dialogRef.close();
     })
   }
 

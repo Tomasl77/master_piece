@@ -84,7 +84,8 @@
       "description" : {
         "required" :"Veuillez entrer une description"
       } 
-    }
+    },
+    "confirm": "Voulez vous proposer une session pour le sujet suivant"
   },
 
 

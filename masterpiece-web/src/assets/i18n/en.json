@@ -85,7 +85,8 @@
       "description": {
         "required": "Description is required"
       }
-    }
+    },
+    "confirm": "Do you want to present the following subject "
   },
 
 

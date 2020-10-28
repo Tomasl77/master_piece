@@ -1,9 +1,11 @@
-Voulez vous proposer une session pour le sujet suivant : {{data.subject.title}}?
-<form [formGroup]="dateTimeForm">
+<div>{{'subject.confirm' | translate}} : {{data.subject.title}}?</div>
     <mat-form-field>
       <input matInput [ngxMatDatetimePicker]="picker" 
-      placeholder="{{'d-p.start-time' | translate}}" formControlName="startTime">
+      placeholder="{{'d-p.start-time' | translate}}" [(ngModel)]="data.picker">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <ngx-mat-datetime-picker #picker></ngx-mat-datetime-picker>
     </mat-form-field>
-</form>
+    <div mat-dialog-actions align="end">
+      <button mat-button [mat-dialog-close]="no" class="btn btn-success">No</button>
+      <button mat-button [mat-dialog-close]="data.picker" class="btn btn-success red">{{'dialog.confirm' | translate}}</button>
+    </div>
