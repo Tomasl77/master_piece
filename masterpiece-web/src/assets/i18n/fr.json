@@ -29,7 +29,8 @@
     "confirm":"Confirmer",
     "delete" : "effacer",
     "user" : "l'utilisateur",
-    "subject" : "le sujet"
+    "subject" : "le sujet",
+    "cancel" : "Annuler"
   },
 
 

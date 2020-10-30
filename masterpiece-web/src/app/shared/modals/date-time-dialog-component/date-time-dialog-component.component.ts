@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
@@ -13,18 +13,20 @@ export class DateTimeDialogComponentComponent implements OnInit {
 
   private startTime: FormControl;
 
+  private minDate: Date;
+
+  private showSpinners: boolean;
+  
+  private defaultTime = [14, 0 , 0] 
+  
   constructor(
     public dialogRef: MatDialogRef<DateTimeDialogComponentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder
   ) {
-    
+    this.minDate = new Date(new Date().setHours(24,0,0,0))
   }
   ngOnInit(): void {
-    this.onChanges();
-  }
-
-  private onChanges() : void{
-
+    this.showSpinners = false;
   }
 }

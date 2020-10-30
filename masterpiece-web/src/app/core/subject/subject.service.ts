@@ -24,7 +24,7 @@ export class SubjectService {
   }
 
   getAllSubject(): Observable<Subject[]> {
-    return this.http.get(Config.apiUrl+Config.subjects).pipe(map(response => response.map(
+    return this.http.get(this.baseUrl).pipe(map(response => response.map(
       (subject: Subject) => ({
         id: subject.id,
         title : subject.title,
@@ -35,6 +35,11 @@ export class SubjectService {
         credentials: subject.user.credentials
       })
     )));
+  }
+
+
+  presentSubject(form : FormGroup) {
+    return this.http.post(Config.apiUrl + "/sharing-sessions", form.value);
   }
 
   unsubscribe(subscription: Subscription) {

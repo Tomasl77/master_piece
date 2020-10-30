@@ -53,7 +53,7 @@ public class SubjectServiceImpl extends AbstractService
 
     @Override
     public List<SubjectViewDto> getAll() {
-	List<Subject> subjects = subjectRepository.getAllProjectedBy();
+	List<Subject> subjects = subjectRepository.findAllBySchedule(false);
 	List<SubjectViewDto> test = convertList(subjects, SubjectViewDto.class);
 	return test;
     }

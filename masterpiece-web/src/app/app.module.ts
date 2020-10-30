@@ -15,7 +15,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { BtnCellRenderer } from './shared/btn-cell-renderer.component';
 import { MatDialog, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 import { ConfirmationModalComponent } from './shared/modals/confirmation-modal/confirmation-modal.component';
-
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,10 @@ import { ConfirmationModalComponent } from './shared/modals/confirmation-modal/c
     }),
     AgGridModule.withComponents([BtnCellRenderer])
   ],
-  providers: [MatDialog,{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }, {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
+  providers: [MatDialog,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }, 
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}, DatePipe
+  ],
   bootstrap: [AppComponent],
   entryComponents: [
     ConfirmationModalComponent,

@@ -1,13 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { SubjectService } from './subject.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
-import { AuthenticationService } from 'src/app/shared/authentication/authentication.service';
-import { Subject } from '../../shared/models/subject.model';
+import { MatDialog } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { ColDef, GridOptions } from 'ag-grid-community';
-import { MatDialog } from '@angular/material';
+import { DatePipe } from '@angular/common';
+
+import { SubjectService } from './subject.service';
+import { AuthenticationService } from 'src/app/shared/authentication/authentication.service';
+import { Subject } from '../../shared/models/subject.model';
 import { ConfirmationModalComponent } from 'src/app/shared/modals/confirmation-modal/confirmation-modal.component';
 import { BtnCellRenderer } from 'src/app/shared/btn-cell-renderer.component';
 import { DateTimeDialogComponentComponent } from 'src/app/shared/modals/date-time-dialog-component/date-time-dialog-component.component';
@@ -22,6 +24,8 @@ export class SubjectComponent implements OnInit, OnDestroy {
 
   private action: string;
 
+  private tomorrow: Date;
+
   private formErrors = {
     'title': '',
     'description': ''
@@ -35,6 +39,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
   private getAllSubjectsSubscription: Subscription;
   private deleteSubjectSubscription: Subscription;
   private postSubjectSubscription: Subscription;
+  private presentSubjectSubscription: Subscription;
 
   private subjectForm: FormGroup;
   private categories = [
@@ -51,6 +56,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
     private subjectService: SubjectService,
     private activatedRoute: ActivatedRoute,
     private authenthicationService: AuthenticationService,
+    private datePipe : DatePipe,
     private dialog: MatDialog  ) {
     this.subjectForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(30)]],
@@ -84,13 +90,14 @@ export class SubjectComponent implements OnInit, OnDestroy {
         this.getTableHeaderWithLang();
       })
     });
-
+    this.tomorrow = new Date();
   }
 
   ngOnDestroy() {
     this.subjectService.unsubscribe(this.deleteSubjectSubscription);
     this.subjectService.unsubscribe(this.getAllSubjectsSubscription);
     this.subjectService.unsubscribe(this.postSubjectSubscription);
+    this.subjectService.unsubscribe(this.presentSubjectSubscription);
   }
 
   customInit() {
@@ -223,8 +230,8 @@ export class SubjectComponent implements OnInit, OnDestroy {
         object: object
       },
     });
-    dialogRef.afterClosed().subscribe(result => {
-      result == 'confirm' ? this.deleteSubject(subject.id) : dialogRef.close();
+    dialogRef.afterClosed().subscribe(action => {
+      action == 'confirm' ? this.deleteSubject(subject.id) : dialogRef.close();
     })
   }
 
@@ -238,10 +245,27 @@ export class SubjectComponent implements OnInit, OnDestroy {
         subject: subject
       },
     });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      result == 'confirm' ? console.log("confirmation : " + subject.title) : dialogRef.close();
+    dialogRef.afterClosed().subscribe((startDate : Date)=> {
+      if(startDate) {
+        const endTime = new Date(startDate);
+        endTime.setHours(startDate.getHours()+1);
+        const sessionSharedForm = this.formBuilder.group({
+          subjectId: [subject.id, [Validators.required]],
+          startTime: [this.convertDate(startDate), [Validators.required]],
+          endTime: [this.convertDate(endTime), [Validators.required]]
+        });
+        console.log(sessionSharedForm);
+        const request = this.subjectService.presentSubject(sessionSharedForm);
+        this.presentSubjectSubscription = request.subscribe(
+          result => console.log("succeed"),
+          error => console.log(error)
+        );
+      }
     })
+  }
+
+  private convertDate(date : Date)  {
+    return this.datePipe.transform(date, 'yyyy-MM-dd HH:mm')
   }
 
   isAdmin(): boolean {

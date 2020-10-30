@@ -13,9 +13,9 @@ import fr.formation.masterpiece.domain.entities.Subject;
 @Repository
 public interface SubjectRepository extends JpaRepository<Subject, Long> {
 
-    List<Subject> getAllProjectedBy();
-
     @Modifying
     @Query("delete from Subject s where s.user.id = :id")
     void deleteSubjectsAssociatedToUser(@Param("id") Long id);
+
+    List<Subject> findAllBySchedule(boolean isSheduled);
 }
