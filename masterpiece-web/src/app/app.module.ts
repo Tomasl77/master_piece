@@ -10,7 +10,7 @@ import { MaterialModule } from './material/material.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HttpInterceptorService } from './shared/authentication/http-interceptor.service'
+import { HttpInterceptorService } from './shared/services/authentication/http-interceptor.service'
 import { AgGridModule } from 'ag-grid-angular';
 import { BtnCellRenderer } from './shared/btn-cell-renderer.component';
 import { MatDialog, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';

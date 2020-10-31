@@ -1,5 +1,7 @@
 package fr.formation.masterpiece.services.impl;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import fr.formation.masterpiece.config.AbstractService;
@@ -34,6 +36,7 @@ public class SharingSessionServiceImpl extends AbstractService
     }
 
     @Override
+    @Transactional
     public void create(SharingSessionCreateDto dto) {
 	Long userId = SecurityHelper.getUserId();
 	UserProfile user = userProfileRepository
@@ -44,6 +47,7 @@ public class SharingSessionServiceImpl extends AbstractService
 	SharingSession session = convert(dto, SharingSession.class);
 	session.setUserProfile(user);
 	session.setSubject(subject);
+	subjectRepository.isScheduled(dto.getSubjectId());
 	sharingSessionRepository.save(session);
     }
 }

@@ -14,8 +14,12 @@ import fr.formation.masterpiece.domain.entities.Subject;
 public interface SubjectRepository extends JpaRepository<Subject, Long> {
 
     @Modifying
-    @Query("delete from Subject s where s.user.id = :id")
+    @Query("DELETE FROM Subject s WHERE s.user.id = :id")
     void deleteSubjectsAssociatedToUser(@Param("id") Long id);
 
     List<Subject> findAllBySchedule(boolean isSheduled);
+
+    @Modifying
+    @Query("UPDATE Subject s SET s.schedule = 'T' WHERE s.id = :subjectId")
+    void isScheduled(@Param("subjectId") Long id);
 }

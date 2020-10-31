@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NotFoundComponent } from './page-not-found/not-found.component';
-import { CustomErrorComponent } from './custom-error/custom-error.component';
 import { BtnCellRenderer } from './btn-cell-renderer.component';
 import { MatDialogModule, MatInputModule ,MatFormFieldModule } from '@angular/material';
 import { DateTimeDialogComponentComponent } from './modals/date-time-dialog-component/date-time-dialog-component.component';
@@ -12,7 +11,6 @@ import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
   declarations: [
     NotFoundComponent,
-    CustomErrorComponent,
     BtnCellRenderer,
     DateTimeDialogComponentComponent
   ],

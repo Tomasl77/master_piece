@@ -4,7 +4,7 @@ import { Observable, Subscription, throwError } from 'rxjs';
 import { AccountDto } from '../shared/models/accountDto';
 import { Config } from 'src/assets/config-properties';
 import { UserProfile } from '../shared/models/user-profile.model';
-import { HttpRequestHandler } from '../shared/http-helper/http-request-handler';
+import { HttpRequestHandler } from '../shared/services/http-helper/http-request-handler';
 
 
 @Injectable()

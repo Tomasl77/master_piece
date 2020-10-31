@@ -6,6 +6,7 @@ import java.util.List;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,6 +51,14 @@ public class GlobalControllerExceptionHandler
 	String error = ex.getParameterName() + " parameter is missing";
 	ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST,
 	        ex.getLocalizedMessage(), error);
+	return errorToReturn(apiError);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<Object> handleSqlConstraintViolation(
+            DataIntegrityViolationException ex, WebRequest request) {
+	ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(),
+	        ex.getCause().getCause().getMessage());
 	return errorToReturn(apiError);
     }
 

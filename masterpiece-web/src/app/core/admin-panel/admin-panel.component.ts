@@ -7,7 +7,7 @@ import { UserRegistrationService } from '../user-registration.service';
 import { BtnCellRenderer } from '../../shared/btn-cell-renderer.component'
 import { ConfirmationModalComponent } from 'src/app/shared/modals/confirmation-modal/confirmation-modal.component';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { AuthenticationService } from 'src/app/shared/authentication/authentication.service';
+import { AuthenticationService } from 'src/app/shared/services/authentication/authentication.service';
 
 @Component({
   selector: 'app-admin-panel',

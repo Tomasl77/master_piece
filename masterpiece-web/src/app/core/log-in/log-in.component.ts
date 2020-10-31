@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { Token } from "../../shared/models/token.model"
-import { AuthenticationService } from 'src/app/shared/authentication/authentication.service';
+import { AuthenticationService } from 'src/app/shared/services/authentication/authentication.service';
 import { Router } from '@angular/router';
 
 @Component({

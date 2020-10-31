@@ -8,11 +8,12 @@ import { ColDef, GridOptions } from 'ag-grid-community';
 import { DatePipe } from '@angular/common';
 
 import { SubjectService } from './subject.service';
-import { AuthenticationService } from 'src/app/shared/authentication/authentication.service';
+import { AuthenticationService } from 'src/app/shared/services/authentication/authentication.service';
 import { Subject } from '../../shared/models/subject.model';
 import { ConfirmationModalComponent } from 'src/app/shared/modals/confirmation-modal/confirmation-modal.component';
 import { BtnCellRenderer } from 'src/app/shared/btn-cell-renderer.component';
 import { DateTimeDialogComponentComponent } from 'src/app/shared/modals/date-time-dialog-component/date-time-dialog-component.component';
+import { ErrorHandler } from 'src/app/shared/services/error-handler';
 
 @Component({
   selector: 'app-subject',
@@ -245,30 +246,41 @@ export class SubjectComponent implements OnInit, OnDestroy {
         subject: subject
       },
     });
+
     dialogRef.afterClosed().subscribe((startDate : Date)=> {
       if(startDate) {
-        const endTime = new Date(startDate);
-        endTime.setHours(startDate.getHours()+1);
-        const sessionSharedForm = this.formBuilder.group({
-          subjectId: [subject.id, [Validators.required]],
-          startTime: [this.convertDate(startDate), [Validators.required]],
-          endTime: [this.convertDate(endTime), [Validators.required]]
-        });
-        console.log(sessionSharedForm);
+        const sessionSharedForm = this.createSessionForm(startDate, subject);
         const request = this.subjectService.presentSubject(sessionSharedForm);
         this.presentSubjectSubscription = request.subscribe(
-          result => console.log("succeed"),
-          error => console.log(error)
+          result => {
+            console.log("succeed");
+            this.getSubjects();
+          },
+          error => {
+            console.log(error);
+            
+          }
         );
       }
     })
+  }
+
+  private createSessionForm(startDate: Date, subject: Subject) {
+    const endTime = new Date(startDate);
+    endTime.setHours(startDate.getHours() + 1);
+    const sessionSharedForm = this.formBuilder.group({
+      subjectId: [subject.id, [Validators.required]],
+      startTime: [this.convertDate(startDate), [Validators.required]],
+      endTime: [this.convertDate(endTime), [Validators.required]]
+    });
+    return sessionSharedForm;
   }
 
   private convertDate(date : Date)  {
     return this.datePipe.transform(date, 'yyyy-MM-dd HH:mm')
   }
 
-  isAdmin(): boolean {
+  private isAdmin(): boolean {
     return this.authenthicationService.currentUserValue.isAdmin();
   }
 }
