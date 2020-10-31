@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import fr.formation.masterpiece.config.JUnitConfigTest;
-import fr.formation.masterpiece.exceptions.AccountNotFoundException;
+import fr.formation.masterpiece.exceptions.ResourceNotFoundException;
 import fr.formation.masterpiece.security.annotations.MockAdminForTests;
 
 class UserServiceImplTest extends JUnitConfigTest {
@@ -53,8 +53,8 @@ class UserServiceImplTest extends JUnitConfigTest {
     }
 
     @Test
-    public void should_throw_account_not_found_exception() {
-	assertThrows(AccountNotFoundException.class,
+    public void should_throw_resource_not_found_exception() {
+	assertThrows(ResourceNotFoundException.class,
 	        () -> userService.getOne(5L));
     }
 

@@ -3,6 +3,11 @@
     "delete" : "delete"
   },
 
+  "btnRenderer": {
+    "delete": "Delete",
+    "present": "Present"
+  },
+
   "navbar": {
     "account": "My account",
     "sign-in": "Sign in",
@@ -25,7 +30,8 @@
     "confirm" : "Confirm",
     "delete" : "delete",
     "user" : "user",
-    "subject" : "subject"
+    "subject" : "subject",
+    "cancel" : "Cancel"
   },
   
 
@@ -80,7 +86,8 @@
       "description": {
         "required": "Description is required"
       }
-    }
+    },
+    "confirm": "Do you want to present the following subject "
   },
 
 
@@ -110,11 +117,16 @@
       "vote": "N° of vote",
       "requester": "Requester"
     },
-    "delete": "Delete"
+    "delete": "Delete",
+    "present":"Present"
   },
 
   
   "admin-panel" : {
     "label-delete" : "Delete"
+  },
+
+  "d-p": {
+    "start-time" :"Choose date and time"
   }
 }

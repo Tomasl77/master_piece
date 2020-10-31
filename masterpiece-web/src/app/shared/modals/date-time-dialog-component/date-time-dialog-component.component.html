@@ -1,0 +1,11 @@
+<div>{{'subject.confirm' | translate}} : {{data.subject.title}}?</div>
+    <mat-form-field>
+      <input matInput [ngxMatDatetimePicker]="picker" 
+      placeholder="{{'d-p.start-time' | translate}}" [(ngModel)]="data.picker" [min]="minDate" disabled>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <ngx-mat-datetime-picker #picker [showSpinners]="showSpinners" [defaultTime]="defaultTime" disabled="false"></ngx-mat-datetime-picker>
+    </mat-form-field>
+    <div mat-dialog-actions align="end">
+      <button mat-button [mat-dialog-close]="no" class="btn btn-success">{{'dialog.cancel' | translate}}</button>
+      <button mat-button [mat-dialog-close]="data.picker"  *ngIf="data.picker" class="btn btn-success red">{{'dialog.confirm' | translate}}</button>
+    </div>

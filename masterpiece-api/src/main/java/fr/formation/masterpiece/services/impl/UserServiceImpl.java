@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +21,9 @@ import fr.formation.masterpiece.domain.dtos.views.UserProfileViewDto;
 import fr.formation.masterpiece.domain.entities.Role;
 import fr.formation.masterpiece.domain.entities.UserCredentials;
 import fr.formation.masterpiece.domain.entities.UserProfile;
-import fr.formation.masterpiece.exceptions.AccountNotFoundException;
+import fr.formation.masterpiece.exceptions.ResourceNotFoundException;
 import fr.formation.masterpiece.repositories.RoleRepository;
+import fr.formation.masterpiece.repositories.SubjectRepository;
 import fr.formation.masterpiece.repositories.UserCredentialsRepository;
 import fr.formation.masterpiece.repositories.UserProfileRepository;
 import fr.formation.masterpiece.services.UserService;
@@ -34,15 +37,19 @@ public class UserServiceImpl extends AbstractService implements UserService {
 
     private final RoleRepository roleRepository;
 
+    private final SubjectRepository subjectRepository;
+
     private final PasswordEncoder passwordEncoder;
 
-    protected UserServiceImpl(UserCredentialsRepository userRepo,
-            RoleRepository roleRepository, PasswordEncoder passwordEncoder,
-            UserProfileRepository userProfileRepository) {
-	this.roleRepository = roleRepository;
-	this.userRepository = userRepo;
-	this.passwordEncoder = passwordEncoder;
+    public UserServiceImpl(UserCredentialsRepository userRepository,
+            UserProfileRepository userProfileRepository,
+            RoleRepository roleRepository, SubjectRepository subjectRepository,
+            PasswordEncoder passwordEncoder) {
+	this.userRepository = userRepository;
 	this.userProfileRepository = userProfileRepository;
+	this.roleRepository = roleRepository;
+	this.subjectRepository = subjectRepository;
+	this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -75,18 +82,20 @@ public class UserServiceImpl extends AbstractService implements UserService {
 
     @Override
     public UserProfileViewDto getOne(Long id) {
-	Long userProfileId = userProfileRepository.getUserProfileIdByUserId(id);
-	UserProfile userProfile = userProfileRepository.getById(userProfileId)
-	        .orElseThrow(() -> new AccountNotFoundException(
+	UserProfile userProfile = userProfileRepository
+	        .findProfileWithUserCredentialsId(id)
+	        .orElseThrow(() -> new ResourceNotFoundException(
 	                "Account not found"));
 	return convert(userProfile, UserProfileViewDto.class);
     }
 
+    @Transactional
     @Override
     public void deleteOne(Long id) {
 	UserProfile deleted = userProfileRepository.findById(id)
-	        .orElseThrow(() -> new AccountNotFoundException(
+	        .orElseThrow(() -> new ResourceNotFoundException(
 	                "Account not found : " + id));
+	subjectRepository.deleteSubjectsAssociatedToUser(id);
 	userProfileRepository.delete(deleted);
     }
 
@@ -99,14 +108,13 @@ public class UserServiceImpl extends AbstractService implements UserService {
     @Override
     public UserProfilePatchDto update(UpdateUserProfileDto userDto) {
 	Long userCredentialsId = SecurityHelper.getUserId();
-	Long userId = userProfileRepository
-	        .getUserProfileIdByUserId(userCredentialsId);
-	UserProfile actualUser = userProfileRepository.findById(userId)
-	        .orElseThrow(
-	                () -> new AccountNotFoundException("No account found"));
+	UserProfile actualUser = userProfileRepository
+	        .findProfileWithUserCredentialsId(userCredentialsId)
+	        .orElseThrow(() -> new ResourceNotFoundException(
+	                "No account found"));
 	merge(userDto, actualUser);
 	UserProfile savedUser = userProfileRepository.save(actualUser);
-	return modelMapper.map(savedUser, UserProfilePatchDto.class);
+	return convert(savedUser, UserProfilePatchDto.class);
     }
 
     @Override

@@ -6,8 +6,8 @@ import { map } from 'rxjs/operators';
 import { Token } from '@angular/compiler/src/ml_parser/lexer';
 import { Config } from 'src/assets/config-properties';
 import { HttpClient } from '@angular/common/http';
-import { TokenStorageService } from '../token-storage.service';
-import { User } from '../models/user.model';
+import { TokenStorageService } from '../../token-storage.service';
+import { User } from '../../models/user.model';
 
 
 @Injectable({

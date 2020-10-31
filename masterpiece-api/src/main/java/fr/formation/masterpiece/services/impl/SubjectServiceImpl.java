@@ -11,7 +11,6 @@ import fr.formation.masterpiece.domain.dtos.SubjectDto;
 import fr.formation.masterpiece.domain.dtos.views.SubjectViewDto;
 import fr.formation.masterpiece.domain.entities.Subject;
 import fr.formation.masterpiece.domain.entities.UserProfile;
-import fr.formation.masterpiece.exceptions.AccountNotFoundException;
 import fr.formation.masterpiece.exceptions.ResourceNotFoundException;
 import fr.formation.masterpiece.repositories.SubjectRepository;
 import fr.formation.masterpiece.repositories.UserProfileRepository;
@@ -34,10 +33,10 @@ public class SubjectServiceImpl extends AbstractService
     @Override
     public SubjectDto create(SubjectCreateDto subjectDto) {
 	Long userCredentialsId = SecurityHelper.getUserId();
-	Long userId = userProfileRepository
-	        .getUserProfileIdByUserId(userCredentialsId);
-	UserProfile user = userProfileRepository.getById(userId).orElseThrow(
-	        () -> new AccountNotFoundException("Account not found"));
+	UserProfile user = userProfileRepository
+	        .findProfileWithUserCredentialsId(userCredentialsId)
+	        .orElseThrow(() -> new ResourceNotFoundException(
+	                "Account not found"));
 	Subject subject = convert(subjectDto, Subject.class);
 	subject.setUser(user);
 	Subject subjectToSave = subjectRepository.save(subject);
@@ -54,7 +53,8 @@ public class SubjectServiceImpl extends AbstractService
 
     @Override
     public List<SubjectViewDto> getAll() {
-	List<Subject> subjects = subjectRepository.getAllProjectedBy();
-	return convertList(subjects, SubjectViewDto.class);
+	List<Subject> subjects = subjectRepository.findAllBySchedule(false);
+	List<SubjectViewDto> test = convertList(subjects, SubjectViewDto.class);
+	return test;
     }
 }

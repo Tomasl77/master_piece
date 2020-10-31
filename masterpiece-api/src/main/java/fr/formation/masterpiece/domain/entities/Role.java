@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(uniqueConstraints = {
+@Table(name = "roles", uniqueConstraints = {
         @UniqueConstraint(name = "UQ_code", columnNames = { "code" }) })
 public class Role extends AbstractEntity {
 

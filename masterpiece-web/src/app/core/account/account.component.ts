@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Optional, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { AuthenticationService } from 'src/app/shared/authentication/authentication.service';
+import { AuthenticationService } from 'src/app/shared/services/authentication/authentication.service';
 import { UserProfile } from 'src/app/shared/models/user-profile.model';
 import { UserRegistrationService } from '../user-registration.service';
 import { EmailValidator } from '../validators/email-validator';

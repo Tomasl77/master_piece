@@ -5,7 +5,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.formation.masterpiece.annotations.HasRoleAdmin;
+import fr.formation.masterpiece.annotations.HasRoleUser;
 import fr.formation.masterpiece.domain.dtos.SubjectCreateDto;
 import fr.formation.masterpiece.domain.dtos.SubjectDto;
 import fr.formation.masterpiece.domain.dtos.views.SubjectViewDto;
@@ -23,7 +23,7 @@ import fr.formation.masterpiece.services.SubjectService;
 
 @RestController
 @RequestMapping("/subjects")
-@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+@HasRoleUser
 public class SubjectController {
 
     private final SubjectService service;

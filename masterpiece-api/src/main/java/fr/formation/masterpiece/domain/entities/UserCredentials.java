@@ -20,7 +20,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "user", uniqueConstraints = {
+@Table(name = "user_credentials", uniqueConstraints = {
         @UniqueConstraint(name = "UQ_username", columnNames = { "username" }) })
 public class UserCredentials extends AbstractEntity {
 
@@ -117,8 +117,8 @@ public class UserCredentials extends AbstractEntity {
     @Override
     public String toString() {
 	// password=[PROTECTED] for not displaying in logs
-	return "{id=" + id + ", username=" + username
-	        + ", password=[PROTECTED], roles=" + roles + ", enabled="
+	return "{id: " + id + ", username: " + username
+	        + ", password: [PROTECTED], roles: " + roles + ", enabled: "
 	        + enabled + "}";
     }
 }

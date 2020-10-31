@@ -2,25 +2,28 @@
 DML script for teamsharing database
 Script can be used with mysql
 
-Last update : 2020-09-18
+Last update : 2020-10-21
 
 */
+
 USE teamsharingtest;
 
-DELETE FROM subject;
+DELETE FROM `sharing_sessions`;
+DELETE FROM `subjects`;
 DELETE FROM user_role;
-DELETE FROM user;
-DELETE FROM user_profile;
-DELETE FROM role;
+DELETE FROM user_profiles;
+DELETE FROM `user_credentials`;
+DELETE FROM `roles`;
 
-INSERT INTO `role`(code, default_role) 
+
+INSERT INTO `roles`(code, default_role) 
     VALUES 
     ('ROLE_USER','T'), 
     ('ROLE_ADMIN','F');
 
 COMMIT;
 
-INSERT INTO `user` (account_non_expired, password, username, account_non_locked, credentials_non_expired, enabled)
+INSERT INTO `user_credentials` (account_non_expired, password, username, account_non_locked, credentials_non_expired, enabled)
 	VALUES 
     ('T','$2a$10$JbSdgniSs9PoNJM3XN6qUuS9s6uVJwpS1fLIOddNemQgx8FuUw67O','Tomas','T','T','T'), -- password = Totototo9!
 	('T','$2a$10$PxZEkHGLpGgeV8mO8ehxz..dGlyxwFo3FgTGfdC/2LqOYd8R4DI/a','Johanna','T','T','T'),  -- password = Joanhime77!
@@ -29,12 +32,12 @@ INSERT INTO `user` (account_non_expired, password, username, account_non_locked,
 
 COMMIT; 
 
-SET @Tomas = (SELECT id  FROM teamsharingtest.user WHERE username= 'Tomas');
-SET @Johanna = (SELECT id  FROM teamsharingtest.user WHERE username = 'Johanna');
-SET @Lily = (SELECT id  FROM teamsharingtest.user WHERE username = 'Lily');
-SET @Benjamin = (SELECT id FROM teamsharingtest.user WHERE username = 'Benjamin');
-SET @user = (SELECT id FROM teamsharingtest.role WHERE code = 'ROLE_USER');
-SET @admin = (SELECT id FROM teamsharingtest.role WHERE code = 'ROLE_ADMIN');
+SET @Tomas = (SELECT id  FROM user_credentials WHERE username= 'Tomas');
+SET @Johanna = (SELECT id  FROM user_credentials WHERE username = 'Johanna');
+SET @Lily = (SELECT id  FROM user_credentials WHERE username = 'Lily');
+SET @Benjamin = (SELECT id FROM user_credentials WHERE username = 'Benjamin');
+SET @user = (SELECT id FROM roles WHERE code = 'ROLE_USER');
+SET @admin = (SELECT id FROM roles WHERE code = 'ROLE_ADMIN');
 
 INSERT INTO `user_role` (user_id, role_id) 
     VALUES 
@@ -47,7 +50,7 @@ INSERT INTO `user_role` (user_id, role_id)
 
 COMMIT;
 
-INSERT INTO `user_profile` (email, user_credentials_id)
+INSERT INTO `user_profiles` (email, user_credentials_id)
 	VALUES
     ('lily@gmail.com', @Lily),
     ('tomas@gmail.com', @Tomas),
@@ -57,12 +60,12 @@ INSERT INTO `user_profile` (email, user_credentials_id)
 
 COMMIT;
 
-SET @Tomas = (SELECT id  FROM teamsharingtest.user_profile WHERE email= 'tomas@gmail.com');
-SET @Johanna = (SELECT id  FROM teamsharingtest.user_profile WHERE email= 'johanna@gmail.com');
-SET @Lily = (SELECT id  FROM teamsharingtest.user_profile WHERE email = 'lily@gmail.com');
-SET @Benjamin = (SELECT id FROM teamsharingtest.user_profile WHERE email = 'benjamin@gmail.com');
+SET @Tomas = (SELECT id  FROM user_profiles WHERE email= 'tomas@gmail.com');
+SET @Johanna = (SELECT id  FROM user_profiles WHERE email= 'johanna@gmail.com');
+SET @Lily = (SELECT id  FROM user_profiles WHERE email = 'lily@gmail.com');
+SET @Benjamin = (SELECT id FROM user_profiles WHERE email = 'benjamin@gmail.com');
 
-INSERT INTO `subject` (category, description, title, total_vote, requester_id) 
+INSERT INTO `subjects` (category, description, title, total_vote, requester_id) 
     VALUES 
     ('FRONTEND', 'My knowledge of Angular modals is nearly zero. I need someone to help me', 'Angular 8 Modals', 3, @Tomas),
     ('BACKEND', 'JPQL, Derived queries... Someone could tell me how to request database properly from my springboot app, please?', 'Spring database requests', 2, @Lily),
@@ -80,3 +83,9 @@ INSERT INTO `subject` (category, description, title, total_vote, requester_id)
     ('OTHER', 'How to improve skills by making a good tech watch', 'Misc', 5, @Johanna);
 
 COMMIT;
+
+SET @angular8modals = (SELECT id FROM subjects WHERE title = "Angular 8 Modals");
+
+INSERT INTO `sharing_sessions` (`start_time`, `end_time`, `subject_id`, `user_profile_id`)
+	VALUES
+    ('2020-12-12 14:30:00', '2020-12-12 15:30:00', @angular8modals ,@Tomas);

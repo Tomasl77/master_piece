@@ -2,6 +2,11 @@
   "action": {
     "delete":"effacer"
   },
+  
+  "btnRenderer": {
+    "delete": "Supprimer",
+    "present": "Presenter"
+  },
   "navbar": {
     "account": "Mon Compte",
     "sign-in": "Se connecter",
@@ -24,7 +29,8 @@
     "confirm":"Confirmer",
     "delete" : "effacer",
     "user" : "l'utilisateur",
-    "subject" : "le sujet"
+    "subject" : "le sujet",
+    "cancel" : "Annuler"
   },
 
 
@@ -79,7 +85,8 @@
       "description" : {
         "required" :"Veuillez entrer une description"
       } 
-    }
+    },
+    "confirm": "Voulez vous proposer une session pour le sujet suivant"
   },
 
 
@@ -108,10 +115,14 @@
       "vote": "N° de vote",
       "requester": "Demandeur"
     },
-    "delete": "Supprimer"
+    "delete": "Supprimer",
+    "present": "Presenter"
   },
   
   "admin-panel" : {
     "label-delete" : "Supprimer"
+  },
+  "d-p": {
+    "start-time" :"Choississez une date et une heure"
   }
 }

@@ -1,15 +1,19 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { SubjectService } from './subject.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
-import { AuthenticationService } from 'src/app/shared/authentication/authentication.service';
-import { Subject } from './subject.model';
+import { MatDialog } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { ColDef, GridOptions } from 'ag-grid-community';
-import { MatDialog } from '@angular/material';
+import { DatePipe } from '@angular/common';
+
+import { SubjectService } from './subject.service';
+import { AuthenticationService } from 'src/app/shared/services/authentication/authentication.service';
+import { Subject } from '../../shared/models/subject.model';
 import { ConfirmationModalComponent } from 'src/app/shared/modals/confirmation-modal/confirmation-modal.component';
 import { BtnCellRenderer } from 'src/app/shared/btn-cell-renderer.component';
+import { DateTimeDialogComponentComponent } from 'src/app/shared/modals/date-time-dialog-component/date-time-dialog-component.component';
+import { ErrorHandler } from 'src/app/shared/services/error-handler';
 
 @Component({
   selector: 'app-subject',
@@ -20,6 +24,8 @@ import { BtnCellRenderer } from 'src/app/shared/btn-cell-renderer.component';
 export class SubjectComponent implements OnInit, OnDestroy {
 
   private action: string;
+
+  private tomorrow: Date;
 
   private formErrors = {
     'title': '',
@@ -34,6 +40,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
   private getAllSubjectsSubscription: Subscription;
   private deleteSubjectSubscription: Subscription;
   private postSubjectSubscription: Subscription;
+  private presentSubjectSubscription: Subscription;
 
   private subjectForm: FormGroup;
   private categories = [
@@ -50,6 +57,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
     private subjectService: SubjectService,
     private activatedRoute: ActivatedRoute,
     private authenthicationService: AuthenticationService,
+    private datePipe : DatePipe,
     private dialog: MatDialog  ) {
     this.subjectForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(30)]],
@@ -83,13 +91,14 @@ export class SubjectComponent implements OnInit, OnDestroy {
         this.getTableHeaderWithLang();
       })
     });
-
+    this.tomorrow = new Date();
   }
 
   ngOnDestroy() {
     this.subjectService.unsubscribe(this.deleteSubjectSubscription);
     this.subjectService.unsubscribe(this.getAllSubjectsSubscription);
     this.subjectService.unsubscribe(this.postSubjectSubscription);
+    this.subjectService.unsubscribe(this.presentSubjectSubscription);
   }
 
   customInit() {
@@ -170,13 +179,26 @@ export class SubjectComponent implements OnInit, OnDestroy {
         { headerName: this.translate('ag-grid.subject.vote'), field: 'vote', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.subject.requester'), field: 'user', sortable: true, filter: true },
         {
-          headerName: this.translate('ag-grid.delete'),
+          sortable: false,
+          filter:false,
+          cellStyle:  { border: "none" },
+          cellRenderer: 'btnCellRenderer',
+          cellRendererParams: {
+            onClick: this.openPresentModal.bind(this),
+            btnClass: "btn btn-success",
+            label: this.translate("btnRenderer.present")
+          }
+        },
+        {
+          sortable: false,
+          filter:false,
           hide: !this.isAdmin(),
+          cellStyle:  { border: "none" },
           cellRenderer: 'btnCellRenderer',
           cellRendererParams: {
             onClick: this.openDeleteModal.bind(this),
             btnClass: "btn btn-success",
-            label: "Delete"
+            label: this.translate("btnRenderer.delete")
           }
         }
       ]
@@ -187,12 +209,17 @@ export class SubjectComponent implements OnInit, OnDestroy {
     return this.translateService.instant(stringToTranslate);
   }
 
-  public openDeleteModal(params: any) {
+  private openPresentModal(params :any) {
     const subject: Subject = params.rowData;
-    this.openDialog(subject);
+    this.openDateTimeDialog(subject);
+  }
+
+  private openDeleteModal(params: any) {
+    const subject: Subject = params.rowData;
+    this.openConfirmDialog(subject, 'delete', 'subject');
   };
 
-  openDialog(subject: Subject) {
+  openConfirmDialog(subject: Subject, action: String, object: String) {
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {
       position: {
         top: "50px"
@@ -200,16 +227,60 @@ export class SubjectComponent implements OnInit, OnDestroy {
       data:
       {
         dataToProcess: subject.title,
-        action: 'delete',
-        object: "subject"
+        action: action,
+        object: object
       },
     });
-    dialogRef.afterClosed().subscribe(result => {
-      result == 'confirm' ? this.deleteSubject(subject.id) : dialogRef.close();
+    dialogRef.afterClosed().subscribe(action => {
+      action == 'confirm' ? this.deleteSubject(subject.id) : dialogRef.close();
     })
   }
 
-  isAdmin(): boolean {
+  openDateTimeDialog(subject: Subject) {
+    const dialogRef = this.dialog.open(DateTimeDialogComponentComponent, {
+      position: {
+        top: "50px"
+      },
+      data:
+      {
+        subject: subject
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((startDate : Date)=> {
+      if(startDate) {
+        const sessionSharedForm = this.createSessionForm(startDate, subject);
+        const request = this.subjectService.presentSubject(sessionSharedForm);
+        this.presentSubjectSubscription = request.subscribe(
+          result => {
+            console.log("succeed");
+            this.getSubjects();
+          },
+          error => {
+            console.log(error);
+            
+          }
+        );
+      }
+    })
+  }
+
+  private createSessionForm(startDate: Date, subject: Subject) {
+    const endTime = new Date(startDate);
+    endTime.setHours(startDate.getHours() + 1);
+    const sessionSharedForm = this.formBuilder.group({
+      subjectId: [subject.id, [Validators.required]],
+      startTime: [this.convertDate(startDate), [Validators.required]],
+      endTime: [this.convertDate(endTime), [Validators.required]]
+    });
+    return sessionSharedForm;
+  }
+
+  private convertDate(date : Date)  {
+    return this.datePipe.transform(date, 'yyyy-MM-dd HH:mm')
+  }
+
+  private isAdmin(): boolean {
     return this.authenthicationService.currentUserValue.isAdmin();
   }
 }
