@@ -1,6 +1,6 @@
 import { UserProfile } from 'src/app/shared/models/user-profile.model';
 
-export interface Subject{
+export class Subject{
     id : number;
     title : string;
     description : string;

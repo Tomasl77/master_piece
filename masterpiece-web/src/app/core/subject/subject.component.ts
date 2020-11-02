@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { ColDef, GridOptions } from 'ag-grid-community';
@@ -56,6 +56,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private subjectService: SubjectService,
     private activatedRoute: ActivatedRoute,
+    private router : Router,
     private authenthicationService: AuthenticationService,
     private datePipe : DatePipe,
     private dialog: MatDialog  ) {
@@ -164,7 +165,6 @@ export class SubjectComponent implements OnInit, OnDestroy {
       },
       (error) => {
         console.log(error);
-        console.log("error")
       }
     );
   }
@@ -252,13 +252,11 @@ export class SubjectComponent implements OnInit, OnDestroy {
         const sessionSharedForm = this.createSessionForm(startDate, subject);
         const request = this.subjectService.presentSubject(sessionSharedForm);
         this.presentSubjectSubscription = request.subscribe(
-          result => {
-            console.log("succeed");
-            this.getSubjects();
+          () => {
+            this.router.navigate(['/sharing-session'])
           },
           error => {
-            console.log(error);
-            
+            console.log(error);  
           }
         );
       }

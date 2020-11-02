@@ -19,6 +19,7 @@
         "vote": "Voir / Voter pour un sujet",
         "delete" : "Effacer un sujet"
     },
+    "sharing-session": "Session à venir",
     "close" : "Fermer",
     "logout" : "Se deconnecter"
   },
