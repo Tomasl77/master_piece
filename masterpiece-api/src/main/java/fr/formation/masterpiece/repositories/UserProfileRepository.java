@@ -18,7 +18,7 @@ public interface UserProfileRepository
 
     Optional<UserProfile> getById(Long id);
 
-    @Query("select u from UserProfile u where u.credentials.id = :id")
+    @Query("SELECT u FROM UserProfile u WHERE u.credentials.id = :id")
     Optional<UserProfile> findProfileWithUserCredentialsId(
             @Param("id") Long id);
 }

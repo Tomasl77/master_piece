@@ -15,6 +15,8 @@
         <a [matMenuTriggerFor]="subject" mat-button [routerLinkActive]="['active-white']"
           [class.active-white]="isActive('subject')"
           *ngIf="isAuthenticated()">{{'navbar.subject.dropdown' | translate}}</a>
+          <a mat-button [routerLink]="['/sharing-session']"
+          [routerLinkActive]="['active-white']" *ngIf="isAuthenticated()">{{'navbar.sharing-session' | translate}}</a>
         <a mat-button [routerLink]="['/admin-panel']"
           [routerLinkActive]="['active-white']" *ngIf="isAdmin()">{{'navbar.admin-panel' | translate}}</a>
         <a mat-button (click)="logout()" *ngIf="isAuthenticated()">{{'navbar.logout' | translate}}</a>
@@ -35,6 +37,8 @@
           *ngIf="!isAuthenticated()">{{'navbar.sign-up' | translate}}</a>
         <a mat-list-item [matMenuTriggerFor]="subject" [routerLinkActive]="['active-white']" *ngIf="isAuthenticated()"
           [class.active-white]="isActive('subject')">{{'navbar.subject.dropdown' | translate}}</a>
+          <a mat-list-item [routerLink]="['/sharing-session']"
+          [routerLinkActive]="['active-white']" *ngIf="isAuthenticated()">{{'navbar.sharing-session' | translate}}</a>
           <a mat-button [routerLink]="['/admin-panel']"
           [routerLinkActive]="['active-white']" *ngIf="isAdmin()">{{'navbar.admin-panel' | translate}}</a>
         <a mat-list-item (click)="sidenav.toggle()" mat-list-item>{{'navbar.close' | translate}}</a>

@@ -1,14 +1,16 @@
+import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
-export default class Utils {
+@Injectable({
+    providedIn:"root"
+})
+export class Utils {
 
-    static translateService: TranslateService;
+    constructor(private translateService : TranslateService) {
 
-    constructor(public translateService : TranslateService) {
-        Utils.translateService = translateService;
     }
-
-    static translateString(string : string) {
-        return this.translateService.instant(string);
-    }
+    
+    public  translate(stringToTranslate: string): string {
+        return this.translateService.instant(stringToTranslate);
+      }
 }

@@ -20,6 +20,7 @@
       "vote": "View / Vote for subject",
       "delete": "Delete subject"
     },
+    "sharing-session": "Incoming sessions",
     "close": "Close",
     "logout": "Log out"
   },
@@ -116,6 +117,12 @@
       "category": "Category",
       "vote": "N° of vote",
       "requester": "Requester"
+    },
+    "session": {
+      "startTime" : "Start of the session",
+      "endTime" : "End of the session",
+      "subject" : "Presented subject",
+      "lecturer" : "Lecturer"
     },
     "delete": "Delete",
     "present":"Present"

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { ColDef, GridOptions } from 'ag-grid-community';
@@ -23,27 +23,27 @@ import { ErrorHandler } from 'src/app/shared/services/error-handler';
 })
 export class SubjectComponent implements OnInit, OnDestroy {
 
-  private action: string;
+  action: string;
 
-  private tomorrow: Date;
+  tomorrow: Date;
 
-  private formErrors = {
+  formErrors = {
     'title': '',
     'description': ''
   }
-  private subjects: Subject[];
-  private rowData: Subject[];
-  private gridOptions: GridOptions;
-  private columnDefs: ColDef[];
-  private frameworkComponents = {};
+  subjects: Subject[];
+  rowData: Subject[];
+  gridOptions: GridOptions;
+  columnDefs: ColDef[];
+  frameworkComponents = {};
 
   private getAllSubjectsSubscription: Subscription;
   private deleteSubjectSubscription: Subscription;
   private postSubjectSubscription: Subscription;
   private presentSubjectSubscription: Subscription;
 
-  private subjectForm: FormGroup;
-  private categories = [
+  subjectForm: FormGroup;
+  categories = [
     { name: "Front-End", value: "FRONTEND" },
     { name: "Back-End", value: "BACKEND" },
     { name: "Database", value: "DATABASE" },
@@ -56,6 +56,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private subjectService: SubjectService,
     private activatedRoute: ActivatedRoute,
+    private router : Router,
     private authenthicationService: AuthenticationService,
     private datePipe : DatePipe,
     private dialog: MatDialog  ) {
@@ -117,7 +118,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
     }
   }
 
-  private logValidationErrors(group: FormGroup = this.subjectForm): void {
+  logValidationErrors(group: FormGroup = this.subjectForm): void {
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
       if (abstractControl instanceof FormGroup) {
@@ -164,7 +165,6 @@ export class SubjectComponent implements OnInit, OnDestroy {
       },
       (error) => {
         console.log(error);
-        console.log("error")
       }
     );
   }
@@ -252,13 +252,11 @@ export class SubjectComponent implements OnInit, OnDestroy {
         const sessionSharedForm = this.createSessionForm(startDate, subject);
         const request = this.subjectService.presentSubject(sessionSharedForm);
         this.presentSubjectSubscription = request.subscribe(
-          result => {
-            console.log("succeed");
-            this.getSubjects();
+          () => {
+            this.router.navigate(['/sharing-session'])
           },
           error => {
-            console.log(error);
-            
+            console.log(error);  
           }
         );
       }
@@ -280,7 +278,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
     return this.datePipe.transform(date, 'yyyy-MM-dd HH:mm')
   }
 
-  private isAdmin(): boolean {
+  isAdmin(): boolean {
     return this.authenthicationService.currentUserValue.isAdmin();
   }
 }

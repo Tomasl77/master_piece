@@ -10,6 +10,7 @@ export const Config = {
     apiUrl: baseUrl + "/api",
     users: "/users",
     subjects: "/subjects",
+    sharingsession: "/sharing-sessions",
     httpOptions: {
         json: { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) },
         formUrlEncoded: { headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' }) 

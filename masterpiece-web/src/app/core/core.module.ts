@@ -13,6 +13,7 @@ import { AccountComponent } from './account/account.component';
 import { SubjectComponent } from './subject/subject.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { BtnCellRenderer } from '../shared/btn-cell-renderer.component';
+import { SharingSessionComponent } from './sharing-session/sharing-session.component';
 
 
 
@@ -22,7 +23,8 @@ import { BtnCellRenderer } from '../shared/btn-cell-renderer.component';
     CreateAccountComponent,
     LogInComponent,
     SubjectComponent,
-    AdminPanelComponent],
+    AdminPanelComponent,
+    SharingSessionComponent],
 
   imports: [
     FormsModule,

@@ -1,5 +1,7 @@
 package fr.formation.masterpiece.services.impl;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 import fr.formation.masterpiece.config.AbstractService;
 import fr.formation.masterpiece.config.security.SecurityHelper;
 import fr.formation.masterpiece.domain.dtos.SharingSessionCreateDto;
+import fr.formation.masterpiece.domain.dtos.views.SharingSessionViewDto;
 import fr.formation.masterpiece.domain.entities.SharingSession;
 import fr.formation.masterpiece.domain.entities.Subject;
 import fr.formation.masterpiece.domain.entities.UserProfile;
@@ -49,5 +52,11 @@ public class SharingSessionServiceImpl extends AbstractService
 	session.setSubject(subject);
 	subjectRepository.isScheduled(dto.getSubjectId());
 	sharingSessionRepository.save(session);
+    }
+
+    @Override
+    public List<SharingSessionViewDto> getAllSessions() {
+	return convertList(sharingSessionRepository.findAll(),
+	        SharingSessionViewDto.class);
     }
 }
