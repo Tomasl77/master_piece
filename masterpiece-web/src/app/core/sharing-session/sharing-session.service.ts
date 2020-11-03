@@ -20,7 +20,7 @@ export class SharingSessionService {
 
     getAll() : Observable<SharingSession[]> {
       return this.http.get(this.baseUrl).pipe(map(response => response.map(
-        (session: SharingSession) => ({
+        (session) => ({
           id: session.id,
           startTime : session.startTime,
           endTime : session.endTime,

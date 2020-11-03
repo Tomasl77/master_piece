@@ -23,27 +23,27 @@ import { ErrorHandler } from 'src/app/shared/services/error-handler';
 })
 export class SubjectComponent implements OnInit, OnDestroy {
 
-  private action: string;
+  action: string;
 
-  private tomorrow: Date;
+  tomorrow: Date;
 
-  private formErrors = {
+  formErrors = {
     'title': '',
     'description': ''
   }
-  private subjects: Subject[];
-  private rowData: Subject[];
-  private gridOptions: GridOptions;
-  private columnDefs: ColDef[];
-  private frameworkComponents = {};
+  subjects: Subject[];
+  rowData: Subject[];
+  gridOptions: GridOptions;
+  columnDefs: ColDef[];
+  frameworkComponents = {};
 
   private getAllSubjectsSubscription: Subscription;
   private deleteSubjectSubscription: Subscription;
   private postSubjectSubscription: Subscription;
   private presentSubjectSubscription: Subscription;
 
-  private subjectForm: FormGroup;
-  private categories = [
+  subjectForm: FormGroup;
+  categories = [
     { name: "Front-End", value: "FRONTEND" },
     { name: "Back-End", value: "BACKEND" },
     { name: "Database", value: "DATABASE" },
@@ -118,7 +118,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
     }
   }
 
-  private logValidationErrors(group: FormGroup = this.subjectForm): void {
+  logValidationErrors(group: FormGroup = this.subjectForm): void {
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
       if (abstractControl instanceof FormGroup) {
@@ -278,7 +278,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
     return this.datePipe.transform(date, 'yyyy-MM-dd HH:mm')
   }
 
-  private isAdmin(): boolean {
+  isAdmin(): boolean {
     return this.authenthicationService.currentUserValue.isAdmin();
   }
 }
