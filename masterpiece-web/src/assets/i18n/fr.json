@@ -90,7 +90,6 @@
     "confirm": "Voulez vous proposer une session pour le sujet suivant"
   },
 
-
   "account" : {
     "welcome" : "Bienvenue",
     "email" : "Votre courriel",
@@ -116,6 +115,12 @@
       "vote": "N° de vote",
       "requester": "Demandeur"
     },
+    "session": {
+      "startTime" : "Debut de la session",
+      "endTime" : "Fin de la session",
+      "subject" : "Sujet présenté",
+      "lecturer" : "Conférencier"
+    },  
     "delete": "Supprimer",
     "present": "Presenter"
   },
