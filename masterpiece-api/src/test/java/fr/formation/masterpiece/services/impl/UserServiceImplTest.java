@@ -9,8 +9,9 @@ import static org.junit.Assert.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import fr.formation.masterpiece.api.services.impl.UserServiceImpl;
+import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
 import fr.formation.masterpiece.config.JUnitConfigTest;
-import fr.formation.masterpiece.exceptions.ResourceNotFoundException;
 import fr.formation.masterpiece.security.annotations.MockAdminForTests;
 
 class UserServiceImplTest extends JUnitConfigTest {
