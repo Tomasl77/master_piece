@@ -6,7 +6,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithSecurityContextFactory;
 
-import fr.formation.masterpiece.config.security.CustomUserDetails;
+import fr.formation.masterpiece.security.CustomUserDetails;
 import fr.formation.masterpiece.security.annotations.WithMockCustomUser;
 
 public class WithMockCustomUserSecurityContextFactory
