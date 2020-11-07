@@ -85,9 +85,9 @@ INSERT INTO `subjects` (category, description, title, request_date, schedule , t
 COMMIT;
 
 SET @angular8modals = (SELECT id FROM subjects WHERE title = "Angular 8 Modals");
-SET @junit = (SELECT id FROM subjects WHERE title = "'JUnit 5'");
+SET @junit = (SELECT id FROM subjects WHERE title = "JUnit 5");
 
 INSERT INTO `sharing_sessions` (`start_time`, `end_time`, `subject_id`, `user_profile_id`)
 	VALUES
-    ('2020-12-12 14:30:00', '2020-12-12 15:30:00', @angular8modals ,@Tomas),
-	('2020-12-14 14:30:00', '2020-12-14 15:30:00', @angular8modals ,@Johanna);
+    ('2022-12-12 14:30:00', '2022-12-12 15:30:00', @angular8modals ,@Tomas),
+	('2022-12-14 14:30:00', '2022-12-14 15:30:00', @junit ,@Johanna);
