@@ -14,7 +14,7 @@ import lombok.Setter;
 public class SubjectCreateDto {
 
     @NotBlank
-    @Length(max = 20)
+    @Length(max = 30)
     private String title;
 
     @NotBlank
