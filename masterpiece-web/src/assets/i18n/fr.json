@@ -81,7 +81,7 @@
     "validationMessages" : {
       "title" : {
         "required": "Veuillez entrez un titre",
-        "maxlength" :"Longueur maximum : 20 caracteres"
+        "maxlength" :"Longueur maximum : 30 caracteres"
       },
       "description" : {
         "required" :"Veuillez entrer une description"

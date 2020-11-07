@@ -82,7 +82,7 @@
     "validationMessages": {
       "title": {
         "required": "Title is required",
-        "maxlength": "Maximum length : 20 caracters"
+        "maxlength": "Maximum length : 30 caracters"
       },
       "description": {
         "required": "Description is required"
