@@ -9,4 +9,4 @@ const materialRoutes: Routes = [
   imports: [RouterModule.forChild(materialRoutes)],
   exports: [RouterModule]
 })
-export class MaterialRoutingModule { }
+export class NavbarRoutingModule { }
