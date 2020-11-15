@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { UsernameValidator } from '../validators/username-validator';
-import { HttpClient } from '@angular/common/http';
-import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
-import { Token } from "../../shared/models/token.model"
 import { AuthenticationService } from 'src/app/shared/services/authentication/authentication.service';
 import { Router } from '@angular/router';
 
@@ -18,11 +13,15 @@ export class LogInComponent implements OnInit {
 
   private grant_type: string = "password";
   private client_id: string = "masterpiece-web";
-  private badCredentials: string;
+  badCredentials: string;
 
   public logInForm: FormGroup;
   
-  constructor(private fb: FormBuilder, private authService: AuthenticationService, private router : Router) {
+  constructor(
+    private fb: FormBuilder, 
+    private authService: AuthenticationService, 
+    private router : Router
+    ) {
     this.logInForm = this.fb.group({
       username: '',
       password: '',

@@ -6,6 +6,7 @@ import { MatSelectModule, MatFormFieldModule } from '@angular/material';
 import { AgGridModule } from 'ag-grid-angular';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { RouterModule } from '@angular/router'
 
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { LogInComponent } from './log-in/log-in.component';
@@ -33,6 +34,7 @@ import { SharingSessionComponent } from './sharing-session/sharing-session.compo
     HttpClientModule,
     MatSelectModule,
     MatFormFieldModule,
+    RouterModule,
     TranslateModule.forChild({
       loader: {
           provide: TranslateLoader,
