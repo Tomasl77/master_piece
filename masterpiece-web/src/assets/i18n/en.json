@@ -1,4 +1,9 @@
 {
+  "error": {
+    "occured":"An error as occured",
+    "bad-credentials" : "Bad credentials"
+  },
+
   "action": {
     "delete" : "delete"
   },

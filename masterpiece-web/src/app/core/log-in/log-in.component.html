@@ -14,8 +14,8 @@
         <input class="form-control" formControlName="password" type="password">
     </div>
     <div>
-        <div *ngIf="badCredentials" class="alert alert-danger">
-            {{badCredentials}}
+        <div *ngIf="errorReturned" class="alert alert-danger">
+            {{errorReturned}}
         </div>
     </div>
     <button type="submit"
@@ -23,5 +23,5 @@
         {{'login.button' | translate}}
     </button>
 </form>
-    <div class="text-center"><a [routerLink]="['/create-account']">{{'login.no-account-yet' | translate}}</a></div>
+    <div class="text-center no-account"><a [routerLink]="['/create-account']">{{'login.no-account-yet' | translate}}</a></div>
 </div>

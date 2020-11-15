@@ -1,4 +1,9 @@
 {
+  "error": {
+    "occured":"Une erreur s'est produite",
+    "bad-credentials" : "Identifiants erronés"
+  },
+  
   "action": {
     "delete":"effacer"
   },

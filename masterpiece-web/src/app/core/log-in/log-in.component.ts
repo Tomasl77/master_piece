@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { AuthenticationService } from 'src/app/shared/services/authentication/authentication.service';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-log-in',
@@ -13,14 +15,15 @@ export class LogInComponent implements OnInit {
 
   private grant_type: string = "password";
   private client_id: string = "masterpiece-web";
-  badCredentials: string;
+  errorReturned: string;
 
   public logInForm: FormGroup;
   
   constructor(
     private fb: FormBuilder, 
     private authService: AuthenticationService, 
-    private router : Router
+    private router : Router,
+    private translateService: TranslateService
     ) {
     this.logInForm = this.fb.group({
       username: '',
@@ -38,13 +41,22 @@ export class LogInComponent implements OnInit {
       () => {
         this.router.navigate(['/accounts'])
       },
-      (error) => {
-        console.log(error);
-        this.badCredentials = error.error.error;
-        setTimeout(()=> {
-          this.badCredentials = null
-        }, 2000)
-      })
+      (error: HttpErrorResponse) => {
+        if(error.status == 400) {
+          console.log('test');
+          this.errorReturned = this.translateService.instant('error.bad-credentials');
+          setTimeout(()=> {
+            this.errorReturned = null
+          }, 2000)
+        }
+        if(error.status != 400) {
+          this.errorReturned = this.translateService.instant('error.occured');
+          setTimeout(()=> {
+            this.errorReturned = null
+          }, 2000)
+        }
+      }
+    )
   }
   createAndLogIn(username: string, password : string): void {
     this.logInForm.value.username = username;
