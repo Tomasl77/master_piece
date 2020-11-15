@@ -6,10 +6,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class UserProfileCreateDto {
 
     @Email
@@ -20,7 +18,11 @@ public class UserProfileCreateDto {
     @Valid
     UserCredentialsCreateDto credentials;
 
-    public UserProfileCreateDto() {
+    /**
+     * Empty no-args constructor
+     */
+    protected UserProfileCreateDto() {
+	//
     }
 
     @Override

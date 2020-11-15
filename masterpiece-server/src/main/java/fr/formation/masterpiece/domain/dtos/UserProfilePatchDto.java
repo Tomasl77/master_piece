@@ -7,6 +7,9 @@ public class UserProfilePatchDto {
 
     private String email;
 
-    public UserProfilePatchDto() {
+    /**
+     * Empty no-args constructor
+     */
+    protected UserProfilePatchDto() {
     }
 }

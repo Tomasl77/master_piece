@@ -14,11 +14,9 @@ import javax.persistence.UniqueConstraint;
 
 import fr.formation.masterpiece.commons.utils.BooleanConverter;
 import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Getter
-@Setter
 @Table(name = "subjects",
         uniqueConstraints = @UniqueConstraint(
                 name = "UQ_requestdate_requesterid",
@@ -49,6 +47,10 @@ public class Subject extends AbstractEntity {
             nullable = false,
             foreignKey = @ForeignKey(name = "FK_subject_userprofile"))
     private UserProfile user;
+
+    public void setUser(UserProfile user) {
+	this.user = user;
+    }
 
     @Override
     public String toString() {

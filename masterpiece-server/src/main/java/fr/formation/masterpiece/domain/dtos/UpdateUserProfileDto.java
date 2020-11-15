@@ -9,4 +9,11 @@ public class UpdateUserProfileDto {
 
     @NotBlank
     private String email;
+
+    /**
+     * Empty no-args constructor
+     */
+    protected UpdateUserProfileDto() {
+	//
+    }
 }

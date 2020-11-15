@@ -7,10 +7,8 @@ import javax.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class SubjectCreateDto {
 
     @NotBlank
@@ -24,4 +22,10 @@ public class SubjectCreateDto {
     private String category;
 
     private LocalDateTime requestDate = LocalDateTime.now();
+
+    /**
+     * Empty no-args constructor
+     */
+    protected SubjectCreateDto() {
+    }
 }

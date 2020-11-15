@@ -9,6 +9,9 @@ public class UserProfileDto {
 
     private UserCredentialsDto credentials;
 
-    public UserProfileDto() {
+    /**
+     * Empty no-args constructor
+     */
+    protected UserProfileDto() {
     }
 }

@@ -1,10 +1,8 @@
 package fr.formation.masterpiece.domain.dtos;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class UserEmailCheckDto {
 
     private boolean isValid;
@@ -13,7 +11,14 @@ public class UserEmailCheckDto {
 	this.isValid = isValid;
     }
 
-    public UserEmailCheckDto() {
+    /**
+     * Empty no-args constructor
+     */
+    protected UserEmailCheckDto() {
+    }
+
+    public void setValid(boolean isValid) {
+	this.isValid = isValid;
     }
 
     @Override

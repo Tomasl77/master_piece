@@ -7,7 +7,10 @@ public class SubjectDto {
 
     private String title;
 
-    public SubjectDto() {
+    /**
+     * Empty no-args constructor
+     */
+    protected SubjectDto() {
 	//
     }
 }

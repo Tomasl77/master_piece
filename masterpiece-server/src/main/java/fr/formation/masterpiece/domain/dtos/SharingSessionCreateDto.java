@@ -26,4 +26,10 @@ public class SharingSessionCreateDto {
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endTime;
+
+    /**
+     * Empty no-args constructor
+     */
+    protected SharingSessionCreateDto() {
+    }
 }

@@ -26,8 +26,8 @@ class SubjectControllerTest extends JUnitConfigTest {
     @Test
     @MockUserForTests
     void should_return_all_subject() {
-	List<SubjectViewDto> actual = subjectController.getAll();
-	assertEquals(14, actual.size());
+	List<SubjectViewDto> actual = subjectController.getAllNotScheduled();
+	assertEquals(12, actual.size());
     }
 
     @Test

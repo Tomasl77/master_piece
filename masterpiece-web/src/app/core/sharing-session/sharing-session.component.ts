@@ -17,7 +17,7 @@ export class SharingSessionComponent implements OnInit {
     private translateService: TranslateService, 
     private datePipe : DatePipe) {
     this.gridOptions = {
-      defaultColDef: { sortable: true, filter: true },
+      defaultColDef: { sortable: true, filter: true, resizable: true },
       pagination: true,
       paginationPageSize: 10,
       onFirstDataRendered: this.sizeColumnsToFit
