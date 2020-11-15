@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { GridOptions, ColDef } from 'ag-grid-community';
 import { SharingSession } from 'src/app/shared/models/sharing-session.model';
+import { ErrorHandler } from 'src/app/shared/services/error-handler';
 import { SharingSessionService } from './sharing-session.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class SharingSessionComponent implements OnInit {
   constructor(
     private sharingSessionService: SharingSessionService, 
     private translateService: TranslateService, 
-    private datePipe : DatePipe) {
+    private errorHandler : ErrorHandler) {
     this.gridOptions = {
       defaultColDef: { sortable: true, filter: true, resizable: true },
       pagination: true,
@@ -43,7 +44,10 @@ export class SharingSessionComponent implements OnInit {
         console.log(sessions);
         this.displayTable();
       },
-      error => console.log(error)
+      (error) => {
+        const message = ErrorHandler.catch(error);
+        console.log("error : " + message);
+      }
     )
   }
 

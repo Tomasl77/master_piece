@@ -1,7 +1,8 @@
 {
   "error": {
     "occured":"Une erreur s'est produite",
-    "bad-credentials" : "Identifiants erronés"
+    "bad-credentials" : "Identifiants erronés",
+    "session-scheduled" : "Une session est déjà programmée ce jour"
   },
   
   "action": {

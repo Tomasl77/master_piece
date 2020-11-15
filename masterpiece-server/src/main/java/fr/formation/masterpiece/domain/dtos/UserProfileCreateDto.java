@@ -5,11 +5,13 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import fr.formation.masterpiece.commons.annotations.UniqueEmail;
 import lombok.Getter;
 
 @Getter
 public class UserProfileCreateDto {
 
+    @UniqueEmail
     @Email
     @NotBlank
     @Size(max = 255)

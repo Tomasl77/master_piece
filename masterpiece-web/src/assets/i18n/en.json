@@ -1,7 +1,8 @@
 {
   "error": {
     "occured":"An error as occured",
-    "bad-credentials" : "Bad credentials"
+    "bad-credentials" : "Bad credentials",
+    "session-scheduled" : "Session already scheduled at this date"
   },
 
   "action": {

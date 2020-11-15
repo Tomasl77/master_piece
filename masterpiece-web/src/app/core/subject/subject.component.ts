@@ -14,6 +14,7 @@ import { ConfirmationModalComponent } from 'src/app/shared/modals/confirmation-m
 import { BtnCellRenderer } from 'src/app/shared/btn-cell-renderer.component';
 import { DateTimeDialogComponentComponent } from 'src/app/shared/modals/date-time-dialog-component/date-time-dialog-component.component';
 import { ErrorHandler } from 'src/app/shared/services/error-handler';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-subject',
@@ -24,7 +25,7 @@ import { ErrorHandler } from 'src/app/shared/services/error-handler';
 export class SubjectComponent implements OnInit, OnDestroy {
 
   action: string;
-
+  errorReturned : string;
   tomorrow: Date;
 
   formErrors = {
@@ -145,7 +146,10 @@ export class SubjectComponent implements OnInit, OnDestroy {
           this.action = "vote",
           this.getSubjectsIfVotePanel()
       },
-      (error) => console.log(error)
+      (error) => {
+        const message = ErrorHandler.catch(error);
+        console.log("message : " + message);
+      }
     );
   }
 
@@ -255,8 +259,15 @@ export class SubjectComponent implements OnInit, OnDestroy {
           () => {
             this.router.navigate(['/sharing-session'])
           },
-          error => {
-            console.log(error);  
+          (error : HttpErrorResponse) => {
+            if(error.status == 409) {
+              this.errorReturned = this.translateService.instant('error.session-scheduled');
+          setTimeout(()=> {
+            this.errorReturned = null
+          }, 2000)
+            }
+            const message = ErrorHandler.catch(error);
+            console.log("error : " + message);
           }
         );
       }
