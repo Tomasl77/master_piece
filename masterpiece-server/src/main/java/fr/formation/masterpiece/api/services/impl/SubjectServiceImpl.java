@@ -40,7 +40,7 @@ public class SubjectServiceImpl extends AbstractService
 	Subject subject = convert(subjectDto, Subject.class);
 	subject.setUser(user);
 	Subject subjectToSave = subjectRepository.save(subject);
-	return modelMapper.map(subjectToSave, SubjectDto.class);
+	return convert(subjectToSave, SubjectDto.class);
     }
 
     @Override
