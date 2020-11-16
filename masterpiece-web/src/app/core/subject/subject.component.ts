@@ -114,7 +114,6 @@ export class SubjectComponent implements OnInit, OnDestroy {
         (subjects: Subject[]) => {
           this.subjects = subjects;
           this.rowData = subjects;
-          console.log(this.rowData);
         });
     }
   }
@@ -180,7 +179,6 @@ export class SubjectComponent implements OnInit, OnDestroy {
         { headerName: this.translate('ag-grid.subject.title'), field: 'title', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.subject.description'), field: 'description', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.subject.category'), field: 'category', sortable: true, filter: true },
-        { headerName: this.translate('ag-grid.subject.vote'), field: 'vote', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.subject.requester'), field: 'user', sortable: true, filter: true },
         {
           sortable: false,
