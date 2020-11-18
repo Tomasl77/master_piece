@@ -256,7 +256,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
         const request = this.subjectService.presentSubject(sessionSharedForm);
         this.presentSubjectSubscription = request.subscribe(
           () => {
-            this.router.navigate(['/sharing-session'])
+            this.router.navigate(['/sharing-session'], )
           },
           (error : HttpErrorResponse) => {
             if(error.status == 409) {

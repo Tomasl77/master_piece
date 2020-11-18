@@ -24,4 +24,11 @@ public class SharingSessionViewDto {
     private SubjectViewDto subject;
 
     private UserProfileViewDto userProfile;
+
+    /**
+     * Empty no-args constructor
+     */
+    protected SharingSessionViewDto() {
+	//
+    }
 }
