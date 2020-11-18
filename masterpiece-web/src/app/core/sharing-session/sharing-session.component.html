@@ -9,4 +9,9 @@
         domLayout="autoHeight">
       </ag-grid-angular>
     </div>
+    <div>
+      <div *ngIf="infoToDisplay" class="alert alert-danger">
+          {{infoToDisplay}}
+      </div>
+    </div>
   </div>

@@ -25,7 +25,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class SubjectComponent implements OnInit, OnDestroy {
 
   action: string;
-  errorReturned : string;
+  infoToDisplay : string;
   tomorrow: Date;
 
   formErrors = {
@@ -140,10 +140,11 @@ export class SubjectComponent implements OnInit, OnDestroy {
   public postSubject() {
     const request = this.subjectService.postSubject(this.subjectForm);
     this.postSubjectSubscription = request.subscribe(
-      () => {
+      (subject: Subject) => {
         this.subjectForm.reset(),
           this.action = "vote",
-          this.getSubjectsIfVotePanel()
+          this.getSubjectsIfVotePanel();
+          this.infoDisplayedWithTime('subject.newTopic', 3000, subject.title);
       },
       (error) => {
         const message = ErrorHandler.catch(error);
@@ -259,10 +260,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
           },
           (error : HttpErrorResponse) => {
             if(error.status == 409) {
-              this.errorReturned = this.translateService.instant('error.session-scheduled');
-          setTimeout(()=> {
-            this.errorReturned = null
-          }, 2000)
+              this.infoDisplayedWithTime('error.session-scheduled', 2000);
             }
             const message = ErrorHandler.catch(error);
             console.log("error : " + message);
@@ -289,5 +287,15 @@ export class SubjectComponent implements OnInit, OnDestroy {
 
   isAdmin(): boolean {
     return this.authenthicationService.currentUserValue.isAdmin();
+  }
+
+  infoDisplayedWithTime(info : string, time : number, optionalValue? : any) : void {
+    this.infoToDisplay = this.translateService.instant(info);
+    if(optionalValue) {
+      this.infoToDisplay += optionalValue
+    }
+    setTimeout(()=> {
+      this.infoToDisplay = null
+    }, time)
   }
 }

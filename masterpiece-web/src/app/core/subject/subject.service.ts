@@ -14,7 +14,7 @@ export class SubjectService {
 
   constructor(private readonly http: HttpRequestHandler, public tokenService : TokenStorageService) { }
 
-  postSubject(form : FormGroup) {
+  postSubject(form : FormGroup): Observable<Subject> {
     return this.http.post(this.baseUrl, form.value)
   }
 

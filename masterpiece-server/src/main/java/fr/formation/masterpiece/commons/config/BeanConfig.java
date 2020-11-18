@@ -5,11 +5,25 @@ import org.modelmapper.config.Configuration.AccessLevel;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Configuration
 public class BeanConfig {
+
+    /**
+     * Default {@code ModelMapper} bean that configures mapping between DTO and
+     * entities.
+     * <p>
+     * This builder prevents XXE injection
+     */
+    @Bean
+    protected ObjectMapper objectMapper() {
+	return Jackson2ObjectMapperBuilder.json().build();
+    }
 
     /**
      * Default {@code ModelMapper} bean that configures mapping between DTO and

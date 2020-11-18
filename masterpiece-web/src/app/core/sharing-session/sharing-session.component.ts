@@ -13,6 +13,8 @@ import { SharingSessionService } from './sharing-session.service';
 })
 export class SharingSessionComponent implements OnInit {
   
+  infoToDisplay: string;
+
   constructor(
     private sharingSessionService: SharingSessionService, 
     private translateService: TranslateService, 
@@ -31,7 +33,6 @@ export class SharingSessionComponent implements OnInit {
   columnDefs: ColDef[];
 
   ngOnInit() {
-    this.displayTable();
     this.getTableHeaderWithLang()
     this.translateService.onLangChange.subscribe(() => {
       this.getTableHeaderWithLang();
@@ -42,9 +43,10 @@ export class SharingSessionComponent implements OnInit {
         this.sessions = sessions;
         this.rowData = this.sessions;
         console.log(sessions);
-        this.displayTable();
+        this.getTableHeaderWithLang();
       },
       (error) => {
+        console.log(error);
         const message = ErrorHandler.catch(error);
         console.log("error : " + message);
       }
@@ -55,22 +57,13 @@ export class SharingSessionComponent implements OnInit {
     this.translateService.get('language').subscribe(() => {
      this.columnDefs = [
         { headerName: 'id', field: 'id', hide: true },
+        { headerName: this.translate('ag-grid.session.day'), field: 'day', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.session.startTime'), field: 'startTime', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.session.endTime'), field: 'endTime', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.session.subject'), field: 'subject.title', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.session.lecturer'), field: 'lecturer.credentials.username', sortable: true, filter: true }
       ]
     })
-  }
-
-  private displayTable() {
-    this.columnDefs = [
-      { headerName: 'id', field: 'id', hide: true },
-      { headerName: this.translate('ag-grid.session.startTime'), field: 'startTime', sortable: true, filter: true },
-      { headerName: this.translate('ag-grid.session.endTime'), field: 'endTime', sortable: true, filter: true },
-      { headerName: this.translate('ag-grid.session.subject'), field: 'subject.title', sortable: true, filter: true },
-      { headerName: this.translate('ag-grid.session.lecturer'), field: 'lecturer.credentials.username', sortable: true, filter: true }
-    ]
   }
 
   public sizeColumnsToFit(gridOptions: GridOptions) {

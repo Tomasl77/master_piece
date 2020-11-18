@@ -85,6 +85,7 @@
     "description": "Description of subject",
     "category": "Choose a category",
     "button": "Submit",
+    "newTopic":"Your request has been post : ",
     "validationMessages": {
       "title": {
         "required": "Title is required",
@@ -125,6 +126,7 @@
       "requester": "Requester"
     },
     "session": {
+      "day":"Day of the session",
       "startTime" : "Start of the session",
       "endTime" : "End of the session",
       "subject" : "Presented subject",

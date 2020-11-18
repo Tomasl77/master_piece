@@ -89,8 +89,8 @@ public class UserServiceImpl extends AbstractService implements UserService {
 	return convert(userProfile, UserProfileViewDto.class);
     }
 
-    @Transactional
     @Override
+    @Transactional
     public void deleteOne(Long id) {
 	UserProfile deleted = userProfileRepository.findById(id)
 	        .orElseThrow(() -> new ResourceNotFoundException(
