@@ -8,14 +8,6 @@ Last update : 2020-10-21
 
 USE teamsharingtest;
 
-DELETE FROM `sharing_sessions`;
-DELETE FROM `subjects`;
-DELETE FROM user_role;
-DELETE FROM user_profiles;
-DELETE FROM `user_credentials`;
-DELETE FROM `roles`;
-
-
 INSERT INTO `roles`(code, default_role) 
     VALUES 
     ('ROLE_USER','T'), 

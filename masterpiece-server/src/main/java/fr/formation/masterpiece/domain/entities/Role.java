@@ -8,10 +8,8 @@ import javax.persistence.UniqueConstraint;
 
 import fr.formation.masterpiece.commons.utils.BooleanConverter;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 @Entity
 @Table(name = "roles", uniqueConstraints = {
         @UniqueConstraint(name = "UQ_code", columnNames = { "code" }) })

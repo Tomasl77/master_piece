@@ -15,11 +15,9 @@ import javax.persistence.UniqueConstraint;
 
 import fr.formation.masterpiece.commons.utils.BooleanConverter;
 import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Getter
-@Setter
 @Table(name = "user_credentials", uniqueConstraints = {
         @UniqueConstraint(name = "UQ_username", columnNames = { "username" }) })
 public class UserCredentials extends AbstractEntity {

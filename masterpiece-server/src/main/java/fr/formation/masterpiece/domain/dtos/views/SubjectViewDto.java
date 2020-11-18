@@ -1,10 +1,8 @@
 package fr.formation.masterpiece.domain.dtos.views;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class SubjectViewDto {
 
     private Long id;
@@ -18,4 +16,11 @@ public class SubjectViewDto {
     private Long vote;
 
     private UserProfileViewDto user;
+
+    /**
+     * Empty no-args constructor
+     */
+    protected SubjectViewDto() {
+	//
+    }
 }

@@ -19,3 +19,11 @@ button {
     transform: translateX(-50%);
 }
 
+a {
+    color: black;
+    text-decoration: none;
+}
+
+.no-account {
+    margin-top: 20px;
+}

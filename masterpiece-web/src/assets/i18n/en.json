@@ -1,4 +1,10 @@
 {
+  "error": {
+    "occured":"An error as occured",
+    "bad-credentials" : "Bad credentials",
+    "session-scheduled" : "Session already scheduled at this date"
+  },
+
   "action": {
     "delete" : "delete"
   },
@@ -79,6 +85,7 @@
     "description": "Description of subject",
     "category": "Choose a category",
     "button": "Submit",
+    "newTopic":"Your request has been post : ",
     "validationMessages": {
       "title": {
         "required": "Title is required",
@@ -119,6 +126,7 @@
       "requester": "Requester"
     },
     "session": {
+      "day":"Day of the session",
       "startTime" : "Start of the session",
       "endTime" : "End of the session",
       "subject" : "Presented subject",

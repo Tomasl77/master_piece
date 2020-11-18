@@ -6,10 +6,8 @@ import javax.validation.constraints.Size;
 
 import fr.formation.masterpiece.commons.annotations.UniqueUser;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class UserCredentialsCreateDto {
 
     private final String message = "Must contains at least 8 characters, 1 uppercase, 1 lowercase, 1 digit and 1 special char";
@@ -26,6 +24,9 @@ public class UserCredentialsCreateDto {
     @Pattern(regexp = pattern, message = message)
     private String password;
 
-    public UserCredentialsCreateDto() {
+    /**
+     * Empty no-args constructor
+     */
+    protected UserCredentialsCreateDto() {
     }
 }

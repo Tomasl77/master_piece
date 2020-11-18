@@ -13,11 +13,9 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Getter
-@Setter
 @Table(name = "sharing_sessions",
         uniqueConstraints = @UniqueConstraint(name = "UQ_starttime",
                 columnNames = { "start_time" }))
@@ -40,4 +38,12 @@ public class SharingSession extends AbstractEntity {
             nullable = false,
             foreignKey = @ForeignKey(name = "FK_sharingsession_userprofile"))
     private UserProfile userProfile;
+
+    public void setSubject(Subject subject) {
+	this.subject = subject;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+	this.userProfile = userProfile;
+    }
 }

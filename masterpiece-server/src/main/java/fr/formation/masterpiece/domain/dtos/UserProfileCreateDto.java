@@ -5,13 +5,13 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import fr.formation.masterpiece.commons.annotations.UniqueEmail;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class UserProfileCreateDto {
 
+    @UniqueEmail
     @Email
     @NotBlank
     @Size(max = 255)
@@ -20,7 +20,11 @@ public class UserProfileCreateDto {
     @Valid
     UserCredentialsCreateDto credentials;
 
-    public UserProfileCreateDto() {
+    /**
+     * Empty no-args constructor
+     */
+    protected UserProfileCreateDto() {
+	//
     }
 
     @Override

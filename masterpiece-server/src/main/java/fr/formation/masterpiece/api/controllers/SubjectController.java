@@ -45,7 +45,7 @@ public class SubjectController {
     }
 
     @GetMapping
-    public List<SubjectViewDto> getAll() {
-	return service.getAll();
+    public List<SubjectViewDto> getAllNotScheduled() {
+	return service.getAllNotScheduled();
     }
 }

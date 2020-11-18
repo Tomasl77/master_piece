@@ -12,5 +12,5 @@ public interface SubjectService {
 
     void deleteOne(Long id);
 
-    List<SubjectViewDto> getAll();
+    List<SubjectViewDto> getAllNotScheduled();
 }

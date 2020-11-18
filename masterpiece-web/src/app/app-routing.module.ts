@@ -1,4 +1,4 @@
-import { NgModule, Component } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { NotFoundComponent } from './shared/page-not-found/not-found.component'
 import { CreateAccountComponent } from './core/create-account/create-account.component';

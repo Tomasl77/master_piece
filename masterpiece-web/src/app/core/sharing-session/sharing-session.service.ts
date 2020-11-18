@@ -23,8 +23,9 @@ export class SharingSessionService {
       return this.http.get(this.baseUrl).pipe(map(response => response.map(
         (session) => ({
           id: session.id,
-          startTime : this.convertDate(session.startTime),
-          endTime : this.convertDate(session.endTime),
+          day: this.convertDate(session.startTime),
+          startTime : this.convertTime(session.startTime),
+          endTime : this.convertTime(session.endTime),
           subject : session.subject,
           lecturer : session.userProfile,
         })
@@ -32,6 +33,10 @@ export class SharingSessionService {
     }
 
     private convertDate(date : Date)  {
-      return this.datePipe.transform(date, 'yyyy-MM-dd HH:mm')
+      return this.datePipe.transform(date, 'yyyy-MM-dd')
+    }
+
+    private convertTime(date : Date)  {
+      return this.datePipe.transform(date, 'HH:mm')
     }
 }

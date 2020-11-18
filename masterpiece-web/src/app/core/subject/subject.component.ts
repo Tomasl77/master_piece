@@ -14,6 +14,7 @@ import { ConfirmationModalComponent } from 'src/app/shared/modals/confirmation-m
 import { BtnCellRenderer } from 'src/app/shared/btn-cell-renderer.component';
 import { DateTimeDialogComponentComponent } from 'src/app/shared/modals/date-time-dialog-component/date-time-dialog-component.component';
 import { ErrorHandler } from 'src/app/shared/services/error-handler';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-subject',
@@ -24,7 +25,7 @@ import { ErrorHandler } from 'src/app/shared/services/error-handler';
 export class SubjectComponent implements OnInit, OnDestroy {
 
   action: string;
-
+  infoToDisplay : string;
   tomorrow: Date;
 
   formErrors = {
@@ -113,7 +114,6 @@ export class SubjectComponent implements OnInit, OnDestroy {
         (subjects: Subject[]) => {
           this.subjects = subjects;
           this.rowData = subjects;
-          console.log(this.rowData);
         });
     }
   }
@@ -140,12 +140,16 @@ export class SubjectComponent implements OnInit, OnDestroy {
   public postSubject() {
     const request = this.subjectService.postSubject(this.subjectForm);
     this.postSubjectSubscription = request.subscribe(
-      () => {
+      (subject: Subject) => {
         this.subjectForm.reset(),
           this.action = "vote",
-          this.getSubjectsIfVotePanel()
+          this.getSubjectsIfVotePanel();
+          this.infoDisplayedWithTime('subject.newTopic', 3000, subject.title);
       },
-      (error) => console.log(error)
+      (error) => {
+        const message = ErrorHandler.catch(error);
+        console.log("message : " + message);
+      }
     );
   }
 
@@ -176,7 +180,6 @@ export class SubjectComponent implements OnInit, OnDestroy {
         { headerName: this.translate('ag-grid.subject.title'), field: 'title', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.subject.description'), field: 'description', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.subject.category'), field: 'category', sortable: true, filter: true },
-        { headerName: this.translate('ag-grid.subject.vote'), field: 'vote', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.subject.requester'), field: 'user', sortable: true, filter: true },
         {
           sortable: false,
@@ -255,8 +258,12 @@ export class SubjectComponent implements OnInit, OnDestroy {
           () => {
             this.router.navigate(['/sharing-session'])
           },
-          error => {
-            console.log(error);  
+          (error : HttpErrorResponse) => {
+            if(error.status == 409) {
+              this.infoDisplayedWithTime('error.session-scheduled', 2000);
+            }
+            const message = ErrorHandler.catch(error);
+            console.log("error : " + message);
           }
         );
       }
@@ -280,5 +287,15 @@ export class SubjectComponent implements OnInit, OnDestroy {
 
   isAdmin(): boolean {
     return this.authenthicationService.currentUserValue.isAdmin();
+  }
+
+  infoDisplayedWithTime(info : string, time : number, optionalValue? : any) : void {
+    this.infoToDisplay = this.translateService.instant(info);
+    if(optionalValue) {
+      this.infoToDisplay += optionalValue
+    }
+    setTimeout(()=> {
+      this.infoToDisplay = null
+    }, time)
   }
 }

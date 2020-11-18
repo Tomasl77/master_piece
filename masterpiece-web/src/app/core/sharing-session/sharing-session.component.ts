@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { GridOptions, ColDef } from 'ag-grid-community';
 import { SharingSession } from 'src/app/shared/models/sharing-session.model';
+import { ErrorHandler } from 'src/app/shared/services/error-handler';
 import { SharingSessionService } from './sharing-session.service';
 
 @Component({
@@ -12,12 +13,14 @@ import { SharingSessionService } from './sharing-session.service';
 })
 export class SharingSessionComponent implements OnInit {
   
+  infoToDisplay: string;
+
   constructor(
     private sharingSessionService: SharingSessionService, 
     private translateService: TranslateService, 
-    private datePipe : DatePipe) {
+    private errorHandler : ErrorHandler) {
     this.gridOptions = {
-      defaultColDef: { sortable: true, filter: true },
+      defaultColDef: { sortable: true, filter: true, resizable: true },
       pagination: true,
       paginationPageSize: 10,
       onFirstDataRendered: this.sizeColumnsToFit
@@ -30,7 +33,6 @@ export class SharingSessionComponent implements OnInit {
   columnDefs: ColDef[];
 
   ngOnInit() {
-    this.displayTable();
     this.getTableHeaderWithLang()
     this.translateService.onLangChange.subscribe(() => {
       this.getTableHeaderWithLang();
@@ -41,9 +43,13 @@ export class SharingSessionComponent implements OnInit {
         this.sessions = sessions;
         this.rowData = this.sessions;
         console.log(sessions);
-        this.displayTable();
+        this.getTableHeaderWithLang();
       },
-      error => console.log(error)
+      (error) => {
+        console.log(error);
+        const message = ErrorHandler.catch(error);
+        console.log("error : " + message);
+      }
     )
   }
 
@@ -51,22 +57,13 @@ export class SharingSessionComponent implements OnInit {
     this.translateService.get('language').subscribe(() => {
      this.columnDefs = [
         { headerName: 'id', field: 'id', hide: true },
+        { headerName: this.translate('ag-grid.session.day'), field: 'day', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.session.startTime'), field: 'startTime', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.session.endTime'), field: 'endTime', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.session.subject'), field: 'subject.title', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.session.lecturer'), field: 'lecturer.credentials.username', sortable: true, filter: true }
       ]
     })
-  }
-
-  private displayTable() {
-    this.columnDefs = [
-      { headerName: 'id', field: 'id', hide: true },
-      { headerName: this.translate('ag-grid.session.startTime'), field: 'startTime', sortable: true, filter: true },
-      { headerName: this.translate('ag-grid.session.endTime'), field: 'endTime', sortable: true, filter: true },
-      { headerName: this.translate('ag-grid.session.subject'), field: 'subject.title', sortable: true, filter: true },
-      { headerName: this.translate('ag-grid.session.lecturer'), field: 'lecturer.credentials.username', sortable: true, filter: true }
-    ]
   }
 
   public sizeColumnsToFit(gridOptions: GridOptions) {

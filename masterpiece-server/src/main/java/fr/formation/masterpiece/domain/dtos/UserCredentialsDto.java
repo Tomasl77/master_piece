@@ -6,4 +6,11 @@ import lombok.Getter;
 public class UserCredentialsDto {
 
     private String username;
+
+    /**
+     * Empty no-args constructor
+     */
+    protected UserCredentialsDto() {
+	//
+    }
 }

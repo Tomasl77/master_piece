@@ -1,4 +1,10 @@
 {
+  "error": {
+    "occured":"Une erreur s'est produite",
+    "bad-credentials" : "Identifiants erronés",
+    "session-scheduled" : "Une session est déjà programmée ce jour"
+  },
+  
   "action": {
     "delete":"effacer"
   },
@@ -78,6 +84,7 @@
     "description" : "Description du sujet",
     "category" : "Choisissez une catégorie",
     "button": "Poster",
+    "newTopic":"Votre demande a été posté :",
     "validationMessages" : {
       "title" : {
         "required": "Veuillez entrez un titre",
@@ -116,6 +123,7 @@
       "requester": "Demandeur"
     },
     "session": {
+      "day":"Jour de la session",
       "startTime" : "Debut de la session",
       "endTime" : "Fin de la session",
       "subject" : "Sujet présenté",
