@@ -45,12 +45,12 @@ public class SharingSessionServiceImpl extends AbstractService
 	UserProfile user = userProfileRepository
 	        .findProfileWithUserCredentialsId(userId)
 	        .orElseThrow(() -> new ResourceNotFoundException(
-	                "No account found"));
+	                "User id: " + userId + " doesn't exist"));
 	Subject subject = subjectRepository.getOne(dto.getSubjectId());
 	SharingSession session = convert(dto, SharingSession.class);
 	session.setUserProfile(user);
 	session.setSubject(subject);
-	subjectRepository.isScheduled(dto.getSubjectId());
+	subjectRepository.setSessionScheduleTrue(dto.getSubjectId());
 	sharingSessionRepository.save(session);
     }
 

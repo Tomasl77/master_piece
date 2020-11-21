@@ -20,6 +20,6 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
     List<Subject> findAllBySchedule(boolean isSheduled);
 
     @Modifying
-    @Query("UPDATE Subject s SET s.schedule = 'T' WHERE s.id = :subjectId")
-    void isScheduled(@Param("subjectId") Long id);
+    @Query("UPDATE Subject s SET s.schedule = true WHERE s.id = :subjectId")
+    void setSessionScheduleTrue(@Param("subjectId") Long id);
 }
