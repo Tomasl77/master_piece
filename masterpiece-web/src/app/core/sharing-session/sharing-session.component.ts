@@ -42,7 +42,6 @@ export class SharingSessionComponent implements OnInit {
       (sessions : SharingSession[]) => {
         this.sessions = sessions;
         this.rowData = this.sessions;
-        console.log(sessions);
         this.getTableHeaderWithLang();
       },
       (error) => {

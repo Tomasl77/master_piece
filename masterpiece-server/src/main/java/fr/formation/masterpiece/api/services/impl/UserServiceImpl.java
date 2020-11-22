@@ -101,7 +101,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
 
     @Override
     public List<UserProfileViewDto> getAll() {
-	List<UserProfile> users = userProfileRepository.getAllProjectedBy();
+	List<UserProfile> users = userProfileRepository.findAll();
 	return convertList(users, UserProfileViewDto.class);
     }
 
