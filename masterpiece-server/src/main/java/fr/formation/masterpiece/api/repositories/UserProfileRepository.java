@@ -14,7 +14,8 @@ public interface UserProfileRepository
 
     boolean existsByEmail(String email);
 
-    List<UserProfile> getAllProjectedBy();
+    @Override
+    List<UserProfile> findAll();
 
     Optional<UserProfile> getById(Long id);
 

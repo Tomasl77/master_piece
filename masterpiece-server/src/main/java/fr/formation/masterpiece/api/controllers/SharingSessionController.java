@@ -2,6 +2,7 @@ package fr.formation.masterpiece.api.controllers;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +29,8 @@ public class SharingSessionController {
     }
 
     @PostMapping
-    void create(@RequestBody @Valid SharingSessionCreateDto dto) {
+    void create(@RequestBody @Valid SharingSessionCreateDto dto)
+            throws MessagingException {
 	this.sharingSessionService.create(dto);
     }
 

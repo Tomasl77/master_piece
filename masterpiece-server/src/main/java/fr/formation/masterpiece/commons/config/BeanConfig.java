@@ -5,6 +5,7 @@ import java.util.Properties;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.config.Configuration.AccessLevel;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
@@ -18,7 +19,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Configuration
 public class BeanConfig {
 
-    private static final String FALSE = "false";
+    private String host;
+
+    private int port;
+
+    private String username;
+
+    private String password;
 
     /**
      * Default {@code ModelMapper} bean that configures mapping between DTO and
@@ -60,15 +67,19 @@ public class BeanConfig {
     }
 
     @Bean
+    @ConfigurationProperties(prefix = "mail")
     public JavaMailSender getJavaMailSender() {
 	final JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
-	javaMailSender.setHost("smtp.gmail.com");
-	javaMailSender.setProtocol("smtp");
-	javaMailSender.setPort(587);
+	javaMailSender.setHost(host);
+	javaMailSender.setPort(port);
+	javaMailSender.setUsername(username);
+	javaMailSender.setPassword(password);
 	final Properties props = javaMailSender.getJavaMailProperties();
-	props.put("mail.smtp.auth", FALSE);
-	props.put("mail.smtp.starttls", FALSE);
-	props.put("mail.debug", FALSE);
+	props.put("mail.transport.protocol", "smtp");
+	props.put("mail.smtp.auth", "true");
+	props.put("mail.smtp.starttls", "true");
+	props.put("mail.smtp.starttls.enable", "true");
+	props.put("mail.debug", "true");
 	return javaMailSender;
     }
 }
