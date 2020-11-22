@@ -43,7 +43,6 @@ export class LogInComponent implements OnInit {
       },
       (error: HttpErrorResponse) => {
         if(error.status == 400) {
-          console.log('test');
           this.errorReturned = this.translateService.instant('error.bad-credentials');
           setTimeout(()=> {
             this.errorReturned = null
