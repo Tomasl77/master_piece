@@ -50,7 +50,8 @@ public class SharingSessionServiceImpl extends AbstractService
 
     @Override
     @Transactional
-    public void create(SharingSessionCreateDto dto) throws MessagingException {
+    public SharingSessionViewDto create(SharingSessionCreateDto dto)
+            throws MessagingException {
 	Long userId = SecurityHelper.getUserId();
 	UserProfile userProfile = userProfileRepository
 	        .findProfileWithUserCredentialsId(userId)
@@ -61,28 +62,27 @@ public class SharingSessionServiceImpl extends AbstractService
 	session.setUserProfile(userProfile);
 	session.setSubject(subject);
 	subjectRepository.setSessionScheduleTrue(dto.getSubjectId());
-	sharingSessionRepository.save(session);
-	Mail mail = buildSessionMail(session);
-	emailService.sendMail(mail);
+	SharingSession sessionToSave = sharingSessionRepository.save(session);
+	return convert(sessionToSave, SharingSessionViewDto.class);
     }
 
-    private Mail buildSessionMail(SharingSession session) {
+    @Override
+    public void buildSessionMail(SharingSessionViewDto session)
+            throws MessagingException {
 	List<String> recipients = getRecipients();
 	StringBuilder builder = new StringBuilder();
-	String content = builder.append("New session booked")
-	        .append(System.lineSeparator())
+	String content = builder.append("New session booked").append("<p>")
 	        .append("Date : " + formatDate(session.getStartTime()))
-	        .append(System.lineSeparator())
+	        .append("<p>")
 	        .append("Starting time : " + formatTime(session.getStartTime()))
-	        .append(System.lineSeparator())
+	        .append("<p>")
 	        .append("Ending time : " + formatTime(session.getEndTime()))
-	        .append(System.lineSeparator())
-	        .append(" The lecturer will be : " + session.getUserProfile()
-	                .getCredentials().getUsername())
+	        .append("<p>").append(" The lecturer will be : " + session
+	                .getUserProfile().getCredentials().getUsername())
 	        .toString();
 	Mail mail = new Mail("SyK", recipients,
 	        "New session : " + session.getSubject().getTitle(), content);
-	return mail;
+	emailService.sendMail(mail);
     }
 
     private List<String> getRecipients() {

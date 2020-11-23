@@ -31,7 +31,10 @@ public class SharingSessionController {
     @PostMapping
     void create(@RequestBody @Valid SharingSessionCreateDto dto)
             throws MessagingException {
-	this.sharingSessionService.create(dto);
+	SharingSessionViewDto dtoToReturn = sharingSessionService.create(dto);
+	if (dtoToReturn != null) {
+	    sharingSessionService.buildSessionMail(dtoToReturn);
+	}
     }
 
     @GetMapping

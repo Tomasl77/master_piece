@@ -9,7 +9,11 @@ import fr.formation.masterpiece.domain.dtos.views.SharingSessionViewDto;
 
 public interface SharingSessionService {
 
-    void create(SharingSessionCreateDto dto) throws MessagingException;
+    SharingSessionViewDto create(SharingSessionCreateDto dto)
+            throws MessagingException;
 
     List<SharingSessionViewDto> getAllSessions();
+
+    void buildSessionMail(SharingSessionViewDto dtoToReturn)
+            throws MessagingException;
 }
