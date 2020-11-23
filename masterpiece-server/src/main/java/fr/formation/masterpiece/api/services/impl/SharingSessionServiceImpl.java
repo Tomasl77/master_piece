@@ -71,16 +71,14 @@ public class SharingSessionServiceImpl extends AbstractService
             throws MessagingException {
 	List<String> recipients = getRecipients();
 	StringBuilder builder = new StringBuilder();
-	String content = builder.append("New session booked")
-	        .append(System.lineSeparator())
+	String content = builder.append("New session booked").append("<p>")
 	        .append("Date : " + formatDate(session.getStartTime()))
-	        .append(System.lineSeparator())
+	        .append("<p>")
 	        .append("Starting time : " + formatTime(session.getStartTime()))
-	        .append(System.lineSeparator())
+	        .append("<p>")
 	        .append("Ending time : " + formatTime(session.getEndTime()))
-	        .append(System.lineSeparator())
-	        .append(" The lecturer will be : " + session.getUserProfile()
-	                .getCredentials().getUsername())
+	        .append("<p>").append(" The lecturer will be : " + session
+	                .getUserProfile().getCredentials().getUsername())
 	        .toString();
 	Mail mail = new Mail("SyK", recipients,
 	        "New session : " + session.getSubject().getTitle(), content);
