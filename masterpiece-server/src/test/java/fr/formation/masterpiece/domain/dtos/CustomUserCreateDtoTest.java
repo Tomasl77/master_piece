@@ -6,23 +6,23 @@ import org.junit.jupiter.api.Test;
 
 import fr.formation.masterpiece.config.JUnitConfigTest;
 
-class UserCredentialsCreateDtoTest extends JUnitConfigTest {
+class CustomUserCreateDtoTest extends JUnitConfigTest {
 
     @Test
     void should_construct() {
-	UserCredentialsCreateDto actual = new UserCredentialsCreateDto();
+	CustomUserCreateDto actual = new CustomUserCreateDto();
 	assertNotNull(actual);
     }
 
     @Test
     void should_have_message() {
-	UserCredentialsCreateDto tested = new UserCredentialsCreateDto();
+	CustomUserCreateDto tested = new CustomUserCreateDto();
 	assertNotNull(tested.getMessage());
     }
 
     @Test
     void should_have_pattern() {
-	UserCredentialsCreateDto tested = new UserCredentialsCreateDto();
+	CustomUserCreateDto tested = new CustomUserCreateDto();
 	assertNotNull(tested.getPattern());
     }
 }

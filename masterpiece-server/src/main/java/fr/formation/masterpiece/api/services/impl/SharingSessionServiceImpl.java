@@ -10,26 +10,26 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import fr.formation.masterpiece.api.repositories.CustomUserRepository;
 import fr.formation.masterpiece.api.repositories.SharingSessionRepository;
 import fr.formation.masterpiece.api.repositories.SubjectRepository;
-import fr.formation.masterpiece.api.repositories.UserProfileRepository;
 import fr.formation.masterpiece.api.services.EmailService;
 import fr.formation.masterpiece.api.services.SharingSessionService;
 import fr.formation.masterpiece.commons.config.AbstractService;
 import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
 import fr.formation.masterpiece.domain.dtos.SharingSessionCreateDto;
 import fr.formation.masterpiece.domain.dtos.views.SharingSessionViewDto;
+import fr.formation.masterpiece.domain.entities.CustomUser;
 import fr.formation.masterpiece.domain.entities.Mail;
 import fr.formation.masterpiece.domain.entities.SharingSession;
 import fr.formation.masterpiece.domain.entities.Subject;
-import fr.formation.masterpiece.domain.entities.UserProfile;
 import fr.formation.masterpiece.security.SecurityHelper;
 
 @Service
 public class SharingSessionServiceImpl extends AbstractService
         implements SharingSessionService {
 
-    private final UserProfileRepository userProfileRepository;
+    private final CustomUserRepository userRepository;
 
     private final SubjectRepository subjectRepository;
 
@@ -37,12 +37,11 @@ public class SharingSessionServiceImpl extends AbstractService
 
     private final EmailService emailService;
 
-    public SharingSessionServiceImpl(
-            UserProfileRepository userProfileRepository,
+    public SharingSessionServiceImpl(CustomUserRepository userRepository,
             SubjectRepository subjectRepository,
             SharingSessionRepository sharingSessionRepository,
             EmailService emailService) {
-	this.userProfileRepository = userProfileRepository;
+	this.userRepository = userRepository;
 	this.subjectRepository = subjectRepository;
 	this.sharingSessionRepository = sharingSessionRepository;
 	this.emailService = emailService;
@@ -53,13 +52,12 @@ public class SharingSessionServiceImpl extends AbstractService
     public SharingSessionViewDto create(SharingSessionCreateDto dto)
             throws MessagingException {
 	Long userId = SecurityHelper.getUserId();
-	UserProfile userProfile = userProfileRepository
-	        .findProfileWithUserCredentialsId(userId)
+	CustomUser userProfile = userRepository.findById(userId)
 	        .orElseThrow(() -> new ResourceNotFoundException(
 	                "User id: " + userId + " doesn't exist"));
 	Subject subject = subjectRepository.getOne(dto.getSubjectId());
 	SharingSession session = convert(dto, SharingSession.class);
-	session.setUserProfile(userProfile);
+	session.setUser(userProfile);
 	session.setSubject(subject);
 	subjectRepository.setSessionScheduleTrue(dto.getSubjectId());
 	SharingSession sessionToSave = sharingSessionRepository.save(session);
@@ -77,8 +75,8 @@ public class SharingSessionServiceImpl extends AbstractService
 	        .append("Starting time : " + formatTime(session.getStartTime()))
 	        .append("<p>")
 	        .append("Ending time : " + formatTime(session.getEndTime()))
-	        .append("<p>").append(" The lecturer will be : " + session
-	                .getUserProfile().getCredentials().getUsername())
+	        .append("<p>").append(" The lecturer will be : "
+	                + session.getUser().getUsername())
 	        .toString();
 	Mail mail = new Mail("SyK", recipients,
 	        "New session : " + session.getSubject().getTitle(), content);
@@ -86,7 +84,7 @@ public class SharingSessionServiceImpl extends AbstractService
     }
 
     private List<String> getRecipients() {
-	List<UserProfile> users = userProfileRepository.findAll();
+	List<CustomUser> users = userRepository.findAll();
 	List<String> recipients = new ArrayList<>();
 	users.forEach(user -> recipients.add(user.getEmail()));
 	return recipients;

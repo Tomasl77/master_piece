@@ -3,14 +3,14 @@ package fr.formation.masterpiece.domain.dtos;
 import lombok.Getter;
 
 @Getter
-public class UserCredentialsDto {
+public class UpdateCustomUserDto {
 
-    private String username;
+    private String email;
 
     /**
      * Empty no-args constructor
      */
-    protected UserCredentialsDto() {
+    protected UpdateCustomUserDto() {
 	//
     }
 }

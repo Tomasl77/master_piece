@@ -9,29 +9,28 @@ import javax.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import fr.formation.masterpiece.api.repositories.CustomUserRepository;
 import fr.formation.masterpiece.api.repositories.RoleRepository;
 import fr.formation.masterpiece.api.repositories.SubjectRepository;
-import fr.formation.masterpiece.api.repositories.UserCredentialsRepository;
 import fr.formation.masterpiece.api.repositories.UserProfileRepository;
 import fr.formation.masterpiece.api.services.UserService;
 import fr.formation.masterpiece.commons.config.AbstractService;
 import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
-import fr.formation.masterpiece.domain.dtos.UpdateUserProfileDto;
+import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
+import fr.formation.masterpiece.domain.dtos.CustomUserDto;
+import fr.formation.masterpiece.domain.dtos.CustomUserPatchDto;
+import fr.formation.masterpiece.domain.dtos.UpdateCustomUserDto;
 import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
-import fr.formation.masterpiece.domain.dtos.UserProfileCreateDto;
-import fr.formation.masterpiece.domain.dtos.UserProfileDto;
-import fr.formation.masterpiece.domain.dtos.UserProfilePatchDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
-import fr.formation.masterpiece.domain.dtos.views.UserProfileViewDto;
+import fr.formation.masterpiece.domain.dtos.views.CustomUserViewDto;
+import fr.formation.masterpiece.domain.entities.CustomUser;
 import fr.formation.masterpiece.domain.entities.Role;
-import fr.formation.masterpiece.domain.entities.UserCredentials;
-import fr.formation.masterpiece.domain.entities.UserProfile;
 import fr.formation.masterpiece.security.SecurityHelper;
 
 @Service
 public class UserServiceImpl extends AbstractService implements UserService {
 
-    private final UserCredentialsRepository userRepository;
+    private final CustomUserRepository userRepository;
 
     private final UserProfileRepository userProfileRepository;
 
@@ -41,7 +40,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserCredentialsRepository userRepository,
+    public UserServiceImpl(CustomUserRepository userRepository,
             UserProfileRepository userProfileRepository,
             RoleRepository roleRepository, SubjectRepository subjectRepository,
             PasswordEncoder passwordEncoder) {
@@ -53,19 +52,15 @@ public class UserServiceImpl extends AbstractService implements UserService {
     }
 
     @Override
-    public UserProfileDto create(UserProfileCreateDto dto) {
-	String encodedPassword = passwordEncoder
-	        .encode(dto.getCredentials().getPassword());
+    public CustomUserDto create(CustomUserCreateDto dto) {
+	String encodedPassword = passwordEncoder.encode(dto.getPassword());
 	Set<Role> role = new HashSet<>();
 	role.add(roleRepository.findByDefaultRole(true));
-	UserProfile userProfile = new UserProfile(dto.getEmail());
-	UserCredentials credentials = new UserCredentials(encodedPassword,
-	        dto.getCredentials().getUsername(), role, true, true, true,
-	        true);
-	userProfile.setCredentials(credentials);
-	UserProfile user = userProfileRepository.save(userProfile);
-	UserProfileDto dtoToReturn = modelMapper.map(user,
-	        UserProfileDto.class);
+	CustomUser user = new CustomUser(encodedPassword, dto.getUsername(),
+	        role, true, true, true, true, dto.getEmail());
+	CustomUser savedUser = userRepository.save(user);
+	CustomUserDto dtoToReturn = modelMapper.map(savedUser,
+	        CustomUserDto.class);
 	return dtoToReturn;
     }
 
@@ -81,45 +76,41 @@ public class UserServiceImpl extends AbstractService implements UserService {
     }
 
     @Override
-    public UserProfileViewDto getOne(Long id) {
-	UserProfile userProfile = userProfileRepository
-	        .findProfileWithUserCredentialsId(id)
-	        .orElseThrow(() -> new ResourceNotFoundException(
-	                "Account not found"));
-	return convert(userProfile, UserProfileViewDto.class);
+    public CustomUserViewDto getOne(Long id) {
+	CustomUser userProfile = userRepository.findById(id).orElseThrow(
+	        () -> new ResourceNotFoundException("User not found"));
+	return convert(userProfile, CustomUserViewDto.class);
     }
 
     @Override
     @Transactional
     public void deleteOne(Long id) {
-	UserProfile deleted = userProfileRepository.findById(id)
+	CustomUser deleted = userRepository.findById(id)
 	        .orElseThrow(() -> new ResourceNotFoundException(
 	                "Account not found : " + id));
 	subjectRepository.deleteSubjectsAssociatedToUser(id);
-	userProfileRepository.delete(deleted);
+	userRepository.delete(deleted);
     }
 
     @Override
-    public List<UserProfileViewDto> getAll() {
-	List<UserProfile> users = userProfileRepository.findAll();
-	return convertList(users, UserProfileViewDto.class);
+    public List<CustomUserViewDto> getAll() {
+	List<CustomUser> users = userRepository.findAll();
+	return convertList(users, CustomUserViewDto.class);
     }
 
     @Override
-    public UserProfilePatchDto update(UpdateUserProfileDto userDto) {
-	Long userCredentialsId = SecurityHelper.getUserId();
-	UserProfile actualUser = userProfileRepository
-	        .findProfileWithUserCredentialsId(userCredentialsId)
-	        .orElseThrow(() -> new ResourceNotFoundException(
-	                "No account found"));
+    public UpdateCustomUserDto update(CustomUserPatchDto userDto) {
+	Long userId = SecurityHelper.getUserId();
+	CustomUser actualUser = userRepository.findById(userId).orElseThrow(
+	        () -> new ResourceNotFoundException("No account found"));
 	merge(userDto, actualUser);
-	UserProfile savedUser = userProfileRepository.save(actualUser);
-	return convert(savedUser, UserProfilePatchDto.class);
+	CustomUser savedUser = userRepository.save(actualUser);
+	return convert(savedUser, UpdateCustomUserDto.class);
     }
 
     @Override
     public boolean isEmailValid(String email) {
-	return !userProfileRepository.existsByEmail(email);
+	return !userRepository.existsByEmail(email);
     }
 
     @Override

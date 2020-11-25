@@ -9,20 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import fr.formation.masterpiece.api.controllers.UserController;
 import fr.formation.masterpiece.config.JUnitConfigTest;
+import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
+import fr.formation.masterpiece.domain.dtos.CustomUserDto;
 import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
-import fr.formation.masterpiece.domain.dtos.UserProfileCreateDto;
-import fr.formation.masterpiece.domain.dtos.UserProfileDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
-import fr.formation.masterpiece.domain.dtos.views.UserProfileViewDto;
+import fr.formation.masterpiece.domain.dtos.views.CustomUserViewDto;
 import fr.formation.masterpiece.security.annotations.MockAdminForTests;
 import fr.formation.masterpiece.security.annotations.MockUserForTests;
 
 class UserControllerTest extends JUnitConfigTest {
 
     private final String jsonCreateUser = "{   \"email\": \"thierry@gmail.com\",\n"
-            + "    \"credentials\": {\n"
             + "         \"username\" : \"Thierry\",\n"
-            + "        \"password\" : \"Benjahmsin9!\"\n" + "    }  \n" + "}";
+            + "        \"password\" : \"Benjahmsin9!\"\n }";
 
     @Autowired
     private UserController userController;
@@ -36,8 +35,8 @@ class UserControllerTest extends JUnitConfigTest {
     @Test
     @MockUserForTests
     void should_get_by_id() {
-	UserProfileViewDto tested = userController.getOne(1L);
-	assertEquals("Tomas", tested.getCredentials().getUsername());
+	CustomUserViewDto tested = userController.getOne(1L);
+	assertEquals("Tomas", tested.getUsername());
 	assertEquals("tomas@gmail.com", tested.getEmail());
     }
 
@@ -51,11 +50,11 @@ class UserControllerTest extends JUnitConfigTest {
     @MockAdminForTests
     void should_create_user() {
 	int actual = userController.getAll().size();
-	UserProfileCreateDto dto = jsonConvert(jsonCreateUser,
-	        UserProfileCreateDto.class);
-	UserProfileDto tested = userController.create(dto);
+	CustomUserCreateDto dto = jsonConvert(jsonCreateUser,
+	        CustomUserCreateDto.class);
+	CustomUserDto tested = userController.create(dto);
 	int expected = userController.getAll().size();
-	assertEquals("Thierry", tested.getCredentials().getUsername());
+	assertEquals("Thierry", tested.getUsername());
 	assertEquals("thierry@gmail.com", tested.getEmail());
 	assertEquals(expected, actual + 1);
     }

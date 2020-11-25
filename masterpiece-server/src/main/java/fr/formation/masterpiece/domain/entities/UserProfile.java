@@ -26,7 +26,7 @@ public class UserProfile extends AbstractEntity {
     @JoinColumn(name = "user_credentials_id", nullable = false,
             referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "FK_userprofile_usercredential"))
-    private UserCredentials credentials;
+    private CustomUser credentials;
 
     public UserProfile() {
     }

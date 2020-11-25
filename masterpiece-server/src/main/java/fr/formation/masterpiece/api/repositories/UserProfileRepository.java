@@ -12,8 +12,6 @@ import fr.formation.masterpiece.domain.entities.UserProfile;
 public interface UserProfileRepository
         extends JpaRepository<UserProfile, Long> {
 
-    boolean existsByEmail(String email);
-
     @Override
     List<UserProfile> findAll();
 

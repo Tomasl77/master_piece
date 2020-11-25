@@ -19,7 +19,7 @@ import lombok.Getter;
 @Getter
 @Table(name = "subjects",
         uniqueConstraints = @UniqueConstraint(
-                name = "UQ_requestdate_requesterid",
+                name = "UK_requestdate_requesterid",
                 columnNames = { "request_date", "requester_id" }))
 public class Subject extends AbstractEntity {
 
@@ -29,8 +29,9 @@ public class Subject extends AbstractEntity {
     @Column(name = "description", nullable = true, columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "category", nullable = false)
-    private String category;
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 
     @Column(name = "request_date", nullable = false)
     private LocalDateTime requestDate;
@@ -39,23 +40,19 @@ public class Subject extends AbstractEntity {
     @Convert(converter = BooleanConverter.class)
     private boolean schedule;
 
-    @Column(name = "total_vote", nullable = false)
-    private int vote;
-
     @ManyToOne(cascade = { CascadeType.REFRESH })
     @JoinColumn(name = "requester_id", referencedColumnName = "id",
             nullable = false,
             foreignKey = @ForeignKey(name = "FK_subject_userprofile"))
-    private UserProfile user;
+    private CustomUser user;
 
-    public void setUser(UserProfile user) {
+    public void setUser(CustomUser user) {
 	this.user = user;
     }
 
     @Override
     public String toString() {
 	return "{title: " + title + ", description: " + description
-	        + ", category: " + category + ", vote: " + vote + ", user: "
-	        + user + "}";
+	        + ", category: " + category + ", user: " + user + "}";
     }
 }

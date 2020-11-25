@@ -18,9 +18,10 @@ import lombok.Getter;
 
 @Entity
 @Getter
-@Table(name = "user_credentials", uniqueConstraints = {
-        @UniqueConstraint(name = "UQ_username", columnNames = { "username" }) })
-public class UserCredentials extends AbstractEntity {
+@Table(name = "users", uniqueConstraints = {
+        @UniqueConstraint(name = "UK_username", columnNames = { "username" }),
+        @UniqueConstraint(name = "UK_email", columnNames = { "email" }) })
+public class CustomUser extends AbstractEntity {
 
     @Column(length = 255, nullable = false)
     private String username;
@@ -52,7 +53,10 @@ public class UserCredentials extends AbstractEntity {
     @Column(length = 1, nullable = false)
     private boolean credentialsNonExpired;
 
-    protected UserCredentials() {
+    @Column(name = "email", nullable = false, length = 255)
+    private String email;
+
+    protected CustomUser() {
 	// Empty no-arg constructor (Hibernate)
     }
 
@@ -63,7 +67,7 @@ public class UserCredentials extends AbstractEntity {
      * @param username a unique username
      * @param roles    some roles
      */
-    public UserCredentials(String password, String username, Set<Role> roles) {
+    public CustomUser(String password, String username, Set<Role> roles) {
 	this(password, username, roles, true);
     }
 
@@ -75,7 +79,7 @@ public class UserCredentials extends AbstractEntity {
      * @param roles    some roles
      * @param enabled  {@code true} if enabled; {@code false} otherwise
      */
-    public UserCredentials(String password, String username, Set<Role> roles,
+    public CustomUser(String password, String username, Set<Role> roles,
             boolean enabled) {
 	this.password = password;
 	this.username = username;
@@ -100,9 +104,10 @@ public class UserCredentials extends AbstractEntity {
      * @param info                  some additional info like email
      * @author tomas
      */
-    public UserCredentials(String password, String username, Set<Role> roles,
+    public CustomUser(String password, String username, Set<Role> roles,
             boolean enabled, boolean accountNonExpired,
-            boolean accountNonLocked, boolean credentialsNonExpired) {
+            boolean accountNonLocked, boolean credentialsNonExpired,
+            String email) {
 	this.password = password;
 	this.username = username;
 	this.roles = roles;
@@ -110,6 +115,7 @@ public class UserCredentials extends AbstractEntity {
 	this.accountNonExpired = accountNonExpired;
 	this.accountNonLocked = accountNonLocked;
 	this.credentialsNonExpired = credentialsNonExpired;
+	this.email = email;
     }
 
     @Override
@@ -117,6 +123,6 @@ public class UserCredentials extends AbstractEntity {
 	// password=[PROTECTED] for not displaying in logs
 	return "{id: " + id + ", username: " + username
 	        + ", password: [PROTECTED], roles: " + roles + ", enabled: "
-	        + enabled + "}";
+	        + enabled + ", email: " + email + "}";
     }
 }
