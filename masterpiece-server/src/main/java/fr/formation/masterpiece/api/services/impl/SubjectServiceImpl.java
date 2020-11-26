@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import fr.formation.masterpiece.api.repositories.SubjectRepository;
 import fr.formation.masterpiece.api.repositories.CustomUserRepository;
+import fr.formation.masterpiece.api.repositories.SubjectRepository;
 import fr.formation.masterpiece.api.services.SubjectService;
 import fr.formation.masterpiece.commons.config.AbstractService;
 import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
@@ -52,7 +52,8 @@ public class SubjectServiceImpl extends AbstractService
 
     @Override
     public List<SubjectViewDto> getAllNotScheduled() {
-	List<Subject> subjects = subjectRepository.findAllBySchedule(false);
+	List<Subject> subjects = subjectRepository
+	        .findAllByScheduleAndUserEnabledTrue(false);
 	List<SubjectViewDto> test = convertList(subjects, SubjectViewDto.class);
 	return test;
     }

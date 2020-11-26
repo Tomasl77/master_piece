@@ -103,7 +103,7 @@ public class SharingSessionServiceImpl extends AbstractService
     @Override
     public List<SharingSessionViewDto> getAllSessions() {
 	List<SharingSessionViewDto> list = convertList(
-	        sharingSessionRepository.findAll(),
+	        sharingSessionRepository.getAllSessionWithUserEnable(),
 	        SharingSessionViewDto.class);
 	return list;
     }

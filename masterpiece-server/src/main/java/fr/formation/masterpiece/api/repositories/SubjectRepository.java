@@ -17,7 +17,7 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
     @Query("DELETE FROM Subject s WHERE s.user.id = :id")
     void deleteSubjectsAssociatedToUser(@Param("id") Long id);
 
-    List<Subject> findAllBySchedule(boolean isSheduled);
+    List<Subject> findAllByScheduleAndUserEnabledTrue(boolean isSheduled);
 
     @Modifying
     @Query("UPDATE Subject s SET s.schedule = true WHERE s.id = :subjectId")

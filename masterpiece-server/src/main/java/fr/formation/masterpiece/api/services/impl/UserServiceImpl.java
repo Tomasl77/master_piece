@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 
 import fr.formation.masterpiece.api.repositories.CustomUserRepository;
 import fr.formation.masterpiece.api.repositories.RoleRepository;
-import fr.formation.masterpiece.api.repositories.SubjectRepository;
-import fr.formation.masterpiece.api.repositories.UserProfileRepository;
 import fr.formation.masterpiece.api.services.UserService;
 import fr.formation.masterpiece.commons.config.AbstractService;
 import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
@@ -32,22 +30,14 @@ public class UserServiceImpl extends AbstractService implements UserService {
 
     private final CustomUserRepository userRepository;
 
-    private final UserProfileRepository userProfileRepository;
-
     private final RoleRepository roleRepository;
-
-    private final SubjectRepository subjectRepository;
 
     private final PasswordEncoder passwordEncoder;
 
     public UserServiceImpl(CustomUserRepository userRepository,
-            UserProfileRepository userProfileRepository,
-            RoleRepository roleRepository, SubjectRepository subjectRepository,
-            PasswordEncoder passwordEncoder) {
+            RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
 	this.userRepository = userRepository;
-	this.userProfileRepository = userProfileRepository;
 	this.roleRepository = roleRepository;
-	this.subjectRepository = subjectRepository;
 	this.passwordEncoder = passwordEncoder;
     }
 
@@ -85,19 +75,28 @@ public class UserServiceImpl extends AbstractService implements UserService {
     @Override
     @Transactional
     public void deleteOne(Long id) {
-	CustomUser deleted = userRepository.findById(id)
-	        .orElseThrow(() -> new ResourceNotFoundException(
-	                "Account not found : " + id));
-	subjectRepository.deleteSubjectsAssociatedToUser(id);
-	userRepository.delete(deleted);
+	userRepository.deActivate(id);
     }
 
+    /**
+     * Get all users with enable account
+     *
+     * @author Tomas LOBGEOIS
+     */
     @Override
     public List<CustomUserViewDto> getAll() {
-	List<CustomUser> users = userRepository.findAll();
+	List<CustomUser> users = userRepository.findAllByEnabled(true);
 	return convertList(users, CustomUserViewDto.class);
     }
 
+    /**
+     * Update an existing user with {@code CustomUserPatchDto}
+     *
+     * @param userDto the dto with information to update
+     * @return a dto with information updated
+     *
+     * @author Tomas LOBGEOIS
+     */
     @Override
     public UpdateCustomUserDto update(CustomUserPatchDto userDto) {
 	Long userId = SecurityHelper.getUserId();
@@ -108,6 +107,14 @@ public class UserServiceImpl extends AbstractService implements UserService {
 	return convert(savedUser, UpdateCustomUserDto.class);
     }
 
+    /**
+     * Check if an email is available
+     *
+     * @param email the email to test availability
+     * @return true if available, false if not
+     *
+     * @author Tomas LOBGEOIS
+     */
     @Override
     public boolean isEmailValid(String email) {
 	return !userRepository.existsByEmail(email);
