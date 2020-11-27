@@ -2,12 +2,12 @@ import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/c
 import { TranslateService } from '@ngx-translate/core';
 import { ColDef, GridOptions } from 'ag-grid-community';
 import { Subscription } from 'rxjs';
-import { UserProfile } from 'src/app/shared/models/user-profile.model';
 import { UserRegistrationService } from '../user-registration.service';
 import { BtnCellRenderer } from '../../shared/btn-cell-renderer.component'
 import { ConfirmationModalComponent } from 'src/app/shared/modals/confirmation-modal/confirmation-modal.component';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { AuthenticationService } from 'src/app/shared/services/authentication/authentication.service';
+import { UserCredentials } from 'src/app/shared/models/user-credentials.model';
 
 @Component({
   selector: 'app-admin-panel',
@@ -19,7 +19,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
   private allUsersSubscription: Subscription;
   private deleteUserSubscription: Subscription;
-  private rowData: UserProfile[];
+  private rowData: UserCredentials[];
   private gridOptions: GridOptions;
   private columnDefs: ColDef[];
   private frameworkComponents = {};
@@ -55,7 +55,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
   private getAllUsers() {
     this.allUsersSubscription = this.userRegistrationService.getAllUsers().subscribe(
-      ((users: UserProfile[]) => {
+      ((users: UserCredentials[]) => {
         this.rowData = users;
         console.log(this.rowData)
       }),
@@ -63,14 +63,14 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     );
   }
 
-  openDialog(user: UserProfile){
+  openDialog(user: UserCredentials){
     console.log(user);
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {
       position: {
         top: "50px"
       },
       data: 
-        {dataToProcess : user.credentials.username,
+        {dataToProcess : user.username,
         action: this.translate('dialog.delete'),
         object: this.translate('dialog.user')
       },
@@ -91,8 +91,8 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
   private getTableHeaderWithLang(): void {
     this.translateService.get('language').subscribe((translate: string) => {
       this.columnDefs = [
-        { headerName: 'id', field: 'crendentials.id', hide: true },
-        { headerName: this.translate('ag-grid.admin-panel.username'), field: 'credentials.username' },
+        { headerName: 'id', field: 'id', hide: true },
+        { headerName: this.translate('ag-grid.admin-panel.username'), field: 'username' },
         { headerName: this.translate('ag-grid.admin-panel.email'), field: 'email' },
         {
           headerName: this.translate('ag-grid.delete'),
@@ -115,7 +115,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
   }
 
   public openDeleteModal(params: any) {
-    const user: UserProfile = params.rowData;
+    const user: UserCredentials = params.rowData;
     this.openDialog(user);
   };
 

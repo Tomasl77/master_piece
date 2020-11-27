@@ -40,6 +40,7 @@ export class SharingSessionComponent implements OnInit {
 
     this.sharingSessionService.getAll().subscribe(
       (sessions : SharingSession[]) => {
+        console.log(sessions);
         this.sessions = sessions;
         this.rowData = this.sessions;
         this.getTableHeaderWithLang();
@@ -60,7 +61,7 @@ export class SharingSessionComponent implements OnInit {
         { headerName: this.translate('ag-grid.session.startTime'), field: 'startTime', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.session.endTime'), field: 'endTime', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.session.subject'), field: 'subject.title', sortable: true, filter: true },
-        { headerName: this.translate('ag-grid.session.lecturer'), field: 'lecturer.credentials.username', sortable: true, filter: true }
+        { headerName: this.translate('ag-grid.session.lecturer'), field: 'lecturer.username', sortable: true, filter: true }
       ]
     })
   }

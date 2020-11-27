@@ -11,6 +11,7 @@ export const Config = {
     users: "/users",
     subjects: "/subjects",
     sharingsession: "/sharing-sessions",
+    category:"/categories",
     httpOptions: {
         json: { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) },
         formUrlEncoded: { headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' }) 
