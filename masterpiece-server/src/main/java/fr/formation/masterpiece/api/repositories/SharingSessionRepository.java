@@ -12,6 +12,9 @@ import fr.formation.masterpiece.domain.entities.SharingSession;
 public interface SharingSessionRepository
         extends JpaRepository<SharingSession, Long> {
 
-    @Query("SELECT s FROM SharingSession s JOIN Subject su ON s.subject = su.id JOIN CustomUser cu ON su.user = cu.id WHERE cu.enabled = true AND s.user.enabled = true")
+    @Query("SELECT s FROM SharingSession s "
+            + "JOIN Subject su ON s.subject = su.id "
+            + "JOIN CustomUser cu ON su.user = cu.id "
+            + "WHERE cu.enabled = true AND s.user.enabled = true")
     List<SharingSession> getAllSessionWithUserEnable();
 }
