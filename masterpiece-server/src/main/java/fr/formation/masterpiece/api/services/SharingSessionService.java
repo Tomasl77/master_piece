@@ -1,5 +1,6 @@
 package fr.formation.masterpiece.api.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -16,4 +17,6 @@ public interface SharingSessionService {
 
     void buildSessionMail(SharingSessionViewDto dtoToReturn)
             throws MessagingException;
+
+    boolean isDateValid(LocalDateTime date);
 }

@@ -32,4 +32,8 @@ public interface SharingSessionRepository
      */
     @Query(JpqlQuery.SESSION_WITH_ENABLE_LECTURER)
     List<SharingSession> getAllSessionWithUserEnable();
+
+    @Query("SELECT case when (count(scen) > 0) then true else false end "
+            + "FROM SharingSession s WHERE s.startTime LIKE :time")
+    boolean existsDate(String time);
 }

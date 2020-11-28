@@ -83,6 +83,21 @@ public class SharingSessionServiceImpl extends AbstractService
 	emailService.sendMail(mail);
     }
 
+    @Override
+    public List<SharingSessionViewDto> getAllSessions() {
+	List<SharingSessionViewDto> list = convertList(
+	        sharingSessionRepository.getAllSessionWithUserEnable(),
+	        SharingSessionViewDto.class);
+	return list;
+    }
+
+    @Override
+    public boolean isDateValid(LocalDateTime dateTime) {
+	String time = this.formatDate(dateTime);
+	return false;
+//	return !sharingSessionRepository.existsDate(time);
+    }
+
     private List<String> getRecipients() {
 	List<CustomUser> users = userRepository.findAll();
 	List<String> recipients = new ArrayList<>();
@@ -98,13 +113,5 @@ public class SharingSessionServiceImpl extends AbstractService
     private String formatTime(LocalDateTime dateTime) {
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH-mm");
 	return dateTime.format(formatter);
-    }
-
-    @Override
-    public List<SharingSessionViewDto> getAllSessions() {
-	List<SharingSessionViewDto> list = convertList(
-	        sharingSessionRepository.getAllSessionWithUserEnable(),
-	        SharingSessionViewDto.class);
-	return list;
     }
 }
