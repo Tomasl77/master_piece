@@ -1,9 +1,11 @@
 package fr.formation.masterpiece.api.repositories;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import fr.formation.masterpiece.domain.entities.SharingSession;
@@ -33,7 +35,7 @@ public interface SharingSessionRepository
     @Query(JpqlQuery.SESSION_WITH_ENABLE_LECTURER)
     List<SharingSession> getAllSessionWithUserEnable();
 
-    @Query("SELECT case when (count(scen) > 0) then true else false end "
-            + "FROM SharingSession s WHERE s.startTime LIKE :time")
-    boolean existsDate(String time);
+    @Query(value = "SELECT (count(*)>0) FROM sharing_sessions WHERE start_time LIKE :date%",
+            nativeQuery = true)
+    Long existsByStartTimeStartsWith(@Param("date") LocalDate date);
 }

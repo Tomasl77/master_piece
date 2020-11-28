@@ -93,9 +93,8 @@ public class SharingSessionServiceImpl extends AbstractService
 
     @Override
     public boolean isDateValid(LocalDateTime dateTime) {
-	String time = this.formatDate(dateTime);
-	return false;
-//	return !sharingSessionRepository.existsDate(time);
+	return sharingSessionRepository
+	        .existsByStartTimeStartsWith(dateTime.toLocalDate()) == 0;
     }
 
     private List<String> getRecipients() {
