@@ -8,13 +8,28 @@ import org.springframework.stereotype.Repository;
 
 import fr.formation.masterpiece.domain.entities.SharingSession;
 
+/**
+ * {@code JpaRepository} to handle {@code SharingSession} persistence.
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 @Repository
 public interface SharingSessionRepository
         extends JpaRepository<SharingSession, Long> {
 
-    @Query("SELECT s FROM SharingSession s "
-            + "JOIN Subject su ON s.subject = su.id "
-            + "JOIN CustomUser cu ON su.user = cu.id "
-            + "WHERE cu.enabled = true AND s.user.enabled = true")
+    /**
+     * Retrieve a {@code List} of {@code SharingSession} who respect this both
+     * following conditions :
+     * <ul>
+     * <li>The lecturer of {@code SharingSession} must have an enable
+     * account</li>
+     * <li>The requester of {@code Subject} must have an enable account</li>
+     *
+     * @return a {@code List} of {@code SharingSession}
+     *
+     * @author Tomas LOBGEOIS
+     */
+    @Query(JpqlQuery.SESSION_WITH_ENABLE_LECTURER)
     List<SharingSession> getAllSessionWithUserEnable();
 }

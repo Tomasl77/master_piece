@@ -101,8 +101,8 @@ public class CustomUser extends AbstractEntity {
      *                              otherwise
      * @param credentialsNonExpired {@code true} if non expired; {@code false}
      *                              otherwise
-     * @param info                  some additional info like email
-     * @author tomas
+     * @param email                 a unique email
+     * @author Tomas LOBGEOIS
      */
     public CustomUser(String password, String username, Set<Role> roles,
             boolean enabled, boolean accountNonExpired,

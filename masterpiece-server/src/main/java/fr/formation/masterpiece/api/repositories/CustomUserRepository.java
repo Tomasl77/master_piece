@@ -30,8 +30,20 @@ public interface CustomUserRepository extends JpaRepository<CustomUser, Long> {
      */
     Optional<CustomUserViewDto> getById(Long id);
 
+    /**
+     * Check if username is already store in database
+     *
+     * @param username the username to check
+     * @return {@code true} if username already exists, {@code false} if not
+     */
     boolean existsByUsername(String username);
 
+    /**
+     * Check if email is already store in database
+     *
+     * @param email the email to check
+     * @return {@code true} if email already exists, {@code false} if not
+     */
     boolean existsByEmail(String email);
 
     /**
@@ -42,7 +54,7 @@ public interface CustomUserRepository extends JpaRepository<CustomUser, Long> {
      * @author Tomas LOBGEOIS
      */
     @Modifying
-    @Query("UPDATE CustomUser u SET u.enabled = false WHERE u.id = :userId")
+    @Query(JpqlQuery.DEACTIVATE_USER)
     void deActivate(@Param("userId") Long id);
 
     List<CustomUser> findAllByEnabled(boolean enabled);

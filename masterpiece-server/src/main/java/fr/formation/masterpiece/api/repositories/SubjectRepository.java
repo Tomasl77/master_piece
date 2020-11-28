@@ -10,16 +10,38 @@ import org.springframework.stereotype.Repository;
 
 import fr.formation.masterpiece.domain.entities.Subject;
 
+/**
+ * {@code JpaRepository} to handle {@code Subject} persistence.
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 @Repository
 public interface SubjectRepository extends JpaRepository<Subject, Long> {
 
-    @Modifying
-    @Query("DELETE FROM Subject s WHERE s.user.id = :id")
-    void deleteSubjectsAssociatedToUser(@Param("id") Long id);
-
+    /**
+     * Retrieve a {@code List} of {@code Subject} with the following condition:
+     * <p>
+     * {@code CustomUser} requester must have an enable account
+     *
+     * @param isSheduled {@code true} to have all {@code Subject} already
+     *                   scheduled, {@code false} to have all {@code Subject}
+     *                   not scheduled
+     * @return a {@code List} of {@code Subject}
+     *
+     * @author Tomas LOBGEOIS
+     */
     List<Subject> findAllByScheduleAndUserEnabledTrue(boolean isSheduled);
 
+    /**
+     * Update a {@code Subject} when it has been choosen for a
+     * {@code SharingSession}
+     *
+     * @param id the id of {@code Subject} to update
+     *
+     * @author Tomas LOBGEOIS
+     */
     @Modifying
-    @Query("UPDATE Subject s SET s.schedule = true WHERE s.id = :subjectId")
+    @Query(JpqlQuery.SCHEDULE_SESSION)
     void setSessionScheduleTrue(@Param("subjectId") Long id);
 }
