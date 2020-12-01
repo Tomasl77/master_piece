@@ -274,7 +274,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
           },
           (error : HttpErrorResponse) => {
             if(error.status == 400) {
-              this.infoDisplayedWithTime('error.session-scheduled', 2000);
+              this.infoDisplayedWithTime('error.session-scheduled', 3000);
             }
             const message = ErrorHandler.catch(error);
             console.log("error : " + message);
