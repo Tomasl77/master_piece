@@ -93,8 +93,9 @@ public class SharingSessionServiceImpl extends AbstractService
 
     @Override
     public boolean isDateValid(LocalDateTime dateTime) {
-	return sharingSessionRepository
-	        .existsByStartTimeStartsWith(dateTime.toLocalDate()) == 0;
+	return !sharingSessionRepository.existsByStartTimeBetween(
+	        setToTime(dateTime, 00, 00, 00),
+	        setToTime(dateTime, 23, 59, 59));
     }
 
     private List<String> getRecipients() {
@@ -112,5 +113,21 @@ public class SharingSessionServiceImpl extends AbstractService
     private String formatTime(LocalDateTime dateTime) {
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH-mm");
 	return dateTime.format(formatter);
+    }
+
+    /**
+     * Convert a {@code LocalDateTime} to set a specific time.
+     *
+     * @param dateTime the date time to modify
+     * @param hours    the choosen hours
+     * @param minutes  the choosen minutes
+     * @param seconds  the choosen seconds
+     * @return the date time formatteds
+     *
+     * @author Tomas LOBGEOIS
+     */
+    private LocalDateTime setToTime(LocalDateTime dateTime, int hours,
+            int minutes, int seconds) {
+	return dateTime.withHour(hours).withMinute(minutes).withSecond(seconds);
     }
 }

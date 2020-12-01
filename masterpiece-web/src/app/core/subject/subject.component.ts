@@ -273,7 +273,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
             this.router.navigate(['/sharing-session'])
           },
           (error : HttpErrorResponse) => {
-            if(error.status == 409) {
+            if(error.status == 400) {
               this.infoDisplayedWithTime('error.session-scheduled', 2000);
             }
             const message = ErrorHandler.catch(error);
