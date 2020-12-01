@@ -15,8 +15,5 @@ public interface SharingSessionService {
 
     List<SharingSessionViewDto> getAllSessions();
 
-    void buildSessionMail(SharingSessionViewDto dtoToReturn)
-            throws MessagingException;
-
     boolean isDateValid(LocalDateTime date);
 }

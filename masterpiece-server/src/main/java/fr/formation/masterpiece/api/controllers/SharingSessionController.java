@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.formation.masterpiece.api.services.SharingSessionService;
 import fr.formation.masterpiece.commons.annotations.HasRoleUser;
+import fr.formation.masterpiece.commons.utils.EmailManager;
 import fr.formation.masterpiece.domain.dtos.SharingSessionCreateDto;
 import fr.formation.masterpiece.domain.dtos.views.SharingSessionViewDto;
 
@@ -23,9 +24,12 @@ public class SharingSessionController {
 
     private final SharingSessionService sharingSessionService;
 
-    public SharingSessionController(
-            SharingSessionService sharingSessionService) {
+    private final EmailManager emailManager;
+
+    public SharingSessionController(SharingSessionService sharingSessionService,
+            EmailManager emailManager) {
 	this.sharingSessionService = sharingSessionService;
+	this.emailManager = emailManager;
     }
 
     @PostMapping
@@ -33,7 +37,7 @@ public class SharingSessionController {
             throws MessagingException {
 	SharingSessionViewDto dtoToReturn = sharingSessionService.create(dto);
 	if (dtoToReturn != null) {
-	    sharingSessionService.buildSessionMail(dtoToReturn);
+	    emailManager.buildSessionMail(dtoToReturn);
 	}
     }
 

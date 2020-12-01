@@ -19,7 +19,14 @@ public class EmailServiceImpl implements EmailService {
 
     private final JavaMailSender javaMailSender;
 
-    public EmailServiceImpl(JavaMailSender javaMailSender) {
+    /**
+     * Protected constructor to autowire needed beans.
+     * <p>
+     * injects {@code JavaMailSender}
+     *
+     * @param javaMailSender the injected {@code JavaMailSender} bean.
+     */
+    protected EmailServiceImpl(JavaMailSender javaMailSender) {
 	this.javaMailSender = javaMailSender;
     }
 
