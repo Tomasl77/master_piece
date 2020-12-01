@@ -7,6 +7,12 @@ import javax.validation.ConstraintValidatorContext;
 
 import fr.formation.masterpiece.api.services.SharingSessionService;
 
+/**
+ * Validator for {@code NotSameDay} constraint
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 public class NotSameDayValidator
         implements ConstraintValidator<NotSameDay, LocalDateTime> {
 

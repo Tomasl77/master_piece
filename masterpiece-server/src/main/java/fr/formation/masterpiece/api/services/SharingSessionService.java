@@ -8,6 +8,11 @@ import javax.mail.MessagingException;
 import fr.formation.masterpiece.domain.dtos.SharingSessionCreateDto;
 import fr.formation.masterpiece.domain.dtos.views.SharingSessionViewDto;
 
+/**
+ * Service to handle {@code SharingSession} logic.
+ *
+ * @author Tomas LOBGEOIS
+ */
 public interface SharingSessionService {
 
     SharingSessionViewDto create(SharingSessionCreateDto dto)

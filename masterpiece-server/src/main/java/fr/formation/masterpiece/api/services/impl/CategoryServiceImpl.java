@@ -9,6 +9,12 @@ import fr.formation.masterpiece.api.services.CategoryService;
 import fr.formation.masterpiece.commons.config.AbstractService;
 import fr.formation.masterpiece.domain.dtos.views.CategoryViewDto;
 
+/**
+ * Default concrete implementation of {@code CategoryService}
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 @Service
 public class CategoryServiceImpl extends AbstractService
         implements CategoryService {

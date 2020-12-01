@@ -21,6 +21,12 @@ import fr.formation.masterpiece.domain.entities.SharingSession;
 import fr.formation.masterpiece.domain.entities.Subject;
 import fr.formation.masterpiece.security.SecurityHelper;
 
+/**
+ * Default concrete implementation of {@code SharingSessionService}
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 @Service
 public class SharingSessionServiceImpl extends AbstractService
         implements SharingSessionService {

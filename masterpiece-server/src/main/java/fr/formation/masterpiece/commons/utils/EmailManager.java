@@ -15,6 +15,12 @@ import fr.formation.masterpiece.domain.dtos.views.SharingSessionViewDto;
 import fr.formation.masterpiece.domain.entities.CustomUser;
 import fr.formation.masterpiece.domain.entities.Mail;
 
+/**
+ * Component to manage email building and sending through application
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 @Component
 public class EmailManager {
 

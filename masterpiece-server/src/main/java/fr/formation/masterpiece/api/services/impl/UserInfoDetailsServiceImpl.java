@@ -11,6 +11,10 @@ import fr.formation.masterpiece.domain.dtos.views.CustomUserAuthDto;
 import fr.formation.masterpiece.domain.dtos.views.CustomUserViewDto;
 import fr.formation.masterpiece.security.CustomUserDetails;
 
+/**
+ * Default concrete implementation of {@code UserInfoDetailsService}
+ *
+ */
 @Service
 public class UserInfoDetailsServiceImpl implements UserInfoDetailsService {
 

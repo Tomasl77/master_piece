@@ -10,6 +10,12 @@ import org.springframework.stereotype.Service;
 import fr.formation.masterpiece.api.services.EmailService;
 import fr.formation.masterpiece.domain.entities.Mail;
 
+/**
+ * Default concrete implementation of {@code EmailService}
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 @Service
 public class EmailServiceImpl implements EmailService {
 

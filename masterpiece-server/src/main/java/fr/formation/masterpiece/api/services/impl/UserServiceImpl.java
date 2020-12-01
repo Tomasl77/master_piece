@@ -25,6 +25,12 @@ import fr.formation.masterpiece.domain.entities.CustomUser;
 import fr.formation.masterpiece.domain.entities.Role;
 import fr.formation.masterpiece.security.SecurityHelper;
 
+/**
+ * Default concrete implementation of {@code UserService}
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 @Service
 public class UserServiceImpl extends AbstractService implements UserService {
 

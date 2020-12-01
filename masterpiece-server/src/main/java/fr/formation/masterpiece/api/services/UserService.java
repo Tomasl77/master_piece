@@ -10,6 +10,11 @@ import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
 import fr.formation.masterpiece.domain.dtos.views.CustomUserViewDto;
 
+/**
+ * Service to handle {@code CustomUser} logic.
+ *
+ * @author Tomas LOBGEOIS
+ */
 public interface UserService {
 
     boolean isValid(String username);

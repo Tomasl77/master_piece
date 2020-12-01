@@ -6,6 +6,11 @@ import fr.formation.masterpiece.domain.dtos.SubjectCreateDto;
 import fr.formation.masterpiece.domain.dtos.SubjectDto;
 import fr.formation.masterpiece.domain.dtos.views.SubjectViewDto;
 
+/**
+ * Service to handle {@code Subject} logic.
+ *
+ * @author Tomas LOBGEOIS
+ */
 public interface SubjectService {
 
     SubjectDto create(SubjectCreateDto dto);

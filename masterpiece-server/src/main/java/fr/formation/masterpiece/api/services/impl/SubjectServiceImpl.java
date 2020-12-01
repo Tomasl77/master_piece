@@ -16,6 +16,12 @@ import fr.formation.masterpiece.domain.entities.CustomUser;
 import fr.formation.masterpiece.domain.entities.Subject;
 import fr.formation.masterpiece.security.SecurityHelper;
 
+/**
+ * Default concrete implementation of {@code SubjectService}
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 @Service
 public class SubjectServiceImpl extends AbstractService
         implements SubjectService {
