@@ -1,26 +1,28 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { DatePipe, Location } from '@angular/common';
 import { MatDialog } from '@angular/material';
-import { Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 import { ColDef, GridOptions } from 'ag-grid-community';
-import { DatePipe } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 import { SubjectService } from './subject.service';
 import { AuthenticationService } from 'src/app/shared/services/authentication/authentication.service';
+import { CategoryService } from 'src/app/shared/services/category.service';
 import { Subject } from '../../shared/models/subject.model';
 import { ConfirmationModalComponent } from 'src/app/shared/modals/confirmation-modal/confirmation-modal.component';
 import { BtnCellRenderer } from 'src/app/shared/btn-cell-renderer.component';
 import { DateTimeDialogComponentComponent } from 'src/app/shared/modals/date-time-dialog-component/date-time-dialog-component.component';
 import { ErrorHandler } from 'src/app/shared/services/error-handler';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Category } from 'src/app/shared/models/category.model';
 
 @Component({
   selector: 'app-subject',
   templateUrl: './subject.component.html',
   styleUrls: ['./subject.component.css'],
-  providers: [SubjectService, ConfirmationModalComponent]
+  providers: [SubjectService, CategoryService, ConfirmationModalComponent]
 })
 export class SubjectComponent implements OnInit, OnDestroy {
 
@@ -36,35 +38,32 @@ export class SubjectComponent implements OnInit, OnDestroy {
   rowData: Subject[];
   gridOptions: GridOptions;
   columnDefs: ColDef[];
+  categories: Category[];
   frameworkComponents = {};
 
   private getAllSubjectsSubscription: Subscription;
   private deleteSubjectSubscription: Subscription;
   private postSubjectSubscription: Subscription;
   private presentSubjectSubscription: Subscription;
+  private getAllCategoriesSubscription: Subscription;
 
   subjectForm: FormGroup;
-  categories = [
-    { name: "Front-End", value: "FRONTEND" },
-    { name: "Back-End", value: "BACKEND" },
-    { name: "Database", value: "DATABASE" },
-    { name: "Rift", value: "RIFT" },
-    { name: "Other", value: "OTHER" }
-  ];
 
   constructor(
     private translateService: TranslateService,
     private formBuilder: FormBuilder,
     private subjectService: SubjectService,
+    private categoryService: CategoryService,
     private activatedRoute: ActivatedRoute,
     private router : Router,
+    private location: Location,
     private authenthicationService: AuthenticationService,
     private datePipe : DatePipe,
     private dialog: MatDialog  ) {
     this.subjectForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(30)]],
       description: ['', [Validators.required]],
-      category: ['', [Validators.required]]
+      category: ['', Validators.required]
     }),
 
       /* ag-grid */
@@ -101,11 +100,15 @@ export class SubjectComponent implements OnInit, OnDestroy {
     this.subjectService.unsubscribe(this.getAllSubjectsSubscription);
     this.subjectService.unsubscribe(this.postSubjectSubscription);
     this.subjectService.unsubscribe(this.presentSubjectSubscription);
+    this.subjectService.unsubscribe(this.getAllCategoriesSubscription)
   }
 
   customInit() {
+    this.categoryService.getAllCategories().subscribe((categories) => {
+      this.categories = categories,
+      console.log(this.categories)
+    });
     this.getSubjectsIfVotePanel();
-
   }
 
   public getSubjectsIfVotePanel() {
@@ -138,19 +141,30 @@ export class SubjectComponent implements OnInit, OnDestroy {
   }
 
   public postSubject() {
-    const request = this.subjectService.postSubject(this.subjectForm);
+    const formBuild: FormGroup = this.constructForm(this.subjectForm)
+    const request = this.subjectService.postSubject(formBuild);
     this.postSubjectSubscription = request.subscribe(
       (subject: Subject) => {
-        this.subjectForm.reset(),
-          this.action = "vote",
-          this.getSubjectsIfVotePanel();
-          this.infoDisplayedWithTime('subject.newTopic', 3000, subject.title);
+        this.subjectForm.reset();
+        this.action="vote";
+        this.getSubjectsIfVotePanel();
+        this.infoDisplayedWithTime('subject.newTopic', 3000, subject.title);
       },
       (error) => {
         const message = ErrorHandler.catch(error);
         console.log("message : " + message);
       }
     );
+  }
+
+  constructForm(subjectForm: FormGroup): FormGroup {
+    return this.formBuilder.group({
+      title: [subjectForm.value.title],
+      description: [subjectForm.value.description],
+      category: this.formBuilder.group({
+        id:[subjectForm.value.category]
+      })
+    })
   }
 
   public deleteSubject(id: number) {
@@ -179,8 +193,8 @@ export class SubjectComponent implements OnInit, OnDestroy {
         { headerName: 'id', field: 'id', hide: true },
         { headerName: this.translate('ag-grid.subject.title'), field: 'title', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.subject.description'), field: 'description', sortable: true, filter: true },
-        { headerName: this.translate('ag-grid.subject.category'), field: 'category', sortable: true, filter: true },
-        { headerName: this.translate('ag-grid.subject.requester'), field: 'user', sortable: true, filter: true },
+        { headerName: this.translate('ag-grid.subject.category'), field: 'category.name', sortable: true, filter: true },
+        { headerName: this.translate('ag-grid.subject.requester'), field: 'user.username', sortable: true, filter: true },
         {
           sortable: false,
           filter:false,
@@ -259,8 +273,8 @@ export class SubjectComponent implements OnInit, OnDestroy {
             this.router.navigate(['/sharing-session'])
           },
           (error : HttpErrorResponse) => {
-            if(error.status == 409) {
-              this.infoDisplayedWithTime('error.session-scheduled', 2000);
+            if(error.status == 400) {
+              this.infoDisplayedWithTime('error.session-scheduled', 3000);
             }
             const message = ErrorHandler.catch(error);
             console.log("error : " + message);

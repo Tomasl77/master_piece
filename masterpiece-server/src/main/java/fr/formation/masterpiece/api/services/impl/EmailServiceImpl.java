@@ -10,6 +10,12 @@ import org.springframework.stereotype.Service;
 import fr.formation.masterpiece.api.services.EmailService;
 import fr.formation.masterpiece.domain.entities.Mail;
 
+/**
+ * Default concrete implementation of {@code EmailService}
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 @Service
 public class EmailServiceImpl implements EmailService {
 
@@ -19,7 +25,14 @@ public class EmailServiceImpl implements EmailService {
 
     private final JavaMailSender javaMailSender;
 
-    public EmailServiceImpl(JavaMailSender javaMailSender) {
+    /**
+     * Protected constructor to autowire needed beans.
+     * <p>
+     * injects {@code JavaMailSender}
+     *
+     * @param javaMailSender the injected {@code JavaMailSender} bean.
+     */
+    protected EmailServiceImpl(JavaMailSender javaMailSender) {
 	this.javaMailSender = javaMailSender;
     }
 

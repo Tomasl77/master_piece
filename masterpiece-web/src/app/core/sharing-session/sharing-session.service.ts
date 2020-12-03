@@ -21,13 +21,13 @@ export class SharingSessionService {
 
     getAll() : Observable<SharingSession[]> {
       return this.http.get(this.baseUrl).pipe(map(response => response.map(
-        (session) => ({
+        (session: SharingSession) => ({
           id: session.id,
           day: this.convertDate(session.startTime),
           startTime : this.convertTime(session.startTime),
           endTime : this.convertTime(session.endTime),
           subject : session.subject,
-          lecturer : session.userProfile,
+          lecturer : session.user,
         })
       )));;
     }

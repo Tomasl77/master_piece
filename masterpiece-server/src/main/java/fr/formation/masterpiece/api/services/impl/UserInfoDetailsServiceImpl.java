@@ -4,19 +4,23 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import fr.formation.masterpiece.api.repositories.UserCredentialsRepository;
+import fr.formation.masterpiece.api.repositories.CustomUserRepository;
 import fr.formation.masterpiece.api.services.UserInfoDetailsService;
 import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
 import fr.formation.masterpiece.domain.dtos.views.CustomUserAuthDto;
-import fr.formation.masterpiece.domain.dtos.views.UserCredentialsViewDto;
+import fr.formation.masterpiece.domain.dtos.views.CustomUserViewDto;
 import fr.formation.masterpiece.security.CustomUserDetails;
 
+/**
+ * Default concrete implementation of {@code UserInfoDetailsService}
+ *
+ */
 @Service
 public class UserInfoDetailsServiceImpl implements UserInfoDetailsService {
 
-    private final UserCredentialsRepository repo;
+    private final CustomUserRepository repo;
 
-    protected UserInfoDetailsServiceImpl(UserCredentialsRepository repo) {
+    protected UserInfoDetailsServiceImpl(CustomUserRepository repo) {
 	this.repo = repo;
     }
 
@@ -32,7 +36,7 @@ public class UserInfoDetailsServiceImpl implements UserInfoDetailsService {
 
     // Throws ResourceNotFoundException (restful practice)
     @Override
-    public UserCredentialsViewDto getCurrentUserInfo(Long id) {
+    public CustomUserViewDto getCurrentUserInfo(Long id) {
 	return repo.getById(id).orElseThrow(
 	        () -> new ResourceNotFoundException("with id:" + id));
     }

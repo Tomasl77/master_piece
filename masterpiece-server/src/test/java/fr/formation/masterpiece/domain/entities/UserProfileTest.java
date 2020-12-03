@@ -21,10 +21,10 @@ class UserProfileTest extends JUnitConfigTest {
 
     void should_set_user_credentials() {
 	UserProfile tested = new UserProfile();
-	UserCredentials credentials = jsonConvert(
+	CustomUser credentials = jsonConvert(
 	        "{" + " \"username\" : \"userTested\","
 	                + " \"password\" : \"testedUser9!\"" + " }",
-	        UserCredentials.class);
+	        CustomUser.class);
 	tested.setCredentials(credentials);
 	assertEquals("userTested", tested.getCredentials().getUsername());
 	assertEquals("testedUser9!", tested.getCredentials().getPassword());

@@ -17,7 +17,7 @@ import lombok.Getter;
 @Entity
 @Getter
 @Table(name = "sharing_sessions",
-        uniqueConstraints = @UniqueConstraint(name = "UQ_starttime",
+        uniqueConstraints = @UniqueConstraint(name = "UK_starttime",
                 columnNames = { "start_time" }))
 public class SharingSession extends AbstractEntity {
 
@@ -34,16 +34,16 @@ public class SharingSession extends AbstractEntity {
     private Subject subject;
 
     @ManyToOne(cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "user_profile_id", referencedColumnName = "id",
+    @JoinColumn(name = "lecturer_id", referencedColumnName = "id",
             nullable = false,
             foreignKey = @ForeignKey(name = "FK_sharingsession_userprofile"))
-    private UserProfile userProfile;
+    private CustomUser user;
 
     public void setSubject(Subject subject) {
 	this.subject = subject;
     }
 
-    public void setUserProfile(UserProfile userProfile) {
-	this.userProfile = userProfile;
+    public void setUser(CustomUser user) {
+	this.user = user;
     }
 }

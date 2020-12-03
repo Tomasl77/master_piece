@@ -80,10 +80,8 @@ export class CreateAccountComponent implements OnInit {
   constructForm(formData = this.signForm) : FormGroup {
     return this.fb.group({
       email : [formData.value.email],
-      credentials : this.fb.group({
-        username : [formData.value.username],
-        password : [formData.value.password],
-      })
+      username : [formData.value.username],
+      password : [formData.value.password],
     })
   }
 

@@ -5,6 +5,12 @@ import javax.validation.ConstraintValidatorContext;
 
 import fr.formation.masterpiece.api.services.UserService;
 
+/**
+ * Validator for {@code UniqueEmail} constraint
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 public class UniqueEmailValidator
         implements ConstraintValidator<UniqueEmail, String> {
 

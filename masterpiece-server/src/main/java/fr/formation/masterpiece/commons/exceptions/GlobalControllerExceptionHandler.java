@@ -27,6 +27,20 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class GlobalControllerExceptionHandler
         extends ResponseEntityExceptionHandler {
 
+    @ExceptionHandler({ ConstraintViolationException.class })
+    public ResponseEntity<Object> handleConstraintViolation(
+            ConstraintViolationException ex, WebRequest request) {
+	List<String> errors = new ArrayList<>();
+	for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
+	    errors.add(violation.getRootBeanClass().getName() + " "
+	            + violation.getPropertyPath() + ": "
+	            + violation.getMessage());
+	}
+	ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST,
+	        ex.getLocalizedMessage(), errors);
+	return errorToReturn(apiError);
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex, HttpHeaders headers,
@@ -59,20 +73,6 @@ public class GlobalControllerExceptionHandler
             DataIntegrityViolationException ex, WebRequest request) {
 	ApiError apiError = new ApiError(HttpStatus.CONFLICT, ex.getMessage(),
 	        ex.getCause().getCause().getMessage());
-	return errorToReturn(apiError);
-    }
-
-    @ExceptionHandler({ ConstraintViolationException.class })
-    public ResponseEntity<Object> handleConstraintViolation(
-            ConstraintViolationException ex, WebRequest request) {
-	List<String> errors = new ArrayList<>();
-	for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
-	    errors.add(violation.getRootBeanClass().getName() + " "
-	            + violation.getPropertyPath() + ": "
-	            + violation.getMessage());
-	}
-	ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST,
-	        ex.getLocalizedMessage(), errors);
 	return errorToReturn(apiError);
     }
 

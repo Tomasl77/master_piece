@@ -23,7 +23,7 @@ public class SharingSessionViewDto {
 
     private SubjectViewDto subject;
 
-    private UserProfileViewDto userProfile;
+    private CustomUserViewDto user;
 
     /**
      * Empty no-args constructor

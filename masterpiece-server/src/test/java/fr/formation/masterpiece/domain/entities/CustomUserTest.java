@@ -9,14 +9,14 @@ import org.junit.jupiter.api.Test;
 
 import fr.formation.masterpiece.config.JUnitConfigTest;
 
-class UserCredentialsTest extends JUnitConfigTest {
+class CustomUserTest extends JUnitConfigTest {
 
     @Test
     void should_construct_username_password_roles() {
 	Role role = new Role("ROLE_USER");
 	Set<Role> roles = new HashSet<>();
 	roles.add(role);
-	UserCredentials tested = new UserCredentials("password", "Johanna",
+	CustomUser tested = new CustomUser("password", "Johanna",
 	        roles);
 	assertEquals("password", tested.getPassword());
 	assertEquals("Johanna", tested.getUsername());

@@ -11,11 +11,9 @@ public class SubjectViewDto {
 
     private String description;
 
-    private String category;
+    private CategoryViewDto category;
 
-    private Long vote;
-
-    private UserProfileViewDto user;
+    private CustomUserViewDto user;
 
     /**
      * Empty no-args constructor

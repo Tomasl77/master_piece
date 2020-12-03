@@ -5,6 +5,12 @@ import javax.validation.ConstraintValidatorContext;
 
 import fr.formation.masterpiece.api.services.UserService;
 
+/**
+ * Validator for {@code UniqueUser} constraint
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 public class UniqueUserValidator
         implements ConstraintValidator<UniqueUser, String> {
 

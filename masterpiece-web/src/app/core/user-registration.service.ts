@@ -3,8 +3,8 @@ import { FormGroup } from '@angular/forms';
 import { Observable, Subscription, throwError } from 'rxjs';
 import { AccountDto } from '../shared/models/accountDto';
 import { Config } from 'src/assets/config-properties';
-import { UserProfile } from '../shared/models/user-profile.model';
 import { HttpRequestHandler } from '../shared/services/http-helper/http-request-handler';
+import { UserCredentials } from '../shared/models/user-credentials.model';
 
 
 @Injectable()
@@ -18,11 +18,11 @@ export class UserRegistrationService {
     return this.http.post(this.baseUrl, formData.value);
   }
 
-  getAccount(id: number): Observable<UserProfile> {
+  getAccount(id: number): Observable<UserCredentials> {
     return this.http.get(`${this.baseUrl}/${id}`)
   }
 
-  getAllUsers(): Observable<UserProfile[]> {
+  getAllUsers(): Observable<UserCredentials[]> {
     return this.http.get(this.baseUrl)
   }
 

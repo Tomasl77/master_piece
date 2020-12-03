@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 
+import fr.formation.masterpiece.commons.annotations.NotSameDay;
 import lombok.Getter;
 
 @Getter
@@ -17,6 +18,7 @@ public class SharingSessionCreateDto {
     @NotNull
     private Long subjectId;
 
+    @NotSameDay
     @Future
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")

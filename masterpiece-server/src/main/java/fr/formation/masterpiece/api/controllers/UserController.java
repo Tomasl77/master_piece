@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.formation.masterpiece.api.services.UserService;
 import fr.formation.masterpiece.commons.annotations.HasRoleAdmin;
 import fr.formation.masterpiece.commons.annotations.HasRoleUser;
-import fr.formation.masterpiece.domain.dtos.UpdateUserProfileDto;
+import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
+import fr.formation.masterpiece.domain.dtos.CustomUserDto;
+import fr.formation.masterpiece.domain.dtos.CustomUserPatchDto;
+import fr.formation.masterpiece.domain.dtos.UpdateCustomUserDto;
 import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
-import fr.formation.masterpiece.domain.dtos.UserProfileCreateDto;
-import fr.formation.masterpiece.domain.dtos.UserProfileDto;
-import fr.formation.masterpiece.domain.dtos.UserProfilePatchDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
-import fr.formation.masterpiece.domain.dtos.views.UserProfileViewDto;
+import fr.formation.masterpiece.domain.dtos.views.CustomUserViewDto;
 
 @RestController
 @RequestMapping("/users")
@@ -36,7 +36,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     @HasRoleUser
-    public UserProfileViewDto getOne(@PathVariable("id") Long id) {
+    public CustomUserViewDto getOne(@PathVariable("id") Long id) {
 	return service.getOne(id);
     }
 
@@ -47,7 +47,7 @@ public class UserController {
     }
 
     @PostMapping
-    public UserProfileDto create(@Valid @RequestBody UserProfileCreateDto dto) {
+    public CustomUserDto create(@Valid @RequestBody CustomUserCreateDto dto) {
 	return service.create(dto);
     }
 
@@ -59,14 +59,14 @@ public class UserController {
 
     @GetMapping
     @HasRoleAdmin
-    public List<UserProfileViewDto> getAll() {
+    public List<CustomUserViewDto> getAll() {
 	return service.getAll();
     }
 
     @PatchMapping
     @HasRoleUser
-    public UserProfilePatchDto update(
-            @Valid @RequestBody UpdateUserProfileDto user) {
+    public UpdateCustomUserDto update(
+            @Valid @RequestBody CustomUserPatchDto user) {
 	return service.update(user);
     }
 

@@ -1,5 +1,5 @@
 import { Subject } from './subject.model';
-import { UserProfile } from './user-profile.model';
+import { UserCredentials } from './user-credentials.model';
 
 export class SharingSession {
     id: number;
@@ -7,5 +7,5 @@ export class SharingSession {
     startTime: Date;
     endTime: Date;
     subject: Subject;
-    lecturer: UserProfile;
+    user: UserCredentials;
 }

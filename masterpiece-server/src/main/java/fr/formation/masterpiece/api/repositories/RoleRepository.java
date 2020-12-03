@@ -5,8 +5,21 @@ import org.springframework.stereotype.Repository;
 
 import fr.formation.masterpiece.domain.entities.Role;
 
+/**
+ * {@code JpaRepository} to handle {@code Role}.
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
 
+    /**
+     * Return default {@code Role} (USER)
+     *
+     * @param defaultRole {@code true} to default role 'USER', {@code false} for
+     *                    'ADMIN'
+     * @return default USER {@code Role}
+     */
     Role findByDefaultRole(boolean defaultRole);
 }

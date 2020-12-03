@@ -4,37 +4,42 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import fr.formation.masterpiece.api.repositories.CustomUserRepository;
 import fr.formation.masterpiece.api.repositories.SubjectRepository;
-import fr.formation.masterpiece.api.repositories.UserProfileRepository;
 import fr.formation.masterpiece.api.services.SubjectService;
 import fr.formation.masterpiece.commons.config.AbstractService;
 import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
 import fr.formation.masterpiece.domain.dtos.SubjectCreateDto;
 import fr.formation.masterpiece.domain.dtos.SubjectDto;
 import fr.formation.masterpiece.domain.dtos.views.SubjectViewDto;
+import fr.formation.masterpiece.domain.entities.CustomUser;
 import fr.formation.masterpiece.domain.entities.Subject;
-import fr.formation.masterpiece.domain.entities.UserProfile;
 import fr.formation.masterpiece.security.SecurityHelper;
 
+/**
+ * Default concrete implementation of {@code SubjectService}
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 @Service
 public class SubjectServiceImpl extends AbstractService
         implements SubjectService {
 
     private final SubjectRepository subjectRepository;
 
-    private final UserProfileRepository userProfileRepository;
+    private final CustomUserRepository userRepository;
 
     public SubjectServiceImpl(SubjectRepository repository,
-            UserProfileRepository userProfileRepository) {
+            CustomUserRepository userRepository) {
 	this.subjectRepository = repository;
-	this.userProfileRepository = userProfileRepository;
+	this.userRepository = userRepository;
     }
 
     @Override
     public SubjectDto create(SubjectCreateDto subjectDto) {
 	Long userCredentialsId = SecurityHelper.getUserId();
-	UserProfile user = userProfileRepository
-	        .findProfileWithUserCredentialsId(userCredentialsId)
+	CustomUser user = userRepository.findById(userCredentialsId)
 	        .orElseThrow(() -> new ResourceNotFoundException(
 	                "Account not found"));
 	Subject subject = convert(subjectDto, Subject.class);
@@ -53,7 +58,8 @@ public class SubjectServiceImpl extends AbstractService
 
     @Override
     public List<SubjectViewDto> getAllNotScheduled() {
-	List<Subject> subjects = subjectRepository.findAllBySchedule(false);
+	List<Subject> subjects = subjectRepository
+	        .findAllByScheduleAndUserEnabledTrue(false);
 	List<SubjectViewDto> test = convertList(subjects, SubjectViewDto.class);
 	return test;
     }

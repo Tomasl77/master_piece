@@ -11,7 +11,8 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 /**
- * Custom annotation to ensure {@code CustomUser}'s email is unique
+ * Custom annotation to ensure that only one {@code SharingSession} is
+ * programmed by day
  *
  * @author Tomas LOBGEOIS
  *
@@ -19,10 +20,10 @@ import javax.validation.Payload;
 @Documented
 @Retention(RUNTIME)
 @Target(FIELD)
-@Constraint(validatedBy = UniqueEmailValidator.class)
-public @interface UniqueEmail {
+@Constraint(validatedBy = NotSameDayValidator.class)
+public @interface NotSameDay {
 
-    String message() default "Email already taken";
+    String message() default "There's already a session this day";
 
     Class<?>[] groups() default {};
 
