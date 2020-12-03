@@ -14,13 +14,13 @@ import fr.formation.masterpiece.api.repositories.RoleRepository;
 import fr.formation.masterpiece.api.services.UserService;
 import fr.formation.masterpiece.commons.config.AbstractService;
 import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
-import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
-import fr.formation.masterpiece.domain.dtos.CustomUserDto;
-import fr.formation.masterpiece.domain.dtos.CustomUserPatchDto;
-import fr.formation.masterpiece.domain.dtos.UpdateCustomUserDto;
 import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
-import fr.formation.masterpiece.domain.dtos.views.CustomUserViewDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserCreateDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserPatchDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserUpdateDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
 import fr.formation.masterpiece.domain.entities.CustomUser;
 import fr.formation.masterpiece.domain.entities.Role;
 import fr.formation.masterpiece.security.SecurityHelper;
@@ -104,13 +104,13 @@ public class UserServiceImpl extends AbstractService implements UserService {
      * @author Tomas LOBGEOIS
      */
     @Override
-    public UpdateCustomUserDto update(CustomUserPatchDto userDto) {
+    public CustomUserUpdateDto update(CustomUserPatchDto userDto) {
 	Long userId = SecurityHelper.getUserId();
 	CustomUser actualUser = userRepository.findById(userId).orElseThrow(
 	        () -> new ResourceNotFoundException("No account found"));
 	merge(userDto, actualUser);
 	CustomUser savedUser = userRepository.save(actualUser);
-	return convert(savedUser, UpdateCustomUserDto.class);
+	return convert(savedUser, CustomUserUpdateDto.class);
     }
 
     /**

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import fr.formation.masterpiece.api.repositories.CustomUserRepository;
 import fr.formation.masterpiece.api.services.EmailService;
-import fr.formation.masterpiece.domain.dtos.views.SharingSessionViewDto;
+import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto;
 import fr.formation.masterpiece.domain.entities.CustomUser;
 import fr.formation.masterpiece.domain.entities.Mail;
 
@@ -51,7 +51,7 @@ public class EmailManager {
 	        .append("<p>")
 	        .append("Ending time : " + formatTime(session.getEndTime()))
 	        .append("<p>").append(" The lecturer will be : "
-	                + session.getUser().getUsername())
+	                + session.getLecturer().getUsername())
 	        .toString();
 	Mail mail = new Mail("SyK", getRecipients(),
 	        "New session : " + session.getSubject().getTitle(), content);

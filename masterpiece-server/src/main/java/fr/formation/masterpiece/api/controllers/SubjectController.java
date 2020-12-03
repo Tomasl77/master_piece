@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.formation.masterpiece.api.services.SubjectService;
 import fr.formation.masterpiece.commons.annotations.HasRoleAdmin;
 import fr.formation.masterpiece.commons.annotations.HasRoleUser;
-import fr.formation.masterpiece.domain.dtos.SubjectCreateDto;
-import fr.formation.masterpiece.domain.dtos.SubjectDto;
-import fr.formation.masterpiece.domain.dtos.views.SubjectViewDto;
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectCreateDto;
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectDto;
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
 
 @RestController
 @RequestMapping("/subjects")

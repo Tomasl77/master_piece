@@ -2,13 +2,13 @@ package fr.formation.masterpiece.api.services;
 
 import java.util.List;
 
-import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
-import fr.formation.masterpiece.domain.dtos.CustomUserDto;
-import fr.formation.masterpiece.domain.dtos.CustomUserPatchDto;
-import fr.formation.masterpiece.domain.dtos.UpdateCustomUserDto;
 import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
-import fr.formation.masterpiece.domain.dtos.views.CustomUserViewDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserCreateDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserPatchDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserUpdateDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
 
 /**
  * Service to handle {@code CustomUser} logic.
@@ -33,5 +33,5 @@ public interface UserService {
 
     UserEmailCheckDto checkEmail(String email);
 
-    UpdateCustomUserDto update(CustomUserPatchDto userDto);
+    CustomUserUpdateDto update(CustomUserPatchDto userDto);
 }

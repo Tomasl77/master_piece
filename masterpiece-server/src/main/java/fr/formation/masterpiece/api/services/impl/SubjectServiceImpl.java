@@ -9,9 +9,9 @@ import fr.formation.masterpiece.api.repositories.SubjectRepository;
 import fr.formation.masterpiece.api.services.SubjectService;
 import fr.formation.masterpiece.commons.config.AbstractService;
 import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
-import fr.formation.masterpiece.domain.dtos.SubjectCreateDto;
-import fr.formation.masterpiece.domain.dtos.SubjectDto;
-import fr.formation.masterpiece.domain.dtos.views.SubjectViewDto;
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectCreateDto;
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectDto;
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
 import fr.formation.masterpiece.domain.entities.CustomUser;
 import fr.formation.masterpiece.domain.entities.Subject;
 import fr.formation.masterpiece.security.SecurityHelper;
@@ -59,7 +59,7 @@ public class SubjectServiceImpl extends AbstractService
     @Override
     public List<SubjectViewDto> getAllNotScheduled() {
 	List<Subject> subjects = subjectRepository
-	        .findAllByScheduleAndUserEnabledTrue(false);
+	        .findAllByScheduleAndRequesterEnabledTrue(false);
 	List<SubjectViewDto> test = convertList(subjects, SubjectViewDto.class);
 	return test;
     }

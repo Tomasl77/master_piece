@@ -37,13 +37,13 @@ public class SharingSession extends AbstractEntity {
     @JoinColumn(name = "lecturer_id", referencedColumnName = "id",
             nullable = false,
             foreignKey = @ForeignKey(name = "FK_sharingsession_userprofile"))
-    private CustomUser user;
+    private CustomUser lecturer;
 
     public void setSubject(Subject subject) {
 	this.subject = subject;
     }
 
     public void setUser(CustomUser user) {
-	this.user = user;
+	this.lecturer = user;
     }
 }

@@ -7,5 +7,5 @@ export class SharingSession {
     startTime: Date;
     endTime: Date;
     subject: Subject;
-    user: UserCredentials;
+    lecturer: UserCredentials;
 }

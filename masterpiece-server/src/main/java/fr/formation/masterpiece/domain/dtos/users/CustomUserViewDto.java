@@ -1,9 +1,11 @@
-package fr.formation.masterpiece.domain.dtos;
+package fr.formation.masterpiece.domain.dtos.users;
 
 import lombok.Getter;
 
 @Getter
-public class CustomUserDto {
+public class CustomUserViewDto {
+
+    private Long id;
 
     private String username;
 
@@ -12,7 +14,7 @@ public class CustomUserDto {
     /**
      * Empty no-args constructor
      */
-    protected CustomUserDto() {
+    protected CustomUserViewDto() {
 	//
     }
 }

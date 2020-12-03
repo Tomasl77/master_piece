@@ -44,15 +44,15 @@ public class Subject extends AbstractEntity {
     @JoinColumn(name = "requester_id", referencedColumnName = "id",
             nullable = false,
             foreignKey = @ForeignKey(name = "FK_subject_userprofile"))
-    private CustomUser user;
+    private CustomUser requester;
 
     public void setUser(CustomUser user) {
-	this.user = user;
+	this.requester = user;
     }
 
     @Override
     public String toString() {
 	return "{title: " + title + ", description: " + description
-	        + ", category: " + category + ", user: " + user + "}";
+	        + ", category: " + category + ", requester: " + requester + "}";
     }
 }

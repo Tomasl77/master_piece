@@ -31,7 +31,7 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
      *
      * @author Tomas LOBGEOIS
      */
-    List<Subject> findAllByScheduleAndUserEnabledTrue(boolean isSheduled);
+    List<Subject> findAllByScheduleAndRequesterEnabledTrue(boolean isSheduled);
 
     /**
      * Update a {@code Subject} when it has been choosen for a

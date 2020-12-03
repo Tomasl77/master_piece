@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.formation.masterpiece.api.services.CategoryService;
 import fr.formation.masterpiece.commons.annotations.HasRoleUser;
-import fr.formation.masterpiece.domain.dtos.views.CategoryViewDto;
+import fr.formation.masterpiece.domain.dtos.categories.CategoryViewDto;
 
 @RestController
 @HasRoleUser

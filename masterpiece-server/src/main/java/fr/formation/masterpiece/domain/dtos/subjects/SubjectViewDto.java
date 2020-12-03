@@ -1,5 +1,7 @@
-package fr.formation.masterpiece.domain.dtos.views;
+package fr.formation.masterpiece.domain.dtos.subjects;
 
+import fr.formation.masterpiece.domain.dtos.categories.CategoryViewDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
 import lombok.Getter;
 
 @Getter
@@ -13,7 +15,7 @@ public class SubjectViewDto {
 
     private CategoryViewDto category;
 
-    private CustomUserViewDto user;
+    private CustomUserViewDto requester;
 
     /**
      * Empty no-args constructor

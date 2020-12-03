@@ -1,4 +1,4 @@
-package fr.formation.masterpiece.domain.dtos.views;
+package fr.formation.masterpiece.domain.dtos.sharingsessions;
 
 import java.time.LocalDateTime;
 
@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
 import lombok.Getter;
 
 @Getter
@@ -23,7 +25,7 @@ public class SharingSessionViewDto {
 
     private SubjectViewDto subject;
 
-    private CustomUserViewDto user;
+    private CustomUserViewDto lecturer;
 
     /**
      * Empty no-args constructor

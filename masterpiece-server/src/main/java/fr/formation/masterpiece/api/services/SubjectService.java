@@ -2,9 +2,9 @@ package fr.formation.masterpiece.api.services;
 
 import java.util.List;
 
-import fr.formation.masterpiece.domain.dtos.SubjectCreateDto;
-import fr.formation.masterpiece.domain.dtos.SubjectDto;
-import fr.formation.masterpiece.domain.dtos.views.SubjectViewDto;
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectCreateDto;
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectDto;
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
 
 /**
  * Service to handle {@code Subject} logic.

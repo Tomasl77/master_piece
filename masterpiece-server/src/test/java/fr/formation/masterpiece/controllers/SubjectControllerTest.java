@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import fr.formation.masterpiece.api.controllers.SubjectController;
 import fr.formation.masterpiece.config.JUnitConfigTest;
-import fr.formation.masterpiece.domain.dtos.views.SubjectViewDto;
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
 import fr.formation.masterpiece.security.annotations.MockUserForTests;
 
 class SubjectControllerTest extends JUnitConfigTest {

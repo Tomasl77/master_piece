@@ -30,8 +30,8 @@ public final class JpqlQuery {
      */
     static final String SESSION_WITH_ENABLE_LECTURER = "SELECT s FROM SharingSession s "
             + "JOIN Subject su ON s.subject = su.id "
-            + "JOIN CustomUser cu ON su.user = cu.id "
-            + "WHERE cu.enabled = true AND s.user.enabled = true";
+            + "JOIN CustomUser cu ON su.requester = cu.id "
+            + "WHERE cu.enabled = true AND s.lecturer.enabled = true";
 
     /**
      * Update a {@code Subject} to set schedule to {@code true}

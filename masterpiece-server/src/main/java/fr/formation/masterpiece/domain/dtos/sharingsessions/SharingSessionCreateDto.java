@@ -1,4 +1,4 @@
-package fr.formation.masterpiece.domain.dtos;
+package fr.formation.masterpiece.domain.dtos.sharingsessions;
 
 import java.time.LocalDateTime;
 

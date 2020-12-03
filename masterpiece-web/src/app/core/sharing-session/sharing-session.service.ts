@@ -27,7 +27,7 @@ export class SharingSessionService {
           startTime : this.convertTime(session.startTime),
           endTime : this.convertTime(session.endTime),
           subject : session.subject,
-          lecturer : session.user,
+          lecturer : session.lecturer,
         })
       )));;
     }

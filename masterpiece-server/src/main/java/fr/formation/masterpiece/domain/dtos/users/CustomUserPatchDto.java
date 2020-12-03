@@ -1,4 +1,4 @@
-package fr.formation.masterpiece.domain.dtos;
+package fr.formation.masterpiece.domain.dtos.users;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

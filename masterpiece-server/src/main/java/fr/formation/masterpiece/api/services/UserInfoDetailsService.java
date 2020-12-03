@@ -2,7 +2,7 @@ package fr.formation.masterpiece.api.services;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import fr.formation.masterpiece.domain.dtos.views.CustomUserViewDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
 
 /**
  * Service to extends {@code UserDetailsService} and add some logic about
