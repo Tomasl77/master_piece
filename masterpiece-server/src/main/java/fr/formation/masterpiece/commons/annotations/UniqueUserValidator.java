@@ -28,6 +28,6 @@ public class UniqueUserValidator
     @Override
     public boolean isValid(String username,
             ConstraintValidatorContext context) {
-	return service.isValid(username);
+	return service.isUsernameValid(username);
     }
 }

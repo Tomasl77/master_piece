@@ -19,7 +19,7 @@ import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
 import fr.formation.masterpiece.domain.dtos.users.CustomUserCreateDto;
 import fr.formation.masterpiece.domain.dtos.users.CustomUserDto;
 import fr.formation.masterpiece.domain.dtos.users.CustomUserPatchDto;
-import fr.formation.masterpiece.domain.dtos.users.CustomUserUpdateDto;
+import fr.formation.masterpiece.domain.dtos.users.UpdateCustomUserDto;
 import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
 import fr.formation.masterpiece.domain.entities.CustomUser;
 import fr.formation.masterpiece.domain.entities.Role;
@@ -61,13 +61,13 @@ public class UserServiceImpl extends AbstractService implements UserService {
     }
 
     @Override
-    public boolean isValid(String username) {
+    public boolean isUsernameValid(String username) {
 	return !userRepository.existsByUsername(username);
     }
 
     @Override
     public UsernameCheckDto checkUsername(String username) {
-	boolean isValid = this.isValid(username);
+	boolean isValid = this.isUsernameValid(username);
 	return new UsernameCheckDto(isValid);
     }
 
@@ -104,13 +104,13 @@ public class UserServiceImpl extends AbstractService implements UserService {
      * @author Tomas LOBGEOIS
      */
     @Override
-    public CustomUserUpdateDto update(CustomUserPatchDto userDto) {
+    public UpdateCustomUserDto update(CustomUserPatchDto userDto) {
 	Long userId = SecurityHelper.getUserId();
 	CustomUser actualUser = userRepository.findById(userId).orElseThrow(
 	        () -> new ResourceNotFoundException("No account found"));
 	merge(userDto, actualUser);
 	CustomUser savedUser = userRepository.save(actualUser);
-	return convert(savedUser, CustomUserUpdateDto.class);
+	return convert(savedUser, UpdateCustomUserDto.class);
     }
 
     /**

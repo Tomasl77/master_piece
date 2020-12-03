@@ -3,7 +3,6 @@ package fr.formation.masterpiece.api.services.impl;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
@@ -47,8 +46,7 @@ public class SharingSessionServiceImpl extends AbstractService
 
     @Override
     @Transactional
-    public SharingSessionViewDto create(SharingSessionCreateDto dto)
-            throws MessagingException {
+    public SharingSessionViewDto create(SharingSessionCreateDto dto) {
 	Long userId = SecurityHelper.getUserId();
 	CustomUser userProfile = userRepository.findById(userId)
 	        .orElseThrow(() -> new ResourceNotFoundException(

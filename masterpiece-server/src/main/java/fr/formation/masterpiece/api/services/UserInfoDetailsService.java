@@ -12,5 +12,11 @@ import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
  */
 public interface UserInfoDetailsService extends UserDetailsService {
 
+    /**
+     * Returns current authenticated {@code CustomUser}.
+     *
+     * @param id the identifier of currently authenticated {@code CustomUser}
+     * @return {@code CustomUserViewInfo} representing a {@code CustomUser}
+     */
     CustomUserViewDto getCurrentUserInfo(Long id);
 }

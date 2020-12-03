@@ -21,7 +21,7 @@ import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
 import fr.formation.masterpiece.domain.dtos.users.CustomUserCreateDto;
 import fr.formation.masterpiece.domain.dtos.users.CustomUserDto;
 import fr.formation.masterpiece.domain.dtos.users.CustomUserPatchDto;
-import fr.formation.masterpiece.domain.dtos.users.CustomUserUpdateDto;
+import fr.formation.masterpiece.domain.dtos.users.UpdateCustomUserDto;
 import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
 
 @RestController
@@ -65,7 +65,7 @@ public class UserController {
 
     @PatchMapping
     @HasRoleUser
-    public CustomUserUpdateDto update(
+    public UpdateCustomUserDto update(
             @Valid @RequestBody CustomUserPatchDto user) {
 	return service.update(user);
     }
