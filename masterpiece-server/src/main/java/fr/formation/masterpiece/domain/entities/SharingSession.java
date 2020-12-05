@@ -14,6 +14,20 @@ import javax.persistence.UniqueConstraint;
 
 import lombok.Getter;
 
+/**
+ * Entity representing a {@code SharingSession}.
+ * <p>
+ * Invariants are :
+ * <ul>
+ * <li>startTime cannot be null</li>
+ * <li>endTime cannot be null</li>
+ * <li>{@code Subject} must exists in database</li>
+ * <li>{@code CustomUser} must exists in database</li>
+ * </ul>
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 @Entity
 @Getter
 @Table(name = "sharing_sessions",

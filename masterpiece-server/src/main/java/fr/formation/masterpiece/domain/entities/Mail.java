@@ -4,6 +4,13 @@ import java.util.List;
 
 import lombok.Getter;
 
+/**
+ * Representation of a mail.
+ * <p>
+ * Contains all needed informations for {@code JavaMailSender} to send a mail.
+ *
+ * @author Tomas LOBGEOIS
+ */
 @Getter
 public class Mail {
 

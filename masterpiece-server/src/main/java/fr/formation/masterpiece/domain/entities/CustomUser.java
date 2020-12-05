@@ -16,6 +16,16 @@ import javax.persistence.UniqueConstraint;
 import fr.formation.masterpiece.commons.utils.BooleanConverter;
 import lombok.Getter;
 
+/**
+ * Entity representing a {@code CustomUser}.
+ * <p>
+ * {@code CustomUser} is used to identify a user. It follows Spring
+ * {@code UserDetails} most fields.
+ * <p>
+ * All fields are mandatory
+ *
+ * @author Tomas LOBGEOIS
+ */
 @Entity
 @Getter
 @Table(name = "users", uniqueConstraints = {

@@ -23,6 +23,14 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+/**
+ * Custom controller advice to handle all {@code RestController} exceptions.
+ * <p>
+ * Manages handlers for exceptions to mutualize and standardize exception
+ * handling for all {@code RestControllers}
+ *
+ * @author Tomas LOBGEOIS
+ */
 @RestControllerAdvice
 public class GlobalControllerExceptionHandler
         extends ResponseEntityExceptionHandler {

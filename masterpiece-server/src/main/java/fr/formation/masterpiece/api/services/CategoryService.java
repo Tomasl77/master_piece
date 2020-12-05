@@ -12,7 +12,7 @@ import fr.formation.masterpiece.domain.dtos.categories.CategoryViewDto;
 public interface CategoryService {
 
     /**
-     * Get a {@code List} of all active {@code Category}
+     * Get a {@code List} of all {@code Category}
      *
      * @return a {@code List} of {@code CategoryViewDto}
      */

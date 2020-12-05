@@ -21,9 +21,15 @@ import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
 import fr.formation.masterpiece.domain.dtos.users.CustomUserCreateDto;
 import fr.formation.masterpiece.domain.dtos.users.CustomUserDto;
 import fr.formation.masterpiece.domain.dtos.users.CustomUserPatchDto;
-import fr.formation.masterpiece.domain.dtos.users.UpdateCustomUserDto;
 import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
+import fr.formation.masterpiece.domain.dtos.users.UpdateCustomUserDto;
 
+/**
+ * a {@code RestController} to handle {@code CustomUser}
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 @RestController
 @RequestMapping("/users")
 public class UserController {

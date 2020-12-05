@@ -10,6 +10,13 @@ import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
 import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
 import lombok.Getter;
 
+/**
+ * {@code DTO} representation of a {@code SharingSession}.
+ * <p>
+ * This DTO give all informations about a {@code SharingSession}.
+ *
+ * @author Tomas LOBGEOIS
+ */
 @Getter
 public class SharingSessionViewDto {
 

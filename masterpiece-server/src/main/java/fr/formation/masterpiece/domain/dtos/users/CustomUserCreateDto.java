@@ -9,6 +9,11 @@ import fr.formation.masterpiece.commons.annotations.UniqueEmail;
 import fr.formation.masterpiece.commons.annotations.UniqueUser;
 import lombok.Getter;
 
+/**
+ * {@code DTO} representing {@code CustomUser} data to be persisted in database.
+ *
+ * @author Tomas LOBGEOIS
+ */
 @Getter
 public class CustomUserCreateDto {
 

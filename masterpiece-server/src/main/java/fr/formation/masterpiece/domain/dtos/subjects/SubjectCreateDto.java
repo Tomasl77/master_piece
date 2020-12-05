@@ -10,6 +10,11 @@ import org.hibernate.validator.constraints.Length;
 import fr.formation.masterpiece.domain.dtos.categories.CategoryIdDto;
 import lombok.Getter;
 
+/**
+ * {@code DTO} representing {@code Subject} data to be persisted in database.
+ *
+ * @author Tomas LOBGEOIS
+ */
 @Getter
 public class SubjectCreateDto {
 

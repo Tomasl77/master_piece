@@ -21,6 +21,12 @@ import fr.formation.masterpiece.domain.dtos.subjects.SubjectCreateDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
 
+/**
+ * a {@code RestController} to handle {@code Subject}
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 @RestController
 @RequestMapping("/subjects")
 @HasRoleUser

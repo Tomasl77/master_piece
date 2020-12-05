@@ -15,6 +15,22 @@ import javax.persistence.UniqueConstraint;
 import fr.formation.masterpiece.commons.utils.BooleanConverter;
 import lombok.Getter;
 
+/**
+ * Entity representing a {@code SharingSession}.
+ * <p>
+ * Invariants are :
+ * <ul>
+ * <li>title cannot be null, and length max. 30 chars</li>
+ * <li>description cannot be null</li>
+ * <li>requestDate cannot be null</li>
+ * <li>{@code Category} must exists in database</li>
+ * <li>{@code CustomUser} must exists in database</li>
+ * </ul>
+ * All fields are mandatory, except schedule. Must be false at creation
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 @Entity
 @Getter
 @Table(name = "subjects",

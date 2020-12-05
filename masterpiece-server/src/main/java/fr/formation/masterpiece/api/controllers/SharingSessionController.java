@@ -17,6 +17,12 @@ import fr.formation.masterpiece.commons.utils.EmailManager;
 import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionCreateDto;
 import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto;
 
+/**
+ * a {@code RestController} to handle {@code SharingSession}
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 @RestController
 @RequestMapping("/sharing-sessions")
 @HasRoleUser

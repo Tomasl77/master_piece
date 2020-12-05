@@ -10,6 +10,12 @@ import fr.formation.masterpiece.api.services.CategoryService;
 import fr.formation.masterpiece.commons.annotations.HasRoleUser;
 import fr.formation.masterpiece.domain.dtos.categories.CategoryViewDto;
 
+/**
+ * a {@code RestController} to handle {@code Category}
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 @RestController
 @HasRoleUser
 @RequestMapping("/categories")

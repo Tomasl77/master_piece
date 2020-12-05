@@ -6,10 +6,19 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 
 import lombok.Getter;
-import lombok.Setter;
 
+/**
+ * Object encapsulating error informations.
+ * <p>
+ * <ul>
+ * <li>status : the status code of the error</li>
+ * <li>message : message given by default by the exception</li>
+ * <li>{@code List} errors : errors thrown by default by the exception</li>
+ * </ul>
+ *
+ * @author Tomas LOBGEOIS
+ */
 @Getter
-@Setter
 class ApiError {
 
     private HttpStatus status;
