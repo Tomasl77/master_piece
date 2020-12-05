@@ -11,7 +11,7 @@ import fr.formation.masterpiece.commons.annotations.HasRoleUser;
 import fr.formation.masterpiece.domain.dtos.categories.CategoryViewDto;
 
 /**
- * a {@code RestController} to handle {@code Category}
+ * A {@link RestController} to handle {@code Category}
  *
  * @author Tomas LOBGEOIS
  *

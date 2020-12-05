@@ -25,7 +25,7 @@ import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
 import fr.formation.masterpiece.domain.dtos.users.UpdateCustomUserDto;
 
 /**
- * a {@code RestController} to handle {@code CustomUser}
+ * A {@link RestController} to handle {@code CustomUser}
  *
  * @author Tomas LOBGEOIS
  *

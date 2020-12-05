@@ -10,7 +10,7 @@ import fr.formation.masterpiece.commons.config.AbstractService;
 import fr.formation.masterpiece.domain.dtos.categories.CategoryViewDto;
 
 /**
- * Default concrete implementation of {@code CategoryService}
+ * Default concrete implementation of {@link CategoryService}
  *
  * @author Tomas LOBGEOIS
  *

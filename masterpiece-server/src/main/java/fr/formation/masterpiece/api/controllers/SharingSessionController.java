@@ -18,7 +18,7 @@ import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionCreate
 import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto;
 
 /**
- * a {@code RestController} to handle {@code SharingSession}
+ * A {@link RestController} to handle {@code SharingSession}
  *
  * @author Tomas LOBGEOIS
  *

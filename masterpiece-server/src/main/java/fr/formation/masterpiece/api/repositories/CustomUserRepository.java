@@ -13,7 +13,7 @@ import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
 import fr.formation.masterpiece.domain.entities.CustomUser;
 
 /**
- * {@code JpaRepository} to handle {@code CustomUser} persistence.
+ * {@link JpaRepository} to handle {@code CustomUser} persistence.
  */
 public interface CustomUserRepository extends JpaRepository<CustomUser, Long> {
 

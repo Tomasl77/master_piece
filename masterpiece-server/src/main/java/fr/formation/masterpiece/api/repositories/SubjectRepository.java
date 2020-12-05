@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import fr.formation.masterpiece.domain.entities.Subject;
 
 /**
- * {@code JpaRepository} to handle {@code Subject} persistence.
+ * {@link JpaRepository} to handle {@code Subject} persistence.
  *
  * @author Tomas LOBGEOIS
  *

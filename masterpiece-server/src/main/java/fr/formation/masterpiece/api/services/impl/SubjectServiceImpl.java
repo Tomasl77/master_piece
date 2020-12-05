@@ -17,7 +17,7 @@ import fr.formation.masterpiece.domain.entities.Subject;
 import fr.formation.masterpiece.security.SecurityHelper;
 
 /**
- * Default concrete implementation of {@code SubjectService}
+ * Default concrete implementation of {@link SubjectService}
  *
  * @author Tomas LOBGEOIS
  *

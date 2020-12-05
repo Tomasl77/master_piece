@@ -24,6 +24,14 @@ import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFacto
 
 import fr.formation.masterpiece.api.services.UserInfoDetailsService;
 
+/**
+ * Configuration of the {@code AuthorizationServer}.
+ * <p>
+ * Configures Oauth2 with JWT token store, token enhancer and provides standard
+ * auth endpoint.
+ *
+ * @author Tomas LOBGEOIS
+ */
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig

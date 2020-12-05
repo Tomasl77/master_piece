@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * Web configuration.
  * <p>
- * Implements {@code WebMvcConfigurer} to configure base path
+ * Implements {@link WebMvcConfigurer} to configure base path
  *
  * @author Tomas LOBGEOIS
  *

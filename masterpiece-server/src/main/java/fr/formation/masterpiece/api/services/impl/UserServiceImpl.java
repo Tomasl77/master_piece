@@ -19,14 +19,14 @@ import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
 import fr.formation.masterpiece.domain.dtos.users.CustomUserCreateDto;
 import fr.formation.masterpiece.domain.dtos.users.CustomUserDto;
 import fr.formation.masterpiece.domain.dtos.users.CustomUserPatchDto;
-import fr.formation.masterpiece.domain.dtos.users.UpdateCustomUserDto;
 import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
+import fr.formation.masterpiece.domain.dtos.users.UpdateCustomUserDto;
 import fr.formation.masterpiece.domain.entities.CustomUser;
 import fr.formation.masterpiece.domain.entities.Role;
 import fr.formation.masterpiece.security.SecurityHelper;
 
 /**
- * Default concrete implementation of {@code UserService}
+ * Default concrete implementation of {@link UserService}
  *
  * @author Tomas LOBGEOIS
  *

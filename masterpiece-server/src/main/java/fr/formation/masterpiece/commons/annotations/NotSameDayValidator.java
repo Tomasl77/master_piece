@@ -8,7 +8,7 @@ import javax.validation.ConstraintValidatorContext;
 import fr.formation.masterpiece.api.services.SharingSessionService;
 
 /**
- * Validator for {@code NotSameDay} constraint
+ * Validator for {@link NotSameDay} constraint
  *
  * @author Tomas LOBGEOIS
  *

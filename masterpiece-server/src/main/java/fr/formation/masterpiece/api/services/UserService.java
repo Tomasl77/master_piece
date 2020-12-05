@@ -49,7 +49,7 @@ public interface UserService {
      *
      * @param username the username to check
      * @return a {@code UsernameCheckDto} encapsulating the boolean for
-     *         {@link #isUsernameValid(String) method} isUsernameValid(String)
+     *         {@link #isUsernameValid(String) isUsernameValid(String)}
      */
     UsernameCheckDto checkUsername(String username);
 

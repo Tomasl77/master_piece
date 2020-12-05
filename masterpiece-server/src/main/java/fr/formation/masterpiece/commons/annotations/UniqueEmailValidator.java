@@ -6,7 +6,7 @@ import javax.validation.ConstraintValidatorContext;
 import fr.formation.masterpiece.api.services.UserService;
 
 /**
- * Validator for {@code UniqueEmail} constraint
+ * Validator for {@link UniqueEmail} constraint
  *
  * @author Tomas LOBGEOIS
  *

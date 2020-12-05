@@ -12,7 +12,7 @@ import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
 import fr.formation.masterpiece.security.CustomUserDetails;
 
 /**
- * Default concrete implementation of {@code UserInfoDetailsService}
+ * Default concrete implementation of {@link UserInfoDetailsService}
  *
  */
 @Service

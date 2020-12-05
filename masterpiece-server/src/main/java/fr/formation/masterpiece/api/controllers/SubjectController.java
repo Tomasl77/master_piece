@@ -22,7 +22,7 @@ import fr.formation.masterpiece.domain.dtos.subjects.SubjectDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
 
 /**
- * a {@code RestController} to handle {@code Subject}
+ * A {@link RestController} to handle {@code Subject}
  *
  * @author Tomas LOBGEOIS
  *

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import fr.formation.masterpiece.domain.entities.SharingSession;
 
 /**
- * {@code JpaRepository} to handle {@code SharingSession} persistence.
+ * {@link JpaRepository} to handle {@code SharingSession} persistence.
  *
  * @author Tomas LOBGEOIS
  *

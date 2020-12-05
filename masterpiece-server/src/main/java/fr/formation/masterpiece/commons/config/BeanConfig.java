@@ -19,8 +19,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * Configuration class declaring configuration beans.
  * <p>
- * Provides default configuration for beans such as {@code ObjectMapper},
- * {@code ModelMapper} or {@code PasswordEncoder}. Please note that those beans
+ * Provides default configuration for beans such as {@link ObjectMapper},
+ * {@link ModelMapper} or {@link PasswordEncoder}. Please note that those beans
  * are configured for the sake of all this application and SHOULD NOT be
  * overridden.
  *

@@ -21,7 +21,7 @@ import fr.formation.masterpiece.domain.entities.Subject;
 import fr.formation.masterpiece.security.SecurityHelper;
 
 /**
- * Default concrete implementation of {@code SharingSessionService}
+ * Default concrete implementation of {@link SharingSessionService}
  *
  * @author Tomas LOBGEOIS
  *
