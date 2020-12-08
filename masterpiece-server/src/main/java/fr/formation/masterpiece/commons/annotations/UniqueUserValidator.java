@@ -6,7 +6,7 @@ import javax.validation.ConstraintValidatorContext;
 import fr.formation.masterpiece.api.services.UserService;
 
 /**
- * Validator for {@code UniqueUser} constraint
+ * Validator for {@link UniqueUser} constraint
  *
  * @author Tomas LOBGEOIS
  *
@@ -28,6 +28,6 @@ public class UniqueUserValidator
     @Override
     public boolean isValid(String username,
             ConstraintValidatorContext context) {
-	return service.isValid(username);
+	return service.isUsernameValid(username);
     }
 }

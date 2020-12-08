@@ -14,19 +14,19 @@ import fr.formation.masterpiece.api.repositories.RoleRepository;
 import fr.formation.masterpiece.api.services.UserService;
 import fr.formation.masterpiece.commons.config.AbstractService;
 import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
-import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
-import fr.formation.masterpiece.domain.dtos.CustomUserDto;
-import fr.formation.masterpiece.domain.dtos.CustomUserPatchDto;
-import fr.formation.masterpiece.domain.dtos.UpdateCustomUserDto;
 import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
-import fr.formation.masterpiece.domain.dtos.views.CustomUserViewDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserCreateDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserPatchDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
+import fr.formation.masterpiece.domain.dtos.users.UpdateCustomUserDto;
 import fr.formation.masterpiece.domain.entities.CustomUser;
 import fr.formation.masterpiece.domain.entities.Role;
 import fr.formation.masterpiece.security.SecurityHelper;
 
 /**
- * Default concrete implementation of {@code UserService}
+ * Default concrete implementation of {@link UserService}
  *
  * @author Tomas LOBGEOIS
  *
@@ -61,13 +61,13 @@ public class UserServiceImpl extends AbstractService implements UserService {
     }
 
     @Override
-    public boolean isValid(String username) {
+    public boolean isUsernameValid(String username) {
 	return !userRepository.existsByUsername(username);
     }
 
     @Override
     public UsernameCheckDto checkUsername(String username) {
-	boolean isValid = this.isValid(username);
+	boolean isValid = this.isUsernameValid(username);
 	return new UsernameCheckDto(isValid);
     }
 

@@ -14,9 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.formation.masterpiece.api.services.SharingSessionService;
 import fr.formation.masterpiece.commons.annotations.HasRoleUser;
 import fr.formation.masterpiece.commons.utils.EmailManager;
-import fr.formation.masterpiece.domain.dtos.SharingSessionCreateDto;
-import fr.formation.masterpiece.domain.dtos.views.SharingSessionViewDto;
+import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionCreateDto;
+import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto;
 
+/**
+ * A {@link RestController} to handle {@code SharingSession}
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 @RestController
 @RequestMapping("/sharing-sessions")
 @HasRoleUser

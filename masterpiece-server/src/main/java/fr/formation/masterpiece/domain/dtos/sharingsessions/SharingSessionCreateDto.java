@@ -1,4 +1,4 @@
-package fr.formation.masterpiece.domain.dtos;
+package fr.formation.masterpiece.domain.dtos.sharingsessions;
 
 import java.time.LocalDateTime;
 
@@ -12,6 +12,12 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import fr.formation.masterpiece.commons.annotations.NotSameDay;
 import lombok.Getter;
 
+/**
+ * {@code DTO} representing {@code SharingSession} data to be persisted in
+ * database.
+ *
+ * @author Tomas LOBGEOIS
+ */
 @Getter
 public class SharingSessionCreateDto {
 

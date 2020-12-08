@@ -6,5 +6,5 @@ export class Subject{
     title : string;
     description : string;
     category : Category;
-    user : UserCredentials;
+    requester : UserCredentials;
 }

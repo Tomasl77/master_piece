@@ -33,12 +33,12 @@ class UserServiceImplTest extends JUnitConfigTest {
 
     @Test
     public void should_return_username_valid() {
-	assertTrue(userService.isValid("Aeris"));
+	assertTrue(userService.isUsernameValid("Aeris"));
     }
 
     @Test
     public void should_return_unvalid_username() {
-	assertFalse(userService.isValid("Lily"));
+	assertFalse(userService.isUsernameValid("Lily"));
     }
 
     @Test

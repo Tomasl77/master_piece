@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import fr.formation.masterpiece.domain.entities.Role;
 
 /**
- * {@code JpaRepository} to handle {@code Role}.
+ * {@link JpaRepository} to handle {@code Role}.
  *
  * @author Tomas LOBGEOIS
  *

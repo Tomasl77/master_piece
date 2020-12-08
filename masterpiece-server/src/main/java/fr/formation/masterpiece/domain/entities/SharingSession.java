@@ -14,6 +14,20 @@ import javax.persistence.UniqueConstraint;
 
 import lombok.Getter;
 
+/**
+ * Entity representing a {@code SharingSession}.
+ * <p>
+ * Invariants are :
+ * <ul>
+ * <li>startTime cannot be null</li>
+ * <li>endTime cannot be null</li>
+ * <li>{@code Subject} must exists in database</li>
+ * <li>{@code CustomUser} must exists in database</li>
+ * </ul>
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 @Entity
 @Getter
 @Table(name = "sharing_sessions",
@@ -37,13 +51,13 @@ public class SharingSession extends AbstractEntity {
     @JoinColumn(name = "lecturer_id", referencedColumnName = "id",
             nullable = false,
             foreignKey = @ForeignKey(name = "FK_sharingsession_userprofile"))
-    private CustomUser user;
+    private CustomUser lecturer;
 
     public void setSubject(Subject subject) {
 	this.subject = subject;
     }
 
     public void setUser(CustomUser user) {
-	this.user = user;
+	this.lecturer = user;
     }
 }

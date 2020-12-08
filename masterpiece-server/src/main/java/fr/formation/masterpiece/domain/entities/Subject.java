@@ -15,6 +15,22 @@ import javax.persistence.UniqueConstraint;
 import fr.formation.masterpiece.commons.utils.BooleanConverter;
 import lombok.Getter;
 
+/**
+ * Entity representing a {@code SharingSession}.
+ * <p>
+ * Invariants are :
+ * <ul>
+ * <li>title cannot be null, and length max. 30 chars</li>
+ * <li>description cannot be null</li>
+ * <li>requestDate cannot be null</li>
+ * <li>{@code Category} must exists in database</li>
+ * <li>{@code CustomUser} must exists in database</li>
+ * </ul>
+ * All fields are mandatory, except schedule. Must be false at creation
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 @Entity
 @Getter
 @Table(name = "subjects",
@@ -44,15 +60,15 @@ public class Subject extends AbstractEntity {
     @JoinColumn(name = "requester_id", referencedColumnName = "id",
             nullable = false,
             foreignKey = @ForeignKey(name = "FK_subject_userprofile"))
-    private CustomUser user;
+    private CustomUser requester;
 
     public void setUser(CustomUser user) {
-	this.user = user;
+	this.requester = user;
     }
 
     @Override
     public String toString() {
 	return "{title: " + title + ", description: " + description
-	        + ", category: " + category + ", user: " + user + "}";
+	        + ", category: " + category + ", requester: " + requester + "}";
     }
 }

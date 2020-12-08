@@ -9,6 +9,14 @@ import javax.persistence.UniqueConstraint;
 import fr.formation.masterpiece.commons.utils.BooleanConverter;
 import lombok.Getter;
 
+/**
+ * Entity representing a {@code Role}.
+ * <p>
+ * Role define {@code CustomUser} authorizations.
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 @Getter
 @Entity
 @Table(name = "roles", uniqueConstraints = {

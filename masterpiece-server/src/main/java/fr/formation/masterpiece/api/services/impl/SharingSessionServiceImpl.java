@@ -3,7 +3,6 @@ package fr.formation.masterpiece.api.services.impl;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
@@ -14,15 +13,15 @@ import fr.formation.masterpiece.api.repositories.SubjectRepository;
 import fr.formation.masterpiece.api.services.SharingSessionService;
 import fr.formation.masterpiece.commons.config.AbstractService;
 import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
-import fr.formation.masterpiece.domain.dtos.SharingSessionCreateDto;
-import fr.formation.masterpiece.domain.dtos.views.SharingSessionViewDto;
+import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionCreateDto;
+import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto;
 import fr.formation.masterpiece.domain.entities.CustomUser;
 import fr.formation.masterpiece.domain.entities.SharingSession;
 import fr.formation.masterpiece.domain.entities.Subject;
 import fr.formation.masterpiece.security.SecurityHelper;
 
 /**
- * Default concrete implementation of {@code SharingSessionService}
+ * Default concrete implementation of {@link SharingSessionService}
  *
  * @author Tomas LOBGEOIS
  *
@@ -47,8 +46,7 @@ public class SharingSessionServiceImpl extends AbstractService
 
     @Override
     @Transactional
-    public SharingSessionViewDto create(SharingSessionCreateDto dto)
-            throws MessagingException {
+    public SharingSessionViewDto create(SharingSessionCreateDto dto) {
 	Long userId = SecurityHelper.getUserId();
 	CustomUser userProfile = userRepository.findById(userId)
 	        .orElseThrow(() -> new ResourceNotFoundException(

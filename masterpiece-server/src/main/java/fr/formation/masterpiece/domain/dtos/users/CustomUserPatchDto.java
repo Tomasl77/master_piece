@@ -1,4 +1,4 @@
-package fr.formation.masterpiece.domain.dtos;
+package fr.formation.masterpiece.domain.dtos.users;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -7,6 +7,12 @@ import javax.validation.constraints.Size;
 import fr.formation.masterpiece.commons.annotations.UniqueEmail;
 import lombok.Getter;
 
+/**
+ * {@code DTO} representing informations to update a {@code CustomUser}
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 @Getter
 public class CustomUserPatchDto {
 

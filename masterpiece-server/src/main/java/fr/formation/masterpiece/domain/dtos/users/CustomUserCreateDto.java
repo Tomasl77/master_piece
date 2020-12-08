@@ -1,4 +1,4 @@
-package fr.formation.masterpiece.domain.dtos;
+package fr.formation.masterpiece.domain.dtos.users;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -9,6 +9,11 @@ import fr.formation.masterpiece.commons.annotations.UniqueEmail;
 import fr.formation.masterpiece.commons.annotations.UniqueUser;
 import lombok.Getter;
 
+/**
+ * {@code DTO} representing {@code CustomUser} data to be persisted in database.
+ *
+ * @author Tomas LOBGEOIS
+ */
 @Getter
 public class CustomUserCreateDto {
 

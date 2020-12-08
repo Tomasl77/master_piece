@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import fr.formation.masterpiece.domain.entities.Category;
 
 /**
- * {@code JpaRepository} to handle {@code Category} persistence.
+ * A {@link JpaRepository} to handle {@code Category} persistence.
  *
  * @author Tomas LOBGEOIS
  *

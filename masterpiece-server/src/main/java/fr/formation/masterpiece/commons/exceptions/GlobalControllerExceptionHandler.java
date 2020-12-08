@@ -18,11 +18,20 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+/**
+ * Custom controller advice to handle all {@link RestController} exceptions.
+ * <p>
+ * Manages handlers for exceptions to mutualize and standardize exception
+ * handling for all {@link RestControllers}
+ *
+ * @author Tomas LOBGEOIS
+ */
 @RestControllerAdvice
 public class GlobalControllerExceptionHandler
         extends ResponseEntityExceptionHandler {

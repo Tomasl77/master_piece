@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import fr.formation.masterpiece.domain.entities.Subject;
 
 /**
- * {@code JpaRepository} to handle {@code Subject} persistence.
+ * {@link JpaRepository} to handle {@code Subject} persistence.
  *
  * @author Tomas LOBGEOIS
  *
@@ -31,7 +31,7 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
      *
      * @author Tomas LOBGEOIS
      */
-    List<Subject> findAllByScheduleAndUserEnabledTrue(boolean isSheduled);
+    List<Subject> findAllByScheduleAndRequesterEnabledTrue(boolean isSheduled);
 
     /**
      * Update a {@code Subject} when it has been choosen for a

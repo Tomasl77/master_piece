@@ -1,4 +1,4 @@
-package fr.formation.masterpiece.domain.dtos.views;
+package fr.formation.masterpiece.domain.dtos.users;
 
 import java.util.Set;
 

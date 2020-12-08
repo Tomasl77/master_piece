@@ -9,7 +9,9 @@ import java.lang.annotation.Target;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
- * Custom annotation to encapsulate Role
+ * Custom annotation to encapsulate Role and manage <code>@PreAuthorized</code>
+ * {@code Role.ROLE_ADMIN}.
+ * <p>
  *
  * @author Tomas LOBGEOIS
  *

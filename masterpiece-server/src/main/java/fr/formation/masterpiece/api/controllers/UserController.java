@@ -16,14 +16,20 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.formation.masterpiece.api.services.UserService;
 import fr.formation.masterpiece.commons.annotations.HasRoleAdmin;
 import fr.formation.masterpiece.commons.annotations.HasRoleUser;
-import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
-import fr.formation.masterpiece.domain.dtos.CustomUserDto;
-import fr.formation.masterpiece.domain.dtos.CustomUserPatchDto;
-import fr.formation.masterpiece.domain.dtos.UpdateCustomUserDto;
 import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
-import fr.formation.masterpiece.domain.dtos.views.CustomUserViewDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserCreateDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserPatchDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
+import fr.formation.masterpiece.domain.dtos.users.UpdateCustomUserDto;
 
+/**
+ * A {@link RestController} to handle {@code CustomUser}
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 @RestController
 @RequestMapping("/users")
 public class UserController {

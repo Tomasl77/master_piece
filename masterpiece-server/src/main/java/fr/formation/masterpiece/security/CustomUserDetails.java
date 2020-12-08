@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import fr.formation.masterpiece.domain.dtos.views.CustomUserAuthDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserAuthDto;
 import fr.formation.masterpiece.domain.entities.Role;
 
 /**

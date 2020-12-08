@@ -1,10 +1,11 @@
-package fr.formation.masterpiece.domain.dtos;
+package fr.formation.masterpiece.domain.dtos.users;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
 import fr.formation.masterpiece.config.JUnitConfigTest;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserCreateDto;
 
 class CustomUserCreateDtoTest extends JUnitConfigTest {
 

@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import fr.formation.masterpiece.api.controllers.UserController;
 import fr.formation.masterpiece.config.JUnitConfigTest;
-import fr.formation.masterpiece.domain.dtos.CustomUserCreateDto;
-import fr.formation.masterpiece.domain.dtos.CustomUserDto;
 import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
-import fr.formation.masterpiece.domain.dtos.views.CustomUserViewDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserCreateDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
 import fr.formation.masterpiece.security.annotations.MockAdminForTests;
 import fr.formation.masterpiece.security.annotations.MockUserForTests;
 

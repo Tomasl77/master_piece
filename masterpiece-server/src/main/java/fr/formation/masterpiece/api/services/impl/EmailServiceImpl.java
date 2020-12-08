@@ -11,7 +11,7 @@ import fr.formation.masterpiece.api.services.EmailService;
 import fr.formation.masterpiece.domain.entities.Mail;
 
 /**
- * Default concrete implementation of {@code EmailService}
+ * Default concrete implementation of {@link EmailService}
  *
  * @author Tomas LOBGEOIS
  *

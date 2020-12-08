@@ -7,12 +7,12 @@ import org.springframework.stereotype.Service;
 import fr.formation.masterpiece.api.repositories.CustomUserRepository;
 import fr.formation.masterpiece.api.services.UserInfoDetailsService;
 import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
-import fr.formation.masterpiece.domain.dtos.views.CustomUserAuthDto;
-import fr.formation.masterpiece.domain.dtos.views.CustomUserViewDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserAuthDto;
+import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
 import fr.formation.masterpiece.security.CustomUserDetails;
 
 /**
- * Default concrete implementation of {@code UserInfoDetailsService}
+ * Default concrete implementation of {@link UserInfoDetailsService}
  *
  */
 @Service
