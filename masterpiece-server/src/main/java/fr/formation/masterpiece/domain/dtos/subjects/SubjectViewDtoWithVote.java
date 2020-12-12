@@ -14,7 +14,6 @@ import lombok.Getter;
 @Getter
 public class SubjectViewDtoWithVote implements Serializable {
 
-    
     private static final long serialVersionUID = -4737758316039328040L;
 
     private Long id;
@@ -38,14 +37,16 @@ public class SubjectViewDtoWithVote implements Serializable {
     }
 
     public SubjectViewDtoWithVote(Long id, String title, String description,
-            String category, String requester, boolean hasVoted,
-            Long numberOfVote) {
+            String category, String requester, Long numberOfVote) {
 	this.id = id;
 	this.title = title;
 	this.description = description;
 	this.categoryName = category;
 	this.requesterUsername = requester;
-	this.hasVoted = hasVoted;
 	this.numberOfVote = numberOfVote;
+    }
+
+    public void setHasVoted(boolean hasVoted) {
+	this.hasVoted = hasVoted;
     }
 }

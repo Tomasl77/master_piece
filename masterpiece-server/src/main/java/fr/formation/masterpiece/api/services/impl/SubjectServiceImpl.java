@@ -68,8 +68,10 @@ public class SubjectServiceImpl extends AbstractService
     @Override
     public List<SubjectViewDtoWithVote> getAllNotScheduledWithVote() {
 	Long userId = SecurityHelper.getUserId();
-	List<SubjectViewDtoWithVote> test = subjectRepository
-	        .findAllWithVotes(userId);
-	return test;
+	List<SubjectViewDtoWithVote> subjectWithVote = subjectRepository
+	        .findAllWithVotes();
+	subjectWithVote.forEach(subject -> subject.setHasVoted(
+	        subjectRepository.findIfUserAsVote(userId, subject.getId())));
+	return subjectWithVote;
     }
 }

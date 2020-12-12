@@ -47,7 +47,11 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
     void setSessionScheduleTrue(@Param("subjectId") Long id);
 
     @Query("SELECT new fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote"
-            + "(s.id, s.title, s.description, s.category.name, s.requester.username, true, count(cu.id) as numberOfVote) "
-            + "FROM Subject s LEFT JOIN s.voters cu GROUP BY s.id")
-    List<SubjectViewDtoWithVote> findAllWithVotes(@Param("userId") Long userId);
+            + "(s.id, s.title, s.description, s.category.name, s.requester.username, count(v.id) as numberOfVote) "
+            + "FROM Subject s LEFT JOIN s.voters v GROUP BY s.id")
+    List<SubjectViewDtoWithVote> findAllWithVotes();
+
+    @Query("SELECT COUNT(s)>0 FROM Subject s LEFT JOIN s.voters v WHERE s.id = :subjectId AND v.id= :userId")
+    boolean findIfUserAsVote(@Param("userId") Long id,
+            @Param("subjectId") Long subjectId);
 }
