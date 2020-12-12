@@ -1,0 +1,51 @@
+package fr.formation.masterpiece.domain.dtos.subjects;
+
+import java.io.Serializable;
+
+import lombok.Getter;
+
+/**
+ * {@code DTO} representation of a {@code Subject}.
+ * <p>
+ * This DTO give all informations about a {@code Subject}.
+ *
+ * @author Tomas LOBGEOIS
+ */
+@Getter
+public class SubjectViewDtoWithVote implements Serializable {
+
+    
+    private static final long serialVersionUID = -4737758316039328040L;
+
+    private Long id;
+
+    private String title;
+
+    private String description;
+
+    private String categoryName;
+
+    private String requesterUsername;
+
+    private boolean hasVoted;
+
+    private Long numberOfVote;
+
+    /**
+     * Default no args constructor
+     */
+    public SubjectViewDtoWithVote() {
+    }
+
+    public SubjectViewDtoWithVote(Long id, String title, String description,
+            String category, String requester, boolean hasVoted,
+            Long numberOfVote) {
+	this.id = id;
+	this.title = title;
+	this.description = description;
+	this.categoryName = category;
+	this.requesterUsername = requester;
+	this.hasVoted = hasVoted;
+	this.numberOfVote = numberOfVote;
+    }
+}

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
 import fr.formation.masterpiece.domain.entities.Subject;
 
 /**
@@ -44,4 +45,9 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
     @Modifying
     @Query(JpqlQuery.SCHEDULE_SESSION)
     void setSessionScheduleTrue(@Param("subjectId") Long id);
+
+    @Query("SELECT new fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote"
+            + "(s.id, s.title, s.description, s.category.name, s.requester.username, true, count(cu.id) as numberOfVote) "
+            + "FROM Subject s LEFT JOIN s.voters cu GROUP BY s.id")
+    List<SubjectViewDtoWithVote> findAllWithVotes(@Param("userId") Long userId);
 }

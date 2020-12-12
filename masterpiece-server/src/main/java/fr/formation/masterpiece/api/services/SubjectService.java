@@ -5,6 +5,7 @@ import java.util.List;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectCreateDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
 
 /**
  * Service to handle {@code Subject} logic.
@@ -37,4 +38,6 @@ public interface SubjectService {
      * @return a {@code List} of {@code SubjectViewDto}
      */
     List<SubjectViewDto> getAllNotScheduled();
+
+    List<SubjectViewDtoWithVote> getAllNotScheduledWithVote();
 }

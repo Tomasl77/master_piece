@@ -1,13 +1,17 @@
 package fr.formation.masterpiece.domain.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -61,6 +65,14 @@ public class Subject extends AbstractEntity {
             nullable = false,
             foreignKey = @ForeignKey(name = "FK_subject_userprofile"))
     private CustomUser requester;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_vote_subject",
+            joinColumns = @JoinColumn(name = "subject_id",
+                    foreignKey = @ForeignKey(name = "FK_subject_has_votes")),
+            inverseJoinColumns = @JoinColumn(name = "user_id",
+                    foreignKey = @ForeignKey(name = "FK_user_has_voted")))
+    private List<CustomUser> voters;
 
     public void setUser(CustomUser user) {
 	this.requester = user;

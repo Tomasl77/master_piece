@@ -12,6 +12,7 @@ import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectCreateDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
 import fr.formation.masterpiece.domain.entities.CustomUser;
 import fr.formation.masterpiece.domain.entities.Subject;
 import fr.formation.masterpiece.security.SecurityHelper;
@@ -61,6 +62,14 @@ public class SubjectServiceImpl extends AbstractService
 	List<Subject> subjects = subjectRepository
 	        .findAllByScheduleAndRequesterEnabledTrue(false);
 	List<SubjectViewDto> test = convertList(subjects, SubjectViewDto.class);
+	return test;
+    }
+
+    @Override
+    public List<SubjectViewDtoWithVote> getAllNotScheduledWithVote() {
+	Long userId = SecurityHelper.getUserId();
+	List<SubjectViewDtoWithVote> test = subjectRepository
+	        .findAllWithVotes(userId);
 	return test;
     }
 }

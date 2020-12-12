@@ -20,6 +20,7 @@ import fr.formation.masterpiece.commons.annotations.HasRoleUser;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectCreateDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
 
 /**
  * A {@link RestController} to handle {@code Subject}
@@ -50,8 +51,13 @@ public class SubjectController {
 	service.deleteOne(id);
     }
 
-    @GetMapping
+    @GetMapping("/test")
     public List<SubjectViewDto> getAllNotScheduled() {
 	return service.getAllNotScheduled();
+    }
+
+    @GetMapping
+    public List<SubjectViewDtoWithVote> getAllNotScheduledWithVote() {
+	return service.getAllNotScheduledWithVote();
     }
 }

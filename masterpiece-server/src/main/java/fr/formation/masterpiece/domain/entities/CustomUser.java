@@ -1,5 +1,6 @@
 package fr.formation.masterpiece.domain.entities;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -66,8 +67,11 @@ public class CustomUser extends AbstractEntity {
     @Column(name = "email", nullable = false, length = 255)
     private String email;
 
+    @ManyToMany(mappedBy = "voters")
+    private List<Subject> subjects;
+
     protected CustomUser() {
-	// Empty no-arg constructor (Hibernate)
+	// Empty no-arg constructor
     }
 
     /**
