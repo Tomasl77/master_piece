@@ -39,5 +39,11 @@ public interface SubjectService {
      */
     List<SubjectViewDto> getAllNotScheduled();
 
+    /**
+     * Get a {@code List} of all {@code Subject} not scheduled for a
+     * {@code SharingSession}
+     *
+     * @return a {@code List} of {@code SubjectViewDtoWithVote}
+     */
     List<SubjectViewDtoWithVote> getAllNotScheduledWithVote();
 }

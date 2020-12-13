@@ -50,7 +50,7 @@ public class SharingSession extends AbstractEntity {
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "lecturer_id", referencedColumnName = "id",
             nullable = false,
-            foreignKey = @ForeignKey(name = "FK_sharingsession_userprofile"))
+            foreignKey = @ForeignKey(name = "FK_sharingsession_user"))
     private CustomUser lecturer;
 
     public void setSubject(Subject subject) {

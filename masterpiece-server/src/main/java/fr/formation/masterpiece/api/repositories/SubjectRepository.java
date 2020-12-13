@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
+import fr.formation.masterpiece.domain.dtos.subjects.VoteSubjectDto;
 import fr.formation.masterpiece.domain.entities.Subject;
 
 /**
@@ -51,7 +52,7 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
             + "FROM Subject s LEFT JOIN s.voters v GROUP BY s.id")
     List<SubjectViewDtoWithVote> findAllWithVotes();
 
-    @Query("SELECT COUNT(s)>0 FROM Subject s LEFT JOIN s.voters v WHERE s.id = :subjectId AND v.id= :userId")
-    boolean findIfUserAsVote(@Param("userId") Long id,
-            @Param("subjectId") Long subjectId);
+    @Query("SELECT new fr.formation.masterpiece.domain.dtos.subjects.VoteSubjectDto"
+            + "(s.id) FROM Subject s JOIN s.voters v WHERE v.id = :userId GROUP BY s.id")
+    List<VoteSubjectDto> findVoteByUserId(@Param("userId") Long userId);
 }

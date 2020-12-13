@@ -13,6 +13,7 @@ import fr.formation.masterpiece.domain.dtos.subjects.SubjectCreateDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
+import fr.formation.masterpiece.domain.dtos.subjects.VoteSubjectDto;
 import fr.formation.masterpiece.domain.entities.CustomUser;
 import fr.formation.masterpiece.domain.entities.Subject;
 import fr.formation.masterpiece.security.SecurityHelper;
@@ -70,8 +71,17 @@ public class SubjectServiceImpl extends AbstractService
 	Long userId = SecurityHelper.getUserId();
 	List<SubjectViewDtoWithVote> subjectWithVote = subjectRepository
 	        .findAllWithVotes();
-	subjectWithVote.forEach(subject -> subject.setHasVoted(
-	        subjectRepository.findIfUserAsVote(userId, subject.getId())));
+	List<VoteSubjectDto> votes = subjectRepository
+	        .findVoteByUserId(userId);
+	subjectWithVote.forEach(subject -> subject
+	        .setHasVoted(hasUserHasVotedForSubject(subject, votes)));
 	return subjectWithVote;
+    }
+
+    private boolean hasUserHasVotedForSubject(SubjectViewDtoWithVote subject,
+            List<VoteSubjectDto> votes) {
+	return votes.stream()
+	        .filter(vote -> vote.getId().equals(subject.getId()))
+	        .findFirst().isPresent();
     }
 }

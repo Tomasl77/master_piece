@@ -17,6 +17,7 @@ import { DateTimeDialogComponentComponent } from 'src/app/shared/modals/date-tim
 import { ErrorHandler } from 'src/app/shared/services/error-handler';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Category } from 'src/app/shared/models/category.model';
+import { SubjectWithVote } from 'src/app/shared/models/subject-with-vote.model';
 
 @Component({
   selector: 'app-subject',
@@ -34,8 +35,8 @@ export class SubjectComponent implements OnInit, OnDestroy {
     'title': '',
     'description': ''
   }
-  subjects: Subject[];
-  rowData: Subject[];
+  subjects: SubjectWithVote[];
+  rowData: SubjectWithVote[];
   gridOptions: GridOptions;
   columnDefs: ColDef[];
   categories: Category[];
@@ -114,7 +115,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
   public getSubjectsIfVotePanel() {
     if (this.action === "vote") {
       this.subjectService.getAllSubject().subscribe(
-        (subjects: Subject[]) => {
+        (subjects: SubjectWithVote[]) => {
           this.subjects = subjects;
           this.rowData = subjects;
         });
@@ -178,7 +179,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
   getSubjects() {
     const request = this.subjectService.getAllSubject()
     this.getAllSubjectsSubscription = request.subscribe(
-      (subjects: Subject[]) => {
+      (subjects: SubjectWithVote[]) => {
         this.rowData = subjects;
       },
       (error) => {

@@ -19,7 +19,6 @@ import fr.formation.masterpiece.commons.annotations.HasRoleAdmin;
 import fr.formation.masterpiece.commons.annotations.HasRoleUser;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectCreateDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectDto;
-import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
 
 /**
@@ -49,11 +48,6 @@ public class SubjectController {
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void deleteSubject(@PathVariable Long id) {
 	service.deleteOne(id);
-    }
-
-    @GetMapping("/test")
-    public List<SubjectViewDto> getAllNotScheduled() {
-	return service.getAllNotScheduled();
     }
 
     @GetMapping
