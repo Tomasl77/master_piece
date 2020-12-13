@@ -11,7 +11,8 @@
   
   "btnRenderer": {
     "delete": "Supprimer",
-    "present": "Presenter"
+    "present": "Presenter",
+    "vote": "Vote"
   },
   "navbar": {
     "account": "Mon Compte",
@@ -119,7 +120,8 @@
       "title": "Titre",
       "description": "Description",
       "category": "Categorie",
-      "vote": "N° de vote",
+      "vote":"Voter ! ",
+      "numberOfVote":"Nombre de vote",
       "requester": "Demandeur"
     },
     "session": {

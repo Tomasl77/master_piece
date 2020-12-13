@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
 
-import fr.formation.masterpiece.domain.dtos.categories.CategoryIdDto;
+import fr.formation.masterpiece.domain.dtos.IdDto;
 import lombok.Getter;
 
 /**
@@ -26,7 +26,7 @@ public class SubjectCreateDto {
     private String description;
 
     @Valid
-    private CategoryIdDto category;
+    private IdDto category;
 
     private LocalDateTime requestDate = LocalDateTime.now();
 

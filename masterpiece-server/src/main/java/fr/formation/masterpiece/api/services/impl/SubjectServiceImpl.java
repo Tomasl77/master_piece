@@ -2,6 +2,8 @@ package fr.formation.masterpiece.api.services.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import fr.formation.masterpiece.api.repositories.CustomUserRepository;
@@ -11,8 +13,8 @@ import fr.formation.masterpiece.commons.config.AbstractService;
 import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectCreateDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectDto;
-import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectVoteUpdateDto;
 import fr.formation.masterpiece.domain.dtos.subjects.VoteSubjectDto;
 import fr.formation.masterpiece.domain.entities.CustomUser;
 import fr.formation.masterpiece.domain.entities.Subject;
@@ -59,29 +61,35 @@ public class SubjectServiceImpl extends AbstractService
     }
 
     @Override
-    public List<SubjectViewDto> getAllNotScheduled() {
-	List<Subject> subjects = subjectRepository
-	        .findAllByScheduleAndRequesterEnabledTrue(false);
-	List<SubjectViewDto> test = convertList(subjects, SubjectViewDto.class);
-	return test;
+    public List<SubjectViewDtoWithVote> getAllNotScheduledWithVote() {
+	Long userId = SecurityHelper.getUserId();
+	List<SubjectViewDtoWithVote> subjectsWithVotes = subjectRepository
+	        .findAllWithVotes();
+	List<VoteSubjectDto> votes = subjectRepository.findVoteByUserId(userId);
+	subjectsWithVotes.forEach(subject -> subject
+	        .setHasVoted(hasUserVotedForSubject(subject.getId(), votes)));
+	return subjectsWithVotes;
+    }
+
+    private boolean hasUserVotedForSubject(Long subjectId,
+            List<VoteSubjectDto> votes) {
+	return votes.stream().filter(vote -> vote.getId().equals(subjectId))
+	        .findFirst().isPresent();
     }
 
     @Override
-    public List<SubjectViewDtoWithVote> getAllNotScheduledWithVote() {
+    @Transactional
+    public SubjectViewDtoWithVote changeVote(SubjectVoteUpdateDto voteDto,
+            Long subjectId) {
 	Long userId = SecurityHelper.getUserId();
-	List<SubjectViewDtoWithVote> subjectWithVote = subjectRepository
-	        .findAllWithVotes();
-	List<VoteSubjectDto> votes = subjectRepository
-	        .findVoteByUserId(userId);
-	subjectWithVote.forEach(subject -> subject
-	        .setHasVoted(hasUserHasVotedForSubject(subject, votes)));
-	return subjectWithVote;
-    }
-
-    private boolean hasUserHasVotedForSubject(SubjectViewDtoWithVote subject,
-            List<VoteSubjectDto> votes) {
-	return votes.stream()
-	        .filter(vote -> vote.getId().equals(subject.getId()))
-	        .findFirst().isPresent();
+	boolean hasVoted = voteDto.isHasVoted();
+	if (!hasVoted) {
+	    subjectRepository.addVote(userId, subjectId);
+	}
+	List<VoteSubjectDto> votes = subjectRepository.findVoteByUserId(userId);
+	SubjectViewDtoWithVote test = subjectRepository
+	        .findSubjectWithVote(subjectId);
+	test.setHasVoted(hasUserVotedForSubject(subjectId, votes));
+	return test;
     }
 }

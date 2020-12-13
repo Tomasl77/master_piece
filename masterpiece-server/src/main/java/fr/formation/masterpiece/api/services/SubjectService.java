@@ -4,8 +4,8 @@ import java.util.List;
 
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectCreateDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectDto;
-import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectVoteUpdateDto;
 
 /**
  * Service to handle {@code Subject} logic.
@@ -33,17 +33,12 @@ public interface SubjectService {
 
     /**
      * Get a {@code List} of all {@code Subject} not scheduled for a
-     * {@code SharingSession}
-     *
-     * @return a {@code List} of {@code SubjectViewDto}
-     */
-    List<SubjectViewDto> getAllNotScheduled();
-
-    /**
-     * Get a {@code List} of all {@code Subject} not scheduled for a
-     * {@code SharingSession}
+     * {@code SharingSession}, with the number of vote associated to each of
+     * them
      *
      * @return a {@code List} of {@code SubjectViewDtoWithVote}
      */
     List<SubjectViewDtoWithVote> getAllNotScheduledWithVote();
+
+    SubjectViewDtoWithVote changeVote(SubjectVoteUpdateDto voteDto, Long id);
 }

@@ -39,4 +39,19 @@ public final class JpqlQuery {
      * @author Tomas LOBGEOIS
      */
     static final String SCHEDULE_SESSION = "UPDATE Subject s SET s.schedule = true WHERE s.id = :subjectId";
+
+    /**
+     * Create new {@code SubjectViewDtoWithVote} to have informations needed on
+     * {@code Subject} and the join table with {@code CustomUser}
+     */
+    static final String SUBJECT_WITH_NUMBER_OF_VOTES = "SELECT new fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote"
+            + "(s.id, s.title, s.description, s.category.name, s.requester.username, count(v.id) as numberOfVote) "
+            + "FROM Subject s LEFT JOIN s.voters v GROUP BY s.id";
+
+    /**
+     * Create new {@code VoteSubjectDto} to retrieve informtation on which
+     * subject the user has already voted
+     */
+    static final String USER_VOTED_SUBJECTS = "SELECT new fr.formation.masterpiece.domain.dtos.subjects.VoteSubjectDto"
+            + "(s.id) FROM Subject s JOIN s.voters v WHERE v.id = :userId GROUP BY s.id";
 }

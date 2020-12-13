@@ -20,6 +20,7 @@ import fr.formation.masterpiece.commons.annotations.HasRoleUser;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectCreateDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectVoteUpdateDto;
 
 /**
  * A {@link RestController} to handle {@code Subject}
@@ -48,6 +49,13 @@ public class SubjectController {
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void deleteSubject(@PathVariable Long id) {
 	service.deleteOne(id);
+    }
+
+    @PostMapping("/vote/{id}")
+    public SubjectViewDtoWithVote changeVote(
+            @Valid @RequestBody SubjectVoteUpdateDto voteDto,
+            @PathVariable Long id) {
+	return service.changeVote(voteDto, id);
     }
 
     @GetMapping

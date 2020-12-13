@@ -47,12 +47,34 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
     @Query(JpqlQuery.SCHEDULE_SESSION)
     void setSessionScheduleTrue(@Param("subjectId") Long id);
 
-    @Query("SELECT new fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote"
-            + "(s.id, s.title, s.description, s.category.name, s.requester.username, count(v.id) as numberOfVote) "
-            + "FROM Subject s LEFT JOIN s.voters v GROUP BY s.id")
+    /**
+     * Custom request to retrieve a {@code List} of {@code Subject} with the
+     * number of vote associated to it
+     *
+     * @return a {@code List} of {@code SubjectViewDtoWithVote}
+     */
+    @Query(JpqlQuery.SUBJECT_WITH_NUMBER_OF_VOTES)
     List<SubjectViewDtoWithVote> findAllWithVotes();
 
-    @Query("SELECT new fr.formation.masterpiece.domain.dtos.subjects.VoteSubjectDto"
-            + "(s.id) FROM Subject s JOIN s.voters v WHERE v.id = :userId GROUP BY s.id")
+    @Query("SELECT new fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote"
+            + "(s.id, s.title, s.description, s.category.name, s.requester.username, count(v.id) as numberOfVote) "
+            + "FROM Subject s LEFT JOIN s.voters v WHERE s.id = :subjectId GROUP BY s.id")
+    SubjectViewDtoWithVote findSubjectWithVote(
+            @Param("subjectId") Long subjectId);
+
+    /**
+     * Custom request to retrieve a {@code List} of {@code Subject}'s IDs that
+     * the user already vote for
+     *
+     * @param userId the id of user to check
+     * @return a {@code List} of {@code VoteSubjectDto}
+     */
+    @Query(JpqlQuery.USER_VOTED_SUBJECTS)
     List<VoteSubjectDto> findVoteByUserId(@Param("userId") Long userId);
+
+    @Modifying
+    @Query(value = "INSERT INTO user_vote_subject(subject_id, user_id) VALUES (:subjectId, :userId)",
+            nativeQuery = true)
+    void addVote(@Param("userId") Long userId,
+            @Param("subjectId") Long subjectId);
 }

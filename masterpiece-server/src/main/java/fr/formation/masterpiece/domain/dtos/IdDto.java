@@ -1,4 +1,4 @@
-package fr.formation.masterpiece.domain.dtos.categories;
+package fr.formation.masterpiece.domain.dtos;
 
 import javax.validation.constraints.NotNull;
 
@@ -12,7 +12,7 @@ import lombok.Getter;
  *
  */
 @Getter
-public class CategoryIdDto {
+public class IdDto {
 
     @NotNull
     private Long id;

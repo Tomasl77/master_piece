@@ -194,8 +194,20 @@ export class SubjectComponent implements OnInit, OnDestroy {
         { headerName: 'id', field: 'id', hide: true },
         { headerName: this.translate('ag-grid.subject.title'), field: 'title', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.subject.description'), field: 'description', sortable: true, filter: true },
-        { headerName: this.translate('ag-grid.subject.category'), field: 'category.name', sortable: true, filter: true },
-        { headerName: this.translate('ag-grid.subject.requester'), field: 'requester.username', sortable: true, filter: true },
+        { headerName: this.translate('ag-grid.subject.category'), field: 'categoryName', sortable: true, filter: true },
+        { headerName: this.translate('ag-grid.subject.requester'), field: 'requesterUsername', sortable: true, filter: true },
+        { headerName: this.translate('ag-grid.subject.vote'), 
+          sortable: false,
+          filter:false,
+          cellStyle:  { border: "none" },
+          cellRenderer: 'btnCellRenderer',
+          cellRendererParams: {
+            onClick: this.openVoteDialog.bind(this),
+            btnClass: "btn btn-success",
+            label: this.translate("btnRenderer.vote")
+          }
+        },
+        { headerName: this.translate('ag-grid.subject.numberOfVote'), field: 'numberOfVote', sortable: true, filter: true },
         {
           sortable: false,
           filter:false,
@@ -222,6 +234,15 @@ export class SubjectComponent implements OnInit, OnDestroy {
       ]
     })
   }
+  
+private openVoteDialog(params: any) {
+  console.log()
+  const subject: SubjectWithVote = params.rowData;
+  this.openConfirmDialog(subject, 'vote', 'subject', this.voteSubject)
+}
+  voteSubject(id: number) {
+    console.log('id du sujet : ' + id);
+  }
 
   private translate(stringToTranslate: string): string {
     return this.translateService.instant(stringToTranslate);
@@ -234,10 +255,10 @@ export class SubjectComponent implements OnInit, OnDestroy {
 
   private openDeleteModal(params: any) {
     const subject: Subject = params.rowData;
-    this.openConfirmDialog(subject, 'delete', 'subject');
+    this.openConfirmDialog(subject, 'delete', 'subject', this.deleteSubject);
   };
 
-  openConfirmDialog(subject: Subject, action: String, object: String) {
+  openConfirmDialog(subject: any, action: String, object: String, callBack: Function) {
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {
       position: {
         top: "50px"
@@ -250,7 +271,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
       },
     });
     dialogRef.afterClosed().subscribe(action => {
-      action == 'confirm' ? this.deleteSubject(subject.id) : dialogRef.close();
+      action == 'confirm' ? callBack(subject.id) : dialogRef.close();
     })
   }
 
