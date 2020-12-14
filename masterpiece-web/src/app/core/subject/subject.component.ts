@@ -109,8 +109,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
 
   customInit() {
     this.categoryService.getAllCategories().subscribe((categories) => {
-      this.categories = categories,
-        console.log(this.categories)
+      this.categories = categories
     });
     this.getSubjectsIfVotePanel();
   }
@@ -211,7 +210,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
           cellStyle: { border: "none" },
           cellRenderer: 'btnCellRendererBis',
           cellRendererParams: {
-            onClick: this.openVoteDialog.bind(this),
+            onClick: this.voteSubject.bind(this),
             btnClass: "btn btn-success",
             label: this.translate("btnRenderer.vote")
           }
@@ -328,11 +327,15 @@ export class SubjectComponent implements OnInit, OnDestroy {
     })
   }
 
-  voteSubject(subject: SubjectWithVote) {
+  voteSubject(subject: any) {
+    const id = subject.rowData.id;
     const formBuild: FormGroup =this.formBuilder.group({
       hasVoted: [(subject.hasVoted)]
     });
-    const request = this.subjectService.voteForSubject(subject.id, formBuild);
+    console.log(formBuild);
+    console.log("id=" + id);
+    console.log("après formBuild");
+    const request = this.subjectService.voteForSubject(id, formBuild);
     this.voteForSubjectSubscription = request.subscribe(
       () => this.getSubjects(),
       (error) => console.log(error)
