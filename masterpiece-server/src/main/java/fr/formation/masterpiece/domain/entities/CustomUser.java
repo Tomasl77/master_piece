@@ -33,10 +33,10 @@ import lombok.Getter;
         @UniqueConstraint(name = "UK_email", columnNames = { "email" }) })
 public class CustomUser extends AbstractEntity {
 
-    @Column(length = 255, nullable = false)
+    @Column(length = 255, nullable = false, updatable = false)
     private String username;
 
-    @Column(length = 255, nullable = false)
+    @Column(length = 255, nullable = false, updatable = false)
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)

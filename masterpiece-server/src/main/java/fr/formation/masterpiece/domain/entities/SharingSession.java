@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -35,19 +36,19 @@ import lombok.Getter;
                 columnNames = { "start_time" }))
 public class SharingSession extends AbstractEntity {
 
-    @Column(name = "start_time", nullable = false)
+    @Column(name = "start_time", nullable = false, updatable = false)
     private LocalDateTime startTime;
 
-    @Column(name = "end_time", nullable = false)
+    @Column(name = "end_time", nullable = false, updatable = false)
     private LocalDateTime endTime;
 
     @OneToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "subject_id", referencedColumnName = "id",
-            nullable = false,
+            nullable = false, updatable = false,
             foreignKey = @ForeignKey(name = "FK_sharingsession_subject"))
     private Subject subject;
 
-    @ManyToOne(cascade = CascadeType.REFRESH)
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn(name = "lecturer_id", referencedColumnName = "id",
             nullable = false,
             foreignKey = @ForeignKey(name = "FK_sharingsession_user"))

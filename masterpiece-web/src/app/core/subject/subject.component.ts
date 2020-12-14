@@ -29,7 +29,7 @@ import { BtnCellRendererBis } from 'src/app/shared/btn-cell-renderer-bis.compone
 export class SubjectComponent implements OnInit, OnDestroy {
 
   action: string;
-  infoToDisplay : string;
+  infoToDisplay: string;
   tomorrow: Date;
 
   formErrors = {
@@ -48,6 +48,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
   private postSubjectSubscription: Subscription;
   private presentSubjectSubscription: Subscription;
   private getAllCategoriesSubscription: Subscription;
+  private voteForSubjectSubscription: Subscription;
 
   subjectForm: FormGroup;
 
@@ -57,11 +58,11 @@ export class SubjectComponent implements OnInit, OnDestroy {
     private subjectService: SubjectService,
     private categoryService: CategoryService,
     private activatedRoute: ActivatedRoute,
-    private router : Router,
+    private router: Router,
     private location: Location,
     private authenthicationService: AuthenticationService,
-    private datePipe : DatePipe,
-    private dialog: MatDialog  ) {
+    private datePipe: DatePipe,
+    private dialog: MatDialog) {
     this.subjectForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(30)]],
       description: ['', [Validators.required]],
@@ -109,7 +110,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
   customInit() {
     this.categoryService.getAllCategories().subscribe((categories) => {
       this.categories = categories,
-      console.log(this.categories)
+        console.log(this.categories)
     });
     this.getSubjectsIfVotePanel();
   }
@@ -149,7 +150,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
     this.postSubjectSubscription = request.subscribe(
       (subject: Subject) => {
         this.subjectForm.reset();
-        this.action="vote";
+        this.action = "vote";
         this.getSubjectsIfVotePanel();
         this.infoDisplayedWithTime('subject.newTopic', 3000, subject.title);
       },
@@ -164,10 +165,9 @@ export class SubjectComponent implements OnInit, OnDestroy {
     return this.formBuilder.group({
       title: [subjectForm.value.title],
       description: [subjectForm.value.description],
-      categoryId:[subjectForm.value.category]
+      categoryId: [subjectForm.value.category]
     })
   }
-
   public deleteSubject(id: number) {
     const request = this.subjectService.deleteSubject(id);
     this.deleteSubjectSubscription = request.subscribe(
@@ -175,7 +175,15 @@ export class SubjectComponent implements OnInit, OnDestroy {
       (error) => console.log(error)
     )
   }
-
+  /*
+  public deleteSubject(subject: SubjectWithVote) {
+    const request = this.subjectService.deleteSubject(subject.id);
+    this.deleteSubjectSubscription = request.subscribe(
+      () => this.getSubjects(),
+      (error) => console.log(error)
+    )
+  }
+*/
   getSubjects() {
     const request = this.subjectService.getAllSubject()
     this.getAllSubjectsSubscription = request.subscribe(
@@ -196,10 +204,11 @@ export class SubjectComponent implements OnInit, OnDestroy {
         { headerName: this.translate('ag-grid.subject.description'), field: 'description', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.subject.category'), field: 'categoryName', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.subject.requester'), field: 'requesterUsername', sortable: true, filter: true },
-        { headerName: this.translate('ag-grid.subject.vote'), 
+        {
+          headerName: this.translate('ag-grid.subject.vote'),
           sortable: false,
-          filter:false,
-          cellStyle:  { border: "none" },
+          filter: false,
+          cellStyle: { border: "none" },
           cellRenderer: 'btnCellRendererBis',
           cellRendererParams: {
             onClick: this.openVoteDialog.bind(this),
@@ -210,8 +219,8 @@ export class SubjectComponent implements OnInit, OnDestroy {
         { headerName: this.translate('ag-grid.subject.numberOfVote'), field: 'numberOfVote', sortable: true, filter: true },
         {
           sortable: false,
-          filter:false,
-          cellStyle:  { border: "none" },
+          filter: false,
+          cellStyle: { border: "none" },
           cellRenderer: 'btnCellRenderer',
           cellRendererParams: {
             onClick: this.openPresentModal.bind(this),
@@ -221,9 +230,9 @@ export class SubjectComponent implements OnInit, OnDestroy {
         },
         {
           sortable: false,
-          filter:false,
+          filter: false,
           hide: !this.isAdmin(),
-          cellStyle:  { border: "none" },
+          cellStyle: { border: "none" },
           cellRenderer: 'btnCellRenderer',
           cellRendererParams: {
             onClick: this.openDeleteModal.bind(this),
@@ -235,35 +244,42 @@ export class SubjectComponent implements OnInit, OnDestroy {
     })
   }
 
-  getTest(params: any){
-    if(params.data.hasVoted == true) {
-      return "btnRenderer.vote"
-    }
+  private openVoteDialog(params: any) {
+    const subject: SubjectWithVote = params.rowData;
+    console.log(subject);
   }
-  
-private openVoteDialog(params: any) {
-  console.log()
-  const subject: SubjectWithVote = params.rowData;
-  this.openConfirmDialog(subject, 'vote', 'subject', this.voteSubject)
-}
-  voteSubject(id: number) {
-    console.log('id du sujet : ' + id);
-  }
+
 
   private translate(stringToTranslate: string): string {
     return this.translateService.instant(stringToTranslate);
   }
 
-  private openPresentModal(params :any) {
+  private openPresentModal(params: any) {
     const subject: Subject = params.rowData;
     this.openDateTimeDialog(subject);
   }
 
   private openDeleteModal(params: any) {
     const subject: Subject = params.rowData;
-    this.openConfirmDialog(subject, 'delete', 'subject', this.deleteSubject);
+    this.openConfirmDialog(subject, 'delete', 'subject');
   };
-
+  openConfirmDialog(subject: Subject, action: String, object: String) {
+    const dialogRef = this.dialog.open(ConfirmationModalComponent, {
+      position: {
+        top: "50px"
+      },
+      data:
+      {
+        dataToProcess: subject.title,
+        action: action,
+        object: object
+      },
+    });
+    dialogRef.afterClosed().subscribe(action => {
+      action == 'confirm' ? this.deleteSubject(subject.id) : dialogRef.close();
+    })
+  }
+  /*
   openConfirmDialog(subject: any, action: String, object: String, callBack: Function) {
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {
       position: {
@@ -277,10 +293,10 @@ private openVoteDialog(params: any) {
       },
     });
     dialogRef.afterClosed().subscribe(action => {
-      action == 'confirm' ? callBack(subject.id) : dialogRef.close();
+      action == 'confirm' ? callBack(subject) : dialogRef.close();
     })
   }
-
+*/
   openDateTimeDialog(subject: Subject) {
     const dialogRef = this.dialog.open(DateTimeDialogComponentComponent, {
       position: {
@@ -292,16 +308,16 @@ private openVoteDialog(params: any) {
       },
     });
 
-    dialogRef.afterClosed().subscribe((startDate : Date)=> {
-      if(startDate) {
+    dialogRef.afterClosed().subscribe((startDate: Date) => {
+      if (startDate) {
         const sessionSharedForm = this.createSessionForm(startDate, subject);
         const request = this.subjectService.presentSubject(sessionSharedForm);
         this.presentSubjectSubscription = request.subscribe(
           () => {
             this.router.navigate(['/sharing-session'])
           },
-          (error : HttpErrorResponse) => {
-            if(error.status == 400) {
+          (error: HttpErrorResponse) => {
+            if (error.status == 400) {
               this.infoDisplayedWithTime('error.session-scheduled', 3000);
             }
             const message = ErrorHandler.catch(error);
@@ -310,6 +326,17 @@ private openVoteDialog(params: any) {
         );
       }
     })
+  }
+
+  voteSubject(subject: SubjectWithVote) {
+    const formBuild: FormGroup =this.formBuilder.group({
+      hasVoted: [(subject.hasVoted)]
+    });
+    const request = this.subjectService.voteForSubject(subject.id, formBuild);
+    this.voteForSubjectSubscription = request.subscribe(
+      () => this.getSubjects(),
+      (error) => console.log(error)
+    )
   }
 
   private createSessionForm(startDate: Date, subject: Subject) {
@@ -323,7 +350,7 @@ private openVoteDialog(params: any) {
     return sessionSharedForm;
   }
 
-  private convertDate(date : Date)  {
+  private convertDate(date: Date) {
     return this.datePipe.transform(date, 'yyyy-MM-dd HH:mm')
   }
 
@@ -331,12 +358,12 @@ private openVoteDialog(params: any) {
     return this.authenthicationService.currentUserValue.isAdmin();
   }
 
-  infoDisplayedWithTime(info : string, time : number, optionalValue? : any) : void {
+  infoDisplayedWithTime(info: string, time: number, optionalValue?: any): void {
     this.infoToDisplay = this.translateService.instant(info);
-    if(optionalValue) {
+    if (optionalValue) {
       this.infoToDisplay += optionalValue
     }
-    setTimeout(()=> {
+    setTimeout(() => {
       this.infoToDisplay = null
     }, time)
   }

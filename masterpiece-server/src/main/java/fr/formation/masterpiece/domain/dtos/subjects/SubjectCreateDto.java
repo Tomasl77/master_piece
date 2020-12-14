@@ -1,7 +1,5 @@
 package fr.formation.masterpiece.domain.dtos.subjects;
 
-import java.time.LocalDateTime;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -28,8 +26,6 @@ public class SubjectCreateDto {
     @NotNull
     @Positive
     private Long categoryId;
-
-    private LocalDateTime requestDate = LocalDateTime.now();
 
     /**
      * Empty no-args constructor

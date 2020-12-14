@@ -25,6 +25,9 @@ export class SubjectService {
     return this.http.get(this.baseUrl);
   }
 
+  voteForSubject(id:number, form: FormGroup): Observable<SubjectWithVote> {
+    return this.http.post(this.baseUrl + `/${id}`, form.value);
+  }
 
   presentSubject(form : FormGroup) {
     return this.http.post(Config.apiUrl + "/sharing-sessions", form.value);

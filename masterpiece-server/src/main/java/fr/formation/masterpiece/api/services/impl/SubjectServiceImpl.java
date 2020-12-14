@@ -1,5 +1,6 @@
 package fr.formation.masterpiece.api.services.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -53,6 +54,7 @@ public class SubjectServiceImpl extends AbstractService
 	        .orElseThrow(() -> new ResourceNotFoundException(
 	                "Account doesn't exists"));
 	Subject subject = convert(subjectDto, Subject.class);
+	subject.setRequestDate(LocalDateTime.now());
 	subject.setUser(user);
 	Category category = categoryRepository
 	        .findById(subjectDto.getCategoryId())
@@ -65,10 +67,7 @@ public class SubjectServiceImpl extends AbstractService
 
     @Override
     public void deleteOne(Long id) {
-	Subject deleted = subjectRepository.findById(id)
-	        .orElseThrow(() -> new ResourceNotFoundException(
-	                "Resource not found : " + id));
-	subjectRepository.delete(deleted);
+	subjectRepository.deleteById(id);
     }
 
     @Override

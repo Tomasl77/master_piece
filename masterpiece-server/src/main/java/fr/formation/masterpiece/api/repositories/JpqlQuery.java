@@ -46,7 +46,7 @@ public final class JpqlQuery {
      */
     static final String SUBJECT_WITH_NUMBER_OF_VOTES = "SELECT new fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote"
             + "(s.id, s.title, s.description, s.category.name, s.requester.username, count(v.id) as numberOfVote) "
-            + "FROM Subject s LEFT JOIN s.voters v GROUP BY s.id";
+            + "FROM Subject s LEFT JOIN s.voters v WHERE s.requester.enabled = true AND s.schedule = false GROUP BY s.id";
 
     /**
      * Create new {@code VoteSubjectDto} to retrieve informtation on which
