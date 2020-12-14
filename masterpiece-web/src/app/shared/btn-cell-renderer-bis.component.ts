@@ -4,14 +4,14 @@ import { IAfterGuiAttachedParams } from 'ag-grid-community';
 import { AuthenticationService } from './services/authentication/authentication.service';
 
 @Component({
-  selector: 'btnCellRenderer',
+  selector: 'btnCellRendererBis',
   template: `
-      <button class="{{btnClass}}" type="button" [hidden]="(isCurrentlyLog() && isPanelAdmin())" (click)="onClick($event)">{{label}}</button>
+      <button class="{{btnClass}}" [disabled]="checkVoted()" type="button" (click)="onClick($event)">{{label}}</button>
     `
 })
-export class BtnCellRenderer implements ICellRendererAngularComp {
+export class BtnCellRendererBis implements ICellRendererAngularComp {
 
-  constructor(private authenticationService: AuthenticationService) { }
+  constructor() { }
   refresh(params: any): boolean {
     return true;
   }
@@ -22,13 +22,12 @@ export class BtnCellRenderer implements ICellRendererAngularComp {
   params: any;
   btnClass: string;
   label: string;
-  panelAdmin: boolean
+  hideForVote: boolean;
   
   agInit(params: any): void {
     this.params = params;
     this.btnClass = params.btnClass;
     this.label = params.label;
-    this.panelAdmin = params.panelAdmin || false;
   }
 
   onClick($event: Function) {
@@ -40,11 +39,7 @@ export class BtnCellRenderer implements ICellRendererAngularComp {
     this.params.onClick(params);
   }
 
-  isPanelAdmin(): boolean {
-    return this.params.isPanelAdmin
-  }
-
-  isCurrentlyLog(): boolean {
-    return this.authenticationService.currentUserValue.userId === this.params.node.data.id;
+  checkVoted(): boolean {
+    return this.params.data.hasVoted == true
   }
 }

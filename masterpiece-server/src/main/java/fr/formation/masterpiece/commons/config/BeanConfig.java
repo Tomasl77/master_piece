@@ -62,7 +62,7 @@ public class BeanConfig {
 	ModelMapper mapper = new ModelMapper();
 	mapper.getConfiguration().setFieldMatchingEnabled(true)
 	        .setFieldAccessLevel(AccessLevel.PRIVATE)
-	        .setMatchingStrategy(MatchingStrategies.STANDARD);
+	        .setMatchingStrategy(MatchingStrategies.STRICT);
 	return mapper;
     }
 

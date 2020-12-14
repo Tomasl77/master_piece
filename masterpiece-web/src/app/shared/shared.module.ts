@@ -14,11 +14,13 @@ import { NavbarRoutingModule } from './navbar-routing.module';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { RouterModule } from '@angular/router'
+import { BtnCellRendererBis } from './btn-cell-renderer-bis.component';
 
 @NgModule({
   declarations: [
     NotFoundComponent,
     BtnCellRenderer,
+    BtnCellRendererBis,
     DateTimeDialogComponentComponent,
     LayoutComponent,
     NavbarComponent
@@ -55,6 +57,7 @@ import { RouterModule } from '@angular/router'
   ],
   exports: [
     BtnCellRenderer,
+    BtnCellRendererBis,
     LayoutComponent,
     NavbarComponent
   ],

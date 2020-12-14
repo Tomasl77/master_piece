@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import fr.formation.masterpiece.api.repositories.CategoryRepository;
 import fr.formation.masterpiece.api.repositories.CustomUserRepository;
 import fr.formation.masterpiece.api.repositories.SubjectRepository;
 import fr.formation.masterpiece.api.services.SubjectService;
@@ -16,6 +17,7 @@ import fr.formation.masterpiece.domain.dtos.subjects.SubjectDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectVoteUpdateDto;
 import fr.formation.masterpiece.domain.dtos.subjects.VoteSubjectDto;
+import fr.formation.masterpiece.domain.entities.Category;
 import fr.formation.masterpiece.domain.entities.CustomUser;
 import fr.formation.masterpiece.domain.entities.Subject;
 import fr.formation.masterpiece.security.SecurityHelper;
@@ -34,10 +36,14 @@ public class SubjectServiceImpl extends AbstractService
 
     private final CustomUserRepository userRepository;
 
-    public SubjectServiceImpl(SubjectRepository repository,
-            CustomUserRepository userRepository) {
-	this.subjectRepository = repository;
+    private final CategoryRepository categoryRepository;
+
+    public SubjectServiceImpl(SubjectRepository subjectRepository,
+            CustomUserRepository userRepository,
+            CategoryRepository categoryRepository) {
+	this.subjectRepository = subjectRepository;
 	this.userRepository = userRepository;
+	this.categoryRepository = categoryRepository;
     }
 
     @Override
@@ -45,9 +51,14 @@ public class SubjectServiceImpl extends AbstractService
 	Long userCredentialsId = SecurityHelper.getUserId();
 	CustomUser user = userRepository.findById(userCredentialsId)
 	        .orElseThrow(() -> new ResourceNotFoundException(
-	                "Account not found"));
+	                "Account doesn't exists"));
 	Subject subject = convert(subjectDto, Subject.class);
 	subject.setUser(user);
+	Category category = categoryRepository
+	        .findById(subjectDto.getCategoryId())
+	        .orElseThrow(() -> new ResourceNotFoundException(
+	                "Category doesn't exists"));
+	subject.setCategory(category);
 	Subject subjectToSave = subjectRepository.save(subject);
 	return convert(subjectToSave, SubjectDto.class);
     }

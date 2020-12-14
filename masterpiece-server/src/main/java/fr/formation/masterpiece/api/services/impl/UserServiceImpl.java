@@ -55,8 +55,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
 	CustomUser user = new CustomUser(encodedPassword, dto.getUsername(),
 	        role, true, true, true, true, dto.getEmail());
 	CustomUser savedUser = userRepository.save(user);
-	CustomUserDto dtoToReturn = modelMapper.map(savedUser,
-	        CustomUserDto.class);
+	CustomUserDto dtoToReturn = convert(savedUser, CustomUserDto.class);
 	return dtoToReturn;
     }
 

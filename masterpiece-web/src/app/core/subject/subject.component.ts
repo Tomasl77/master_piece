@@ -18,6 +18,7 @@ import { ErrorHandler } from 'src/app/shared/services/error-handler';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Category } from 'src/app/shared/models/category.model';
 import { SubjectWithVote } from 'src/app/shared/models/subject-with-vote.model';
+import { BtnCellRendererBis } from 'src/app/shared/btn-cell-renderer-bis.component';
 
 @Component({
   selector: 'app-subject',
@@ -75,7 +76,8 @@ export class SubjectComponent implements OnInit, OnDestroy {
         onFirstDataRendered: this.sizeColumnsToFit
       },
       this.frameworkComponents = {
-        btnCellRenderer: BtnCellRenderer
+        btnCellRenderer: BtnCellRenderer,
+        btnCellRendererBis: BtnCellRendererBis
       }
   }
 
@@ -162,9 +164,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
     return this.formBuilder.group({
       title: [subjectForm.value.title],
       description: [subjectForm.value.description],
-      category: this.formBuilder.group({
-        id:[subjectForm.value.category]
-      })
+      categoryId:[subjectForm.value.category]
     })
   }
 
@@ -200,7 +200,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
           sortable: false,
           filter:false,
           cellStyle:  { border: "none" },
-          cellRenderer: 'btnCellRenderer',
+          cellRenderer: 'btnCellRendererBis',
           cellRendererParams: {
             onClick: this.openVoteDialog.bind(this),
             btnClass: "btn btn-success",
@@ -233,6 +233,12 @@ export class SubjectComponent implements OnInit, OnDestroy {
         }
       ]
     })
+  }
+
+  getTest(params: any){
+    if(params.data.hasVoted == true) {
+      return "btnRenderer.vote"
+    }
   }
   
 private openVoteDialog(params: any) {
