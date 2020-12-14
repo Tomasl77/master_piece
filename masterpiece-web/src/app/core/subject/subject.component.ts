@@ -243,12 +243,6 @@ export class SubjectComponent implements OnInit, OnDestroy {
     })
   }
 
-  private openVoteDialog(params: any) {
-    const subject: SubjectWithVote = params.rowData;
-    console.log(subject);
-  }
-
-
   private translate(stringToTranslate: string): string {
     return this.translateService.instant(stringToTranslate);
   }

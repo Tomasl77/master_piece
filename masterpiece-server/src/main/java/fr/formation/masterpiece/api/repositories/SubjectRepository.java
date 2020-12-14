@@ -52,13 +52,21 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
      * number of vote associated to it
      *
      * @return a {@code List} of {@code SubjectViewDtoWithVote}
+     *
+     * @author Tomas LOBGEOIS
      */
-    @Query(JpqlQuery.SUBJECT_WITH_NUMBER_OF_VOTES)
+    @Query(JpqlQuery.SUBJECTS_WITH_NUMBER_OF_VOTES)
     List<SubjectViewDtoWithVote> findAllWithVotes();
 
-    @Query("SELECT new fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote"
-            + "(s.id, s.title, s.description, s.category.name, s.requester.username, count(v.id) as numberOfVote) "
-            + "FROM Subject s LEFT JOIN s.voters v WHERE s.id = :subjectId GROUP BY s.id")
+    /**
+     * Custom request to retrieve a {@code Subject} with the number of vote
+     * associated to it
+     *
+     * @return a {@code SubjectViewDtoWithVote}
+     *
+     * @author Tomas LOBGEOIS
+     */
+    @Query(JpqlQuery.SUBJECT_WITH_NUMBER_OF_VOTES)
     SubjectViewDtoWithVote findSubjectWithVote(
             @Param("subjectId") Long subjectId);
 
@@ -68,13 +76,22 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
      *
      * @param userId the id of user to check
      * @return a {@code List} of {@code VoteSubjectDto}
+     *
+     * @author Tomas LOBGEOIS
      */
     @Query(JpqlQuery.USER_VOTED_SUBJECTS)
     List<VoteSubjectDto> findVoteByUserId(@Param("userId") Long userId);
 
+    /**
+     * Add a vote into a specific subject
+     *
+     * @param userId    the {@code CustomUser} voting
+     * @param subjectId the {@code Subject} which receive vote
+     *
+     * @author Tomas LOBGEOIS
+     */
     @Modifying
-    @Query(value = "INSERT INTO user_vote_subject(subject_id, user_id) VALUES (:subjectId, :userId)",
-            nativeQuery = true)
+    @Query(value = JpqlQuery.ADD_VOTE_TO_SUBJECT, nativeQuery = true)
     void addVote(@Param("userId") Long userId,
             @Param("subjectId") Long subjectId);
 }
