@@ -10,10 +10,6 @@ input,textarea, .alert {
     margin: auto;
 }
 
-button, .btn, .btn-success {
-    background-color: #e9041e;
-}
-
 .red {
     color: #e9041e;
 }

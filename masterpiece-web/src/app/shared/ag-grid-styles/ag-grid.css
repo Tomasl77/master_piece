@@ -4,10 +4,13 @@
 
 .red {
     background-color:#e9041e;
-    border: none;
 }
 .red:hover {
     background-color: #e9041e;
+}
+
+.btn {
+    border: none
 }
 
 .btn:hover {
