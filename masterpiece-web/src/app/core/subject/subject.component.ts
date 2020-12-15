@@ -86,7 +86,6 @@ export class SubjectComponent implements OnInit, OnDestroy {
     gridOptions.api.sizeColumnsToFit();
   }
 
-
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.action = params["action"];
@@ -104,6 +103,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
     this.subjectService.unsubscribe(this.getAllSubjectsSubscription);
     this.subjectService.unsubscribe(this.postSubjectSubscription);
     this.subjectService.unsubscribe(this.presentSubjectSubscription);
+    this.subjectService.unsubscribe(this.voteForSubjectSubscription);
     this.subjectService.unsubscribe(this.getAllCategoriesSubscription)
   }
 
@@ -174,15 +174,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
       (error) => console.log(error)
     )
   }
-  /*
-  public deleteSubject(subject: SubjectWithVote) {
-    const request = this.subjectService.deleteSubject(subject.id);
-    this.deleteSubjectSubscription = request.subscribe(
-      () => this.getSubjects(),
-      (error) => console.log(error)
-    )
-  }
-*/
+  
   getSubjects() {
     const request = this.subjectService.getAllSubject()
     this.getAllSubjectsSubscription = request.subscribe(
@@ -190,7 +182,8 @@ export class SubjectComponent implements OnInit, OnDestroy {
         this.rowData = subjects;
       },
       (error) => {
-        console.log(error);
+        const err = ErrorHandler.catch(error);
+        console.log(err);
       }
     );
   }
@@ -326,9 +319,6 @@ export class SubjectComponent implements OnInit, OnDestroy {
     const formBuild: FormGroup =this.formBuilder.group({
       hasVoted: [(subject.hasVoted)]
     });
-    console.log(formBuild);
-    console.log("id=" + id);
-    console.log("après formBuild");
     const request = this.subjectService.voteForSubject(id, formBuild);
     this.voteForSubjectSubscription = request.subscribe(
       () => this.getSubjects(),
