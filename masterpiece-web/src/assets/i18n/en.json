@@ -12,7 +12,8 @@
   "btnRenderer": {
     "delete": "Delete",
     "present": "Present",
-    "vote": "Vote"
+    "vote": "Vote",
+    "unvote":"Withdraw"
   },
 
   "navbar": {

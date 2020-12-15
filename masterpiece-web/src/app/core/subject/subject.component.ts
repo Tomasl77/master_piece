@@ -196,6 +196,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
         { headerName: this.translate('ag-grid.subject.description'), field: 'description', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.subject.category'), field: 'categoryName', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.subject.requester'), field: 'requesterUsername', sortable: true, filter: true },
+        { headerName: this.translate('ag-grid.subject.numberOfVote'), field: 'numberOfVote', sortable: true, filter: true },
         {
           headerName: this.translate('ag-grid.subject.vote'),
           sortable: false,
@@ -204,11 +205,9 @@ export class SubjectComponent implements OnInit, OnDestroy {
           cellRenderer: 'btnCellRendererBis',
           cellRendererParams: {
             onClick: this.voteSubject.bind(this),
-            btnClass: "btn btn-success",
             label: this.translate("btnRenderer.vote")
           }
         },
-        { headerName: this.translate('ag-grid.subject.numberOfVote'), field: 'numberOfVote', sortable: true, filter: true },
         {
           sortable: false,
           filter: false,
@@ -265,24 +264,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
       action == 'confirm' ? this.deleteSubject(subject.id) : dialogRef.close();
     })
   }
-  /*
-  openConfirmDialog(subject: any, action: String, object: String, callBack: Function) {
-    const dialogRef = this.dialog.open(ConfirmationModalComponent, {
-      position: {
-        top: "50px"
-      },
-      data:
-      {
-        dataToProcess: subject.title,
-        action: action,
-        object: object
-      },
-    });
-    dialogRef.afterClosed().subscribe(action => {
-      action == 'confirm' ? callBack(subject) : dialogRef.close();
-    })
-  }
-*/
+  
   openDateTimeDialog(subject: Subject) {
     const dialogRef = this.dialog.open(DateTimeDialogComponentComponent, {
       position: {
@@ -314,12 +296,12 @@ export class SubjectComponent implements OnInit, OnDestroy {
     })
   }
 
-  voteSubject(subject: any) {
-    const id = subject.rowData.id;
+  private voteSubject(params: any) {
+    const subject : SubjectWithVote = params.rowData;
     const formBuild: FormGroup =this.formBuilder.group({
       hasVoted: [(subject.hasVoted)]
     });
-    const request = this.subjectService.voteForSubject(id, formBuild);
+    const request = this.subjectService.voteForSubject(subject.id, formBuild);
     this.voteForSubjectSubscription = request.subscribe(
       () => this.getSubjects(),
       (error) => console.log(error)

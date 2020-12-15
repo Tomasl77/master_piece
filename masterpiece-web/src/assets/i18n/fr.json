@@ -12,7 +12,8 @@
   "btnRenderer": {
     "delete": "Supprimer",
     "present": "Presenter",
-    "vote": "Vote"
+    "vote": "Vote",
+    "unvote":"Annuler"
   },
   "navbar": {
     "account": "Mon Compte",

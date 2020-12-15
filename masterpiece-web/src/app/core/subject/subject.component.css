@@ -14,6 +14,10 @@ button, .btn, .btn-success {
     background-color: #e9041e;
 }
 
+.red {
+    color: #e9041e;
+}
+
 .btn {
     margin-left: 50%;
     transform: translateX(-50%);

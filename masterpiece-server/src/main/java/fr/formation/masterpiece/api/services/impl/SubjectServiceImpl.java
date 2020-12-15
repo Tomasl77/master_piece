@@ -92,9 +92,13 @@ public class SubjectServiceImpl extends AbstractService
     public SubjectViewDtoWithVote changeVote(SubjectVoteUpdateDto voteDto,
             Long subjectId) {
 	Long userId = SecurityHelper.getUserId();
+	CustomUser user = userRepository.getOne(userId);
+	Subject subject = subjectRepository.getOne(subjectId);
 	boolean hasVoted = voteDto.isHasVoted();
 	if (!hasVoted) {
-	    subjectRepository.addVote(userId, subjectId);
+	    subject.addVote(user);
+	} else {
+	    subject.remove(user);
 	}
 	List<VoteSubjectDto> votes = subjectRepository.findVoteByUserId(userId);
 	SubjectViewDtoWithVote test = subjectRepository

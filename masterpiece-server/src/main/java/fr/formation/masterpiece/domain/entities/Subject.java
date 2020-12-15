@@ -87,6 +87,14 @@ public class Subject extends AbstractEntity {
 	this.requestDate = requestDate;
     }
 
+    public void addVote(CustomUser user) {
+	this.voters.add(user);
+    }
+
+    public void remove(CustomUser user) {
+	this.voters.remove(user);
+    }
+
     @Override
     public String toString() {
 	return "{title: " + title + ", description: " + description

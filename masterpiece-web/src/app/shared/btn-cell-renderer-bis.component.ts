@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { IAfterGuiAttachedParams } from 'ag-grid-community';
 import { AuthenticationService } from './services/authentication/authentication.service';
@@ -6,12 +7,12 @@ import { AuthenticationService } from './services/authentication/authentication.
 @Component({
   selector: 'btnCellRendererBis',
   template: `
-      <button class="{{btnClass}}" [disabled]="checkVoted()" type="button" (click)="onClick($event)">{{label}}</button>
+      <button class="{{btnClass}}" style=style type="button" (click)="onClick($event)">{{label}}</button>
     `
 })
 export class BtnCellRendererBis implements ICellRendererAngularComp {
 
-  constructor() { }
+  constructor(private translateService: TranslateService) { }
   refresh(params: any): boolean {
     return true;
   }
@@ -22,12 +23,29 @@ export class BtnCellRendererBis implements ICellRendererAngularComp {
   params: any;
   btnClass: string;
   label: string;
-  hideForVote: boolean;
+  hasVoted: boolean;
+  style: string;
   
   agInit(params: any): void {
     this.params = params;
     this.btnClass = params.btnClass;
-    this.label = params.label;
+    this.label = this.getLabel(params.data.hasVoted);
+    this.style = this.getStyle();
+    this.hasVoted = (params.data.hasVoted == true)
+  }
+
+  getLabel(hasVoted: boolean) {
+    if(hasVoted == true) {
+      this.btnClass = "btn btn-success red"
+      return this.translateService.instant('btnRenderer.unvote');
+    } else {
+      this.btnClass = "btn btn-success"
+      return this.translateService.instant('btnRenderer.vote');
+    }
+  }
+
+  getStyle(){
+    return "color: black;"
   }
 
   onClick($event: Function) {
@@ -38,7 +56,5 @@ export class BtnCellRendererBis implements ICellRendererAngularComp {
     this.params.onClick(params);
   }
 
-  checkVoted(): boolean {
-    return this.params.data.hasVoted == true
-  }
+
 }

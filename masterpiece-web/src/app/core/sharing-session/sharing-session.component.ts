@@ -40,7 +40,6 @@ export class SharingSessionComponent implements OnInit {
 
     this.sharingSessionService.getAll().subscribe(
       (sessions : SharingSession[]) => {
-        console.log(sessions);
         this.sessions = sessions;
         this.rowData = this.sessions;
         this.getTableHeaderWithLang();
