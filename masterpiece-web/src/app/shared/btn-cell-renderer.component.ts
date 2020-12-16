@@ -1,23 +1,29 @@
 import { Component } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
+import { IAfterGuiAttachedParams } from 'ag-grid-community';
 import { AuthenticationService } from './services/authentication/authentication.service';
 
 @Component({
   selector: 'btnCellRenderer',
   template: `
-      <button class="{{btnClass}}" type="button" [hidden]="isCurrentlyLog() && isPanelAdmin()" (click)="onClick($event)">{{label}}</button>
+      <button class="{{btnClass}}" type="button" [hidden]="(isCurrentlyLog() && isPanelAdmin())" (click)="onClick($event)">{{label}}</button>
     `
 })
 export class BtnCellRenderer implements ICellRendererAngularComp {
 
   constructor(private authenticationService: AuthenticationService) { }
+  refresh(params: any): boolean {
+    return true;
+  }
+  afterGuiAttached?(params?: IAfterGuiAttachedParams): void {
+    
+  }
 
-  private params: any;
-  private btnClass: string;
-  private label: string;
-  private panelAdmin: boolean
-  private userId: number;
-
+  params: any;
+  btnClass: string;
+  label: string;
+  panelAdmin: boolean
+  
   agInit(params: any): void {
     this.params = params;
     this.btnClass = params.btnClass;
@@ -28,13 +34,10 @@ export class BtnCellRenderer implements ICellRendererAngularComp {
   onClick($event: Function) {
     const params = {
       event: $event,
-      rowData: this.params.node.data
+      rowData: this.params.node.data,
     }
+    console.log(params)
     this.params.onClick(params);
-  }
-
-  refresh(params: any): boolean {
-    return true;
   }
 
   isPanelAdmin(): boolean {

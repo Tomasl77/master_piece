@@ -2,6 +2,21 @@
     margin: 10px auto;
 }
 
+.red {
+    background-color:#e9041e;
+}
+.red:hover {
+    background-color: #e9041e;
+}
+
+.btn {
+    border: none
+}
+
+.btn:hover {
+   color: #000;
+}
+
 @media screen and (max-width: 972px) {
     .grid-container {
         width: 100%;

@@ -4,10 +4,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.transaction.Transactional;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.formation.masterpiece.api.repositories.CustomUserRepository;
 import fr.formation.masterpiece.api.repositories.RoleRepository;
@@ -55,8 +54,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
 	CustomUser user = new CustomUser(encodedPassword, dto.getUsername(),
 	        role, true, true, true, true, dto.getEmail());
 	CustomUser savedUser = userRepository.save(user);
-	CustomUserDto dtoToReturn = modelMapper.map(savedUser,
-	        CustomUserDto.class);
+	CustomUserDto dtoToReturn = convert(savedUser, CustomUserDto.class);
 	return dtoToReturn;
     }
 
@@ -104,6 +102,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
      * @author Tomas LOBGEOIS
      */
     @Override
+    @Transactional
     public UpdateCustomUserDto update(CustomUserPatchDto userDto) {
 	Long userId = SecurityHelper.getUserId();
 	CustomUser actualUser = userRepository.findById(userId).orElseThrow(

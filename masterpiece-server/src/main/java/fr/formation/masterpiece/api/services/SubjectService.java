@@ -4,7 +4,8 @@ import java.util.List;
 
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectCreateDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectDto;
-import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectVoteUpdateDto;
 
 /**
  * Service to handle {@code Subject} logic.
@@ -32,9 +33,23 @@ public interface SubjectService {
 
     /**
      * Get a {@code List} of all {@code Subject} not scheduled for a
-     * {@code SharingSession}
+     * {@code SharingSession}, with the number of vote associated to each of
+     * them
      *
-     * @return a {@code List} of {@code SubjectViewDto}
+     * @return a {@code List} of {@code SubjectViewDtoWithVote}
      */
-    List<SubjectViewDto> getAllNotScheduled();
+    List<SubjectViewDtoWithVote> getAllNotScheduledWithVote();
+
+    /**
+     * Update the vote of a {@code CustomUser} for a specific subject. If the
+     * {@code CustomUser} has already voted, it'll be remove from the
+     * {@code List} of voters associated to the subject.
+     *
+     * @param voteDto   a {@code DTO} containing a {@code boolean} defining if
+     *                  the user has voted
+     * @param subjectId id of the {@code Subject}
+     * @return a {@code SubjectViewDtoWithVote} containing the
+     */
+    SubjectViewDtoWithVote changeVote(SubjectVoteUpdateDto voteDto,
+            Long subjectId);
 }

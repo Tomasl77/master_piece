@@ -33,10 +33,10 @@ import lombok.Getter;
         @UniqueConstraint(name = "UK_email", columnNames = { "email" }) })
 public class CustomUser extends AbstractEntity {
 
-    @Column(length = 255, nullable = false)
+    @Column(length = 255, nullable = false, updatable = false)
     private String username;
 
-    @Column(length = 255, nullable = false)
+    @Column(length = 255, nullable = false, updatable = false)
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -67,7 +67,7 @@ public class CustomUser extends AbstractEntity {
     private String email;
 
     protected CustomUser() {
-	// Empty no-arg constructor (Hibernate)
+	// Empty no-arg constructor
     }
 
     /**

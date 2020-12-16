@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
+import fr.formation.masterpiece.domain.dtos.subjects.VoteSubjectDto;
 import fr.formation.masterpiece.domain.entities.Subject;
 
 /**
@@ -44,4 +46,39 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
     @Modifying
     @Query(JpqlQuery.SCHEDULE_SESSION)
     void setSessionScheduleTrue(@Param("subjectId") Long id);
+
+    /**
+     * Custom request to retrieve a {@code List} of {@code Subject} with the
+     * number of vote associated to it
+     *
+     * @return a {@code List} of {@code SubjectViewDtoWithVote}
+     *
+     * @author Tomas LOBGEOIS
+     */
+    @Query(JpqlQuery.SUBJECTS_WITH_NUMBER_OF_VOTES)
+    List<SubjectViewDtoWithVote> findAllWithVotes();
+
+    /**
+     * Custom request to retrieve a {@code Subject} with the number of vote
+     * associated to it
+     *
+     * @return a {@code SubjectViewDtoWithVote}
+     *
+     * @author Tomas LOBGEOIS
+     */
+    @Query(JpqlQuery.SUBJECT_WITH_NUMBER_OF_VOTES)
+    SubjectViewDtoWithVote findSubjectWithVote(
+            @Param("subjectId") Long subjectId);
+
+    /**
+     * Custom request to retrieve a {@code List} of {@code Subject}'s IDs that
+     * the user already vote for
+     *
+     * @param userId the id of user to check
+     * @return a {@code List} of {@code VoteSubjectDto}
+     *
+     * @author Tomas LOBGEOIS
+     */
+    @Query(JpqlQuery.USER_VOTED_SUBJECTS)
+    List<VoteSubjectDto> findVoteByUserId(@Param("userId") Long userId);
 }

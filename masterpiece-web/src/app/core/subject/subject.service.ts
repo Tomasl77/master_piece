@@ -4,6 +4,7 @@ import { Config } from 'src/assets/config-properties';
 import { Subject } from '../../shared/models/subject.model';
 import { Observable, Subscription } from 'rxjs';
 import { HttpRequestHandler } from 'src/app/shared/services/http-helper/http-request-handler';
+import { SubjectWithVote } from 'src/app/shared/models/subject-with-vote.model';
 
 @Injectable()
 export class SubjectService {
@@ -20,10 +21,13 @@ export class SubjectService {
     return this.http.delete(this.baseUrl + `/${id}`);
   }
 
-  getAllSubject(): Observable<Subject[]> {
+  getAllSubject(): Observable<SubjectWithVote[]> {
     return this.http.get(this.baseUrl);
   }
 
+  voteForSubject(id:number, form: FormGroup): Observable<SubjectWithVote> {
+    return this.http.post(this.baseUrl + `/vote/${id}`, form.value);
+  }
 
   presentSubject(form : FormGroup) {
     return this.http.post(Config.apiUrl + "/sharing-sessions", form.value);

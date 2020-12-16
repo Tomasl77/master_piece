@@ -19,7 +19,8 @@ import fr.formation.masterpiece.commons.annotations.HasRoleAdmin;
 import fr.formation.masterpiece.commons.annotations.HasRoleUser;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectCreateDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectDto;
-import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectVoteUpdateDto;
 
 /**
  * A {@link RestController} to handle {@code Subject}
@@ -50,8 +51,15 @@ public class SubjectController {
 	service.deleteOne(id);
     }
 
+    @PostMapping("/vote/{id}")
+    public SubjectViewDtoWithVote changeVote(
+            @Valid @RequestBody SubjectVoteUpdateDto voteDto,
+            @PathVariable Long id) {
+	return service.changeVote(voteDto, id);
+    }
+
     @GetMapping
-    public List<SubjectViewDto> getAllNotScheduled() {
-	return service.getAllNotScheduled();
+    public List<SubjectViewDtoWithVote> getAllNotScheduledWithVote() {
+	return service.getAllNotScheduledWithVote();
     }
 }

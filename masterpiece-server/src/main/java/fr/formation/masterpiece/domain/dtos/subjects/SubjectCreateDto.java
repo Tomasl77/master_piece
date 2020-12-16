@@ -1,13 +1,11 @@
 package fr.formation.masterpiece.domain.dtos.subjects;
 
-import java.time.LocalDateTime;
-
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import org.hibernate.validator.constraints.Length;
 
-import fr.formation.masterpiece.domain.dtos.categories.CategoryIdDto;
 import lombok.Getter;
 
 /**
@@ -25,10 +23,9 @@ public class SubjectCreateDto {
     @NotBlank
     private String description;
 
-    @Valid
-    private CategoryIdDto category;
-
-    private LocalDateTime requestDate = LocalDateTime.now();
+    @NotNull
+    @Positive
+    private Long categoryId;
 
     /**
      * Empty no-args constructor

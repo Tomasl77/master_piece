@@ -17,6 +17,8 @@ import { DateTimeDialogComponentComponent } from 'src/app/shared/modals/date-tim
 import { ErrorHandler } from 'src/app/shared/services/error-handler';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Category } from 'src/app/shared/models/category.model';
+import { SubjectWithVote } from 'src/app/shared/models/subject-with-vote.model';
+import { BtnCellRendererBis } from 'src/app/shared/btn-cell-renderer-bis.component';
 
 @Component({
   selector: 'app-subject',
@@ -27,15 +29,15 @@ import { Category } from 'src/app/shared/models/category.model';
 export class SubjectComponent implements OnInit, OnDestroy {
 
   action: string;
-  infoToDisplay : string;
+  infoToDisplay: string;
   tomorrow: Date;
 
   formErrors = {
     'title': '',
     'description': ''
   }
-  subjects: Subject[];
-  rowData: Subject[];
+  subjects: SubjectWithVote[];
+  rowData: SubjectWithVote[];
   gridOptions: GridOptions;
   columnDefs: ColDef[];
   categories: Category[];
@@ -46,6 +48,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
   private postSubjectSubscription: Subscription;
   private presentSubjectSubscription: Subscription;
   private getAllCategoriesSubscription: Subscription;
+  private voteForSubjectSubscription: Subscription;
 
   subjectForm: FormGroup;
 
@@ -55,11 +58,11 @@ export class SubjectComponent implements OnInit, OnDestroy {
     private subjectService: SubjectService,
     private categoryService: CategoryService,
     private activatedRoute: ActivatedRoute,
-    private router : Router,
+    private router: Router,
     private location: Location,
     private authenthicationService: AuthenticationService,
-    private datePipe : DatePipe,
-    private dialog: MatDialog  ) {
+    private datePipe: DatePipe,
+    private dialog: MatDialog) {
     this.subjectForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(30)]],
       description: ['', [Validators.required]],
@@ -74,14 +77,14 @@ export class SubjectComponent implements OnInit, OnDestroy {
         onFirstDataRendered: this.sizeColumnsToFit
       },
       this.frameworkComponents = {
-        btnCellRenderer: BtnCellRenderer
+        btnCellRenderer: BtnCellRenderer,
+        btnCellRendererBis: BtnCellRendererBis
       }
   }
 
   public sizeColumnsToFit(gridOptions: GridOptions) {
     gridOptions.api.sizeColumnsToFit();
   }
-
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -100,13 +103,13 @@ export class SubjectComponent implements OnInit, OnDestroy {
     this.subjectService.unsubscribe(this.getAllSubjectsSubscription);
     this.subjectService.unsubscribe(this.postSubjectSubscription);
     this.subjectService.unsubscribe(this.presentSubjectSubscription);
+    this.subjectService.unsubscribe(this.voteForSubjectSubscription);
     this.subjectService.unsubscribe(this.getAllCategoriesSubscription)
   }
 
   customInit() {
     this.categoryService.getAllCategories().subscribe((categories) => {
-      this.categories = categories,
-      console.log(this.categories)
+      this.categories = categories
     });
     this.getSubjectsIfVotePanel();
   }
@@ -114,7 +117,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
   public getSubjectsIfVotePanel() {
     if (this.action === "vote") {
       this.subjectService.getAllSubject().subscribe(
-        (subjects: Subject[]) => {
+        (subjects: SubjectWithVote[]) => {
           this.subjects = subjects;
           this.rowData = subjects;
         });
@@ -146,7 +149,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
     this.postSubjectSubscription = request.subscribe(
       (subject: Subject) => {
         this.subjectForm.reset();
-        this.action="vote";
+        this.action = "vote";
         this.getSubjectsIfVotePanel();
         this.infoDisplayedWithTime('subject.newTopic', 3000, subject.title);
       },
@@ -161,12 +164,9 @@ export class SubjectComponent implements OnInit, OnDestroy {
     return this.formBuilder.group({
       title: [subjectForm.value.title],
       description: [subjectForm.value.description],
-      category: this.formBuilder.group({
-        id:[subjectForm.value.category]
-      })
+      categoryId: [subjectForm.value.category]
     })
   }
-
   public deleteSubject(id: number) {
     const request = this.subjectService.deleteSubject(id);
     this.deleteSubjectSubscription = request.subscribe(
@@ -174,15 +174,16 @@ export class SubjectComponent implements OnInit, OnDestroy {
       (error) => console.log(error)
     )
   }
-
+  
   getSubjects() {
     const request = this.subjectService.getAllSubject()
     this.getAllSubjectsSubscription = request.subscribe(
-      (subjects: Subject[]) => {
+      (subjects: SubjectWithVote[]) => {
         this.rowData = subjects;
       },
       (error) => {
-        console.log(error);
+        const err = ErrorHandler.catch(error);
+        console.log(err);
       }
     );
   }
@@ -193,12 +194,24 @@ export class SubjectComponent implements OnInit, OnDestroy {
         { headerName: 'id', field: 'id', hide: true },
         { headerName: this.translate('ag-grid.subject.title'), field: 'title', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.subject.description'), field: 'description', sortable: true, filter: true },
-        { headerName: this.translate('ag-grid.subject.category'), field: 'category.name', sortable: true, filter: true },
-        { headerName: this.translate('ag-grid.subject.requester'), field: 'requester.username', sortable: true, filter: true },
+        { headerName: this.translate('ag-grid.subject.category'), field: 'categoryName', sortable: true, filter: true },
+        { headerName: this.translate('ag-grid.subject.requester'), field: 'requesterUsername', sortable: true, filter: true },
+        { headerName: this.translate('ag-grid.subject.numberOfVote'), field: 'numberOfVote', sortable: true, filter: true },
+        {
+          headerName: this.translate('ag-grid.subject.vote'),
+          sortable: false,
+          filter: false,
+          cellStyle: { border: "none" },
+          cellRenderer: 'btnCellRendererBis',
+          cellRendererParams: {
+            onClick: this.voteSubject.bind(this),
+            label: this.translate("btnRenderer.vote")
+          }
+        },
         {
           sortable: false,
-          filter:false,
-          cellStyle:  { border: "none" },
+          filter: false,
+          cellStyle: { border: "none" },
           cellRenderer: 'btnCellRenderer',
           cellRendererParams: {
             onClick: this.openPresentModal.bind(this),
@@ -208,9 +221,9 @@ export class SubjectComponent implements OnInit, OnDestroy {
         },
         {
           sortable: false,
-          filter:false,
+          filter: false,
           hide: !this.isAdmin(),
-          cellStyle:  { border: "none" },
+          cellStyle: { border: "none" },
           cellRenderer: 'btnCellRenderer',
           cellRendererParams: {
             onClick: this.openDeleteModal.bind(this),
@@ -226,7 +239,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
     return this.translateService.instant(stringToTranslate);
   }
 
-  private openPresentModal(params :any) {
+  private openPresentModal(params: any) {
     const subject: Subject = params.rowData;
     this.openDateTimeDialog(subject);
   }
@@ -235,7 +248,6 @@ export class SubjectComponent implements OnInit, OnDestroy {
     const subject: Subject = params.rowData;
     this.openConfirmDialog(subject, 'delete', 'subject');
   };
-
   openConfirmDialog(subject: Subject, action: String, object: String) {
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {
       position: {
@@ -252,7 +264,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
       action == 'confirm' ? this.deleteSubject(subject.id) : dialogRef.close();
     })
   }
-
+  
   openDateTimeDialog(subject: Subject) {
     const dialogRef = this.dialog.open(DateTimeDialogComponentComponent, {
       position: {
@@ -264,16 +276,16 @@ export class SubjectComponent implements OnInit, OnDestroy {
       },
     });
 
-    dialogRef.afterClosed().subscribe((startDate : Date)=> {
-      if(startDate) {
+    dialogRef.afterClosed().subscribe((startDate: Date) => {
+      if (startDate) {
         const sessionSharedForm = this.createSessionForm(startDate, subject);
         const request = this.subjectService.presentSubject(sessionSharedForm);
         this.presentSubjectSubscription = request.subscribe(
           () => {
             this.router.navigate(['/sharing-session'])
           },
-          (error : HttpErrorResponse) => {
-            if(error.status == 400) {
+          (error: HttpErrorResponse) => {
+            if (error.status == 400) {
               this.infoDisplayedWithTime('error.session-scheduled', 3000);
             }
             const message = ErrorHandler.catch(error);
@@ -282,6 +294,18 @@ export class SubjectComponent implements OnInit, OnDestroy {
         );
       }
     })
+  }
+
+  private voteSubject(params: any) {
+    const subject : SubjectWithVote = params.rowData;
+    const formBuild: FormGroup =this.formBuilder.group({
+      hasVoted: [(subject.hasVoted)]
+    });
+    const request = this.subjectService.voteForSubject(subject.id, formBuild);
+    this.voteForSubjectSubscription = request.subscribe(
+      () => this.getSubjects(),
+      (error) => console.log(error)
+    )
   }
 
   private createSessionForm(startDate: Date, subject: Subject) {
@@ -295,7 +319,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
     return sessionSharedForm;
   }
 
-  private convertDate(date : Date)  {
+  private convertDate(date: Date) {
     return this.datePipe.transform(date, 'yyyy-MM-dd HH:mm')
   }
 
@@ -303,12 +327,12 @@ export class SubjectComponent implements OnInit, OnDestroy {
     return this.authenthicationService.currentUserValue.isAdmin();
   }
 
-  infoDisplayedWithTime(info : string, time : number, optionalValue? : any) : void {
+  infoDisplayedWithTime(info: string, time: number, optionalValue?: any): void {
     this.infoToDisplay = this.translateService.instant(info);
-    if(optionalValue) {
+    if (optionalValue) {
       this.infoToDisplay += optionalValue
     }
-    setTimeout(()=> {
+    setTimeout(() => {
       this.infoToDisplay = null
     }, time)
   }

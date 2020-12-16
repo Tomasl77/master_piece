@@ -3,6 +3,7 @@ package fr.formation.masterpiece.api.services.impl;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.formation.masterpiece.api.repositories.CategoryRepository;
 import fr.formation.masterpiece.api.services.CategoryService;
@@ -26,6 +27,7 @@ public class CategoryServiceImpl extends AbstractService
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<CategoryViewDto> getAll() {
 	return convertList(categoryRepository.findAll(), CategoryViewDto.class);
     }

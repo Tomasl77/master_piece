@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import fr.formation.masterpiece.api.controllers.SubjectController;
 import fr.formation.masterpiece.config.JUnitConfigTest;
-import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
 import fr.formation.masterpiece.security.annotations.MockUserForTests;
 
 class SubjectControllerTest extends JUnitConfigTest {
@@ -25,7 +25,8 @@ class SubjectControllerTest extends JUnitConfigTest {
     @Test
     @MockUserForTests
     void should_return_all_subject() {
-	List<SubjectViewDto> actual = subjectController.getAllNotScheduled();
+	List<SubjectViewDtoWithVote> actual = subjectController
+	        .getAllNotScheduledWithVote();
 	assertEquals(12, actual.size());
     }
     /*

@@ -20,7 +20,11 @@ import org.springframework.stereotype.Service;
 public abstract class AbstractService {
 
     @Autowired
-    protected ModelMapper modelMapper;
+    private ModelMapper modelMapper;
+
+    protected ModelMapper getMapper() {
+	return this.modelMapper;
+    }
 
     /**
      * Merge a dto into specified entity
