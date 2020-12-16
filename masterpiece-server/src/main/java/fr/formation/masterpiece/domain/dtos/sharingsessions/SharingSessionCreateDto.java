@@ -10,7 +10,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 
 import fr.formation.masterpiece.commons.annotations.NotSameDay;
-import lombok.Getter;
 
 /**
  * {@code DTO} representing {@code SharingSession} data to be persisted in
@@ -18,7 +17,6 @@ import lombok.Getter;
  *
  * @author Tomas LOBGEOIS
  */
-@Getter
 public class SharingSessionCreateDto {
 
     @NotNull
@@ -39,5 +37,17 @@ public class SharingSessionCreateDto {
      * Empty no-args constructor
      */
     protected SharingSessionCreateDto() {
+    }
+
+    public Long getSubjectId() {
+	return subjectId;
+    }
+
+    public LocalDateTime getStartTime() {
+	return startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+	return endTime;
     }
 }

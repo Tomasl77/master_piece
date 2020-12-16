@@ -1,5 +1,6 @@
 package fr.formation.masterpiece.domain.dtos;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -14,6 +15,13 @@ class UserEmailCheckDtoTest extends JUnitConfigTest {
 	UserEmailCheckDto tested = new UserEmailCheckDto();
 	tested.setValid(true);
 	assertTrue(tested.isValid());
+    }
+
+    @Test
+    void should_be_not_valid() {
+	UserEmailCheckDto tested = new UserEmailCheckDto();
+	tested.setValid(false);
+	assertFalse(tested.isValid());
     }
 
     @Test

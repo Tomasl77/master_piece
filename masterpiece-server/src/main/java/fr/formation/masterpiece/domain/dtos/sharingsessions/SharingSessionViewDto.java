@@ -8,7 +8,6 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
 import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
-import lombok.Getter;
 
 /**
  * {@code DTO} representation of a {@code SharingSession}.
@@ -17,7 +16,6 @@ import lombok.Getter;
  *
  * @author Tomas LOBGEOIS
  */
-@Getter
 public class SharingSessionViewDto {
 
     private Long id;
@@ -39,5 +37,25 @@ public class SharingSessionViewDto {
      */
     protected SharingSessionViewDto() {
 	//
+    }
+
+    public Long getId() {
+	return id;
+    }
+
+    public LocalDateTime getStartTime() {
+	return startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+	return endTime;
+    }
+
+    public SubjectViewDto getSubject() {
+	return subject;
+    }
+
+    public CustomUserViewDto getLecturer() {
+	return lecturer;
     }
 }
