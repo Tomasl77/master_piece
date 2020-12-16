@@ -18,7 +18,7 @@ import { ErrorHandler } from 'src/app/shared/services/error-handler';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Category } from 'src/app/shared/models/category.model';
 import { SubjectWithVote } from 'src/app/shared/models/subject-with-vote.model';
-import { BtnCellRendererBis } from 'src/app/shared/btn-cell-renderer-bis.component';
+import { BtnCellRendererVote } from 'src/app/shared/btn-cell-renderer-vote.component';
 
 @Component({
   selector: 'app-subject',
@@ -78,7 +78,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
       },
       this.frameworkComponents = {
         btnCellRenderer: BtnCellRenderer,
-        btnCellRendererBis: BtnCellRendererBis
+        btnCellRendererVote: BtnCellRendererVote
       }
   }
 
@@ -202,7 +202,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
           sortable: false,
           filter: false,
           cellStyle: { border: "none" },
-          cellRenderer: 'btnCellRendererBis',
+          cellRenderer: 'btnCellRendererVote',
           cellRendererParams: {
             onClick: this.voteSubject.bind(this),
             label: this.translate("btnRenderer.vote")
