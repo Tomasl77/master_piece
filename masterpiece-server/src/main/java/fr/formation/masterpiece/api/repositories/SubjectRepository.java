@@ -81,17 +81,4 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
      */
     @Query(JpqlQuery.USER_VOTED_SUBJECTS)
     List<VoteSubjectDto> findVoteByUserId(@Param("userId") Long userId);
-
-    /**
-     * Add a vote into a specific subject
-     *
-     * @param userId    the {@code CustomUser} voting
-     * @param subjectId the {@code Subject} which receive vote
-     *
-     * @author Tomas LOBGEOIS
-     */
-    @Modifying
-    @Query(value = JpqlQuery.ADD_VOTE_TO_SUBJECT, nativeQuery = true)
-    void addVote(@Param("userId") Long userId,
-            @Param("subjectId") Long subjectId);
 }

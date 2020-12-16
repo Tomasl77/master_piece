@@ -40,5 +40,16 @@ public interface SubjectService {
      */
     List<SubjectViewDtoWithVote> getAllNotScheduledWithVote();
 
-    SubjectViewDtoWithVote changeVote(SubjectVoteUpdateDto voteDto, Long id);
+    /**
+     * Update the vote of a {@code CustomUser} for a specific subject. If the
+     * {@code CustomUser} has already voted, it'll be remove from the
+     * {@code List} of voters associated to the subject.
+     *
+     * @param voteDto   a {@code DTO} containing a {@code boolean} defining if
+     *                  the user has voted
+     * @param subjectId id of the {@code Subject}
+     * @return a {@code SubjectViewDtoWithVote} containing the
+     */
+    SubjectViewDtoWithVote changeVote(SubjectVoteUpdateDto voteDto,
+            Long subjectId);
 }

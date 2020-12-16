@@ -3,9 +3,9 @@ package fr.formation.masterpiece.api.services.impl;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.formation.masterpiece.api.repositories.CategoryRepository;
 import fr.formation.masterpiece.api.repositories.CustomUserRepository;
@@ -48,6 +48,8 @@ public class SubjectServiceImpl extends AbstractService
     }
 
     @Override
+    @Modifying
+    @Transactional
     public SubjectDto create(SubjectCreateDto subjectDto) {
 	Long userCredentialsId = SecurityHelper.getUserId();
 	CustomUser user = userRepository.findById(userCredentialsId)
@@ -66,11 +68,13 @@ public class SubjectServiceImpl extends AbstractService
     }
 
     @Override
+    @Transactional
     public void deleteOne(Long id) {
 	subjectRepository.deleteById(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<SubjectViewDtoWithVote> getAllNotScheduledWithVote() {
 	Long userId = SecurityHelper.getUserId();
 	List<SubjectViewDtoWithVote> subjectsWithVotes = subjectRepository
@@ -79,12 +83,6 @@ public class SubjectServiceImpl extends AbstractService
 	subjectsWithVotes.forEach(subject -> subject
 	        .setHasVoted(hasUserVotedForSubject(subject.getId(), votes)));
 	return subjectsWithVotes;
-    }
-
-    private boolean hasUserVotedForSubject(Long subjectId,
-            List<VoteSubjectDto> votes) {
-	return votes.stream().filter(vote -> vote.getId().equals(subjectId))
-	        .findFirst().isPresent();
     }
 
     @Override
@@ -101,9 +99,24 @@ public class SubjectServiceImpl extends AbstractService
 	    subject.remove(user);
 	}
 	List<VoteSubjectDto> votes = subjectRepository.findVoteByUserId(userId);
-	SubjectViewDtoWithVote test = subjectRepository
+	SubjectViewDtoWithVote subjectToReturn = subjectRepository
 	        .findSubjectWithVote(subjectId);
-	test.setHasVoted(hasUserVotedForSubject(subjectId, votes));
-	return test;
+	subjectToReturn.setHasVoted(hasUserVotedForSubject(subjectId, votes));
+	return subjectToReturn;
+    }
+
+    /**
+     * Check if a {@code CustomUser} has vote for a specific {@code Subject}
+     *
+     * @param subjectId the {@code Subject} to check
+     * @param votes     the {@code List} of votes that the {@code CustomUser}
+     *                  has already voted
+     * @return {@code true} if the {@code CustomUser} has already voted to the
+     *         subject, {@code false} otherwise
+     */
+    private boolean hasUserVotedForSubject(Long subjectId,
+            List<VoteSubjectDto> votes) {
+	return votes.stream().filter(vote -> vote.getId().equals(subjectId))
+	        .findFirst().isPresent();
     }
 }

@@ -2,7 +2,6 @@ package fr.formation.masterpiece.domain.entities;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -42,13 +41,13 @@ public class SharingSession extends AbstractEntity {
     @Column(name = "end_time", nullable = false, updatable = false)
     private LocalDateTime endTime;
 
-    @OneToOne(cascade = CascadeType.DETACH)
+    @OneToOne
     @JoinColumn(name = "subject_id", referencedColumnName = "id",
             nullable = false, updatable = false,
             foreignKey = @ForeignKey(name = "FK_sharingsession_subject"))
     private Subject subject;
 
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lecturer_id", referencedColumnName = "id",
             nullable = false,
             foreignKey = @ForeignKey(name = "FK_sharingsession_user"))

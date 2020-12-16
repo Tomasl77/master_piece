@@ -41,18 +41,21 @@ public final class JpqlQuery {
     static final String SCHEDULE_SESSION = "UPDATE Subject s SET s.schedule = true WHERE s.id = :subjectId";
 
     /**
-     * Create new {@code SubjectViewDtoWithVote} to have informations needed on
-     * {@code Subject} and the join table with {@code CustomUser}
+     * Create a {@code List} of new {@code SubjectViewDtoWithVote} to have
+     * informations needed on {@code Subject} and the join table with
+     * {@code CustomUser}
      */
     static final String SUBJECTS_WITH_NUMBER_OF_VOTES = "SELECT new fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote"
             + "(s.id, s.title, s.description, s.category.name, s.requester.username, count(v.id) as numberOfVote) "
             + "FROM Subject s LEFT JOIN s.voters v WHERE s.requester.enabled = true AND s.schedule = false GROUP BY s.id";
 
+    /**
+     * Create new {@code SubjectViewDtoWithVote} to have informations needed on
+     * {@code Subject} and the join table with {@code CustomUser}
+     */
     static final String SUBJECT_WITH_NUMBER_OF_VOTES = "SELECT new fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote"
             + "(s.id, s.title, s.description, s.category.name, s.requester.username, count(v.id) as numberOfVote) "
             + "FROM Subject s LEFT JOIN s.voters v WHERE s.id = :subjectId GROUP BY s.id";
-
-    static final String ADD_VOTE_TO_SUBJECT = "INSERT INTO user_vote_subject(subject_id, user_id) VALUES (:subjectId, :userId)";
 
     /**
      * Create new {@code VoteSubjectDto} to retrieve informtation on which
