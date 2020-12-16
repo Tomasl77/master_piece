@@ -37,7 +37,7 @@ class UserControllerTest extends JUnitConfigTest {
     void should_get_by_id() {
 	CustomUserViewDto tested = userController.getOne(1L);
 	assertEquals("Tomas", tested.getUsername());
-	assertEquals("tomas@gmail.com", tested.getEmail());
+	assertEquals("lobgeois.tomas@free.fr", tested.getEmail());
     }
 
     @Test

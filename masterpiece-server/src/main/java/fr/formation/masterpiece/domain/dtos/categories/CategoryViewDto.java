@@ -1,7 +1,5 @@
 package fr.formation.masterpiece.domain.dtos.categories;
 
-import lombok.Getter;
-
 /**
  * {@code DTO} representation of a {@code Category}.
  * <p>
@@ -9,10 +7,17 @@ import lombok.Getter;
  *
  * @author Tomas LOBGEOIS
  */
-@Getter
 public class CategoryViewDto {
 
     private Long id;
 
     private String name;
+
+    public Long getId() {
+	return id;
+    }
+
+    public String getName() {
+	return name;
+    }
 }
