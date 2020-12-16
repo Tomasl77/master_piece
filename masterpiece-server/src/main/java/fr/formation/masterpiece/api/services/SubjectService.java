@@ -3,7 +3,7 @@ package fr.formation.masterpiece.api.services;
 import java.util.List;
 
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectCreateDto;
-import fr.formation.masterpiece.domain.dtos.subjects.SubjectDto;
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectVoteUpdateDto;
 
@@ -21,7 +21,7 @@ public interface SubjectService {
      * @return an {@code SubjectDto} encapsulating the title of the persisted
      *         {@code Subject}
      */
-    SubjectDto create(SubjectCreateDto dto);
+    SubjectViewDto create(SubjectCreateDto dto);
 
     /**
      * Delete a {@code Subject} by his id.
