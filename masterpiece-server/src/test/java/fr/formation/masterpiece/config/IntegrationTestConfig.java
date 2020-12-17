@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -22,6 +23,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @AutoConfigureMockMvc
 @ActiveProfiles(profiles = "test")
 public abstract class IntegrationTestConfig {
+
+    @Value("token.test.admin")
+    protected String admin;
+
+    @Value("token.test.user")
+    protected String user;
 
     protected static final ObjectMapper MAPPER = Jackson2ObjectMapperBuilder
             .json().build();
