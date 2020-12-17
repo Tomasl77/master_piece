@@ -41,12 +41,4 @@ class ApiError {
     public HttpStatus getStatus() {
 	return status;
     }
-
-    public String getMessage() {
-	return message;
-    }
-
-    public List<String> getErrors() {
-	return errors;
-    }
 }

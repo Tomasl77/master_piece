@@ -1,4 +1,4 @@
-package fr.formation.masterpiece.services.impl;
+package fr.formation.masterpiece.api.services.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -9,7 +9,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import fr.formation.masterpiece.api.services.impl.UserServiceImpl;
 import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
 import fr.formation.masterpiece.config.JUnitConfigTest;
 import fr.formation.masterpiece.security.annotations.MockAdminForTests;
@@ -56,7 +55,7 @@ class UserServiceImplTest extends JUnitConfigTest {
     @Test
     public void should_throw_resource_not_found_exception() {
 	assertThrows(ResourceNotFoundException.class,
-	        () -> userService.getOne(5L));
+	        () -> userService.getOne(99L));
     }
 
     @Test

@@ -6,21 +6,28 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @ExtendWith(SpringExtension.class)
+@AutoConfigureMockMvc
 @ActiveProfiles(profiles = "test")
-public class JUnitConfigTest {
+public abstract class IntegrationTestConfig {
 
     protected static final ObjectMapper MAPPER = Jackson2ObjectMapperBuilder
             .json().build();
+
+    @Autowired
+    protected MockMvc api;
 
     @Autowired
     protected ModelMapper modelMapper;
