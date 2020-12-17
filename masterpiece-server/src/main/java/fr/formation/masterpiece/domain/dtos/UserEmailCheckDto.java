@@ -1,7 +1,5 @@
 package fr.formation.masterpiece.domain.dtos;
 
-import lombok.Getter;
-
 /**
  * {@code DTO} encapsulating <code>boolean</code> logic to {@code UniqueEmail}
  * validation
@@ -9,7 +7,6 @@ import lombok.Getter;
  * @author Tomas LOBGEOIS
  *
  */
-@Getter
 public class UserEmailCheckDto {
 
     private boolean isValid;

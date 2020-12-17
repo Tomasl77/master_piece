@@ -16,8 +16,20 @@ class CustomUserCreateDtoTest extends JUnitConfigTest {
     }
 
     @Test
-    void should_have_email() {
+    void should_have_email_null() {
 	CustomUserCreateDto tested = new CustomUserCreateDto();
 	assertNull(tested.getEmail());
+    }
+
+    @Test
+    void should_have_password_null() {
+	CustomUserCreateDto tested = new CustomUserCreateDto();
+	assertNull(tested.getPassword());
+    }
+
+    @Test
+    void should_have_username_null() {
+	CustomUserCreateDto tested = new CustomUserCreateDto();
+	assertNull(tested.getUsername());
     }
 }

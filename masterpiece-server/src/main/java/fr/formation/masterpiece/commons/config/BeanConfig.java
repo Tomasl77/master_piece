@@ -14,6 +14,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -45,7 +46,14 @@ public class BeanConfig {
      */
     @Bean
     protected ObjectMapper objectMapper() {
-	return Jackson2ObjectMapperBuilder.json().build();
+	ObjectMapper mapper = Jackson2ObjectMapperBuilder.json().build();
+	mapper.setVisibility(
+	        mapper.getSerializationConfig().getDefaultVisibilityChecker()
+	                .withFieldVisibility(JsonAutoDetect.Visibility.ANY)
+	                .withGetterVisibility(JsonAutoDetect.Visibility.NONE)
+	                .withIsGetterVisibility(JsonAutoDetect.Visibility.NONE)
+	                .withSetterVisibility(JsonAutoDetect.Visibility.NONE));
+	return mapper;
     }
 
     /**

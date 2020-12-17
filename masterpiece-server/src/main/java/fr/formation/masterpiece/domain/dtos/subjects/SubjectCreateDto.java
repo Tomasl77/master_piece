@@ -6,14 +6,11 @@ import javax.validation.constraints.Positive;
 
 import org.hibernate.validator.constraints.Length;
 
-import lombok.Getter;
-
 /**
  * {@code DTO} representing {@code Subject} data to be persisted in database.
  *
  * @author Tomas LOBGEOIS
  */
-@Getter
 public class SubjectCreateDto {
 
     @NotBlank
@@ -31,5 +28,9 @@ public class SubjectCreateDto {
      * Empty no-args constructor
      */
     protected SubjectCreateDto() {
+    }
+
+    public Long getCategoryId() {
+	return categoryId;
     }
 }

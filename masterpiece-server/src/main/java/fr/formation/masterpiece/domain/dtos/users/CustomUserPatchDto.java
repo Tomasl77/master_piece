@@ -5,7 +5,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import fr.formation.masterpiece.commons.annotations.UniqueEmail;
-import lombok.Getter;
 
 /**
  * {@code DTO} representing informations to update a {@code CustomUser}
@@ -13,7 +12,6 @@ import lombok.Getter;
  * @author Tomas LOBGEOIS
  *
  */
-@Getter
 public class CustomUserPatchDto {
 
     @UniqueEmail

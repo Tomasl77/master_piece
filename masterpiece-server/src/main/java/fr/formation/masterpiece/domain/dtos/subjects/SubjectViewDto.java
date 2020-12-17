@@ -1,7 +1,5 @@
 package fr.formation.masterpiece.domain.dtos.subjects;
 
-import lombok.Getter;
-
 /**
  * {@code DTO} representation of a {@code Subject}.
  * <p>
@@ -9,7 +7,6 @@ import lombok.Getter;
  *
  * @author Tomas LOBGEOIS
  */
-@Getter
 public class SubjectViewDto {
 
     private String title;
@@ -19,5 +16,9 @@ public class SubjectViewDto {
      */
     protected SubjectViewDto() {
 	//
+    }
+
+    public String getTitle() {
+	return title;
     }
 }

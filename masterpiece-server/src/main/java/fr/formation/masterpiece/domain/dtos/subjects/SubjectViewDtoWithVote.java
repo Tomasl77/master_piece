@@ -2,8 +2,6 @@ package fr.formation.masterpiece.domain.dtos.subjects;
 
 import java.io.Serializable;
 
-import lombok.Getter;
-
 /**
  * {@code DTO} representation of a {@code Subject}.
  * <p>
@@ -11,7 +9,6 @@ import lombok.Getter;
  *
  * @author Tomas LOBGEOIS
  */
-@Getter
 public class SubjectViewDtoWithVote implements Serializable {
 
     private static final long serialVersionUID = -4737758316039328040L;
@@ -48,5 +45,9 @@ public class SubjectViewDtoWithVote implements Serializable {
 
     public void setHasVoted(boolean hasVoted) {
 	this.hasVoted = hasVoted;
+    }
+
+    public Long getId() {
+	return id;
     }
 }

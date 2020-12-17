@@ -39,10 +39,6 @@ public class SharingSessionViewDto {
 	//
     }
 
-    public Long getId() {
-	return id;
-    }
-
     public LocalDateTime getStartTime() {
 	return startTime;
     }

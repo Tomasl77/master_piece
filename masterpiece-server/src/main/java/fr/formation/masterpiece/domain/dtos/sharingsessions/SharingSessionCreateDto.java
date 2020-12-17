@@ -42,12 +42,4 @@ public class SharingSessionCreateDto {
     public Long getSubjectId() {
 	return subjectId;
     }
-
-    public LocalDateTime getStartTime() {
-	return startTime;
-    }
-
-    public LocalDateTime getEndTime() {
-	return endTime;
-    }
 }

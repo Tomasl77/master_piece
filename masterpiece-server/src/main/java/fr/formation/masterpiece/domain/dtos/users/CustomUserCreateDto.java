@@ -41,14 +41,29 @@ public class CustomUserCreateDto {
     protected CustomUserCreateDto() {
     }
 
+    /**
+     * Getter for username
+     *
+     * @return an username
+     */
     public String getUsername() {
 	return username;
     }
 
+    /**
+     * Getter for password
+     *
+     * @return a password
+     */
     public String getPassword() {
 	return password;
     }
 
+    /**
+     * Getter for email
+     *
+     * @return an email
+     */
     public String getEmail() {
 	return email;
     }
