@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -21,14 +22,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
+@TestPropertySource("classpath:config-test.properties")
 @ActiveProfiles(profiles = "test")
 public abstract class IntegrationTestConfig {
 
-    @Value("token.test.admin")
-    protected String admin;
+    protected static final String DELIMITER = "|@|";
 
-    @Value("token.test.user")
-    protected String user;
+    @Value("${token.test.admin}")
+    protected String adminJohanna;
+
+    @Value("${token.test.user}")
+    protected String userTomas;
 
     protected static final ObjectMapper MAPPER = Jackson2ObjectMapperBuilder
             .json().build();
