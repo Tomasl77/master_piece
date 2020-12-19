@@ -39,6 +39,17 @@ class SharingSessionControllerTest extends IntegrationTestConfig {
     void should_admin_create_session(String json) throws Exception {
 	api.perform(post(path).header("Authorization", adminJohanna)
 	        .contentType(MediaType.APPLICATION_JSON).content(json))
-	        .andExpect(status().isOk());
+	        .andExpect(status().isOk())
+	        .andExpect(jsonPath("$.id").value(4));
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/sessioncontroller/CreateSessionDtoSameDay.csv",
+            delimiterString = DELIMITER, numLinesToSkip = 1)
+    void should__user_not_create_session_same_day_validator(String json)
+            throws Exception {
+	api.perform(post(path).header("Authorization", userTomas)
+	        .contentType(MediaType.APPLICATION_JSON).content(json))
+	        .andExpect(status().isBadRequest());
     }
 }

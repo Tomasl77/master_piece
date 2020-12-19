@@ -3,10 +3,13 @@ package fr.formation.masterpiece.commons.utils;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.mail.MessagingException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import fr.formation.masterpiece.api.repositories.CustomUserRepository;
@@ -23,6 +26,9 @@ import fr.formation.masterpiece.domain.entities.Mail;
  */
 @Component
 public class EmailManager {
+
+    @Autowired
+    private Environment env;
 
     private final EmailService emailService;
 
@@ -55,7 +61,9 @@ public class EmailManager {
 	        .toString();
 	Mail mail = new Mail("SyK", getRecipients(),
 	        "New session : " + session.getSubject().getTitle(), content);
-	send(mail);
+	if (!Arrays.asList(env.getActiveProfiles()).contains("test")) {
+	    send(mail);
+	}
     }
 
     private void send(Mail mail) throws MessagingException {

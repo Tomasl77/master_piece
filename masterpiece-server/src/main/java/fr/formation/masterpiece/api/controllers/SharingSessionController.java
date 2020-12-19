@@ -1,13 +1,10 @@
 package fr.formation.masterpiece.api.controllers;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,9 +28,6 @@ import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDt
 @HasRoleUser
 public class SharingSessionController {
 
-    @Autowired
-    Environment env;
-
     private final SharingSessionService sharingSessionService;
 
     private final EmailManager emailManager;
@@ -45,13 +39,14 @@ public class SharingSessionController {
     }
 
     @PostMapping
-    void create(@RequestBody @Valid SharingSessionCreateDto dto)
+    SharingSessionViewDto create(
+            @RequestBody @Valid SharingSessionCreateDto dto)
             throws MessagingException {
 	SharingSessionViewDto dtoToReturn = sharingSessionService.create(dto);
-	if (dtoToReturn != null
-	        && !Arrays.asList(env.getActiveProfiles()).contains("test")) {
+	if (dtoToReturn != null) {
 	    emailManager.buildSessionMail(dtoToReturn);
 	}
+	return dtoToReturn;
     }
 
     @GetMapping

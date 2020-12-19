@@ -52,9 +52,7 @@ public class SubjectServiceImpl extends AbstractService
     @Transactional
     public SubjectViewDto create(SubjectCreateDto subjectDto) {
 	Long userCredentialsId = SecurityHelper.getUserId();
-	CustomUser user = userRepository.findById(userCredentialsId)
-	        .orElseThrow(() -> new ResourceNotFoundException(
-	                "Account doesn't exists"));
+	CustomUser user = userRepository.getOne(userCredentialsId);
 	Subject subject = convert(subjectDto, Subject.class);
 	subject.setRequestDate(LocalDateTime.now());
 	subject.setUser(user);

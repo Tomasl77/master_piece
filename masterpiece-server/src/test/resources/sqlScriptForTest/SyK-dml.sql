@@ -2,7 +2,7 @@
 DML script for teamsharing database
 Script can be used with mysql
 
-Last update : 2020-10-26
+Last update : 2020-12-19
 
 */
 
@@ -50,13 +50,13 @@ INSERT INTO `user_role` (user_id, role_id)
 
 COMMIT;
 
-INSERT INTO `categories` (id, name)
+INSERT INTO `categories` (name)
     VALUES
-    (1, 'FRONTEND'),
-    (2, 'BACKEND'),
-    (3, 'DATABASE'),
-    (4, 'RIFT'),
-    (5, 'OTHER');
+    ('FRONTEND'),
+    ('BACKEND'),
+    ('DATABASE'),
+    ('RIFT'),
+    ('OTHER');
     
 SET @frontend = (SELECT id FROM categories WHERE name = 'FRONTEND');
 SET @backend = (SELECT id FROM categories WHERE name = 'BACKEND');
@@ -89,7 +89,7 @@ SET @spring = (SELECT id FROM subjects WHERE title = "Spring");
 
 INSERT INTO `sharing_sessions` (`start_time`, `end_time`, `subject_id`, `lecturer_id`)
 	VALUES
-    ('2020-11-30 14:00:00', '2022-11-30 15:00:00', @spring ,@Tomas),
+    ('2022-11-30 14:00:00', '2022-11-30 15:00:00', @spring ,@Tomas),
     ('2022-12-12 14:30:00', '2022-12-12 15:30:00', @angular8modals ,@Tomas),
 	('2022-12-14 14:30:00', '2022-12-14 15:30:00', @junit ,@Johanna);
     
