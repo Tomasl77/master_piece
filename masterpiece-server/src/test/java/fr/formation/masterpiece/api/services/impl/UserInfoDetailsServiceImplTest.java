@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import fr.formation.masterpiece.config.JUnitConfigTest;
+import fr.formation.masterpiece.config.UnitTestConfig;
 
-class UserInfoDetailsServiceImplTest extends JUnitConfigTest {
+class UserInfoDetailsServiceImplTest extends UnitTestConfig {
 
     @Autowired
     private UserInfoDetailsServiceImpl service;

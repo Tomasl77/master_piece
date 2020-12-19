@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles(profiles = "test")
-public class JUnitConfigTest {
+public class UnitTestConfig {
 
     protected static final ObjectMapper MAPPER = Jackson2ObjectMapperBuilder
             .json().build();

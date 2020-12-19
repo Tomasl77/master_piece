@@ -4,9 +4,9 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
-import fr.formation.masterpiece.config.JUnitConfigTest;
+import fr.formation.masterpiece.config.UnitTestConfig;
 
-class SubjectTest extends JUnitConfigTest {
+class SubjectTest extends UnitTestConfig {
 
     @Test
     public void should_construct() {

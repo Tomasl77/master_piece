@@ -11,9 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import fr.formation.masterpiece.config.JUnitConfigTest;
+import fr.formation.masterpiece.config.UnitTestConfig;
 
-class CustomUserTest extends JUnitConfigTest {
+class CustomUserTest extends UnitTestConfig {
 
     @Test
     void should_construct_empty_constructor() {

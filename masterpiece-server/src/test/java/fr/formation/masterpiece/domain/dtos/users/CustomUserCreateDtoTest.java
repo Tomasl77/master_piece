@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
-import fr.formation.masterpiece.config.JUnitConfigTest;
+import fr.formation.masterpiece.config.UnitTestConfig;
 
-class CustomUserCreateDtoTest extends JUnitConfigTest {
+class CustomUserCreateDtoTest extends UnitTestConfig {
 
     @Test
     void should_construct() {

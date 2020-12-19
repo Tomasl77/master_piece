@@ -1,0 +1,11 @@
+json_create_false
+{"email": "thierry.false@gmail.com", "username" : "Thierry", "password" : "Thi!"}|@|
+{"email": "frank.false@", "username" : "Frank", "password" : "FrankFrank9!"}|@|
+{"email": "mokrane.false@gmail.com", "username" : "Mokrane", "password" : "Mokranefalse"}|@|
+{"email": "yue", "username" : "Yue", "password" : "Yuefalse@!"}|@|
+{"email": "rachid@gmail.com", "username":"Rachid", "password":"RachidRachidRachidRachidRachidRachidRachidRachid9!"}|@|
+{"email": "yue@gmail.com", "username" : "Y", "password" : "Yuefalse@!"}|@|
+{"email": "mokrane@gmail.com", "username" : "MokraneMokraneMokraneMokraneMokraneMokraneMokraneMokrane", "password" : "Mokrane@!"}|@|
+{"email": null, "username" : "Y", "password" : "Yuefalse@!"}|@|
+{"email": "yue@gmail.com", "username" : null, "password" : "Yuefalse@!"}|@|
+{"email": "yue@gmail.com", "username" : "Y", "password" : null}

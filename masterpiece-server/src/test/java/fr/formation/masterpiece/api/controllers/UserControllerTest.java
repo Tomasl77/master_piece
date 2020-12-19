@@ -1,4 +1,4 @@
-package fr.formation.masterpiece.controllers;
+package fr.formation.masterpiece.api.controllers;
 
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -37,34 +37,49 @@ class UserControllerTest extends IntegrationTestConfig {
 
     @Test
     void should_be_authorized() throws Exception {
-	api.perform(get("/api/users").header("Authorization", adminJohanna))
+	api.perform(get(path).header("Authorization", adminJohanna))
 	        .andExpect(status().isOk());
     }
 
     @Test
-    void should_be_forbidden() throws Exception {
-	api.perform(get("/api/users").header("Authorization", userTomas))
+    void should_be_forbidden_not_authorized() throws Exception {
+	api.perform(get(path).header("Authorization", userTomas))
 	        .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void should_be_forbidden_user_not_register() throws Exception {
+	api.perform(patch(path).header("Authorization", userFalse))
+	        .andExpect(status().isBadRequest());
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = "/usercontroller/CreateUserDto.csv",
             delimiterString = DELIMITER, numLinesToSkip = 1)
     void should_create_user(String json) throws Exception {
-	api.perform(post("/api/users").contentType(MediaType.APPLICATION_JSON)
+	api.perform(post(path).contentType(MediaType.APPLICATION_JSON)
 	        .content(json)).andExpect(status().isOk())
 	        .andExpect(jsonPath("$.username").value("Thierry"))
 	        .andExpect(jsonPath("$.email").value("thierry@gmail.com"));
     }
 
+    @ParameterizedTest
+    @CsvFileSource(resources = "/usercontroller/CreateUserDtoFalse.csv",
+            delimiterString = DELIMITER, numLinesToSkip = 1)
+    void should__not_create_user(String json) throws Exception {
+	api.perform(post(path).contentType(MediaType.APPLICATION_JSON)
+	        .content(json)).andExpect(status().isBadRequest());
+    }
+
+    // should check enable false
     @Test
-    void should_admin_delete_user() throws Exception {
+    void should_admin_deactivate_user() throws Exception {
 	api.perform(delete(path + "/3").header("Authorization", adminJohanna))
-	        .andExpect(status().isNoContent());
+	        .andExpect(status().isOk());
     }
 
     @Test
-    void should_user_not_delete_user() throws Exception {
+    void should_user_not_deactivate_user() throws Exception {
 	api.perform(delete(path + "/4").header("Authorization", userTomas))
 	        .andExpect(status().isForbidden());
     }

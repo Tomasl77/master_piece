@@ -9,9 +9,9 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
-import fr.formation.masterpiece.config.JUnitConfigTest;
+import fr.formation.masterpiece.config.UnitTestConfig;
 
-class ApiErrorTest extends JUnitConfigTest {
+class ApiErrorTest extends UnitTestConfig {
 
     @Test
     void should_construct_single_error() {

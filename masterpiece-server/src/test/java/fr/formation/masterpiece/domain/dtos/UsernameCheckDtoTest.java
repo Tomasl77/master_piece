@@ -4,9 +4,9 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
-import fr.formation.masterpiece.config.JUnitConfigTest;
+import fr.formation.masterpiece.config.UnitTestConfig;
 
-class UsernameCheckDtoTest extends JUnitConfigTest {
+class UsernameCheckDtoTest extends UnitTestConfig {
 
     @Test
     void sould_construct_false() {

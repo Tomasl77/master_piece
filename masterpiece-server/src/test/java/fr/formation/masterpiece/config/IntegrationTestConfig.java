@@ -34,6 +34,9 @@ public abstract class IntegrationTestConfig {
     @Value("${token.test.user}")
     protected String userTomas;
 
+    @Value("${token.test.false}")
+    protected String userFalse;
+
     protected static final ObjectMapper MAPPER = Jackson2ObjectMapperBuilder
             .json().build();
 

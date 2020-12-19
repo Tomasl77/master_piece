@@ -1,6 +1,6 @@
 package fr.formation.masterpiece.api.services.impl;
 
-import fr.formation.masterpiece.config.JUnitConfigTest;
+import fr.formation.masterpiece.config.UnitTestConfig;
 
-class SubjectServiceImplTest extends JUnitConfigTest {
+class SubjectServiceImplTest extends UnitTestConfig {
 }

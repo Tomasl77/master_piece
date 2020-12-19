@@ -1,0 +1,8 @@
+subject_false
+{"description" : "Should fail because title is longer than 30 chars","title" : "Integration Test but title to long","categoryId" :2}|@|
+{"description" : "Should fail because title is null","title" : null,"categoryId" :2}|@|
+{"description" : null,"title" : "Integration Test","categoryId" :2}|@|
+{"description" : "     ","title" : "Integration Test","categoryId" :2}|@|
+{"description" : "I want to test my controller with Integration Test","title" : "     ","categoryId" :2}|@|
+{"description" : "Should fail because category id negative","title" : "Negative category id","categoryId" :-1}|@|
+{"description" : null,"title" : null,"categoryId" :null}

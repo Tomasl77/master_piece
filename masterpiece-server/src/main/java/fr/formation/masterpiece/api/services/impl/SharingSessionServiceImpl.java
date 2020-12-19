@@ -47,12 +47,12 @@ public class SharingSessionServiceImpl extends AbstractService
     @Transactional
     public SharingSessionViewDto create(SharingSessionCreateDto dto) {
 	Long userId = SecurityHelper.getUserId();
-	CustomUser userProfile = userRepository.findById(userId)
+	CustomUser user = userRepository.findById(userId)
 	        .orElseThrow(() -> new ResourceNotFoundException(
 	                "User id: " + userId + " doesn't exist"));
 	Subject subject = subjectRepository.getOne(dto.getSubjectId());
 	SharingSession session = convert(dto, SharingSession.class);
-	session.setUser(userProfile);
+	session.setUser(user);
 	session.setSubject(subject);
 	subjectRepository.setSessionScheduleTrue(dto.getSubjectId());
 	SharingSession sessionToSave = sharingSessionRepository.save(session);

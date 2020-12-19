@@ -10,10 +10,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
-import fr.formation.masterpiece.config.JUnitConfigTest;
+import fr.formation.masterpiece.config.UnitTestConfig;
 import fr.formation.masterpiece.security.annotations.MockAdminForTests;
 
-class UserServiceImplTest extends JUnitConfigTest {
+class UserServiceImplTest extends UnitTestConfig {
 
     @Autowired
     private UserServiceImpl userService;

@@ -68,7 +68,7 @@ public class EmailManager {
     }
 
     private String formatTime(LocalDateTime dateTime) {
-	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH-mm");
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 	return dateTime.format(formatter);
     }
 }

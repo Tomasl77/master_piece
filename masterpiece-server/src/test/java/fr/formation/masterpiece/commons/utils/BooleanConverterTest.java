@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import fr.formation.masterpiece.config.JUnitConfigTest;
+import fr.formation.masterpiece.config.UnitTestConfig;
 
-class BooleanConverterTest extends JUnitConfigTest {
+class BooleanConverterTest extends UnitTestConfig {
 
     @Test
     void should_convert_true_boolean() {

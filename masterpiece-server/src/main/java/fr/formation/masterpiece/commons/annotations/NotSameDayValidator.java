@@ -25,7 +25,6 @@ public class NotSameDayValidator
     @Override
     public boolean isValid(LocalDateTime date,
             ConstraintValidatorContext context) {
-	boolean isDateValid = service.isDateValid(date);
-	return isDateValid;
+	return service.isDateValid(date);
     }
 }
