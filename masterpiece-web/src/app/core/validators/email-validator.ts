@@ -20,7 +20,7 @@ export class EmailValidator {
                     .subscribe(response => {
                         this.checkEmail = response;
                         console.log(this.checkEmail);
-                        if (this.checkEmail.valid) {
+                        if (this.checkEmail.isValid) {
                             resolve();
                         } else {
                             resolve({ mailTaken: true });
