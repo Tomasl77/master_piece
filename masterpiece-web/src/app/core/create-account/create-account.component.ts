@@ -6,6 +6,7 @@ import { UserRegistrationService } from '../user-registration.service';
 import { LogInComponent } from '../log-in/log-in.component'
 import { Config } from 'src/assets/config-properties';
 import { EmailValidator } from '../validators/email-validator';
+import { ErrorHandler } from 'src/app/shared/services/error-handler';
 
 @Component({
   selector: 'app-create-account',
@@ -30,7 +31,7 @@ export class CreateAccountComponent implements OnInit {
     private emailValidator: EmailValidator
     ) {
     this.signForm = this.fb.group({
-      email:['', [Validators.required, Validators.email, Validators.maxLength(255)], this.emailValidator.validate.bind(this.emailValidator)],
+      email:['', [Validators.required, Validators.pattern(Config.emailPattern),Validators.maxLength(255)], this.emailValidator.validate.bind(this.emailValidator)],
       username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)], this.usernameValidator.validate.bind(this.usernameValidator)],
       password: ['', [Validators.required, Validators.pattern((Config.passwordPattern))]],
       passwordConfirm: ['', [Validators.required]]
@@ -94,7 +95,8 @@ export class CreateAccountComponent implements OnInit {
         this.signForm.reset()
       },
       ((error) => { 
-        console.log(error)
+        const message = ErrorHandler.catch(error);
+        console.log(message)
       })
   )};
 }

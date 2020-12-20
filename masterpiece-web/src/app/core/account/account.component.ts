@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { UserCredentials } from 'src/app/shared/models/user-credentials.model';
 import { AuthenticationService } from 'src/app/shared/services/authentication/authentication.service';
 import { ErrorHandler } from 'src/app/shared/services/error-handler';
+import { Config } from 'src/assets/config-properties';
 import { UserRegistrationService } from '../user-registration.service';
 import { EmailValidator } from '../validators/email-validator';
 
@@ -39,7 +40,7 @@ export class AccountComponent implements OnInit, OnDestroy {
     private emailValidator: EmailValidator
     ) {
     this.updateUserForm = this.fb.group({
-      email:['', [Validators.email, Validators.maxLength(255)], this.emailValidator.validate.bind(this.emailValidator)],
+      email:['', [Validators.pattern(Config.emailPattern), Validators.maxLength(255)], this.emailValidator.validate.bind(this.emailValidator)],
     })
   };
   

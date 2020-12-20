@@ -57,7 +57,7 @@
         "nameTaken": "Le nom est déjà utilisé"
       },
       "email" : {
-        "email" : "Adresse non valide",
+        "pattern" : "Adresse non valide",
         "required": "Veuillez entrer une adresse courriel",
         "mailTaken": "Courriel déjà utilisé"
       },
@@ -106,7 +106,7 @@
     "newMail" : "Votre courriel a été modifier. Nouveau courriel: ",
     "validationMessages" : {
       "email" : {
-        "email": "Adresse non valide",
+        "pattern": "Adresse non valide",
         "mailTaken": "Courriel déjà utilisé"
       }
     }

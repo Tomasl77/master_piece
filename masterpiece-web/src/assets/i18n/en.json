@@ -58,7 +58,7 @@
         "nameTaken" : "Username already taken"
       },
       "email": {
-        "email" : "Invalid address",
+        "pattern" : "Invalid address",
         "required":"Must be a valid email address",
         "mailTaken": "Email already taken"
       },
@@ -108,7 +108,7 @@
     "newMail": "Your email has been changed. New mail: ",
     "validationMessages" : {
       "email" : {
-        "email": "Invalid address",
+        "pattern": "Invalid address",
         "mailTaken": "Email already taken"
       }
     }
