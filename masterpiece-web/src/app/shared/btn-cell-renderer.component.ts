@@ -36,7 +36,6 @@ export class BtnCellRenderer implements ICellRendererAngularComp {
       event: $event,
       rowData: this.params.node.data,
     }
-    console.log(params)
     this.params.onClick(params);
   }
 

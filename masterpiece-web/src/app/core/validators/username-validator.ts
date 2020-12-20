@@ -21,7 +21,7 @@ export class UsernameValidator {
           .subscribe(response => {
             this.checkUsername = response;
             if (this.checkUsername.valid) {
-              resolve();
+              resolve(null);
             } else {
               resolve({nameTaken: true});
             }

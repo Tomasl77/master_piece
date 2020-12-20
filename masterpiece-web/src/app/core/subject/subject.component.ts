@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DatePipe, Location } from '@angular/common';
@@ -27,6 +27,9 @@ import { BtnCellRendererVote } from 'src/app/shared/btn-cell-renderer-vote.compo
   providers: [SubjectService, CategoryService, ConfirmationModalComponent]
 })
 export class SubjectComponent implements OnInit, OnDestroy {
+
+  @Input()
+  id: number;
 
   action: string;
   infoToDisplay: string;
@@ -171,7 +174,10 @@ export class SubjectComponent implements OnInit, OnDestroy {
     const request = this.subjectService.deleteSubject(id);
     this.deleteSubjectSubscription = request.subscribe(
       () => this.getSubjects(),
-      (error) => console.log(error)
+      (error) => {
+        const message = ErrorHandler.catch(error);
+        console.log("message : " + message);
+      }
     )
   }
   
@@ -182,8 +188,8 @@ export class SubjectComponent implements OnInit, OnDestroy {
         this.rowData = subjects;
       },
       (error) => {
-        const err = ErrorHandler.catch(error);
-        console.log(err);
+        const message = ErrorHandler.catch(error);
+        console.log(message);
       }
     );
   }
@@ -304,7 +310,10 @@ export class SubjectComponent implements OnInit, OnDestroy {
     const request = this.subjectService.voteForSubject(subject.id, formBuild);
     this.voteForSubjectSubscription = request.subscribe(
       () => this.getSubjects(),
-      (error) => console.log(error)
+      (error) => {
+        const message = ErrorHandler.catch(error);
+        console.log("error : " + message)
+      }
     )
   }
 
