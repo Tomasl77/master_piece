@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
 import fr.formation.masterpiece.config.UnitTestConfig;
 
 class UserInfoDetailsServiceImplTest extends UnitTestConfig {
@@ -23,7 +24,13 @@ class UserInfoDetailsServiceImplTest extends UnitTestConfig {
 
     @Test
     void should_find_user() {
-	UserDetails expected = service.loadUserByUsername("Tomas");
-	assertNotNull(expected);
+	UserDetails actual = service.loadUserByUsername("Tomas");
+	assertNotNull(actual);
+    }
+
+    @Test
+    void should_throw_resource_not_found() {
+	assertThrows(ResourceNotFoundException.class,
+	        () -> service.getCurrentUserInfo(99L));
     }
 }
