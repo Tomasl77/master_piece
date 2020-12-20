@@ -19,8 +19,7 @@ export class EmailValidator {
                 this.http.get<EmailCheckDto>(Config.apiUrl + Config.users + `/${control.value}/mail-verify/`)
                     .subscribe(response => {
                         this.checkEmail = response;
-                        console.log(this.checkEmail);
-                        if (this.checkEmail.valid) {
+                        if (this.checkEmail.isValid) {
                             resolve();
                         } else {
                             resolve({ mailTaken: true });

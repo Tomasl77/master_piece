@@ -1,7 +1,5 @@
 package fr.formation.masterpiece.domain.dtos;
 
-import lombok.Getter;
-
 /**
  * {@code DTO} encapsulating <code>boolean</code> logic to {@code UniqueUser}
  * validation
@@ -9,7 +7,6 @@ import lombok.Getter;
  * @author Tomas LOBGEOIS
  *
  */
-@Getter
 public class UsernameCheckDto {
 
     private boolean valid;
@@ -21,16 +18,8 @@ public class UsernameCheckDto {
     /**
      * Empty no-args constructor
      */
-    protected UsernameCheckDto() {
-	//
-    }
-
     @Override
     public String toString() {
 	return "{isValid: " + valid + "}";
-    }
-
-    public void setValid(boolean valid) {
-	this.valid = valid;
     }
 }

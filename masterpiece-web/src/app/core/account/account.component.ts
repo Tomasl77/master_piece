@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { UserCredentials } from 'src/app/shared/models/user-credentials.model';
-import { User } from 'src/app/shared/models/user.model';
 import { AuthenticationService } from 'src/app/shared/services/authentication/authentication.service';
+import { ErrorHandler } from 'src/app/shared/services/error-handler';
 import { UserRegistrationService } from '../user-registration.service';
 import { EmailValidator } from '../validators/email-validator';
 
@@ -24,8 +24,8 @@ export class AccountComponent implements OnInit, OnDestroy {
   account: UserCredentials;
   error: any;
   private accountSubscription : Subscription;
-  private updateUserForm: FormGroup;
-  private newMail: string;
+  updateUserForm: FormGroup;
+  newMail: string;
 
   formErrors = {
     'email':''
@@ -47,11 +47,12 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.id = this.authenthicationService.currentUserValue.userId;
     this.accountSubscription = this.userService.getAccount(this.id).subscribe(
       account => {
-        this.account=account,
-        console.log(account)
+        this.account=account
       },
-      error=> console.log((error.error)
-      )
+      (error)=> {
+        const message = ErrorHandler.catch(error);
+        console.log(message)
+      }
     );
     this.updateUserForm.valueChanges.subscribe(() => {
       this.logValidationErrors(this.updateUserForm)
@@ -82,7 +83,6 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   modify() {
-    console.log(this.updateUserForm);
     this.userService.updateUser(this.updateUserForm).subscribe(
       (data :UserCredentials) => {
         const mailChanged = data.email;
@@ -93,7 +93,10 @@ export class AccountComponent implements OnInit, OnDestroy {
         this.account.email = mailChanged;
         this.updateUserForm.reset();
       }, 
-      error => console.log("error : "+ JSON.stringify(error))
+      (error) => {
+        const message = ErrorHandler.catch(error);
+        console.log(message)
+      }
     );
   }
 }

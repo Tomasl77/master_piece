@@ -1,13 +1,13 @@
 package fr.formation.masterpiece.domain.dtos.users;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
-import fr.formation.masterpiece.config.JUnitConfigTest;
-import fr.formation.masterpiece.domain.dtos.users.CustomUserCreateDto;
+import fr.formation.masterpiece.config.UnitTestConfig;
 
-class CustomUserCreateDtoTest extends JUnitConfigTest {
+class CustomUserCreateDtoTest extends UnitTestConfig {
 
     @Test
     void should_construct() {
@@ -16,14 +16,20 @@ class CustomUserCreateDtoTest extends JUnitConfigTest {
     }
 
     @Test
-    void should_have_message() {
+    void should_have_email_null() {
 	CustomUserCreateDto tested = new CustomUserCreateDto();
-	assertNotNull(tested.getMessage());
+	assertNull(tested.getEmail());
     }
 
     @Test
-    void should_have_pattern() {
+    void should_have_password_null() {
 	CustomUserCreateDto tested = new CustomUserCreateDto();
-	assertNotNull(tested.getPattern());
+	assertNull(tested.getPassword());
+    }
+
+    @Test
+    void should_have_username_null() {
+	CustomUserCreateDto tested = new CustomUserCreateDto();
+	assertNull(tested.getUsername());
     }
 }

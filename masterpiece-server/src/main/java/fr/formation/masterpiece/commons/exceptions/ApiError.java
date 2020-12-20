@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 
-import lombok.Getter;
-
 /**
  * Object encapsulating error informations.
  * <p>
@@ -18,7 +16,6 @@ import lombok.Getter;
  *
  * @author Tomas LOBGEOIS
  */
-@Getter
 class ApiError {
 
     private HttpStatus status;
@@ -39,5 +36,9 @@ class ApiError {
 	this.status = status;
 	this.message = message;
 	this.errors = Arrays.asList(error);
+    }
+
+    public HttpStatus getStatus() {
+	return status;
     }
 }

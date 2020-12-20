@@ -1,8 +1,12 @@
 package fr.formation.masterpiece.domain.dtos.subjects;
 
-import lombok.Getter;
-
-@Getter
+/**
+ * {@code DTO} representing an id of a {@code Subject} that a {@code CutsomUser}
+ * has voted
+ *
+ * @author Tomas LOBGEOIS
+ *
+ */
 public class VoteSubjectDto {
 
     private Long id;
@@ -11,6 +15,7 @@ public class VoteSubjectDto {
 	this.id = id;
     }
 
-    public VoteSubjectDto() {
+    public Long getId() {
+	return id;
     }
 }

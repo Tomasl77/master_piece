@@ -132,7 +132,7 @@ public class CustomUser extends AbstractEntity {
     public String toString() {
 	// password=[PROTECTED] for not displaying in logs
 	return "{id: " + id + ", username: " + username
-	        + ", password: [PROTECTED], roles: " + roles + ", enabled: "
-	        + enabled + ", email: " + email + "}";
+	        + ", password: [PROTECTED], enabled: " + enabled + ", email: "
+	        + email + "}";
     }
 }

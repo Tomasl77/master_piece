@@ -9,15 +9,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class DateTimeDialogComponentComponent implements OnInit {
 
-  private dateTimeForm: FormGroup;
-
-  private startTime: FormControl;
-
-  private minDate: Date;
-
-  private showSpinners: boolean;
-  
-  private defaultTime = [14, 0 , 0] 
+  dateTimeForm: FormGroup;
+  startTime: FormControl;
+  minDate: Date;
+  showSpinners: boolean;
+  defaultTime = [14, 0 , 0] 
   
   constructor(
     public dialogRef: MatDialogRef<DateTimeDialogComponentComponent>,

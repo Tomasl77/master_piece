@@ -14,7 +14,7 @@ import fr.formation.masterpiece.api.services.SubjectService;
 import fr.formation.masterpiece.commons.config.AbstractService;
 import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectCreateDto;
-import fr.formation.masterpiece.domain.dtos.subjects.SubjectDto;
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectVoteUpdateDto;
 import fr.formation.masterpiece.domain.dtos.subjects.VoteSubjectDto;
@@ -50,11 +50,9 @@ public class SubjectServiceImpl extends AbstractService
     @Override
     @Modifying
     @Transactional
-    public SubjectDto create(SubjectCreateDto subjectDto) {
+    public SubjectViewDto create(SubjectCreateDto subjectDto) {
 	Long userCredentialsId = SecurityHelper.getUserId();
-	CustomUser user = userRepository.findById(userCredentialsId)
-	        .orElseThrow(() -> new ResourceNotFoundException(
-	                "Account doesn't exists"));
+	CustomUser user = userRepository.getOne(userCredentialsId);
 	Subject subject = convert(subjectDto, Subject.class);
 	subject.setRequestDate(LocalDateTime.now());
 	subject.setUser(user);
@@ -64,7 +62,7 @@ public class SubjectServiceImpl extends AbstractService
 	                "Category doesn't exists"));
 	subject.setCategory(category);
 	Subject subjectToSave = subjectRepository.save(subject);
-	return convert(subjectToSave, SubjectDto.class);
+	return convert(subjectToSave, SubjectViewDto.class);
     }
 
     @Override

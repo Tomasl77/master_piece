@@ -5,8 +5,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-import lombok.Getter;
-
 /**
  * Abstract class representing the identifier of an {@code Entity}.
  * <p>
@@ -15,7 +13,6 @@ import lombok.Getter;
  * @author Tomas LOBGEOIS
  */
 @MappedSuperclass
-@Getter
 public abstract class AbstractEntity {
 
     @Id

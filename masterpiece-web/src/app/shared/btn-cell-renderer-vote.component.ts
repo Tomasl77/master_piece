@@ -2,15 +2,14 @@ import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { IAfterGuiAttachedParams } from 'ag-grid-community';
-import { AuthenticationService } from './services/authentication/authentication.service';
 
 @Component({
-  selector: 'btnCellRendererBis',
+  selector: 'btnCellRendererVote',
   template: `
       <button class="{{btnClass}}" style=style type="button" (click)="onClick($event)">{{label}}</button>
     `
 })
-export class BtnCellRendererBis implements ICellRendererAngularComp {
+export class BtnCellRendererVote implements ICellRendererAngularComp {
 
   constructor(private translateService: TranslateService) { }
   refresh(params: any): boolean {

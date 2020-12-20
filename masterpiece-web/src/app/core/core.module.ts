@@ -15,7 +15,7 @@ import { SubjectComponent } from './subject/subject.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { BtnCellRenderer } from '../shared/btn-cell-renderer.component';
 import { SharingSessionComponent } from './sharing-session/sharing-session.component';
-import { BtnCellRendererBis } from '../shared/btn-cell-renderer-bis.component';
+import { BtnCellRendererVote } from '../shared/btn-cell-renderer-vote.component';
 
 
 
@@ -43,7 +43,7 @@ import { BtnCellRendererBis } from '../shared/btn-cell-renderer-bis.component';
           deps: [HttpClient]
       }
   }),
-  AgGridModule.withComponents([BtnCellRenderer, BtnCellRendererBis])
+  AgGridModule.withComponents([BtnCellRenderer, BtnCellRendererVote])
   ],
   
   exports: [

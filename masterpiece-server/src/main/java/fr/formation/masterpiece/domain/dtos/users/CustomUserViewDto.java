@@ -1,7 +1,5 @@
 package fr.formation.masterpiece.domain.dtos.users;
 
-import lombok.Getter;
-
 /**
  * {@code DTO} representation of a {@code CustomUser}.
  * <p>
@@ -9,7 +7,6 @@ import lombok.Getter;
  *
  * @author Tomas LOBGEOIS
  */
-@Getter
 public class CustomUserViewDto {
 
     private Long id;
@@ -23,5 +20,9 @@ public class CustomUserViewDto {
      */
     protected CustomUserViewDto() {
 	//
+    }
+
+    public String getUsername() {
+	return username;
     }
 }

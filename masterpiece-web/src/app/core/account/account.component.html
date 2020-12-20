@@ -4,8 +4,8 @@
   <div class="form-group" [ngClass]="{'has-error' : formErrors.email}">
     <div class= "flex inline-input">
     {{'account.email' | translate}}
-    <input class="form-control" formControlName="email" type="email" [(ngModel)]='listFilter' placeholder="{{account.email}}" (blur)="logValidationErrors()">
-    <button type="submit" [disabled]="updateUserForm.pristine || updateUserForm.invalid || !listFilter"  class="btn btn-success account-btn">
+    <input class="form-control" formControlName="email" type="email" placeholder="{{account.email}}" (blur)="logValidationErrors()">
+    <button type="submit" [disabled]="updateUserForm.pristine || updateUserForm.invalid "  class="btn btn-success account-btn">
       {{'account.button' | translate}}
     </button>
     </div>

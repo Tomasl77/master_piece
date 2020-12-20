@@ -16,7 +16,7 @@ import { BtnCellRenderer } from './shared/btn-cell-renderer.component';
 import { MatDialog, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 import { ConfirmationModalComponent } from './shared/modals/confirmation-modal/confirmation-modal.component';
 import { DatePipe } from '@angular/common';
-import { BtnCellRendererBis } from './shared/btn-cell-renderer-bis.component';
+import { BtnCellRendererVote } from './shared/btn-cell-renderer-vote.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,7 @@ import { BtnCellRendererBis } from './shared/btn-cell-renderer-bis.component';
         deps: [HttpClient]
       }
     }),
-    AgGridModule.withComponents([BtnCellRenderer, BtnCellRendererBis])
+    AgGridModule.withComponents([BtnCellRenderer, BtnCellRendererVote])
   ],
   providers: [MatDialog,
     { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }, 

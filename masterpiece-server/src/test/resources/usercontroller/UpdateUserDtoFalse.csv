@@ -1,0 +1,4 @@
+json_not_mail
+{"email": "not.a.mail"}|@|
+{"email": "not.a.mail@gmail.com."}|@|
+{"email": "not.a.mail@"}

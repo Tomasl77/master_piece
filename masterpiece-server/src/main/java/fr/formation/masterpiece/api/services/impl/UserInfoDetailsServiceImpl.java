@@ -34,10 +34,9 @@ public class UserInfoDetailsServiceImpl implements UserInfoDetailsService {
 	return new CustomUserDetails(user);
     }
 
-    // Throws ResourceNotFoundException (restful practice)
     @Override
     public CustomUserViewDto getCurrentUserInfo(Long id) {
 	return repo.getById(id).orElseThrow(
-	        () -> new ResourceNotFoundException("with id:" + id));
+	        () -> new ResourceNotFoundException("User not found :" + id));
     }
 }

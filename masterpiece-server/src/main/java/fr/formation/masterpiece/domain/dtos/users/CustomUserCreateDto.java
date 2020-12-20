@@ -7,14 +7,12 @@ import javax.validation.constraints.Size;
 
 import fr.formation.masterpiece.commons.annotations.UniqueEmail;
 import fr.formation.masterpiece.commons.annotations.UniqueUser;
-import lombok.Getter;
 
 /**
  * {@code DTO} representing {@code CustomUser} data to be persisted in database.
  *
  * @author Tomas LOBGEOIS
  */
-@Getter
 public class CustomUserCreateDto {
 
     private final String message = "Must contains at least 8 characters, 1 uppercase, 1 lowercase, 1 digit and 1 special char";
@@ -41,5 +39,32 @@ public class CustomUserCreateDto {
      * Empty no-args constructor
      */
     protected CustomUserCreateDto() {
+    }
+
+    /**
+     * Getter for username
+     *
+     * @return an username
+     */
+    public String getUsername() {
+	return username;
+    }
+
+    /**
+     * Getter for password
+     *
+     * @return a password
+     */
+    public String getPassword() {
+	return password;
+    }
+
+    /**
+     * Getter for email
+     *
+     * @return an email
+     */
+    public String getEmail() {
+	return email;
     }
 }

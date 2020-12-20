@@ -45,7 +45,6 @@ export class SharingSessionComponent implements OnInit {
         this.getTableHeaderWithLang();
       },
       (error) => {
-        console.log(error);
         const message = ErrorHandler.catch(error);
         console.log("error : " + message);
       }

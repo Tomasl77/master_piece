@@ -2,8 +2,6 @@ package fr.formation.masterpiece.domain.entities;
 
 import java.util.List;
 
-import lombok.Getter;
-
 /**
  * Representation of a mail.
  * <p>
@@ -11,7 +9,6 @@ import lombok.Getter;
  *
  * @author Tomas LOBGEOIS
  */
-@Getter
 public class Mail {
 
     private String sender;
@@ -28,5 +25,21 @@ public class Mail {
 	this.recipients = recipients;
 	this.subject = subject;
 	this.content = content;
+    }
+
+    public String getSender() {
+	return sender;
+    }
+
+    public List<String> getRecipients() {
+	return recipients;
+    }
+
+    public String getSubject() {
+	return subject;
+    }
+
+    public String getContent() {
+	return content;
     }
 }

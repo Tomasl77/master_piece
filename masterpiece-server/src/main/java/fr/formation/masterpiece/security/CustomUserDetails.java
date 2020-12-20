@@ -43,11 +43,11 @@ public class CustomUserDetails extends User {
 
     @Override
     public String toString() {
-	return "{id=" + id + ", authorities=" + getAuthorities()
-	        + ", password=[PROTECTED], username=" + getUsername()
-	        + ", enabled=" + isEnabled() + ", accountNonExpired="
-	        + isAccountNonExpired() + ", accountNonLocked="
-	        + isAccountNonLocked() + ", credentialsNonExpired="
+	return "{id: " + id + ", authorities: " + getAuthorities()
+	        + ", password: [PROTECTED], username: " + getUsername()
+	        + ", enabled: " + isEnabled() + ", accountNonExpired: "
+	        + isAccountNonExpired() + ", accountNonLocked: "
+	        + isAccountNonLocked() + ", credentialsNonExpired: "
 	        + isCredentialsNonExpired() + "}";
     }
 }

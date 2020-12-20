@@ -11,7 +11,6 @@ import fr.formation.masterpiece.api.repositories.SharingSessionRepository;
 import fr.formation.masterpiece.api.repositories.SubjectRepository;
 import fr.formation.masterpiece.api.services.SharingSessionService;
 import fr.formation.masterpiece.commons.config.AbstractService;
-import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
 import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionCreateDto;
 import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto;
 import fr.formation.masterpiece.domain.entities.CustomUser;
@@ -47,12 +46,10 @@ public class SharingSessionServiceImpl extends AbstractService
     @Transactional
     public SharingSessionViewDto create(SharingSessionCreateDto dto) {
 	Long userId = SecurityHelper.getUserId();
-	CustomUser userProfile = userRepository.findById(userId)
-	        .orElseThrow(() -> new ResourceNotFoundException(
-	                "User id: " + userId + " doesn't exist"));
+	CustomUser user = userRepository.getOne(userId);
 	Subject subject = subjectRepository.getOne(dto.getSubjectId());
 	SharingSession session = convert(dto, SharingSession.class);
-	session.setUser(userProfile);
+	session.setUser(user);
 	session.setSubject(subject);
 	subjectRepository.setSessionScheduleTrue(dto.getSubjectId());
 	SharingSession sessionToSave = sharingSessionRepository.save(session);

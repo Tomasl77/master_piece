@@ -1,26 +1,42 @@
 package fr.formation.masterpiece.config;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.io.IOException;
 
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles(profiles = "test")
-public class JUnitConfigTest {
+public class UnitTestConfig {
 
-    @Autowired
-    protected ObjectMapper objectMapper;
+    protected static final ObjectMapper MAPPER = Jackson2ObjectMapperBuilder
+            .json().build();
 
     @Autowired
     protected ModelMapper modelMapper;
+
+    @BeforeAll
+    protected static void setUp() {
+	MAPPER.setVisibility(
+	        MAPPER.getSerializationConfig().getDefaultVisibilityChecker()
+	                .withFieldVisibility(JsonAutoDetect.Visibility.ANY)
+	                .withGetterVisibility(JsonAutoDetect.Visibility.NONE)
+	                .withIsGetterVisibility(JsonAutoDetect.Visibility.NONE)
+	                .withSetterVisibility(JsonAutoDetect.Visibility.NONE));
+    }
 
     protected final <S, D> D dtoConvert(S inputs, Class<D> destinationType) {
 	return modelMapper.map(inputs, destinationType);
@@ -29,10 +45,12 @@ public class JUnitConfigTest {
     protected final <D> D jsonConvert(String inputs, Class<D> destinationType) {
 	D converted = null;
 	try {
-	    converted = objectMapper.readValue(inputs, destinationType);
+	    converted = MAPPER.readValue(inputs, destinationType);
 	} catch (IOException ex) {
 	    throw new IllegalArgumentException("wrong json string", ex);
 	}
 	return converted;
     }
+
+
 }

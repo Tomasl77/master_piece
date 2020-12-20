@@ -18,7 +18,7 @@ import fr.formation.masterpiece.api.services.SubjectService;
 import fr.formation.masterpiece.commons.annotations.HasRoleAdmin;
 import fr.formation.masterpiece.commons.annotations.HasRoleUser;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectCreateDto;
-import fr.formation.masterpiece.domain.dtos.subjects.SubjectDto;
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectVoteUpdateDto;
 
@@ -40,7 +40,8 @@ public class SubjectController {
     }
 
     @PostMapping
-    public SubjectDto postSubject(@Valid @RequestBody SubjectCreateDto dto) {
+    public SubjectViewDto postSubject(
+            @Valid @RequestBody SubjectCreateDto dto) {
 	return service.create(dto);
     }
 
