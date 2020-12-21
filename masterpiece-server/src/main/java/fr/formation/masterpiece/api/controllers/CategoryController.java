@@ -25,6 +25,7 @@ import fr.formation.masterpiece.domain.dtos.categories.CategoryViewDto;
 public class CategoryController {
 
     @Autowired
+    @SuppressWarnings("unused")
     private final CacheManager cacheManager;
 
     private final CategoryService categoryService;
