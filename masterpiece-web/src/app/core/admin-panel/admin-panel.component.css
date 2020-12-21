@@ -1,3 +1,27 @@
-button, .btn, .btn-success {
-    background-color: #e9041e;
+h4{
+    margin: auto;
+    text-align: center;
+    width: 80%;
+    padding: 5px 0 5px 0;
+    border-bottom: 1px solid grey;
+}
+
+.vertical-20 {
+    margin: 20px 0 20px 0;
+}
+
+.cache-container {
+    margin: auto;
+    width: 80%;
+    background-color: lightgrey;
+}
+
+.cache-button-container{
+    margin: auto;
+    max-width: 80%;
+    margin-bottom: 20px;
+}
+
+.grey {
+    border: 1px solid grey;
 }

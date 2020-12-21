@@ -5,9 +5,10 @@ import { Subscription } from 'rxjs';
 import { UserRegistrationService } from '../user-registration.service';
 import { BtnCellRenderer } from '../../shared/btn-cell-renderer.component'
 import { ConfirmationModalComponent } from 'src/app/shared/modals/confirmation-modal/confirmation-modal.component';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { AuthenticationService } from 'src/app/shared/services/authentication/authentication.service';
 import { UserCredentials } from 'src/app/shared/models/user-credentials.model';
+import { CacheService } from 'src/app/shared/services/cache.service';
 
 @Component({
   selector: 'app-admin-panel',
@@ -19,15 +20,16 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
   private allUsersSubscription: Subscription;
   private deleteUserSubscription: Subscription;
-  private rowData: UserCredentials[];
-  private gridOptions: GridOptions;
-  private columnDefs: ColDef[];
-  private frameworkComponents = {};
+  rowData: UserCredentials[];
+  gridOptions: GridOptions;
+  columnDefs: ColDef[];
+  frameworkComponents = {};
 
   constructor(private userRegistrationService: UserRegistrationService,
     private translateService: TranslateService,
     public dialog: MatDialog,
     private authenthicationService: AuthenticationService,
+    private cacheService: CacheService
   ) {
     this.gridOptions = {
       defaultColDef: { sortable: true, filter: true },
@@ -125,5 +127,10 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
   isAdmin(): boolean {
     return this.authenthicationService.currentUserValue.isAdmin();
+  }
+
+  refreshCacheCategories(): void {
+    console.log("into button")
+    this.cacheService.cleanCache("categories")
   }
 }
