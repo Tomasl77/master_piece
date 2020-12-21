@@ -152,7 +152,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
     this.postSubjectSubscription = request.subscribe(
       (subject: Subject) => {
         this.subjectForm.reset();
-        this.action = "vote";
+        this.router.navigateByUrl("/subject;action=vote")
         this.getSubjectsIfVotePanel();
         this.infoDisplayedWithTime('subject.newTopic', 3000, subject.title);
       },
