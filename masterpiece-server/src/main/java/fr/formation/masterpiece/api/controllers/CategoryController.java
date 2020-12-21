@@ -2,6 +2,9 @@ package fr.formation.masterpiece.api.controllers;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,12 +24,18 @@ import fr.formation.masterpiece.domain.dtos.categories.CategoryViewDto;
 @RequestMapping("/categories")
 public class CategoryController {
 
+    @Autowired
+    private final CacheManager cacheManager;
+
     private final CategoryService categoryService;
 
-    public CategoryController(CategoryService categoryService) {
+    public CategoryController(CacheManager cacheManager,
+            CategoryService categoryService) {
+	this.cacheManager = cacheManager;
 	this.categoryService = categoryService;
     }
 
+    @Cacheable("categories")
     @GetMapping
     public List<CategoryViewDto> getAll() {
 	return categoryService.getAll();
