@@ -25,3 +25,15 @@ h4{
 .grey {
     border: 1px solid grey;
 }
+
+.form-group, .alert {
+    text-align: center;
+}
+
+.form-control, .alert {
+    width: 60%;
+}
+
+input,textarea, .alert {
+    margin: 20px auto 20px auto ;
+}

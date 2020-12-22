@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Config } from 'src/assets/config-properties';
 import { HttpRequestHandler } from './http-helper/http-request-handler';
 
@@ -11,9 +12,7 @@ export class CacheService {
 
   constructor(private readonly http: HttpRequestHandler) { }
 
-  cleanCache(cacheName: string) {
-    console.log("into cache service")
-    this.http.get(this.baseUrl + "/" + cacheName);
-    console.log(this.baseUrl + "/" + cacheName);
+  cleanCache(cacheName: string): Observable<any> {
+    return this.http.get(this.baseUrl + "/" + cacheName);
   }
 }
