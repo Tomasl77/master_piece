@@ -1,11 +1,17 @@
 <div class="grid-container">
-    <ag-grid-angular 
-        style="width: 100%;" 
-        class="ag-theme-alpine" 
-        [rowData]="rowData"
-        [columnDefs]="columnDefs"
-        [gridOptions]="gridOptions"
-        [frameworkComponents]="frameworkComponents"
-        domLayout='autoHeight'>
-    </ag-grid-angular>
+  <ag-grid-angular style="width: 100%;" class="ag-theme-alpine" [rowData]="rowData" [columnDefs]="columnDefs"
+    [gridOptions]="gridOptions" [frameworkComponents]="frameworkComponents" domLayout='autoHeight'>
+  </ag-grid-angular>
+</div>
+<div>
+  <div *ngIf="infoToDisplay" class="alert alert-danger">
+    {{infoToDisplay}}
+  </div>
+</div>
+<div class="cache-container grey">
+  <h4>Cache management</h4>
+  <div class="cache-button-container">
+    <button class="btn btn-success red vertical-20" [routerLink]=""
+      (click)="refreshCacheCategories()">Categories</button>
+  </div>
 </div>

@@ -6,6 +6,9 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.config.Configuration.AccessLevel;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
@@ -28,6 +31,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author Tomas LOBGEOIS
  */
 @Configuration
+@EnableCaching
 public class BeanConfig {
 
     private String host;
@@ -97,7 +101,11 @@ public class BeanConfig {
 	props.put("mail.smtp.auth", "true");
 	props.put("mail.smtp.starttls", "true");
 	props.put("mail.smtp.starttls.enable", "true");
-	props.put("mail.debug", "true");
 	return javaMailSender;
+    }
+
+    @Bean
+    public CacheManager cacheManager() {
+	return new ConcurrentMapCacheManager("categories");
     }
 }

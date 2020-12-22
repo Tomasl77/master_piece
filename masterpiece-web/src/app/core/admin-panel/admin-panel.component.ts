@@ -1,13 +1,16 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ColDef, GridOptions } from 'ag-grid-community';
 import { Subscription } from 'rxjs';
 import { UserRegistrationService } from '../user-registration.service';
 import { BtnCellRenderer } from '../../shared/btn-cell-renderer.component'
 import { ConfirmationModalComponent } from 'src/app/shared/modals/confirmation-modal/confirmation-modal.component';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { AuthenticationService } from 'src/app/shared/services/authentication/authentication.service';
 import { UserCredentials } from 'src/app/shared/models/user-credentials.model';
+import { CacheService } from 'src/app/shared/services/cache.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ErrorHandler } from 'src/app/shared/services/error-handler';
 
 @Component({
   selector: 'app-admin-panel',
@@ -19,15 +22,17 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
   private allUsersSubscription: Subscription;
   private deleteUserSubscription: Subscription;
-  private rowData: UserCredentials[];
-  private gridOptions: GridOptions;
-  private columnDefs: ColDef[];
-  private frameworkComponents = {};
+  rowData: UserCredentials[];
+  gridOptions: GridOptions;
+  columnDefs: ColDef[];
+  frameworkComponents = {};
+  infoToDisplay: string;
 
   constructor(private userRegistrationService: UserRegistrationService,
     private translateService: TranslateService,
     public dialog: MatDialog,
     private authenthicationService: AuthenticationService,
+    private cacheService: CacheService
   ) {
     this.gridOptions = {
       defaultColDef: { sortable: true, filter: true },
@@ -57,33 +62,31 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     this.allUsersSubscription = this.userRegistrationService.getAllUsers().subscribe(
       ((users: UserCredentials[]) => {
         this.rowData = users;
-        console.log(this.rowData)
       }),
       err => console.log(err)
     );
   }
 
-  openDialog(user: UserCredentials){
+  openDialog(user: UserCredentials) {
     console.log(user);
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {
       position: {
         top: "50px"
       },
-      data: 
-        {dataToProcess : user.username,
+      data:
+      {
+        dataToProcess: user.username,
         action: this.translate('dialog.delete'),
         object: this.translate('dialog.user')
       },
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(user.id);
-      result == 'confirm' ? this.deleteUser(user.id): dialogRef.close();
+      result == 'confirm' ? this.deleteUser(user.id) : dialogRef.close();
     })
   }
-  
+
   deleteUser(id: number) {
-    this.deleteUserSubscription = this.userRegistrationService.deleteUser(id).subscribe(response=> {
-      console.log("response : "+ response);
+    this.deleteUserSubscription = this.userRegistrationService.deleteUser(id).subscribe(() => {
       this.getAllUsers();
     });
   }
@@ -96,12 +99,12 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
         { headerName: this.translate('ag-grid.admin-panel.email'), field: 'email' },
         {
           headerName: this.translate('ag-grid.delete'),
-          cellStyle:  { border: "none" },
+          cellStyle: { border: "none" },
           hide: !this.isAdmin(),
           cellRenderer: 'btnCellRenderer',
           cellRendererParams: {
             onClick: this.openDeleteModal.bind(this),
-            btnClass : "btn btn-success",
+            btnClass: "btn btn-success",
             label: this.translate('admin-panel.label-delete'),
             isPanelAdmin: true,
           }
@@ -125,5 +128,24 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
   isAdmin(): boolean {
     return this.authenthicationService.currentUserValue.isAdmin();
+  }
+
+  refreshCacheCategories(): void {
+    this.cacheService.cleanCache("categories").subscribe(() => {
+      this.infoDisplayedWithTime('cache', 1500);
+    }, (error: HttpErrorResponse) => {
+      const message = ErrorHandler.catch(error);
+      console.log(message);
+    })
+  }
+
+  infoDisplayedWithTime(info: string, time: number, optionalValue?: any): void {
+    this.infoToDisplay = this.translateService.instant(info);
+    if (optionalValue) {
+      this.infoToDisplay += optionalValue
+    }
+    setTimeout(() => {
+      this.infoToDisplay = null
+    }, time)
   }
 }
