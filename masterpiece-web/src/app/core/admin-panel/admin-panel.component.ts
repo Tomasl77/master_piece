@@ -62,7 +62,6 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     this.allUsersSubscription = this.userRegistrationService.getAllUsers().subscribe(
       ((users: UserCredentials[]) => {
         this.rowData = users;
-        console.log(this.rowData)
       }),
       err => console.log(err)
     );
@@ -82,14 +81,12 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
       },
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(user.id);
       result == 'confirm' ? this.deleteUser(user.id) : dialogRef.close();
     })
   }
 
   deleteUser(id: number) {
-    this.deleteUserSubscription = this.userRegistrationService.deleteUser(id).subscribe(response => {
-      console.log("response : " + response);
+    this.deleteUserSubscription = this.userRegistrationService.deleteUser(id).subscribe(() => {
       this.getAllUsers();
     });
   }
