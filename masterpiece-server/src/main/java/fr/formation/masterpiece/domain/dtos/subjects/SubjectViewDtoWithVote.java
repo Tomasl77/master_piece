@@ -27,12 +27,6 @@ public class SubjectViewDtoWithVote implements Serializable {
 
     private Long numberOfVote;
 
-    /**
-     * Default no args constructor
-     */
-    public SubjectViewDtoWithVote() {
-    }
-
     public SubjectViewDtoWithVote(Long id, String title, String description,
             String category, String requester, Long numberOfVote) {
 	this.id = id;

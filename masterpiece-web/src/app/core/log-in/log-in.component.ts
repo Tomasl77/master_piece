@@ -4,6 +4,7 @@ import { AuthenticationService } from 'src/app/shared/services/authentication/au
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
+import { TokenStorageService } from 'src/app/shared/token-storage.service';
 
 @Component({
   selector: 'app-log-in',
@@ -15,6 +16,7 @@ export class LogInComponent implements OnInit {
 
   private grant_type: string = "password";
   private client_id: string = "masterpiece-web";
+  private isTokenExpired : boolean = true;
   errorReturned: string;
 
   public logInForm: FormGroup;
@@ -23,7 +25,8 @@ export class LogInComponent implements OnInit {
     private fb: FormBuilder, 
     private authService: AuthenticationService, 
     private router : Router,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private tokenStorageService: TokenStorageService
     ) {
     this.logInForm = this.fb.group({
       username: '',
@@ -34,24 +37,31 @@ export class LogInComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isTokenExpired = this.tokenStorageService.isExpired();
+    if(this.isTokenExpired) {
+      localStorage.removeItem("token")
+    } else {
+      this.isTokenExpired = false;
+      this.router.navigate(['/accounts']);
+    }
   }
 
   logIn() {
     this.authService.logIn(this.logInForm).subscribe(
       () => {
-        this.router.navigate(['/accounts'])
+        this.router.navigate(['/accounts']);
       },
       (error: HttpErrorResponse) => {
         if(error.status == 400) {
           this.errorReturned = this.translateService.instant('error.bad-credentials');
           setTimeout(()=> {
-            this.errorReturned = null
+            this.errorReturned = null;
           }, 2000)
         }
         if(error.status != 400) {
           this.errorReturned = this.translateService.instant('error.occured');
           setTimeout(()=> {
-            this.errorReturned = null
+            this.errorReturned = null;
           }, 2000)
         }
       }
