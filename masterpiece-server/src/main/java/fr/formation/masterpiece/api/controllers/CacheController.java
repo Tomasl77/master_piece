@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.formation.masterpiece.api.services.CacheService;
+import fr.formation.masterpiece.commons.annotations.HasRoleAdmin;
 
 @RestController
+@HasRoleAdmin
 @RequestMapping("/caches")
 public class CacheController {
 

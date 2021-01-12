@@ -31,4 +31,10 @@ public class CustomUserViewDto {
     public String getUsername() {
 	return username;
     }
+
+    @Override
+    public String toString() {
+	return "{id: " + id + ", username: " + username + ", email: " + email
+	        + "}";
+    }
 }
