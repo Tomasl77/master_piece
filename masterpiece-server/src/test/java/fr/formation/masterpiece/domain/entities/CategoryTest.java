@@ -1,5 +1,6 @@
 package fr.formation.masterpiece.domain.entities;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
@@ -14,8 +15,14 @@ class CategoryTest extends UnitTestConfig {
 	assertNotNull(actual);
     }
 
+    @Test
     void should_get_name() {
 	Category actual = new Category();
 	assertNotNull(actual);
+    }
+
+    void should_to_string() {
+	Category actual = new Category();
+	assertEquals("{name: null}", actual.toString());
     }
 }

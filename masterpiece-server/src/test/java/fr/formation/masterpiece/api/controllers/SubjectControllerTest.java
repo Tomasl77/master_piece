@@ -9,20 +9,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 
-import fr.formation.masterpiece.api.controllers.SubjectController;
 import fr.formation.masterpiece.config.IntegrationTestConfig;
 
 class SubjectControllerTest extends IntegrationTestConfig {
 
     @Value("${mock.path.subjects}")
     private String path;
-
-    @Autowired
-    private SubjectController subjectController;
 
     @Test
     void should_admin_delete_subject() throws Exception {

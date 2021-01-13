@@ -89,8 +89,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
      */
     @Override
     public List<CustomUserViewDto> getAll() {
-	List<CustomUser> users = userRepository.findAllByEnabled(true);
-	return convertList(users, CustomUserViewDto.class);
+	return userRepository.findAllByEnabled(true);
     }
 
     /**

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,7 +35,6 @@ public class CategoryController {
 	this.categoryService = categoryService;
     }
 
-    @Cacheable("categories")
     @GetMapping
     public List<CategoryViewDto> getAll() {
 	return categoryService.getAll();

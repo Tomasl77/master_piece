@@ -63,4 +63,18 @@ public final class JpqlQuery {
      */
     static final String USER_VOTED_SUBJECTS = "SELECT new fr.formation.masterpiece.domain.dtos.subjects.VoteSubjectDto"
             + "(s.id) FROM Subject s JOIN s.voters v WHERE v.id = :userId GROUP BY s.id";
+
+    /**
+     * Create new {@code List} of {@code Categories} to have all categories
+     * available to create subject
+     */
+    public static final String LIST_CATEGORIES = "SELECT new fr.formation.masterpiece.domain.dtos.categories.CategoryViewDto"
+            + "(c.id, c.name) FROM Category c";
+
+    /**
+     * Create new {@code List} of {@code CustomUser} to have all users depending
+     * on their enabled status
+     */
+    public static final String FIND_USERS_BY_ENABLED = "SELECT new fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto"
+            + "(u.id, u.username, u.email) FROM CustomUser u WHERE u.enabled = :enabled";
 }

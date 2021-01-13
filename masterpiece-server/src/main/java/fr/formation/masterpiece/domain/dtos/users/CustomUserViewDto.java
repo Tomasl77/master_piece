@@ -22,7 +22,19 @@ public class CustomUserViewDto {
 	//
     }
 
+    public CustomUserViewDto(Long id, String username, String email) {
+	this.id = id;
+	this.username = username;
+	this.email = email;
+    }
+
     public String getUsername() {
 	return username;
+    }
+
+    @Override
+    public String toString() {
+	return "{id: " + id + ", username: " + username + ", email: " + email
+	        + "}";
     }
 }

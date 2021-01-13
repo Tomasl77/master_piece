@@ -60,15 +60,9 @@ export class AuthenticationService {
   mapUserInfos(): User {
     const token = this.tokenStorageService.getToken();
     if(token != null) {
-      const jwtDecoded = this.parseJwt(token.accessToken);
+      const jwtDecoded = this.tokenStorageService.parseJwt(token.accessToken);
       const user = new User(jwtDecoded.user_name, jwtDecoded.userId, jwtDecoded.authorities); 
       return user;
     }
   }
-
-  parseJwt(token: string) {
-    var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace('-', '+').replace('_', '/');
-    return JSON.parse(atob(base64));
-  };
 }

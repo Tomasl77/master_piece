@@ -19,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 /**
  * Configuration class declaring configuration beans.
@@ -51,6 +52,8 @@ public class BeanConfig {
     @Bean
     protected ObjectMapper objectMapper() {
 	ObjectMapper mapper = Jackson2ObjectMapperBuilder.json().build();
+	mapper.findAndRegisterModules();
+	mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 	mapper.setVisibility(
 	        mapper.getSerializationConfig().getDefaultVisibilityChecker()
 	                .withFieldVisibility(JsonAutoDetect.Visibility.ANY)

@@ -16,7 +16,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import fr.formation.masterpiece.commons.utils.BooleanConverter;
-import lombok.Getter;
 
 /**
  * Entity representing a {@code SharingSession}.
@@ -35,7 +34,6 @@ import lombok.Getter;
  *
  */
 @Entity
-@Getter
 @Table(name = "subjects",
         uniqueConstraints = @UniqueConstraint(
                 name = "UK_requestdate_requesterid",
@@ -73,6 +71,10 @@ public class Subject extends AbstractEntity {
             inverseJoinColumns = @JoinColumn(name = "user_id",
                     foreignKey = @ForeignKey(name = "FK_user_has_voted")))
     private List<CustomUser> voters;
+
+    public String getTitle() {
+	return this.title;
+    }
 
     public void setUser(CustomUser user) {
 	this.requester = user;

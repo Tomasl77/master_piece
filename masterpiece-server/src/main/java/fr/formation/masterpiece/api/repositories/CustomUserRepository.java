@@ -60,5 +60,15 @@ public interface CustomUserRepository extends JpaRepository<CustomUser, Long> {
     @Query(JpqlQuery.DEACTIVATE_USER)
     void deActivate(@Param("userId") Long id);
 
-    List<CustomUser> findAllByEnabled(boolean enabled);
+    /**
+     * Returns a {@code List} of {@code CustomUser} containing only the users
+     * matching to the boolean
+     *
+     * @param enabled the boolean to match
+     * @return a {@code List} of {@code CustomUser}
+     *
+     * @author Tomas LOBGEOIS
+     */
+    @Query(JpqlQuery.FIND_USERS_BY_ENABLED)
+    List<CustomUserViewDto> findAllByEnabled(boolean enabled);
 }

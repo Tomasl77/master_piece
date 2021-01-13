@@ -78,7 +78,7 @@ public class SharingSessionServiceImpl extends AbstractService
      * @param hours    the choosen hours
      * @param minutes  the choosen minutes
      * @param seconds  the choosen seconds
-     * @return the date time formatteds
+     * @return the date time formatted
      *
      * @author Tomas LOBGEOIS
      */
