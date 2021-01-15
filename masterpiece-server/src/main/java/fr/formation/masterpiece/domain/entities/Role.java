@@ -11,7 +11,7 @@ import fr.formation.masterpiece.commons.utils.BooleanConverter;
 /**
  * Entity representing a {@code Role}.
  * <p>
- * Role define {@code CustomUser} authorizations.
+ * Role define {@code EntityUser} authorizations.
  *
  * @author Tomas LOBGEOIS
  *

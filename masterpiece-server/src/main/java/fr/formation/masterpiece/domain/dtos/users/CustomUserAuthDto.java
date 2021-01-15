@@ -5,7 +5,7 @@ import java.util.Set;
 import fr.formation.masterpiece.domain.entities.Role;
 
 /**
- * A projection of a {@code CustomUser} for authentication.
+ * A projection of a {@code EntityUser} for authentication.
  */
 public interface CustomUserAuthDto {
 

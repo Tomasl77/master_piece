@@ -6,17 +6,17 @@ import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
 
 /**
  * Service to extends {@code UserDetailsService} and add some logic about
- * {@code CustomUser}
+ * {@code EntityUser}
  *
  * @author Tomas LOBGEOIS
  */
 public interface UserInfoDetailsService extends UserDetailsService {
 
     /**
-     * Returns current authenticated {@code CustomUser}.
+     * Returns current authenticated {@code EntityUser}.
      *
-     * @param id the identifier of currently authenticated {@code CustomUser}
-     * @return {@code CustomUserViewInfo} representing a {@code CustomUser}
+     * @param id the identifier of currently authenticated {@code EntityUser}
+     * @return {@code CustomUserViewInfo} representing a {@code EntityUser}
      */
     CustomUserViewDto getCurrentUserInfo(Long id);
 }

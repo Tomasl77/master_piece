@@ -24,7 +24,7 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
     /**
      * Retrieve a {@code List} of {@code Subject} with the following condition:
      * <p>
-     * {@code CustomUser} requester must have an enable account
+     * {@code EntityUser} requester must have an enable account
      *
      * @param isSheduled {@code true} to have all {@code Subject} already
      *                   scheduled, {@code false} to have all {@code Subject}

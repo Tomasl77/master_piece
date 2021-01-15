@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import fr.formation.masterpiece.api.repositories.CustomUserRepository;
 import fr.formation.masterpiece.api.services.EmailService;
 import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto;
-import fr.formation.masterpiece.domain.entities.CustomUser;
+import fr.formation.masterpiece.domain.entities.EntityUser;
 import fr.formation.masterpiece.domain.entities.Mail;
 
 /**
@@ -41,7 +41,7 @@ public class EmailManager {
     }
 
     private List<String> getRecipients() {
-	List<CustomUser> users = userRepository.findAll();
+	List<EntityUser> users = userRepository.findAll();
 	List<String> recipients = new ArrayList<>();
 	users.forEach(user -> recipients.add(user.getEmail()));
 	return recipients;

@@ -1,9 +1,9 @@
 package fr.formation.masterpiece.domain.dtos.users;
 
 /**
- * {@code DTO} representation of a {@code CustomUser}.
+ * {@code DTO} representation of a {@code EntityUser}.
  * <p>
- * This DTO give all informations about a {@code CustomUser}.
+ * This DTO give all informations about a {@code EntityUser}.
  *
  * @author Tomas LOBGEOIS
  */

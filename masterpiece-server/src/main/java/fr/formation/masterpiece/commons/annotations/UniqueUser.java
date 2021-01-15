@@ -11,7 +11,7 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 /**
- * Custom annotation to ensure {@code CustomUser}'s username is unique
+ * Custom annotation to ensure {@code EntityUser}'s username is unique
  *
  * @author tomas
  *

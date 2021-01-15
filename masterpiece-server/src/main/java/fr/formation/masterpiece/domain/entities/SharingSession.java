@@ -22,7 +22,7 @@ import lombok.Getter;
  * <li>startTime cannot be null</li>
  * <li>endTime cannot be null</li>
  * <li>{@code Subject} must exists in database</li>
- * <li>{@code CustomUser} must exists in database</li>
+ * <li>{@code EntityUser} must exists in database</li>
  * </ul>
  *
  * @author Tomas LOBGEOIS
@@ -51,13 +51,13 @@ public class SharingSession extends AbstractEntity {
     @JoinColumn(name = "lecturer_id", referencedColumnName = "id",
             nullable = false,
             foreignKey = @ForeignKey(name = "FK_sharingsession_user"))
-    private CustomUser lecturer;
+    private EntityUser lecturer;
 
     public void setSubject(Subject subject) {
 	this.subject = subject;
     }
 
-    public void setUser(CustomUser user) {
+    public void setUser(EntityUser user) {
 	this.lecturer = user;
     }
 }

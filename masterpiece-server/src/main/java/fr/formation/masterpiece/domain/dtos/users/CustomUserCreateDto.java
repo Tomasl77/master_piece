@@ -9,7 +9,7 @@ import fr.formation.masterpiece.commons.annotations.UniqueEmail;
 import fr.formation.masterpiece.commons.annotations.UniqueUser;
 
 /**
- * {@code DTO} representing {@code CustomUser} data to be persisted in database.
+ * {@code DTO} representing {@code EntityUser} data to be persisted in database.
  *
  * @author Tomas LOBGEOIS
  */

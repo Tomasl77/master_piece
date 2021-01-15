@@ -20,7 +20,7 @@ import fr.formation.masterpiece.domain.dtos.users.CustomUserDto;
 import fr.formation.masterpiece.domain.dtos.users.CustomUserPatchDto;
 import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
 import fr.formation.masterpiece.domain.dtos.users.UpdateCustomUserDto;
-import fr.formation.masterpiece.domain.entities.CustomUser;
+import fr.formation.masterpiece.domain.entities.EntityUser;
 import fr.formation.masterpiece.domain.entities.Role;
 import fr.formation.masterpiece.security.SecurityHelper;
 
@@ -51,9 +51,9 @@ public class UserServiceImpl extends AbstractService implements UserService {
 	String encodedPassword = passwordEncoder.encode(dto.getPassword());
 	Set<Role> role = new HashSet<>();
 	role.add(roleRepository.findByDefaultRole(true));
-	CustomUser user = new CustomUser(encodedPassword, dto.getUsername(),
+	EntityUser user = new EntityUser(encodedPassword, dto.getUsername(),
 	        role, true, true, true, true, dto.getEmail());
-	CustomUser savedUser = userRepository.save(user);
+	EntityUser savedUser = userRepository.save(user);
 	CustomUserDto dtoToReturn = convert(savedUser, CustomUserDto.class);
 	return dtoToReturn;
     }
@@ -71,7 +71,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
 
     @Override
     public CustomUserViewDto getOne(Long id) {
-	CustomUser userProfile = userRepository.findById(id).orElseThrow(
+	EntityUser userProfile = userRepository.findById(id).orElseThrow(
 	        () -> new ResourceNotFoundException("User not found"));
 	return convert(userProfile, CustomUserViewDto.class);
     }
@@ -104,10 +104,10 @@ public class UserServiceImpl extends AbstractService implements UserService {
     @Transactional
     public UpdateCustomUserDto update(CustomUserPatchDto userDto) {
 	Long userId = SecurityHelper.getUserId();
-	CustomUser actualUser = userRepository.findById(userId).orElseThrow(
+	EntityUser actualUser = userRepository.findById(userId).orElseThrow(
 	        () -> new ResourceNotFoundException("No account found"));
 	merge(userDto, actualUser);
-	CustomUser savedUser = userRepository.save(actualUser);
+	EntityUser savedUser = userRepository.save(actualUser);
 	return convert(savedUser, UpdateCustomUserDto.class);
     }
 

@@ -11,7 +11,7 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 /**
- * Custom annotation to ensure {@code CustomUser}'s email is unique
+ * Custom annotation to ensure {@code EntityUser}'s email is unique
  *
  * @author Tomas LOBGEOIS
  *

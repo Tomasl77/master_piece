@@ -11,7 +11,7 @@ import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
 import fr.formation.masterpiece.domain.dtos.users.UpdateCustomUserDto;
 
 /**
- * Service to handle {@code CustomUser} logic.
+ * Service to handle {@code EntityUser} logic.
  *
  * @author Tomas LOBGEOIS
  */
@@ -54,26 +54,26 @@ public interface UserService {
     UsernameCheckDto checkUsername(String username);
 
     /**
-     * Delete a {@code CustomUser} by his id.
+     * Delete a {@code EntityUser} by his id.
      * <p>
      *
-     * @param id the given identifier of the {@code CustomUser} to delete
+     * @param id the given identifier of the {@code EntityUser} to delete
      */
     void deleteOne(Long id);
 
     /**
-     * Get a {@code List} of all active {@code CustomUser}
+     * Get a {@code List} of all active {@code EntityUser}
      *
      * @return a {@code List} of {@code CustomUserViewDto}
      */
     List<CustomUserViewDto> getAll();
 
     /**
-     * Persists given {@code CustomUser}.
+     * Persists given {@code EntityUser}.
      *
      * @param dto the dto holding informations
      * @return an {@code CustomUserDto} encapsulating the username and email of
-     *         the persisted {@code CustomUser}
+     *         the persisted {@code EntityUser}
      */
     CustomUserDto create(CustomUserCreateDto dto);
 
@@ -88,7 +88,7 @@ public interface UserService {
     UserEmailCheckDto checkEmail(String email);
 
     /**
-     * Update a {@code CustomUser} email
+     * Update a {@code EntityUser} email
      *
      * @param userDto the dto containing the new email
      * @return a {@code CustomUserUpdateDto} containing the new email

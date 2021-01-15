@@ -13,11 +13,11 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import fr.formation.masterpiece.config.UnitTestConfig;
 
-class CustomUserTest extends UnitTestConfig {
+class EntityUserTest extends UnitTestConfig {
 
     @Test
     void should_construct_empty_constructor() {
-	CustomUser tested = new CustomUser();
+	EntityUser tested = new EntityUser();
 	assertNotNull(tested);
     }
 
@@ -26,7 +26,7 @@ class CustomUserTest extends UnitTestConfig {
 	Role role = new Role("ROLE_USER");
 	Set<Role> roles = new HashSet<>();
 	roles.add(role);
-	CustomUser tested = new CustomUser("password", "Johanna", roles);
+	EntityUser tested = new EntityUser("password", "Johanna", roles);
 	assertEquals("password", tested.getPassword());
 	assertEquals("Johanna", tested.getUsername());
 	assertEquals(1, tested.getRoles().size());
@@ -37,7 +37,7 @@ class CustomUserTest extends UnitTestConfig {
 	Role role = new Role("ROLE_USER");
 	Set<Role> roles = new HashSet<>();
 	roles.add(role);
-	CustomUser tested = new CustomUser("password", "Thierry", roles, true,
+	EntityUser tested = new EntityUser("password", "Thierry", roles, true,
 	        true, true, true, "thierry@gmail.com");
 	assertEquals("password", tested.getPassword());
 	assertEquals("Thierry", tested.getUsername());
@@ -56,7 +56,7 @@ class CustomUserTest extends UnitTestConfig {
 	Role role = new Role("ROLE_USER");
 	Set<Role> roles = new HashSet<>();
 	roles.add(role);
-	CustomUser tested = new CustomUser("password", "Thierry", roles, true,
+	EntityUser tested = new EntityUser("password", "Thierry", roles, true,
 	        true, true, true, "thierry@gmail.com");
 	assertEquals(toString, tested.toString());
     }

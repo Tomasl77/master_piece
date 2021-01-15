@@ -14,7 +14,7 @@ import fr.formation.masterpiece.commons.config.AbstractService;
 import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionCreateDto;
 import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto;
 import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto2;
-import fr.formation.masterpiece.domain.entities.CustomUser;
+import fr.formation.masterpiece.domain.entities.EntityUser;
 import fr.formation.masterpiece.domain.entities.SharingSession;
 import fr.formation.masterpiece.domain.entities.Subject;
 import fr.formation.masterpiece.security.SecurityHelper;
@@ -47,7 +47,7 @@ public class SharingSessionServiceImpl extends AbstractService
     @Transactional
     public SharingSessionViewDto create(SharingSessionCreateDto dto) {
 	Long userId = SecurityHelper.getUserId();
-	CustomUser user = userRepository.getOne(userId);
+	EntityUser user = userRepository.getOne(userId);
 	Subject subject = subjectRepository.getOne(dto.getSubjectId());
 	SharingSession session = convert(dto, SharingSession.class);
 	session.setUser(user);
@@ -67,7 +67,9 @@ public class SharingSessionServiceImpl extends AbstractService
 
     @Override
     public List<SharingSessionViewDto2> getAllSessionsBis() {
-	return sharingSessionRepository.getAllSessionWithUserEnableBis();
+	List<SharingSessionViewDto2> test = sharingSessionRepository
+	        .getAllSessionWithUserEnableBis();
+	return test;
     }
 
     @Override

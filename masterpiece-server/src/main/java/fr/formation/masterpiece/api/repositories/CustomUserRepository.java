@@ -10,12 +10,12 @@ import org.springframework.data.repository.query.Param;
 
 import fr.formation.masterpiece.domain.dtos.users.CustomUserAuthDto;
 import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
-import fr.formation.masterpiece.domain.entities.CustomUser;
+import fr.formation.masterpiece.domain.entities.EntityUser;
 
 /**
- * {@link JpaRepository} to handle {@code CustomUser} persistence.
+ * {@link JpaRepository} to handle {@code EntityUser} persistence.
  */
-public interface CustomUserRepository extends JpaRepository<CustomUser, Long> {
+public interface CustomUserRepository extends JpaRepository<EntityUser, Long> {
 
     /**
      * Retrieves a projected view of the {@code UserAuth} with given username.
@@ -61,11 +61,11 @@ public interface CustomUserRepository extends JpaRepository<CustomUser, Long> {
     void deActivate(@Param("userId") Long id);
 
     /**
-     * Returns a {@code List} of {@code CustomUser} containing only the users
+     * Returns a {@code List} of {@code EntityUser} containing only the users
      * matching to the boolean
      *
      * @param enabled the boolean to match
-     * @return a {@code List} of {@code CustomUser}
+     * @return a {@code List} of {@code EntityUser}
      *
      * @author Tomas LOBGEOIS
      */

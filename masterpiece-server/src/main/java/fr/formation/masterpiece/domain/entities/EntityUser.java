@@ -17,9 +17,9 @@ import fr.formation.masterpiece.commons.utils.BooleanConverter;
 import lombok.Getter;
 
 /**
- * Entity representing a {@code CustomUser}.
+ * Entity representing a {@code EntityUser}.
  * <p>
- * {@code CustomUser} is used to identify a user. It follows Spring
+ * {@code EntityUser} is used to identify a user. It follows Spring
  * {@code UserDetails} most fields.
  * <p>
  * All fields are mandatory
@@ -31,7 +31,7 @@ import lombok.Getter;
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(name = "UK_username", columnNames = { "username" }),
         @UniqueConstraint(name = "UK_email", columnNames = { "email" }) })
-public class CustomUser extends AbstractEntity {
+public class EntityUser extends AbstractEntity {
 
     @Column(length = 255, nullable = false, updatable = false)
     private String username;
@@ -66,7 +66,7 @@ public class CustomUser extends AbstractEntity {
     @Column(name = "email", nullable = false, length = 255)
     private String email;
 
-    protected CustomUser() {
+    protected EntityUser() {
 	// Empty no-arg constructor
     }
 
@@ -77,7 +77,7 @@ public class CustomUser extends AbstractEntity {
      * @param username a unique username
      * @param roles    some roles
      */
-    public CustomUser(String password, String username, Set<Role> roles) {
+    public EntityUser(String password, String username, Set<Role> roles) {
 	this(password, username, roles, true);
     }
 
@@ -89,7 +89,7 @@ public class CustomUser extends AbstractEntity {
      * @param roles    some roles
      * @param enabled  {@code true} if enabled; {@code false} otherwise
      */
-    public CustomUser(String password, String username, Set<Role> roles,
+    public EntityUser(String password, String username, Set<Role> roles,
             boolean enabled) {
 	this.password = password;
 	this.username = username;
@@ -114,7 +114,7 @@ public class CustomUser extends AbstractEntity {
      * @param email                 a unique email
      * @author Tomas LOBGEOIS
      */
-    public CustomUser(String password, String username, Set<Role> roles,
+    public EntityUser(String password, String username, Set<Role> roles,
             boolean enabled, boolean accountNonExpired,
             boolean accountNonLocked, boolean credentialsNonExpired,
             String email) {
