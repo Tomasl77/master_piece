@@ -7,7 +7,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import fr.formation.masterpiece.commons.utils.BooleanConverter;
-import lombok.Getter;
 
 /**
  * Entity representing a {@code Role}.
@@ -17,7 +16,6 @@ import lombok.Getter;
  * @author Tomas LOBGEOIS
  *
  */
-@Getter
 @Entity
 @Table(name = "roles", uniqueConstraints = {
         @UniqueConstraint(name = "UQ_code", columnNames = { "code" }) })
@@ -34,6 +32,10 @@ public class Role extends AbstractEntity {
 	this.code = code;
     }
 
-    public Role() {
+    public String getCode() {
+	return code;
+    }
+
+    protected Role() {
     }
 }
