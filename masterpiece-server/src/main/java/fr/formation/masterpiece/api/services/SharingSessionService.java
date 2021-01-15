@@ -5,6 +5,7 @@ import java.util.List;
 
 import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionCreateDto;
 import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto;
+import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto2;
 
 /**
  * Service to handle {@code SharingSession} logic.
@@ -28,6 +29,8 @@ public interface SharingSessionService {
      * @return a {@code List} of {@code SharingSession}
      */
     List<SharingSessionViewDto> getAllSessions();
+
+    List<SharingSessionViewDto2> getAllSessionsBis();
 
     /**
      * Retrieves wether or not a sharing session is already scheduled this day

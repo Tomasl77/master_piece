@@ -16,6 +16,7 @@ import fr.formation.masterpiece.commons.annotations.HasRoleUser;
 import fr.formation.masterpiece.commons.utils.EmailManager;
 import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionCreateDto;
 import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto;
+import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto2;
 
 /**
  * A {@link RestController} to handle {@code SharingSession}
@@ -49,8 +50,13 @@ public class SharingSessionController {
 	return dtoToReturn;
     }
 
-    @GetMapping
+    @GetMapping("/bis")
     List<SharingSessionViewDto> getAllSessions() {
 	return sharingSessionService.getAllSessions();
+    }
+
+    @GetMapping
+    List<SharingSessionViewDto2> getAllSessionsBis() {
+	return sharingSessionService.getAllSessionsBis();
     }
 }

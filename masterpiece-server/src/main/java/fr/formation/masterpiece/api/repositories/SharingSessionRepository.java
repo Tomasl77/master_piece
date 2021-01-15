@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto2;
 import fr.formation.masterpiece.domain.entities.SharingSession;
 
 /**
@@ -33,6 +34,9 @@ public interface SharingSessionRepository
      */
     @Query(JpqlQuery.SESSION_WITH_ENABLE_LECTURER)
     List<SharingSession> getAllSessionWithUserEnable();
+
+    @Query(JpqlQuery.SESSION_WITH_ENABLE_LECTURER_BIS)
+    List<SharingSessionViewDto2> getAllSessionWithUserEnableBis();
 
     boolean existsByStartTimeBetween(LocalDateTime startOfDay,
             LocalDateTime endOfDay);

@@ -13,6 +13,7 @@ import fr.formation.masterpiece.api.services.SharingSessionService;
 import fr.formation.masterpiece.commons.config.AbstractService;
 import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionCreateDto;
 import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto;
+import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto2;
 import fr.formation.masterpiece.domain.entities.CustomUser;
 import fr.formation.masterpiece.domain.entities.SharingSession;
 import fr.formation.masterpiece.domain.entities.Subject;
@@ -62,6 +63,11 @@ public class SharingSessionServiceImpl extends AbstractService
 	        sharingSessionRepository.getAllSessionWithUserEnable(),
 	        SharingSessionViewDto.class);
 	return list;
+    }
+
+    @Override
+    public List<SharingSessionViewDto2> getAllSessionsBis() {
+	return sharingSessionRepository.getAllSessionWithUserEnableBis();
     }
 
     @Override

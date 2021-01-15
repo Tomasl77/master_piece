@@ -6,6 +6,6 @@ export class SharingSession {
     day: Date;
     startTime: Date;
     endTime: Date;
-    subject: Subject;
-    lecturer: UserCredentials;
+    subjectTitle: String;
+    lecturerName: String;
 }
