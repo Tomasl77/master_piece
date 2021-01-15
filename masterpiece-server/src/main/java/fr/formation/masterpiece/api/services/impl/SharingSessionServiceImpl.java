@@ -12,8 +12,8 @@ import fr.formation.masterpiece.api.repositories.SubjectRepository;
 import fr.formation.masterpiece.api.services.SharingSessionService;
 import fr.formation.masterpiece.commons.config.AbstractService;
 import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionCreateDto;
+import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionDto;
 import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto;
-import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto2;
 import fr.formation.masterpiece.domain.entities.EntityUser;
 import fr.formation.masterpiece.domain.entities.SharingSession;
 import fr.formation.masterpiece.domain.entities.Subject;
@@ -45,7 +45,7 @@ public class SharingSessionServiceImpl extends AbstractService
 
     @Override
     @Transactional
-    public SharingSessionViewDto create(SharingSessionCreateDto dto) {
+    public SharingSessionDto create(SharingSessionCreateDto dto) {
 	Long userId = SecurityHelper.getUserId();
 	EntityUser user = userRepository.getOne(userId);
 	Subject subject = subjectRepository.getOne(dto.getSubjectId());
@@ -54,22 +54,12 @@ public class SharingSessionServiceImpl extends AbstractService
 	session.setSubject(subject);
 	subjectRepository.setSessionScheduleTrue(dto.getSubjectId());
 	SharingSession sessionToSave = sharingSessionRepository.save(session);
-	return convert(sessionToSave, SharingSessionViewDto.class);
+	return convert(sessionToSave, SharingSessionDto.class);
     }
 
     @Override
     public List<SharingSessionViewDto> getAllSessions() {
-	List<SharingSessionViewDto> list = convertList(
-	        sharingSessionRepository.getAllSessionWithUserEnable(),
-	        SharingSessionViewDto.class);
-	return list;
-    }
-
-    @Override
-    public List<SharingSessionViewDto2> getAllSessionsBis() {
-	List<SharingSessionViewDto2> test = sharingSessionRepository
-	        .getAllSessionWithUserEnableBis();
-	return test;
+	return sharingSessionRepository.getAllSessionWithUserEnableBis();
     }
 
     @Override

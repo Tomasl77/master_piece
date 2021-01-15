@@ -23,8 +23,7 @@ class SharingSessionControllerTest extends IntegrationTestConfig {
     void should_user_get_all_sessions() throws Exception {
 	api.perform(get(path).header("Authorization", userTomas))
 	        .andExpect(status().isOk())
-	        .andExpect(jsonPath("$.[0].subject.title")
-	                .value("Angular 8 Modals"));
+	        .andExpect(jsonPath("$.[0].subjectTitle").value("Spring"));
     }
 
     @Test

@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionCreateDto;
+import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionDto;
 import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto;
-import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto2;
 
 /**
  * Service to handle {@code SharingSession} logic.
@@ -18,19 +18,17 @@ public interface SharingSessionService {
      * Persists given {@code SharingSession}.
      *
      * @param dto the dto holding informations
-     * @return an {@code SharingSessionViewDto} encapsulating informations of
-     *         the persisted {@code SharingSession}
+     * @return an {@code SharingSessionDto} encapsulating informations of the
+     *         persisted {@code SharingSession}
      */
-    SharingSessionViewDto create(SharingSessionCreateDto dto);
+    SharingSessionDto create(SharingSessionCreateDto dto);
 
     /**
      * Get a {@code List} of all active {@code SharingSession}
      *
-     * @return a {@code List} of {@code SharingSession}
+     * @return a {@code List} of {@code SharingSessionViewDto}
      */
     List<SharingSessionViewDto> getAllSessions();
-
-    List<SharingSessionViewDto2> getAllSessionsBis();
 
     /**
      * Retrieves wether or not a sharing session is already scheduled this day

@@ -6,9 +6,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
-import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
-import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
-
 /**
  * {@code DTO} representation of a {@code SharingSession}.
  * <p>
@@ -28,15 +25,24 @@ public class SharingSessionViewDto {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
 
-    private SubjectViewDto subject;
+    private String subjectTitle;
 
-    private CustomUserViewDto lecturer;
+    private String lecturerName;
 
     /**
      * Empty no-args constructor
      */
     protected SharingSessionViewDto() {
 	//
+    }
+
+    public SharingSessionViewDto(Long id, LocalDateTime startTime,
+            LocalDateTime endTime, String subjectTitle, String lecturerName) {
+	this.id = id;
+	this.startTime = startTime;
+	this.endTime = endTime;
+	this.subjectTitle = subjectTitle;
+	this.lecturerName = lecturerName;
     }
 
     public LocalDateTime getStartTime() {
@@ -47,11 +53,11 @@ public class SharingSessionViewDto {
 	return endTime;
     }
 
-    public SubjectViewDto getSubject() {
-	return subject;
+    public String getSubject() {
+	return subjectTitle;
     }
 
-    public CustomUserViewDto getLecturer() {
-	return lecturer;
+    public String getLecturer() {
+	return lecturerName;
     }
 }

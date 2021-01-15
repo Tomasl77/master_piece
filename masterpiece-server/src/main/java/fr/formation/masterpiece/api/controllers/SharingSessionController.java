@@ -15,8 +15,8 @@ import fr.formation.masterpiece.api.services.SharingSessionService;
 import fr.formation.masterpiece.commons.annotations.HasRoleUser;
 import fr.formation.masterpiece.commons.utils.EmailManager;
 import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionCreateDto;
+import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionDto;
 import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto;
-import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto2;
 
 /**
  * A {@link RestController} to handle {@code SharingSession}
@@ -40,23 +40,17 @@ public class SharingSessionController {
     }
 
     @PostMapping
-    SharingSessionViewDto create(
-            @RequestBody @Valid SharingSessionCreateDto dto)
+    SharingSessionDto create(@RequestBody @Valid SharingSessionCreateDto dto)
             throws MessagingException {
-	SharingSessionViewDto dtoToReturn = sharingSessionService.create(dto);
+	SharingSessionDto dtoToReturn = sharingSessionService.create(dto);
 	if (dtoToReturn != null) {
 	    emailManager.buildSessionMail(dtoToReturn);
 	}
 	return dtoToReturn;
     }
 
-    @GetMapping("/bis")
+    @GetMapping
     List<SharingSessionViewDto> getAllSessions() {
 	return sharingSessionService.getAllSessions();
-    }
-
-    @GetMapping
-    List<SharingSessionViewDto2> getAllSessionsBis() {
-	return sharingSessionService.getAllSessionsBis();
     }
 }

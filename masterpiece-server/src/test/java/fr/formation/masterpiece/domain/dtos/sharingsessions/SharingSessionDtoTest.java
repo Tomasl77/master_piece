@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 
 import fr.formation.masterpiece.config.UnitTestConfig;
 
-class SharingSessionViewDtoTest extends UnitTestConfig {
+class SharingSessionDtoTest extends UnitTestConfig {
 
     @Test
     void should_construct() {
-	SharingSessionViewDto tested = new SharingSessionViewDto();
+	SharingSessionDto tested = new SharingSessionDto();
 	assertNotNull(tested);
     }
 }

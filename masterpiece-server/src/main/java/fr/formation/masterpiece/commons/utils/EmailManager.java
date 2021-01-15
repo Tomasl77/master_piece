@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 import fr.formation.masterpiece.api.repositories.CustomUserRepository;
 import fr.formation.masterpiece.api.services.EmailService;
-import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto;
+import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionDto;
 import fr.formation.masterpiece.domain.entities.EntityUser;
 import fr.formation.masterpiece.domain.entities.Mail;
 
@@ -47,7 +47,7 @@ public class EmailManager {
 	return recipients;
     }
 
-    public void buildSessionMail(SharingSessionViewDto session)
+    public void buildSessionMail(SharingSessionDto session)
             throws MessagingException {
 	StringBuilder builder = new StringBuilder();
 	String content = builder.append("New session booked").append("<p>")
