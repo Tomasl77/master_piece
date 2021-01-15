@@ -33,10 +33,7 @@ public interface SharingSessionRepository
      * @author Tomas LOBGEOIS
      */
     @Query(JpqlQuery.SESSION_WITH_ENABLE_LECTURER)
-    List<SharingSession> getAllSessionWithUserEnable();
-
-    @Query(JpqlQuery.SESSION_WITH_ENABLE_LECTURER_BIS)
-    List<SharingSessionViewDto> getAllSessionWithUserEnableBis();
+    List<SharingSessionViewDto> getAllSessionWithUserEnable();
 
     boolean existsByStartTimeBetween(LocalDateTime startOfDay,
             LocalDateTime endOfDay);

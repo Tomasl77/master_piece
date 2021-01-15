@@ -28,12 +28,7 @@ public final class JpqlQuery {
      *
      * @author Tomas LOBGEOIS
      */
-    static final String SESSION_WITH_ENABLE_LECTURER = "SELECT s FROM SharingSession s "
-            + "JOIN Subject su ON s.subject = su.id "
-            + "JOIN EntityUser cu ON su.requester = cu.id "
-            + "WHERE cu.enabled = true AND s.lecturer.enabled = true";
-
-    static final String SESSION_WITH_ENABLE_LECTURER_BIS = "SELECT new fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto"
+    static final String SESSION_WITH_ENABLE_LECTURER = "SELECT new fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto"
             + "(s.id, s.startTime, s.endTime, su.title, eu.username)"
             + " FROM SharingSession s JOIN Subject su ON s.subject = su.id"
             + " JOIN EntityUser eu ON s.lecturer = eu.id"
