@@ -32,7 +32,8 @@ public final class JpqlQuery {
             + "(s.id, s.startTime, s.endTime, su.title, eu.username)"
             + " FROM SharingSession s JOIN Subject su ON s.subject = su.id"
             + " JOIN EntityUser eu ON s.lecturer = eu.id"
-            + " WHERE eu.enabled = true AND s.lecturer.enabled = true";
+            + " WHERE eu.enabled = true AND s.lecturer.enabled = true"
+            + " AND s.startTime > :now";
 
     /**
      * Update a {@code Subject} to set schedule to {@code true}

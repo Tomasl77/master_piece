@@ -59,7 +59,12 @@ public class SharingSessionServiceImpl extends AbstractService
 
     @Override
     public List<SharingSessionViewDto> getAllSessions() {
-	return sharingSessionRepository.getAllSessionWithUserEnable();
+	LocalDateTime now = getNow();
+	return sharingSessionRepository.getAllSessionWithUserEnable(now);
+    }
+
+    private LocalDateTime getNow() {
+	return LocalDateTime.now();
     }
 
     @Override
