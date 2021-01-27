@@ -7,12 +7,12 @@ import javax.validation.constraints.Size;
 import fr.formation.masterpiece.commons.annotations.UniqueEmail;
 
 /**
- * {@code DTO} representing informations to update a {@code CustomUser}
+ * {@code DTO} representing informations to update a {@code EntityUser}
  *
  * @author Tomas LOBGEOIS
  *
  */
-public class CustomUserPatchDto {
+public class EntityUserPatchDto {
 
     @UniqueEmail
     @Email
@@ -23,6 +23,6 @@ public class CustomUserPatchDto {
     /**
      * Empty no-args constructor
      */
-    protected CustomUserPatchDto() {
+    protected EntityUserPatchDto() {
     }
 }

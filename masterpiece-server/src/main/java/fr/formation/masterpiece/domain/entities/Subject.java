@@ -26,7 +26,7 @@ import fr.formation.masterpiece.commons.utils.BooleanConverter;
  * <li>description cannot be null</li>
  * <li>requestDate cannot be null</li>
  * <li>{@code Category} must exists in database</li>
- * <li>{@code CustomUser} must exists in database</li>
+ * <li>{@code EntityUser} must exists in database</li>
  * </ul>
  * All fields are mandatory, except schedule. Must be false at creation
  *
@@ -62,7 +62,7 @@ public class Subject extends AbstractEntity {
     @JoinColumn(name = "requester_id", referencedColumnName = "id",
             nullable = false,
             foreignKey = @ForeignKey(name = "FK_subject_userprofile"))
-    private CustomUser requester;
+    private EntityUser requester;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_vote_subject",
@@ -70,13 +70,13 @@ public class Subject extends AbstractEntity {
                     foreignKey = @ForeignKey(name = "FK_subject_has_votes")),
             inverseJoinColumns = @JoinColumn(name = "user_id",
                     foreignKey = @ForeignKey(name = "FK_user_has_voted")))
-    private List<CustomUser> voters;
+    private List<EntityUser> voters;
 
     public String getTitle() {
 	return this.title;
     }
 
-    public void setUser(CustomUser user) {
+    public void setUser(EntityUser user) {
 	this.requester = user;
     }
 
@@ -88,11 +88,11 @@ public class Subject extends AbstractEntity {
 	this.requestDate = requestDate;
     }
 
-    public void addVote(CustomUser user) {
+    public void addVote(EntityUser user) {
 	this.voters.add(user);
     }
 
-    public void remove(CustomUser user) {
+    public void remove(EntityUser user) {
 	this.voters.remove(user);
     }
 

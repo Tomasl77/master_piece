@@ -8,14 +8,14 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import fr.formation.masterpiece.domain.dtos.users.CustomUserAuthDto;
-import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
-import fr.formation.masterpiece.domain.entities.CustomUser;
+import fr.formation.masterpiece.domain.dtos.users.EntityUserAuthDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityUserViewDto;
+import fr.formation.masterpiece.domain.entities.EntityUser;
 
 /**
- * {@link JpaRepository} to handle {@code CustomUser} persistence.
+ * {@link JpaRepository} to handle {@code EntityUser} persistence.
  */
-public interface CustomUserRepository extends JpaRepository<CustomUser, Long> {
+public interface CustomUserRepository extends JpaRepository<EntityUser, Long> {
 
     /**
      * Retrieves a projected view of the {@code UserAuth} with given username.
@@ -23,7 +23,7 @@ public interface CustomUserRepository extends JpaRepository<CustomUser, Long> {
      * @param username a username
      * @return a projected view
      */
-    Optional<CustomUserAuthDto> findByUsername(String username);
+    Optional<EntityUserAuthDto> findByUsername(String username);
 
     /**
      * Retrieves a projected view of the current authenticated {@code UserAuth}.
@@ -31,7 +31,7 @@ public interface CustomUserRepository extends JpaRepository<CustomUser, Long> {
      * @param id user id
      * @return a projected view
      */
-    Optional<CustomUserViewDto> getById(Long id);
+    Optional<EntityUserViewDto> getById(Long id);
 
     /**
      * Check if username is already store in database
@@ -61,14 +61,14 @@ public interface CustomUserRepository extends JpaRepository<CustomUser, Long> {
     void deActivate(@Param("userId") Long id);
 
     /**
-     * Returns a {@code List} of {@code CustomUser} containing only the users
+     * Returns a {@code List} of {@code EntityUser} containing only the users
      * matching to the boolean
      *
      * @param enabled the boolean to match
-     * @return a {@code List} of {@code CustomUser}
+     * @return a {@code List} of {@code EntityUser}
      *
      * @author Tomas LOBGEOIS
      */
     @Query(JpqlQuery.FIND_USERS_BY_ENABLED)
-    List<CustomUserViewDto> findAllByEnabled(boolean enabled);
+    List<EntityUserViewDto> findAllByEnabled(boolean enabled);
 }

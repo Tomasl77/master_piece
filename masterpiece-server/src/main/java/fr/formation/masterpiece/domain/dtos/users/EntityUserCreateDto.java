@@ -9,11 +9,11 @@ import fr.formation.masterpiece.commons.annotations.UniqueEmail;
 import fr.formation.masterpiece.commons.annotations.UniqueUser;
 
 /**
- * {@code DTO} representing {@code CustomUser} data to be persisted in database.
+ * {@code DTO} representing {@code EntityUser} data to be persisted in database.
  *
  * @author Tomas LOBGEOIS
  */
-public class CustomUserCreateDto {
+public class EntityUserCreateDto {
 
     private final String message = "Must contains at least 8 characters, 1 uppercase, 1 lowercase, 1 digit and 1 special char";
 
@@ -38,7 +38,7 @@ public class CustomUserCreateDto {
     /**
      * Empty no-args constructor
      */
-    protected CustomUserCreateDto() {
+    protected EntityUserCreateDto() {
     }
 
     /**

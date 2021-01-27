@@ -7,29 +7,29 @@ import org.junit.jupiter.api.Test;
 
 import fr.formation.masterpiece.config.UnitTestConfig;
 
-class CustomUserCreateDtoTest extends UnitTestConfig {
+class EntityUserCreateDtoTest extends UnitTestConfig {
 
     @Test
     void should_construct() {
-	CustomUserCreateDto actual = new CustomUserCreateDto();
+	EntityUserCreateDto actual = new EntityUserCreateDto();
 	assertNotNull(actual);
     }
 
     @Test
     void should_have_email_null() {
-	CustomUserCreateDto tested = new CustomUserCreateDto();
+	EntityUserCreateDto tested = new EntityUserCreateDto();
 	assertNull(tested.getEmail());
     }
 
     @Test
     void should_have_password_null() {
-	CustomUserCreateDto tested = new CustomUserCreateDto();
+	EntityUserCreateDto tested = new EntityUserCreateDto();
 	assertNull(tested.getPassword());
     }
 
     @Test
     void should_have_username_null() {
-	CustomUserCreateDto tested = new CustomUserCreateDto();
+	EntityUserCreateDto tested = new EntityUserCreateDto();
 	assertNull(tested.getUsername());
     }
 }

@@ -58,8 +58,8 @@ export class SharingSessionComponent implements OnInit {
         { headerName: this.translate('ag-grid.session.day'), field: 'day', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.session.startTime'), field: 'startTime', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.session.endTime'), field: 'endTime', sortable: true, filter: true },
-        { headerName: this.translate('ag-grid.session.subject'), field: 'subject.title', sortable: true, filter: true },
-        { headerName: this.translate('ag-grid.session.lecturer'), field: 'lecturer.username', sortable: true, filter: true }
+        { headerName: this.translate('ag-grid.session.subject'), field: 'subject', sortable: true, filter: true },
+        { headerName: this.translate('ag-grid.session.lecturer'), field: 'lecturer', sortable: true, filter: true }
       ]
     })
   }

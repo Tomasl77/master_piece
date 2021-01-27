@@ -19,7 +19,7 @@ import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectVoteUpdateDto;
 import fr.formation.masterpiece.domain.dtos.subjects.VoteSubjectDto;
 import fr.formation.masterpiece.domain.entities.Category;
-import fr.formation.masterpiece.domain.entities.CustomUser;
+import fr.formation.masterpiece.domain.entities.EntityUser;
 import fr.formation.masterpiece.domain.entities.Subject;
 import fr.formation.masterpiece.security.SecurityHelper;
 
@@ -52,7 +52,7 @@ public class SubjectServiceImpl extends AbstractService
     @Transactional
     public SubjectViewDto create(SubjectCreateDto subjectDto) {
 	Long userCredentialsId = SecurityHelper.getUserId();
-	CustomUser user = userRepository.getOne(userCredentialsId);
+	EntityUser user = userRepository.getOne(userCredentialsId);
 	Subject subject = convert(subjectDto, Subject.class);
 	subject.setRequestDate(LocalDateTime.now());
 	subject.setUser(user);
@@ -88,7 +88,7 @@ public class SubjectServiceImpl extends AbstractService
     public SubjectViewDtoWithVote changeVote(SubjectVoteUpdateDto voteDto,
             Long subjectId) {
 	Long userId = SecurityHelper.getUserId();
-	CustomUser user = userRepository.getOne(userId);
+	EntityUser user = userRepository.getOne(userId);
 	Subject subject = subjectRepository.getOne(subjectId);
 	boolean hasVoted = voteDto.isHasVoted();
 	if (!hasVoted) {
@@ -104,12 +104,12 @@ public class SubjectServiceImpl extends AbstractService
     }
 
     /**
-     * Check if a {@code CustomUser} has vote for a specific {@code Subject}
+     * Check if a {@code EntityUser} has vote for a specific {@code Subject}
      *
      * @param subjectId the {@code Subject} to check
-     * @param votes     the {@code List} of votes that the {@code CustomUser}
+     * @param votes     the {@code List} of votes that the {@code EntityUser}
      *                  has already voted
-     * @return {@code true} if the {@code CustomUser} has already voted to the
+     * @return {@code true} if the {@code EntityUser} has already voted to the
      *         subject, {@code false} otherwise
      */
     private boolean hasUserVotedForSubject(Long subjectId,

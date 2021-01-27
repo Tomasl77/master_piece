@@ -1,12 +1,12 @@
 package fr.formation.masterpiece.domain.dtos.users;
 
 /**
- * {@code DTO} representation of the username and email of a {@code CustomUser}
+ * {@code DTO} representation of the username and email of a {@code EntityUser}
  *
  * @author Tomas LOBGEOIS
  *
  */
-public class CustomUserDto {
+public class EntityUserDto {
 
     private String username;
 
@@ -15,7 +15,7 @@ public class CustomUserDto {
     /**
      * Empty no-args constructor
      */
-    protected CustomUserDto() {
+    protected EntityUserDto() {
 	//
     }
 }

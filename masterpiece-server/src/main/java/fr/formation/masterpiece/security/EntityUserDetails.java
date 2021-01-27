@@ -7,27 +7,27 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import fr.formation.masterpiece.domain.dtos.users.CustomUserAuthDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityUserAuthDto;
 import fr.formation.masterpiece.domain.entities.Role;
 
 /**
  * A custom {@code UserDetails} for Spring authentication contract and custom
  * properties we want in the token (such as the id).
  */
-public class CustomUserDetails extends User {
+public class EntityUserDetails extends User {
 
     private static final long serialVersionUID = 5803283930339051994L;
 
     private Long id;
 
-    public CustomUserDetails(CustomUserAuthDto user) {
+    public EntityUserDetails(EntityUserAuthDto user) {
 	super(user.getUsername(), user.getPassword(), user.isEnabled(),
 	        user.isAccountNonExpired(), user.isCredentialsNonExpired(),
 	        user.isAccountNonLocked(), buildAuthorities(user.getRoles()));
 	id = user.getId();
     }
 
-    public CustomUserDetails(User user, Long id) {
+    public EntityUserDetails(User user, Long id) {
 	super(user.getUsername(), user.getPassword(), user.getAuthorities());
 	this.id = id;
     }

@@ -4,14 +4,14 @@ import java.util.List;
 
 import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
-import fr.formation.masterpiece.domain.dtos.users.CustomUserCreateDto;
-import fr.formation.masterpiece.domain.dtos.users.CustomUserDto;
-import fr.formation.masterpiece.domain.dtos.users.CustomUserPatchDto;
-import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
-import fr.formation.masterpiece.domain.dtos.users.UpdateCustomUserDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityUserCreateDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityUserDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityUserPatchDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityUserViewDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityCustomUserDto;
 
 /**
- * Service to handle {@code CustomUser} logic.
+ * Service to handle {@code EntityUser} logic.
  *
  * @author Tomas LOBGEOIS
  */
@@ -41,7 +41,7 @@ public interface UserService {
      */
     boolean isEmailValid(String email);
 
-    CustomUserViewDto getOne(Long id);
+    EntityUserViewDto getOne(Long id);
 
     /**
      * The dto containing the {@code boolean} checking if a username is unique
@@ -54,28 +54,28 @@ public interface UserService {
     UsernameCheckDto checkUsername(String username);
 
     /**
-     * Delete a {@code CustomUser} by his id.
+     * Delete a {@code EntityUser} by his id.
      * <p>
      *
-     * @param id the given identifier of the {@code CustomUser} to delete
+     * @param id the given identifier of the {@code EntityUser} to delete
      */
     void deleteOne(Long id);
 
     /**
-     * Get a {@code List} of all active {@code CustomUser}
+     * Get a {@code List} of all active {@code EntityUser}
      *
-     * @return a {@code List} of {@code CustomUserViewDto}
+     * @return a {@code List} of {@code EntityUserViewDto}
      */
-    List<CustomUserViewDto> getAll();
+    List<EntityUserViewDto> getAll();
 
     /**
-     * Persists given {@code CustomUser}.
+     * Persists given {@code EntityUser}.
      *
      * @param dto the dto holding informations
-     * @return an {@code CustomUserDto} encapsulating the username and email of
-     *         the persisted {@code CustomUser}
+     * @return an {@code EntityUserDto} encapsulating the username and email of
+     *         the persisted {@code EntityUser}
      */
-    CustomUserDto create(CustomUserCreateDto dto);
+    EntityUserDto create(EntityUserCreateDto dto);
 
     /**
      * The dto containing the {@code boolean} checking if an email is unique in
@@ -88,10 +88,10 @@ public interface UserService {
     UserEmailCheckDto checkEmail(String email);
 
     /**
-     * Update a {@code CustomUser} email
+     * Update a {@code EntityUser} email
      *
      * @param userDto the dto containing the new email
      * @return a {@code CustomUserUpdateDto} containing the new email
      */
-    UpdateCustomUserDto update(CustomUserPatchDto userDto);
+    EntityCustomUserDto update(EntityUserPatchDto userDto);
 }

@@ -16,11 +16,11 @@ public final class JpqlQuery {
     }
 
     /**
-     * Update a {@code CustomUser} to set enabled to {@code false}
+     * Update a {@code EntityUser} to set enabled to {@code false}
      *
      * @author Tomas LOBGEOIS
      */
-    static final String DEACTIVATE_USER = "UPDATE CustomUser u SET u.enabled = false WHERE u.id = :userId";
+    static final String DEACTIVATE_USER = "UPDATE EntityUser u SET u.enabled = false WHERE u.id = :userId";
 
     /**
      * Retrieve a {@code SharingSession} with both enable requester and
@@ -28,10 +28,12 @@ public final class JpqlQuery {
      *
      * @author Tomas LOBGEOIS
      */
-    static final String SESSION_WITH_ENABLE_LECTURER = "SELECT s FROM SharingSession s "
-            + "JOIN Subject su ON s.subject = su.id "
-            + "JOIN CustomUser cu ON su.requester = cu.id "
-            + "WHERE cu.enabled = true AND s.lecturer.enabled = true";
+    static final String SESSION_WITH_ENABLE_LECTURER = "SELECT new fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto"
+            + "(s.id, s.startTime, s.endTime, su.title, eu.username)"
+            + " FROM SharingSession s JOIN Subject su ON s.subject = su.id"
+            + " JOIN EntityUser eu ON s.lecturer = eu.id"
+            + " WHERE eu.enabled = true AND s.lecturer.enabled = true"
+            + " AND s.startTime > :now";
 
     /**
      * Update a {@code Subject} to set schedule to {@code true}
@@ -43,7 +45,7 @@ public final class JpqlQuery {
     /**
      * Create a {@code List} of new {@code SubjectViewDtoWithVote} to have
      * informations needed on {@code Subject} and the join table with
-     * {@code CustomUser}
+     * {@code EntityUser}
      */
     static final String SUBJECTS_WITH_NUMBER_OF_VOTES = "SELECT new fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote"
             + "(s.id, s.title, s.description, s.category.name, s.requester.username, count(v.id) as numberOfVote) "
@@ -51,7 +53,7 @@ public final class JpqlQuery {
 
     /**
      * Create new {@code SubjectViewDtoWithVote} to have informations needed on
-     * {@code Subject} and the join table with {@code CustomUser}
+     * {@code Subject} and the join table with {@code EntityUser}
      */
     static final String SUBJECT_WITH_NUMBER_OF_VOTES = "SELECT new fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote"
             + "(s.id, s.title, s.description, s.category.name, s.requester.username, count(v.id) as numberOfVote) "
@@ -72,9 +74,9 @@ public final class JpqlQuery {
             + "(c.id, c.name) FROM Category c";
 
     /**
-     * Create new {@code List} of {@code CustomUser} to have all users depending
+     * Create new {@code List} of {@code EntityUser} to have all users depending
      * on their enabled status
      */
-    public static final String FIND_USERS_BY_ENABLED = "SELECT new fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto"
-            + "(u.id, u.username, u.email) FROM CustomUser u WHERE u.enabled = :enabled";
+    public static final String FIND_USERS_BY_ENABLED = "SELECT new fr.formation.masterpiece.domain.dtos.users.EntityUserViewDto"
+            + "(u.id, u.username, u.email) FROM EntityUser u WHERE u.enabled = :enabled";
 }
