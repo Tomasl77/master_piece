@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
-import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityUserViewDto;
 
 /**
  * {@code DTO} representation of a {@code SharingSession}.
@@ -30,7 +30,7 @@ public class SharingSessionDto {
 
     private SubjectViewDto subject;
 
-    private CustomUserViewDto lecturer;
+    private EntityUserViewDto lecturer;
 
     /**
      * Empty no-args constructor
@@ -51,7 +51,7 @@ public class SharingSessionDto {
 	return subject;
     }
 
-    public CustomUserViewDto getLecturer() {
+    public EntityUserViewDto getLecturer() {
 	return lecturer;
     }
 }

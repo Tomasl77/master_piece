@@ -7,7 +7,7 @@ package fr.formation.masterpiece.domain.dtos.users;
  *
  * @author Tomas LOBGEOIS
  */
-public class CustomUserViewDto {
+public class EntityUserViewDto {
 
     private Long id;
 
@@ -18,11 +18,11 @@ public class CustomUserViewDto {
     /**
      * Empty no-args constructor
      */
-    protected CustomUserViewDto() {
+    protected EntityUserViewDto() {
 	//
     }
 
-    public CustomUserViewDto(Long id, String username, String email) {
+    public EntityUserViewDto(Long id, String username, String email) {
 	this.id = id;
 	this.username = username;
 	this.email = email;

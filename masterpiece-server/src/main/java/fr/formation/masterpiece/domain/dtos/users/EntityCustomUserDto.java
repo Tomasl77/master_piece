@@ -6,14 +6,14 @@ package fr.formation.masterpiece.domain.dtos.users;
  * @author Tomas LOBGEOIS
  *
  */
-public class UpdateCustomUserDto {
+public class EntityCustomUserDto {
 
     private String email;
 
     /**
      * Empty no-args constructor
      */
-    protected UpdateCustomUserDto() {
+    protected EntityCustomUserDto() {
 	//
     }
 }

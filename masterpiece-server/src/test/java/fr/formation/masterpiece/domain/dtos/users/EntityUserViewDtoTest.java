@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 
 import fr.formation.masterpiece.config.UnitTestConfig;
 
-class CustomUserViewDtoTest extends UnitTestConfig {
+class EntityUserViewDtoTest extends UnitTestConfig {
 
     @Test
     void should_to_string() {
-	CustomUserViewDto actual = new CustomUserViewDto(2L, "Frank",
+	EntityUserViewDto actual = new EntityUserViewDto(2L, "Frank",
 	        "frank@gmail.com");
 	assertEquals("{id: 2, username: Frank, email: frank@gmail.com}",
 	        actual.toString());

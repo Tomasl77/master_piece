@@ -17,7 +17,7 @@ import org.springframework.http.MediaType;
 
 import fr.formation.masterpiece.api.controllers.UserController;
 import fr.formation.masterpiece.config.IntegrationTestConfig;
-import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityUserViewDto;
 import fr.formation.masterpiece.security.annotations.MockUserForTests;
 
 class UserControllerTest extends IntegrationTestConfig {
@@ -31,7 +31,7 @@ class UserControllerTest extends IntegrationTestConfig {
     @Test
     @MockUserForTests
     void should_get_by_id() {
-	CustomUserViewDto tested = userController.getOne(1L);
+	EntityUserViewDto tested = userController.getOne(1L);
 	assertEquals("Tomas", tested.getUsername());
     }
 

@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 import fr.formation.masterpiece.api.repositories.CustomUserRepository;
 import fr.formation.masterpiece.api.services.UserInfoDetailsService;
 import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
-import fr.formation.masterpiece.domain.dtos.users.CustomUserAuthDto;
-import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
-import fr.formation.masterpiece.security.CustomUserDetails;
+import fr.formation.masterpiece.domain.dtos.users.EntityUserAuthDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityUserViewDto;
+import fr.formation.masterpiece.security.EntityUserDetails;
 
 /**
  * Default concrete implementation of {@link UserInfoDetailsService}
@@ -28,14 +28,14 @@ public class UserInfoDetailsServiceImpl implements UserInfoDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
-	CustomUserAuthDto user = repo.findByUsername(username)
+	EntityUserAuthDto user = repo.findByUsername(username)
 	        .orElseThrow(() -> new UsernameNotFoundException(
 	                "no user found with username: " + username));
-	return new CustomUserDetails(user);
+	return new EntityUserDetails(user);
     }
 
     @Override
-    public CustomUserViewDto getCurrentUserInfo(Long id) {
+    public EntityUserViewDto getCurrentUserInfo(Long id) {
 	return repo.getById(id).orElseThrow(
 	        () -> new ResourceNotFoundException("User not found :" + id));
     }

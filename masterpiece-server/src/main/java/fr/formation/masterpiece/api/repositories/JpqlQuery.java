@@ -76,6 +76,6 @@ public final class JpqlQuery {
      * Create new {@code List} of {@code EntityUser} to have all users depending
      * on their enabled status
      */
-    public static final String FIND_USERS_BY_ENABLED = "SELECT new fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto"
+    public static final String FIND_USERS_BY_ENABLED = "SELECT new fr.formation.masterpiece.domain.dtos.users.EntityUserViewDto"
             + "(u.id, u.username, u.email) FROM EntityUser u WHERE u.enabled = :enabled";
 }

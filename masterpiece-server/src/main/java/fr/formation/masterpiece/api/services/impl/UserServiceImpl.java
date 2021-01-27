@@ -15,11 +15,11 @@ import fr.formation.masterpiece.commons.config.AbstractService;
 import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
 import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
-import fr.formation.masterpiece.domain.dtos.users.CustomUserCreateDto;
-import fr.formation.masterpiece.domain.dtos.users.CustomUserDto;
-import fr.formation.masterpiece.domain.dtos.users.CustomUserPatchDto;
-import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
-import fr.formation.masterpiece.domain.dtos.users.UpdateCustomUserDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityUserCreateDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityUserDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityUserPatchDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityUserViewDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityCustomUserDto;
 import fr.formation.masterpiece.domain.entities.EntityUser;
 import fr.formation.masterpiece.domain.entities.Role;
 import fr.formation.masterpiece.security.SecurityHelper;
@@ -47,14 +47,14 @@ public class UserServiceImpl extends AbstractService implements UserService {
     }
 
     @Override
-    public CustomUserDto create(CustomUserCreateDto dto) {
+    public EntityUserDto create(EntityUserCreateDto dto) {
 	String encodedPassword = passwordEncoder.encode(dto.getPassword());
 	Set<Role> role = new HashSet<>();
 	role.add(roleRepository.findByDefaultRole(true));
 	EntityUser user = new EntityUser(encodedPassword, dto.getUsername(),
 	        role, true, true, true, true, dto.getEmail());
 	EntityUser savedUser = userRepository.save(user);
-	CustomUserDto dtoToReturn = convert(savedUser, CustomUserDto.class);
+	EntityUserDto dtoToReturn = convert(savedUser, EntityUserDto.class);
 	return dtoToReturn;
     }
 
@@ -70,10 +70,10 @@ public class UserServiceImpl extends AbstractService implements UserService {
     }
 
     @Override
-    public CustomUserViewDto getOne(Long id) {
+    public EntityUserViewDto getOne(Long id) {
 	EntityUser userProfile = userRepository.findById(id).orElseThrow(
 	        () -> new ResourceNotFoundException("User not found"));
-	return convert(userProfile, CustomUserViewDto.class);
+	return convert(userProfile, EntityUserViewDto.class);
     }
 
     @Override
@@ -88,12 +88,12 @@ public class UserServiceImpl extends AbstractService implements UserService {
      * @author Tomas LOBGEOIS
      */
     @Override
-    public List<CustomUserViewDto> getAll() {
+    public List<EntityUserViewDto> getAll() {
 	return userRepository.findAllByEnabled(true);
     }
 
     /**
-     * Update an existing user with {@code CustomUserPatchDto}
+     * Update an existing user with {@code EntityUserPatchDto}
      *
      * @param userDto the dto with information to update
      * @return a dto with information updated
@@ -102,13 +102,13 @@ public class UserServiceImpl extends AbstractService implements UserService {
      */
     @Override
     @Transactional
-    public UpdateCustomUserDto update(CustomUserPatchDto userDto) {
+    public EntityCustomUserDto update(EntityUserPatchDto userDto) {
 	Long userId = SecurityHelper.getUserId();
 	EntityUser actualUser = userRepository.findById(userId).orElseThrow(
 	        () -> new ResourceNotFoundException("No account found"));
 	merge(userDto, actualUser);
 	EntityUser savedUser = userRepository.save(actualUser);
-	return convert(savedUser, UpdateCustomUserDto.class);
+	return convert(savedUser, EntityCustomUserDto.class);
     }
 
     /**

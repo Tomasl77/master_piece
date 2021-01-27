@@ -7,7 +7,7 @@ import fr.formation.masterpiece.domain.entities.Role;
 /**
  * A projection of a {@code EntityUser} for authentication.
  */
-public interface CustomUserAuthDto {
+public interface EntityUserAuthDto {
 
     Long getId();
 

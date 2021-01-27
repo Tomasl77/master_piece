@@ -13,11 +13,11 @@ import org.springframework.security.core.userdetails.User;
 
 import fr.formation.masterpiece.config.UnitTestConfig;
 
-class CustomUserDetailsTest extends UnitTestConfig {
+class EntityUserDetailsTest extends UnitTestConfig {
 
     private static User user;
 
-    private static CustomUserDetails details;
+    private static EntityUserDetails details;
 
     @BeforeAll
     static void set_up() {
@@ -25,7 +25,7 @@ class CustomUserDetailsTest extends UnitTestConfig {
 	authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 	user = new User("Tomas", "Tomasuser9!", true, true, true, true,
 	        authorities);
-	details = new CustomUserDetails(user, 1L);
+	details = new EntityUserDetails(user, 1L);
     }
 
     @Test

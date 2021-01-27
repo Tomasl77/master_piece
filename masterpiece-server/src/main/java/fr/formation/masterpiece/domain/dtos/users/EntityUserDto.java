@@ -6,7 +6,7 @@ package fr.formation.masterpiece.domain.dtos.users;
  * @author Tomas LOBGEOIS
  *
  */
-public class CustomUserDto {
+public class EntityUserDto {
 
     private String username;
 
@@ -15,7 +15,7 @@ public class CustomUserDto {
     /**
      * Empty no-args constructor
      */
-    protected CustomUserDto() {
+    protected EntityUserDto() {
 	//
     }
 }

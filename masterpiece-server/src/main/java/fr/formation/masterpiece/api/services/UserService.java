@@ -4,11 +4,11 @@ import java.util.List;
 
 import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
-import fr.formation.masterpiece.domain.dtos.users.CustomUserCreateDto;
-import fr.formation.masterpiece.domain.dtos.users.CustomUserDto;
-import fr.formation.masterpiece.domain.dtos.users.CustomUserPatchDto;
-import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
-import fr.formation.masterpiece.domain.dtos.users.UpdateCustomUserDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityUserCreateDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityUserDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityUserPatchDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityUserViewDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityCustomUserDto;
 
 /**
  * Service to handle {@code EntityUser} logic.
@@ -41,7 +41,7 @@ public interface UserService {
      */
     boolean isEmailValid(String email);
 
-    CustomUserViewDto getOne(Long id);
+    EntityUserViewDto getOne(Long id);
 
     /**
      * The dto containing the {@code boolean} checking if a username is unique
@@ -64,18 +64,18 @@ public interface UserService {
     /**
      * Get a {@code List} of all active {@code EntityUser}
      *
-     * @return a {@code List} of {@code CustomUserViewDto}
+     * @return a {@code List} of {@code EntityUserViewDto}
      */
-    List<CustomUserViewDto> getAll();
+    List<EntityUserViewDto> getAll();
 
     /**
      * Persists given {@code EntityUser}.
      *
      * @param dto the dto holding informations
-     * @return an {@code CustomUserDto} encapsulating the username and email of
+     * @return an {@code EntityUserDto} encapsulating the username and email of
      *         the persisted {@code EntityUser}
      */
-    CustomUserDto create(CustomUserCreateDto dto);
+    EntityUserDto create(EntityUserCreateDto dto);
 
     /**
      * The dto containing the {@code boolean} checking if an email is unique in
@@ -93,5 +93,5 @@ public interface UserService {
      * @param userDto the dto containing the new email
      * @return a {@code CustomUserUpdateDto} containing the new email
      */
-    UpdateCustomUserDto update(CustomUserPatchDto userDto);
+    EntityCustomUserDto update(EntityUserPatchDto userDto);
 }

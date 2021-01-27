@@ -18,11 +18,11 @@ import fr.formation.masterpiece.commons.annotations.HasRoleAdmin;
 import fr.formation.masterpiece.commons.annotations.HasRoleUser;
 import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
-import fr.formation.masterpiece.domain.dtos.users.CustomUserCreateDto;
-import fr.formation.masterpiece.domain.dtos.users.CustomUserDto;
-import fr.formation.masterpiece.domain.dtos.users.CustomUserPatchDto;
-import fr.formation.masterpiece.domain.dtos.users.CustomUserViewDto;
-import fr.formation.masterpiece.domain.dtos.users.UpdateCustomUserDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityUserCreateDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityUserDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityUserPatchDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityUserViewDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityCustomUserDto;
 
 /**
  * A {@link RestController} to handle {@code EntityUser}
@@ -42,7 +42,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     @HasRoleUser
-    public CustomUserViewDto getOne(@PathVariable("id") Long id) {
+    public EntityUserViewDto getOne(@PathVariable("id") Long id) {
 	return service.getOne(id);
     }
 
@@ -53,7 +53,7 @@ public class UserController {
     }
 
     @PostMapping
-    public CustomUserDto create(@Valid @RequestBody CustomUserCreateDto dto) {
+    public EntityUserDto create(@Valid @RequestBody EntityUserCreateDto dto) {
 	return service.create(dto);
     }
 
@@ -65,14 +65,14 @@ public class UserController {
 
     @GetMapping
     @HasRoleAdmin
-    public List<CustomUserViewDto> getAll() {
+    public List<EntityUserViewDto> getAll() {
 	return service.getAll();
     }
 
     @PatchMapping
     @HasRoleUser
-    public UpdateCustomUserDto update(
-            @Valid @RequestBody CustomUserPatchDto user) {
+    public EntityCustomUserDto update(
+            @Valid @RequestBody EntityUserPatchDto user) {
 	return service.update(user);
     }
 
