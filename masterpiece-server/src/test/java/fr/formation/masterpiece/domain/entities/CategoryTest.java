@@ -21,6 +21,7 @@ class CategoryTest extends UnitTestConfig {
 	assertNotNull(actual);
     }
 
+    @Test
     void should_to_string() {
 	Category actual = new Category();
 	assertEquals("{name: null}", actual.toString());
