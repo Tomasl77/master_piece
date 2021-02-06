@@ -53,6 +53,18 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/io.javaslang/javaslang -->
+		<dependency>
+		    <groupId>io.javaslang</groupId>
+		    <artifactId>javaslang</artifactId>
+		    <version>2.0.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-thymeleaf</artifactId>
+		    <version>2.4.2</version>
+		</dependency>	
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail -->
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>

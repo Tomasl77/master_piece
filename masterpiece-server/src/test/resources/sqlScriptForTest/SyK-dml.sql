@@ -25,7 +25,7 @@ COMMIT;
 
 INSERT INTO `users` (account_non_expired, password, username, account_non_locked, credentials_non_expired, enabled, email)
 	VALUES 
-    ('T','$2a$10$JbSdgniSs9PoNJM3XN6qUuS9s6uVJwpS1fLIOddNemQgx8FuUw67O','Tomas','T','T','T', 'lobgeois.tomas@free.fr'), -- password = Totototo9!
+    ('T','$2a$10$JbSdgniSs9PoNJM3XN6qUuS9s6uVJwpS1fLIOddNemQgx8FuUw67O','Tomas','T','T','T', 'lobgeois.tomas@gmail.fr'), -- password = Totototo9!
 	('T','$2a$10$PxZEkHGLpGgeV8mO8ehxz..dGlyxwFo3FgTGfdC/2LqOYd8R4DI/a','Johanna','T','T','T', 'joan@gmail.com'),  -- password = Joanhime77!
     ('T','$2a$10$tToGMTh3vyXByVqOQHdk9uqbip3wm5rZz1GLbZSoaBB1ileL5w8qi','Lily','T','T','T','lily@gmail.com'),  -- password = Lily2709!
     ('T','$2a$10$fGGDHcgG3JF6e3kX12C9JO8jkWF6wFJd.eZQQOEoM9479.Ypy.Fbe','Benjamin', 'T','T','T', 'benjamin@gmail.com'); -- password = Benjamin9!

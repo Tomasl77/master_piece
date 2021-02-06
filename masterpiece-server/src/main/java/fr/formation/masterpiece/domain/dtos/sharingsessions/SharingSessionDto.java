@@ -47,11 +47,11 @@ public class SharingSessionDto {
 	return endTime;
     }
 
-    public SubjectViewDto getSubject() {
-	return subject;
+    public String getSubjectTitle() {
+	return subject.getTitle();
     }
 
-    public EntityUserViewDto getLecturer() {
-	return lecturer;
+    public String getLecturer() {
+	return lecturer.getUsername();
     }
 }

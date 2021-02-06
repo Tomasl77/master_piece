@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>NewSessionMail</title>
+</head>
+<body>
+<div>
+	<p>A new session has been scheduled. The lecturer will be: <span th:utext="${lecturer}"></span></p>
+	<p>Save the date : <span th:utext="${date}"></span></p>
+	<p>It will start at <span th:utext="${start}"></span>, and will be over at <span th:utext="${end}"></span></p>	
+	<br>
+	<p><b>Don't miss an opporunity to raise your knowledge</b></p>
+</div>
+</body>
+</html>
