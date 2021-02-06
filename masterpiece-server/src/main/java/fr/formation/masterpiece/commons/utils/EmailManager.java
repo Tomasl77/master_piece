@@ -1,20 +1,17 @@
 package fr.formation.masterpiece.commons.utils;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import javax.mail.MessagingException;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 import fr.formation.masterpiece.api.repositories.CustomUserRepository;
 import fr.formation.masterpiece.api.services.EmailService;
-import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionDto;
 import fr.formation.masterpiece.domain.entities.EntityUser;
 import fr.formation.masterpiece.domain.entities.Mail;
 
@@ -27,17 +24,18 @@ import fr.formation.masterpiece.domain.entities.Mail;
 @Component
 public class EmailManager {
 
-    @Autowired
-    private Environment env;
-
     private final EmailService emailService;
 
     private final CustomUserRepository userRepository;
 
+    private final TemplateEngine templateEngine;
+
     public EmailManager(EmailService emailService,
-            CustomUserRepository userRepository) {
+            CustomUserRepository userRepository,
+            TemplateEngine templateEngine) {
 	this.emailService = emailService;
 	this.userRepository = userRepository;
+	this.templateEngine = templateEngine;
     }
 
     private List<String> getRecipients() {
@@ -47,36 +45,17 @@ public class EmailManager {
 	return recipients;
     }
 
-    public void buildSessionMail(SharingSessionDto session)
-            throws MessagingException {
-	StringBuilder builder = new StringBuilder();
-	String content = builder.append("New session booked").append("<p>")
-	        .append("Date : " + formatDate(session.getStartTime()))
-	        .append("<p>")
-	        .append("Starting time : " + formatTime(session.getStartTime()))
-	        .append("<p>")
-	        .append("Ending time : " + formatTime(session.getEndTime()))
-	        .append("<p>").append(" The lecturer will be : "
-	                + session.getLecturer().getUsername())
-	        .toString();
-	Mail mail = new Mail("SyK", getRecipients(),
-	        "New session : " + session.getSubject().getTitle(), content);
-	if (!Arrays.asList(env.getActiveProfiles()).contains("test")) {
-	    send(mail);
-	}
+    public String buildMailContent(Map<String, Object> args, String template) {
+	Context context = new Context();
+	context.setVariables(args);
+	return templateEngine.process(template, context);
     }
 
-    private void send(Mail mail) throws MessagingException {
+    public Mail buildMail(String title, String content) {
+	return new Mail("SyK", getRecipients(), title, content);
+    }
+
+    public void send(Mail mail) throws MessagingException {
 	emailService.sendMail(mail);
-    }
-
-    private String formatDate(LocalDateTime dateTime) {
-	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	return dateTime.format(formatter);
-    }
-
-    private String formatTime(LocalDateTime dateTime) {
-	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-	return dateTime.format(formatter);
     }
 }

@@ -38,8 +38,7 @@ class SharingSessionControllerTest extends IntegrationTestConfig {
     void should_admin_create_session(String json) throws Exception {
 	api.perform(post(path).header("Authorization", adminJohanna)
 	        .contentType(MediaType.APPLICATION_JSON).content(json))
-	        .andExpect(status().isOk())
-	        .andExpect(jsonPath("$.id").value(4));
+	        .andExpect(status().isOk());
     }
 
     @ParameterizedTest

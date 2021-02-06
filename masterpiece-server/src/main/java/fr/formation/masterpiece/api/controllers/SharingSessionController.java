@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.formation.masterpiece.api.services.SharingSessionService;
 import fr.formation.masterpiece.commons.annotations.HasRoleUser;
-import fr.formation.masterpiece.commons.utils.EmailManager;
 import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionCreateDto;
-import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionDto;
 import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto;
 
 /**
@@ -31,26 +29,19 @@ public class SharingSessionController {
 
     private final SharingSessionService sharingSessionService;
 
-    private final EmailManager emailManager;
-
-    public SharingSessionController(SharingSessionService sharingSessionService,
-            EmailManager emailManager) {
+    public SharingSessionController(
+            SharingSessionService sharingSessionService) {
 	this.sharingSessionService = sharingSessionService;
-	this.emailManager = emailManager;
     }
 
     @PostMapping
-    SharingSessionDto create(@RequestBody @Valid SharingSessionCreateDto dto)
+    public void create(@RequestBody @Valid SharingSessionCreateDto dto)
             throws MessagingException {
-	SharingSessionDto dtoToReturn = sharingSessionService.create(dto);
-	if (dtoToReturn != null) {
-	    emailManager.buildSessionMail(dtoToReturn);
-	}
-	return dtoToReturn;
+	sharingSessionService.create(dto);
     }
 
     @GetMapping
-    List<SharingSessionViewDto> getAllSessions() {
+    public List<SharingSessionViewDto> getAllSessions() {
 	return sharingSessionService.getAllSessions();
     }
 }

@@ -3,8 +3,9 @@ package fr.formation.masterpiece.api.services;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionCreateDto;
-import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionDto;
 import fr.formation.masterpiece.domain.dtos.sharingsessions.SharingSessionViewDto;
 
 /**
@@ -18,10 +19,9 @@ public interface SharingSessionService {
      * Persists given {@code SharingSession}.
      *
      * @param dto the dto holding informations
-     * @return an {@code SharingSessionDto} encapsulating informations of the
-     *         persisted {@code SharingSession}
+     * @throws MessagingException a messaging exception
      */
-    SharingSessionDto create(SharingSessionCreateDto dto);
+    void create(SharingSessionCreateDto dto) throws MessagingException;
 
     /**
      * Get a {@code List} of all active {@code SharingSession}
