@@ -44,8 +44,8 @@ public class BeanConfig {
     private String password;
 
     /**
-     * Default {@code ModelMapper} bean that configures mapping between DTO and
-     * entities.
+     * Default {@code ObjectMapper} bean that configures serialization and
+     * deserialization.
      * <p>
      * This builder prevents XXE injection
      */
