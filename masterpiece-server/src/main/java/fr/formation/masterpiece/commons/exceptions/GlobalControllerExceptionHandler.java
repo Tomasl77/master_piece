@@ -40,20 +40,6 @@ public class GlobalControllerExceptionHandler
     private final static Log LOGGER = LogFactory
             .getLog(GlobalControllerExceptionHandler.class);
 
-    @ExceptionHandler({ ConstraintViolationException.class })
-    public ResponseEntity<Object> handleConstraintViolation(
-            ConstraintViolationException ex, WebRequest request) {
-	List<String> errors = new ArrayList<>();
-	for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
-	    errors.add(violation.getRootBeanClass().getName() + " "
-	            + violation.getPropertyPath() + ": "
-	            + violation.getMessage());
-	}
-	ApiError apiError = new ApiError(ex.getMessage(), errors);
-	return handleExceptionInternal(ex, apiError, null,
-	        HttpStatus.BAD_REQUEST, request);
-    }
-
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex, HttpHeaders headers,
@@ -71,15 +57,6 @@ public class GlobalControllerExceptionHandler
 	LOGGER.trace(apiError, ex);
 	return super.handleExceptionInternal(ex, apiError, headers,
 	        HttpStatus.BAD_REQUEST, request);
-    }
-
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<Object> handleSqlConstraintViolation(
-            DataIntegrityViolationException ex, WebRequest request) {
-	ApiError apiError = new ApiError(ex.getMessage(),
-	        ex.getCause().getCause().getMessage());
-	return handleExceptionInternal(ex, apiError, null, HttpStatus.CONFLICT,
-	        request);
     }
 
     @Override
@@ -118,31 +95,53 @@ public class GlobalControllerExceptionHandler
 	        HttpStatus.BAD_REQUEST, request);
     }
 
-    @ExceptionHandler({ ResourceNotFoundException.class })
+    @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Object> resourceNotFoundException(
             ResourceNotFoundException ex, WebRequest request) {
-	ApiError apiError = new ApiError("Resource not found",
-	        ex.getLocalizedMessage());
+	ApiError apiError = new ApiError("Resource not found", ex.getMessage());
 	return super.handleExceptionInternal(ex, apiError, null,
 	        HttpStatus.NOT_FOUND, request);
     }
 
-    @ExceptionHandler({ AccessDeniedException.class })
+    @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<Object> accesDenied(AccessDeniedException ex,
             WebRequest request) {
-	ApiError apiError = new ApiError(ex.getMessage(), ex.getMessage());
+	ApiError apiError = new ApiError("Acces restricted", ex.getMessage());
 	return handleExceptionInternal(ex, apiError, null, HttpStatus.FORBIDDEN,
 	        request);
     }
 
-    @ExceptionHandler({ Exception.class })
+    @ExceptionHandler(Exception.class)
     public final ResponseEntity<Object> handleAllExceptions(Exception ex,
             WebRequest request) {
 	String message = "Unexpected error";
 	ApiError apiError = new ApiError(message, ex.getMessage());
-	LOGGER.error("Inexpected error : ", ex);
+	LOGGER.error(message, ex);
 	return handleExceptionInternal(ex, apiError, null,
 	        HttpStatus.INTERNAL_SERVER_ERROR, request);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Object> handleConstraintViolation(
+            ConstraintViolationException ex, WebRequest request) {
+	List<String> errors = new ArrayList<>();
+	for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
+	    errors.add(violation.getRootBeanClass().getName() + " "
+	            + violation.getPropertyPath() + ": "
+	            + violation.getMessage());
+	}
+	ApiError apiError = new ApiError(ex.getMessage(), errors);
+	return handleExceptionInternal(ex, apiError, null,
+	        HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<Object> handleSqlConstraintViolation(
+            DataIntegrityViolationException ex, WebRequest request) {
+	ApiError apiError = new ApiError(ex.getMessage(),
+	        ex.getCause().getCause().getMessage());
+	return handleExceptionInternal(ex, apiError, null, HttpStatus.CONFLICT,
+	        request);
     }
 
     @Override
