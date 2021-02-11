@@ -3,8 +3,6 @@ package fr.formation.masterpiece.commons.exceptions;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
-
 /**
  * Object encapsulating error informations.
  * <p>
@@ -18,25 +16,17 @@ import org.springframework.http.HttpStatus;
  */
 class ApiError {
 
-    private HttpStatus status;
-
     private String message;
 
     private List<String> errors;
 
-    public ApiError(HttpStatus status, String message, List<String> errors) {
-	this.status = status;
+    public ApiError(String message, List<String> errors) {
 	this.message = message;
 	this.errors = errors;
     }
 
-    public ApiError(HttpStatus status, String message, String error) {
-	this.status = status;
+    public ApiError(String message, String error) {
 	this.message = message;
 	this.errors = Arrays.asList(error);
-    }
-
-    public HttpStatus getStatus() {
-	return status;
     }
 }

@@ -72,6 +72,12 @@ public class Subject extends AbstractEntity {
                     foreignKey = @ForeignKey(name = "FK_user_has_voted")))
     private List<EntityUser> voters;
 
+    /**
+     * Empty no-args constructor
+     */
+    protected Subject() {
+    }
+
     public String getTitle() {
 	return this.title;
     }
@@ -92,7 +98,7 @@ public class Subject extends AbstractEntity {
 	this.voters.add(user);
     }
 
-    public void remove(EntityUser user) {
+    public void removeVote(EntityUser user) {
 	this.voters.remove(user);
     }
 

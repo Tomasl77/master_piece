@@ -11,6 +11,12 @@ public class VoteSubjectDto {
 
     private Long id;
 
+    /**
+     * Empty no-args constructor
+     */
+    protected VoteSubjectDto() {
+    }
+
     public VoteSubjectDto(Long id) {
 	this.id = id;
     }

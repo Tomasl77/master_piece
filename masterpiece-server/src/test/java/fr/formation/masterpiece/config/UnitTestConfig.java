@@ -1,11 +1,8 @@
 package fr.formation.masterpiece.config;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.io.IOException;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +48,4 @@ public class UnitTestConfig {
 	}
 	return converted;
     }
-
-
 }

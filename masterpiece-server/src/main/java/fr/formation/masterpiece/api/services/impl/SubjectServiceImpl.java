@@ -94,7 +94,7 @@ public class SubjectServiceImpl extends AbstractService
 	if (!hasVoted) {
 	    subject.addVote(user);
 	} else {
-	    subject.remove(user);
+	    subject.removeVote(user);
 	}
 	List<VoteSubjectDto> votes = subjectRepository.findVoteByUserId(userId);
 	SubjectViewDtoWithVote subjectToReturn = subjectRepository

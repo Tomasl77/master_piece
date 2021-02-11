@@ -37,6 +37,12 @@ public class SubjectViewDtoWithVote implements Serializable {
 	this.numberOfVote = numberOfVote;
     }
 
+    /**
+     * Empty no-args constructor
+     */
+    protected SubjectViewDtoWithVote() {
+    }
+
     public void setHasVoted(boolean hasVoted) {
 	this.hasVoted = hasVoted;
     }

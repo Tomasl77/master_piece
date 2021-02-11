@@ -15,7 +15,6 @@ public class SubjectViewDto {
      * Empty no-args constructor
      */
     protected SubjectViewDto() {
-	//
     }
 
     public String getTitle() {

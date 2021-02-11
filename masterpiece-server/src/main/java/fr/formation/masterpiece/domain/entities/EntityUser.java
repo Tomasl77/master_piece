@@ -66,8 +66,10 @@ public class EntityUser extends AbstractEntity {
     @Column(name = "email", nullable = false, length = 255)
     private String email;
 
+    /**
+     * Empty no-args constructor
+     */
     protected EntityUser() {
-	// Empty no-arg constructor
     }
 
     /**

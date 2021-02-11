@@ -18,6 +18,9 @@ public class UsernameCheckDto {
     /**
      * Empty no-args constructor
      */
+    protected UsernameCheckDto() {
+    }
+
     @Override
     public String toString() {
 	return "{isValid: " + valid + "}";
