@@ -29,7 +29,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  * Custom controller advice to handle all {@link RestController} exceptions.
  * <p>
  * Manages handlers for exceptions to mutualize and standardize exception
- * handling for all {@link RestControllers}
+ * handling for all {@link RestController}
  *
  * @author Tomas LOBGEOIS
  */
@@ -139,7 +139,8 @@ public class GlobalControllerExceptionHandler
     public final ResponseEntity<Object> handleAllExceptions(Exception ex,
             WebRequest request) {
 	String message = "Unexpected error";
-	ApiError apiError = new ApiError(ex.getMessage(), message);
+	ApiError apiError = new ApiError(message, ex.getMessage());
+	LOGGER.error("Inexpected error : ", ex);
 	return handleExceptionInternal(ex, apiError, null,
 	        HttpStatus.INTERNAL_SERVER_ERROR, request);
     }

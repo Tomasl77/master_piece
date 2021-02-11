@@ -114,7 +114,6 @@ public class EntityUser extends AbstractEntity {
      * @param credentialsNonExpired {@code true} if non expired; {@code false}
      *                              otherwise
      * @param email                 a unique email
-     * @author Tomas LOBGEOIS
      */
     public EntityUser(String password, String username, Set<Role> roles,
             boolean enabled, boolean accountNonExpired,

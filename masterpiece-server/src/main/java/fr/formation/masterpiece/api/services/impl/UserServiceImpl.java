@@ -15,11 +15,11 @@ import fr.formation.masterpiece.commons.config.AbstractService;
 import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
 import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityCustomUserDto;
 import fr.formation.masterpiece.domain.dtos.users.EntityUserCreateDto;
 import fr.formation.masterpiece.domain.dtos.users.EntityUserDto;
 import fr.formation.masterpiece.domain.dtos.users.EntityUserPatchDto;
 import fr.formation.masterpiece.domain.dtos.users.EntityUserViewDto;
-import fr.formation.masterpiece.domain.dtos.users.EntityCustomUserDto;
 import fr.formation.masterpiece.domain.entities.EntityUser;
 import fr.formation.masterpiece.domain.entities.Role;
 import fr.formation.masterpiece.security.SecurityHelper;
@@ -85,7 +85,6 @@ public class UserServiceImpl extends AbstractService implements UserService {
     /**
      * Get all users with enable account
      *
-     * @author Tomas LOBGEOIS
      */
     @Override
     public List<EntityUserViewDto> getAll() {
@@ -98,7 +97,6 @@ public class UserServiceImpl extends AbstractService implements UserService {
      * @param userDto the dto with information to update
      * @return a dto with information updated
      *
-     * @author Tomas LOBGEOIS
      */
     @Override
     @Transactional
@@ -117,7 +115,6 @@ public class UserServiceImpl extends AbstractService implements UserService {
      * @param email the email to test availability
      * @return true if available, false if not
      *
-     * @author Tomas LOBGEOIS
      */
     @Override
     public boolean isEmailValid(String email) {

@@ -24,7 +24,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
      * Defines this application as stateless (no HTTP session), and disables
      * HTTP basic auth, CSRF and Spring default login form.
      *
-     * @param the HttpSecurity to configure
+     * @param http the HttpSecurity to configure
      */
     @Override
     public void configure(HttpSecurity http) throws Exception {

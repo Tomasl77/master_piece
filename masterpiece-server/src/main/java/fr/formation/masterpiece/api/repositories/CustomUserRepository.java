@@ -54,7 +54,6 @@ public interface CustomUserRepository extends JpaRepository<EntityUser, Long> {
      *
      * @param id the id of user to de-activate
      *
-     * @author Tomas LOBGEOIS
      */
     @Modifying
     @Query(JpqlQuery.DEACTIVATE_USER)
@@ -67,7 +66,6 @@ public interface CustomUserRepository extends JpaRepository<EntityUser, Long> {
      * @param enabled the boolean to match
      * @return a {@code List} of {@code EntityUser}
      *
-     * @author Tomas LOBGEOIS
      */
     @Query(JpqlQuery.FIND_USERS_BY_ENABLED)
     List<EntityUserViewDto> findAllByEnabled(boolean enabled);

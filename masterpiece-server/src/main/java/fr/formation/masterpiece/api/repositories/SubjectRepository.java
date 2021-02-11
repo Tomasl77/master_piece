@@ -31,7 +31,6 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
      *                   not scheduled
      * @return a {@code List} of {@code Subject}
      *
-     * @author Tomas LOBGEOIS
      */
     List<Subject> findAllByScheduleAndRequesterEnabledTrue(boolean isSheduled);
 
@@ -40,8 +39,6 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
      * {@code SharingSession}
      *
      * @param id the id of {@code Subject} to update
-     *
-     * @author Tomas LOBGEOIS
      */
     @Modifying
     @Query(JpqlQuery.SCHEDULE_SESSION)
@@ -53,7 +50,6 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
      *
      * @return a {@code List} of {@code SubjectViewDtoWithVote}
      *
-     * @author Tomas LOBGEOIS
      */
     @Query(JpqlQuery.SUBJECTS_WITH_NUMBER_OF_VOTES)
     List<SubjectViewDtoWithVote> findAllWithVotes();
@@ -64,7 +60,6 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
      *
      * @return a {@code SubjectViewDtoWithVote}
      *
-     * @author Tomas LOBGEOIS
      */
     @Query(JpqlQuery.SUBJECT_WITH_NUMBER_OF_VOTES)
     SubjectViewDtoWithVote findSubjectWithVote(
@@ -77,7 +72,6 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
      * @param userId the id of user to check
      * @return a {@code List} of {@code VoteSubjectDto}
      *
-     * @author Tomas LOBGEOIS
      */
     @Query(JpqlQuery.USER_VOTED_SUBJECTS)
     List<VoteSubjectDto> findVoteByUserId(@Param("userId") Long userId);
