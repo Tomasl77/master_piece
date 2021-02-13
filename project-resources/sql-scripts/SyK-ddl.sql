@@ -2,7 +2,7 @@
 DDL script for teamsharing database
 Script can be used on mysql database.
 
-Last update : 2020-12-19
+Last update : 2021-02-12
 
 */
 
@@ -10,8 +10,8 @@ Last update : 2020-12-19
 ****** DATABASE CLEANING ******
 ******************************/
 
-CREATE SCHEMA IF NOT EXISTS `teamsharingdev` ;
-USE `teamsharingdev` ;
+CREATE SCHEMA IF NOT EXISTS `teamsharing` ;
+USE `teamsharing` ;
 
 /*************************
 ********* USERS **********
@@ -24,8 +24,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `credentials_non_expired` VARCHAR(1) NOT NULL,
   `enabled` VARCHAR(1) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
-  `username` VARCHAR(255) NOT NULL,
-  `email` VARCHAR(255) NOT NULL,
+  `username` VARCHAR(255) NOT NULL UNIQUE,
+  `email` VARCHAR(255) NOT NULL UNIQUE,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `UK_username` (`username`),
   UNIQUE INDEX `UK_email` (`email`)
@@ -40,7 +40,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 **************************/
 CREATE TABLE IF NOT EXISTS `categories` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(20) NOT NULL,
+  `name` VARCHAR(20) NOT NULL UNIQUE,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `UK_name` (`name` ))
 ENGINE = InnoDB;
@@ -78,7 +78,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 **************************/
 CREATE TABLE IF NOT EXISTS `sharing_sessions` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `start_time` DATETIME NOT NULL,
+  `start_time` DATETIME NOT NULL UNIQUE,
   `end_time` DATETIME NOT NULL,
   `subject_id` BIGINT NOT NULL,
   `lecturer_id` BIGINT NOT NULL,
@@ -131,7 +131,7 @@ DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
--- join table
+-- Join table
 /******************************
 ****** USER_VOTE_SUBJECT ******
 ******************************/

@@ -2,12 +2,13 @@
 DML script for teamsharing database
 Script can be used with mysql
 
-Last update : 2020-12-19
+Last update : 2021-02-12
 
 */
 
-USE teamsharingdev;
+USE teamsharing;
 
+DELETE FROM `user_vote_subject`;
 DELETE FROM `sharing_sessions`;
 DELETE FROM `subjects`;
 DELETE FROM `categories`;
@@ -71,7 +72,7 @@ INSERT INTO `subjects` (description, title, request_date, schedule, requester_id
     ('I need some serious stuff on how to handle errors in my spring app. Anyone\'s good on this?', 'Spring errors handling','2020-10-10 14:30:00','F', @Johanna, @backend),
     ('I need some basics on mysql join queries', 'Mysql queries','2020-10-09 14:30:00','F', @Johanna, @database),
     ('Angular testing methods', 'Angular 8Test','2020-10-08 14:30:00','F', @Tomas, @frontend),
-    ('Spring data jpa', 'Spring','2020-10-07 14:30:00','F', @Lily, @backend),
+    ('Spring data jpa', 'Spring','2020-10-07 14:30:00','T', @Lily, @backend),
     ('Junit 5 is a revolution. I need some skills ! ', 'JUnit 5','2020-10-06 14:30:00','T', @Johanna, @backend),
     ('MySql 8. Need some tips on queries', 'Mysql 8','2020-09-05 14:30:00','F', @Johanna, @database),
     ('How to make a pagination in Angular client-side', 'Angular 8 pagination','2020-08-12 14:30:00','F', @Tomas, @frontend),
