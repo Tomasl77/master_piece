@@ -73,33 +73,6 @@ public class EntityUser extends AbstractEntity {
     }
 
     /**
-     * Creates a new enabled custom user.
-     *
-     * @param password an encrypted password
-     * @param username a unique username
-     * @param roles    some roles
-     */
-    public EntityUser(String password, String username, Set<Role> roles) {
-	this(password, username, roles, true);
-    }
-
-    /**
-     * Creates a new custom user.
-     *
-     * @param password an encrypted password
-     * @param username a unique username
-     * @param roles    some roles
-     * @param enabled  {@code true} if enabled; {@code false} otherwise
-     */
-    public EntityUser(String password, String username, Set<Role> roles,
-            boolean enabled) {
-	this.password = password;
-	this.username = username;
-	this.roles = roles;
-	this.enabled = enabled;
-    }
-
-    /**
      * Creates a new custom user.
      *
      * @param password              an encrypted password

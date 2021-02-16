@@ -66,7 +66,7 @@ public class GlobalControllerExceptionHandler
 	StringBuilder builder = new StringBuilder();
 	builder.append(ex.getMethod());
 	builder.append(
-	        "Method is not supported for this request. Supported methods are ");
+	        " method is not supported for this request. Supported methods are ");
 	ex.getSupportedHttpMethods()
 	        .forEach(method -> builder.append(method + " "));
 	ApiError apiError = new ApiError(ex.getMessage(), builder.toString());
