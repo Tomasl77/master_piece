@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Optional, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { UserCredentials } from 'src/app/shared/models/user-credentials.model';
+import { EntityUser } from 'src/app/shared/models/user-credentials.model';
 import { AuthenticationService } from 'src/app/shared/services/authentication/authentication.service';
 import { ErrorHandler } from 'src/app/shared/services/error-handler';
 import { Config } from 'src/assets/config-properties';
@@ -22,7 +22,7 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   isEmailValid: boolean;
   id:number;
-  account: UserCredentials;
+  account: EntityUser;
   error: any;
   private accountSubscription : Subscription;
   updateUserForm: FormGroup;
@@ -85,7 +85,7 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   modify() {
     this.userService.updateUser(this.updateUserForm).subscribe(
-      (data :UserCredentials) => {
+      (data :EntityUser) => {
         const mailChanged = data.email;
         this.newMail = this.translate.instant("account.newMail") + mailChanged;
         setTimeout(()=> {
