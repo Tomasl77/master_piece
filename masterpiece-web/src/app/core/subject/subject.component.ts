@@ -17,7 +17,7 @@ import { DateTimeDialogComponentComponent } from 'src/app/shared/modals/date-tim
 import { ErrorHandler } from 'src/app/shared/services/error-handler';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Category } from 'src/app/shared/models/category.model';
-import { SubjectWithVote } from 'src/app/shared/models/subject-with-vote.model';
+import { SubjectViewDtoWithVote } from 'src/app/shared/models/subject-with-vote.model';
 import { BtnCellRendererVote } from 'src/app/shared/btn-cell-renderer-vote.component';
 
 @Component({
@@ -31,7 +31,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
   @Input()
   id: number;
 
-  action: string;
+  pathParam: string;
   infoToDisplay: string;
   tomorrow: Date;
 
@@ -39,8 +39,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
     'title': '',
     'description': ''
   }
-  subjects: SubjectWithVote[];
-  rowData: SubjectWithVote[];
+  rowData: SubjectViewDtoWithVote[];
   gridOptions: GridOptions;
   columnDefs: ColDef[];
   categories: Category[];
@@ -62,7 +61,6 @@ export class SubjectComponent implements OnInit, OnDestroy {
     private categoryService: CategoryService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private location: Location,
     private authenthicationService: AuthenticationService,
     private datePipe: DatePipe,
     private dialog: MatDialog) {
@@ -91,7 +89,10 @@ export class SubjectComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
-      this.action = params["action"];
+      this.pathParam = params["action"];
+      if((this.pathParam != "post") && (this.pathParam != "vote")) {
+        this.router.navigateByUrl("/subject;action=vote")
+      } 
       this.customInit();
       this.getTableHeaderWithLang();
       this.translateService.onLangChange.subscribe(() => {
@@ -113,15 +114,18 @@ export class SubjectComponent implements OnInit, OnDestroy {
   customInit() {
     this.categoryService.getAllCategories().subscribe((categories) => {
       this.categories = categories
+    },
+    (error) => {
+      const errorToDisplay = ErrorHandler.catch(error);
+      console.log(errorToDisplay);
     });
     this.getSubjectsIfVotePanel();
   }
 
   public getSubjectsIfVotePanel() {
-    if (this.action === "vote") {
+    if (this.pathParam === "vote") {
       this.subjectService.getAllSubject().subscribe(
-        (subjects: SubjectWithVote[]) => {
-          this.subjects = subjects;
+        (subjects: SubjectViewDtoWithVote[]) => {
           this.rowData = subjects;
         });
     }
@@ -184,7 +188,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
   getSubjects() {
     const request = this.subjectService.getAllSubject()
     this.getAllSubjectsSubscription = request.subscribe(
-      (subjects: SubjectWithVote[]) => {
+      (subjects: SubjectViewDtoWithVote[]) => {
         this.rowData = subjects;
       },
       (error) => {
@@ -303,7 +307,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
   }
 
   private voteSubject(params: any) {
-    const subject : SubjectWithVote = params.rowData;
+    const subject : SubjectViewDtoWithVote = params.rowData;
     const formBuild: FormGroup =this.formBuilder.group({
       hasVoted: [(subject.hasVoted)]
     });
