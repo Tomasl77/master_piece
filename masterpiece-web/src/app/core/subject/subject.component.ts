@@ -124,7 +124,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
 
   public getSubjectsIfVotePanel() {
     if (this.pathParam === "vote") {
-      this.subjectService.getAllSubject().subscribe(
+      this.subjectService.getAllSubjects().subscribe(
         (subjects: SubjectViewDtoWithVote[]) => {
           this.rowData = subjects;
         });
@@ -186,7 +186,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
   }
   
   getSubjects() {
-    const request = this.subjectService.getAllSubject()
+    const request = this.subjectService.getAllSubjects()
     this.getAllSubjectsSubscription = request.subscribe(
       (subjects: SubjectViewDtoWithVote[]) => {
         this.rowData = subjects;

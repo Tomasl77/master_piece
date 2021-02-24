@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -47,7 +46,7 @@ public class Subject extends AbstractEntity {
             updatable = false)
     private String description;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "category_id", nullable = false, updatable = false)
     private Category category;
 
@@ -58,13 +57,13 @@ public class Subject extends AbstractEntity {
     @Convert(converter = BooleanConverter.class)
     private boolean schedule;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "requester_id", referencedColumnName = "id",
             nullable = false,
             foreignKey = @ForeignKey(name = "FK_subject_userprofile"))
     private EntityUser requester;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "user_vote_subject",
             joinColumns = @JoinColumn(name = "subject_id",
                     foreignKey = @ForeignKey(name = "FK_subject_has_votes")),

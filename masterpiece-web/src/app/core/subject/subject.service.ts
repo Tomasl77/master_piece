@@ -21,7 +21,7 @@ export class SubjectService {
     return this.http.delete(this.baseUrl + `/${id}`);
   }
 
-  getAllSubject(): Observable<SubjectViewDtoWithVote[]> {
+  getAllSubjects(): Observable<SubjectViewDtoWithVote[]> {
     return this.http.get(this.baseUrl);
   }
 
