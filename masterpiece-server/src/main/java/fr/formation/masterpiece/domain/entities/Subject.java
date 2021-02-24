@@ -47,7 +47,8 @@ public class Subject extends AbstractEntity {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false, updatable = false)
+    @JoinColumn(name = "category_id", nullable = false, updatable = false,
+            foreignKey = @ForeignKey(name = "FK_subject_category"))
     private Category category;
 
     @Column(name = "request_date", nullable = false, updatable = false)
@@ -59,7 +60,7 @@ public class Subject extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "requester_id", referencedColumnName = "id",
-            nullable = false,
+            nullable = false, updatable = false,
             foreignKey = @ForeignKey(name = "FK_subject_userprofile"))
     private EntityUser requester;
 
@@ -68,7 +69,7 @@ public class Subject extends AbstractEntity {
             joinColumns = @JoinColumn(name = "subject_id",
                     foreignKey = @ForeignKey(name = "FK_subject_has_votes")),
             inverseJoinColumns = @JoinColumn(name = "user_id",
-                    foreignKey = @ForeignKey(name = "FK_user_has_voted")))
+                    foreignKey = @ForeignKey(name = "FK_user_vote_subjects")))
     private List<EntityUser> voters;
 
     /**

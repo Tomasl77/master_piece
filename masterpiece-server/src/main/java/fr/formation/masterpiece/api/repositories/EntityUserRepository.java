@@ -15,7 +15,7 @@ import fr.formation.masterpiece.domain.entities.EntityUser;
 /**
  * {@link JpaRepository} to handle {@code EntityUser} persistence.
  */
-public interface CustomUserRepository extends JpaRepository<EntityUser, Long> {
+public interface EntityUserRepository extends JpaRepository<EntityUser, Long> {
 
     /**
      * Retrieves a projected view of the {@code UserAuth} with given username.

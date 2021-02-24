@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import fr.formation.masterpiece.api.repositories.CustomUserRepository;
+import fr.formation.masterpiece.api.repositories.EntityUserRepository;
 import fr.formation.masterpiece.api.services.EmailService;
 import fr.formation.masterpiece.domain.entities.EntityUser;
 import fr.formation.masterpiece.domain.entities.Mail;
@@ -26,12 +26,12 @@ public class EmailManager {
 
     private final EmailService emailService;
 
-    private final CustomUserRepository userRepository;
+    private final EntityUserRepository userRepository;
 
     private final TemplateEngine templateEngine;
 
     public EmailManager(EmailService emailService,
-            CustomUserRepository userRepository,
+            EntityUserRepository userRepository,
             TemplateEngine templateEngine) {
 	this.emailService = emailService;
 	this.userRepository = userRepository;

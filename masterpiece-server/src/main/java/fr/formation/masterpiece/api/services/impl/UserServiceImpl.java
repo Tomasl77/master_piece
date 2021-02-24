@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.formation.masterpiece.api.repositories.CustomUserRepository;
+import fr.formation.masterpiece.api.repositories.EntityUserRepository;
 import fr.formation.masterpiece.api.repositories.RoleRepository;
 import fr.formation.masterpiece.api.services.UserService;
 import fr.formation.masterpiece.commons.config.AbstractService;
@@ -33,13 +33,13 @@ import fr.formation.masterpiece.security.SecurityHelper;
 @Service
 public class UserServiceImpl extends AbstractService implements UserService {
 
-    private final CustomUserRepository userRepository;
+    private final EntityUserRepository userRepository;
 
     private final RoleRepository roleRepository;
 
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(CustomUserRepository userRepository,
+    public UserServiceImpl(EntityUserRepository userRepository,
             RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
 	this.userRepository = userRepository;
 	this.roleRepository = roleRepository;
