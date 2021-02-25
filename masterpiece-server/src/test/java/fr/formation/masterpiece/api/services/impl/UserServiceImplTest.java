@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
 import fr.formation.masterpiece.config.UnitTestConfig;
-import fr.formation.masterpiece.security.annotations.MockAdminForTests;
 
 class UserServiceImplTest extends UnitTestConfig {
 
@@ -19,13 +18,11 @@ class UserServiceImplTest extends UnitTestConfig {
     private UserServiceImpl userService;
 
     @Test
-    @MockAdminForTests
     public void should_return_valid_email() {
 	assertTrue(userService.isEmailValid("aeris@gmail.com"));
     }
 
     @Test
-    @MockAdminForTests
     public void should_return_unvalid_email() {
 	assertFalse(userService.isEmailValid("lily@gmail.com"));
     }
