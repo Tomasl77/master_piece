@@ -26,7 +26,6 @@ public class CustomTokenEnhancer implements TokenEnhancer {
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken,
             OAuth2Authentication authentication) {
-	// Adding more information into token
 	Map<String, Object> additionalInfo = new HashMap<>();
 	EntityUserDetails user = (EntityUserDetails) authentication
 	        .getPrincipal();

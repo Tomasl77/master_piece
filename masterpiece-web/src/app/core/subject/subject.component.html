@@ -2,7 +2,7 @@
   Users & admin section : post and vote for subject
 -->
 <!-- post -->
-<div *ngIf="action =='post'">
+<div *ngIf="pathParam =='post'">
   <form [formGroup]="subjectForm" novalidate (submit)="postSubject()">
     <div class="form-group" [ngClass]="{'has-error' : formErrors.title}">
       <label>{{'subject.title' | translate}}</label>
@@ -40,7 +40,7 @@
 </div>
 
 <!-- vote -->
-<div *ngIf="action==='vote'">
+<div *ngIf="pathParam==='vote'">
   <div class="ag-grid-flex">
     <div class="grid-container">
       <ag-grid-angular 
@@ -59,17 +59,4 @@
         {{infoToDisplay}}
     </div>
   </div>
-</div>
-
-
-
-<!--
-Admin section only : delete subject menu
--->
-<div *ngIf="isAdmin() && action=='delete'">
-  <label>id:
-    <input [(ngModel)]="id" placeholder="id" type="number" />
-  </label>
-
-  <button (click)="deleteSubject()">Delete</button>
 </div>

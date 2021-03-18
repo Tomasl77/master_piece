@@ -102,9 +102,6 @@ public class AuthorizationServerConfig
 	return new CustomTokenEnhancer();
     }
 
-    /**
-     * All in one.
-     */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer configurer)
             throws Exception {

@@ -11,7 +11,7 @@ import javax.mail.MessagingException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.formation.masterpiece.api.repositories.CustomUserRepository;
+import fr.formation.masterpiece.api.repositories.EntityUserRepository;
 import fr.formation.masterpiece.api.repositories.SharingSessionRepository;
 import fr.formation.masterpiece.api.repositories.SubjectRepository;
 import fr.formation.masterpiece.api.services.SharingSessionService;
@@ -37,7 +37,7 @@ import javaslang.Tuple2;
 public class SharingSessionServiceImpl extends AbstractService
         implements SharingSessionService {
 
-    private final CustomUserRepository userRepository;
+    private final EntityUserRepository userRepository;
 
     private final SubjectRepository subjectRepository;
 
@@ -45,7 +45,7 @@ public class SharingSessionServiceImpl extends AbstractService
 
     private final EmailManager emailManager;
 
-    public SharingSessionServiceImpl(CustomUserRepository userRepository,
+    public SharingSessionServiceImpl(EntityUserRepository userRepository,
             SubjectRepository subjectRepository,
             SharingSessionRepository sharingSessionRepository,
             EmailManager emailManager) {

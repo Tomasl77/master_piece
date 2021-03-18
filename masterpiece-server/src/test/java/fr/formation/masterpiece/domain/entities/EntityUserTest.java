@@ -22,17 +22,6 @@ class EntityUserTest extends UnitTestConfig {
     }
 
     @Test
-    void should_construct_username_password_roles() {
-	Role role = new Role("ROLE_USER");
-	Set<Role> roles = new HashSet<>();
-	roles.add(role);
-	EntityUser tested = new EntityUser("password", "Johanna", roles);
-	assertEquals("password", tested.getPassword());
-	assertEquals("Johanna", tested.getUsername());
-	assertEquals(1, tested.getRoles().size());
-    }
-
-    @Test
     void should_construct_complete_constructor() {
 	Role role = new Role("ROLE_USER");
 	Set<Role> roles = new HashSet<>();

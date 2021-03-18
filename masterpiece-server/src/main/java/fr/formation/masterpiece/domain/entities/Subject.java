@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -47,8 +46,9 @@ public class Subject extends AbstractEntity {
             updatable = false)
     private String description;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "category_id", nullable = false, updatable = false)
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false, updatable = false,
+            foreignKey = @ForeignKey(name = "FK_subject_category"))
     private Category category;
 
     @Column(name = "request_date", nullable = false, updatable = false)
@@ -58,19 +58,25 @@ public class Subject extends AbstractEntity {
     @Convert(converter = BooleanConverter.class)
     private boolean schedule;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "requester_id", referencedColumnName = "id",
-            nullable = false,
+            nullable = false, updatable = false,
             foreignKey = @ForeignKey(name = "FK_subject_userprofile"))
     private EntityUser requester;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "user_vote_subject",
             joinColumns = @JoinColumn(name = "subject_id",
                     foreignKey = @ForeignKey(name = "FK_subject_has_votes")),
             inverseJoinColumns = @JoinColumn(name = "user_id",
-                    foreignKey = @ForeignKey(name = "FK_user_has_voted")))
+                    foreignKey = @ForeignKey(name = "FK_user_vote_subjects")))
     private List<EntityUser> voters;
+
+    /**
+     * Empty no-args constructor
+     */
+    protected Subject() {
+    }
 
     public String getTitle() {
 	return this.title;
@@ -92,7 +98,7 @@ public class Subject extends AbstractEntity {
 	this.voters.add(user);
     }
 
-    public void remove(EntityUser user) {
+    public void removeVote(EntityUser user) {
 	this.voters.remove(user);
     }
 

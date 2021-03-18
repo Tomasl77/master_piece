@@ -39,12 +39,23 @@ public class SubjectController {
 	this.service = service;
     }
 
+    /**
+     * Persists a {@code Subject}
+     *
+     * @param dto the {@code SubjectCreateDto} containing the inputs
+     * @return a {@code SubjectViewDto} encapsulating the title of subject
+     */
     @PostMapping
     public SubjectViewDto postSubject(
             @Valid @RequestBody SubjectCreateDto dto) {
 	return service.create(dto);
     }
 
+    /**
+     * Delete a {@code Subject} associated with the id
+     *
+     * @param id the id to delete
+     */
     @DeleteMapping("/{id}")
     @HasRoleAdmin
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
@@ -52,6 +63,18 @@ public class SubjectController {
 	service.deleteOne(id);
     }
 
+    /**
+     * Change the vote of a specific {@code Subject}:
+     * <ul>
+     * <li>Upvote if user hasn't vote for the {@code Subject} yet</li>
+     * <li>Withdraw vote if user has already vote for the {@code Subject}</li>
+     * </ul>
+     *
+     * @param voteDto the dto containing the status of the vote by the user
+     * @param id      the id of {@code Subject} to vote/withdraw for
+     * @return a {@code SubjectViewDtoWithVote} containing the new vote status
+     *         for the user
+     */
     @PostMapping("/vote/{id}")
     public SubjectViewDtoWithVote changeVote(
             @Valid @RequestBody SubjectVoteUpdateDto voteDto,
@@ -59,6 +82,12 @@ public class SubjectController {
 	return service.changeVote(voteDto, id);
     }
 
+    /**
+     * Retrieves a {@code List} of {@code SubjectViewDtoWithVote} corresponding
+     * to the user's id.
+     *
+     * @return a {@code List} of {@code SubjectViewDtoWithVote}
+     */
     @GetMapping
     public List<SubjectViewDtoWithVote> getAllNotScheduledWithVote() {
 	return service.getAllNotScheduledWithVote();

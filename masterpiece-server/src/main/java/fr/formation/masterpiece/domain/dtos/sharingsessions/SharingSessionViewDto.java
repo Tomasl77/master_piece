@@ -33,7 +33,6 @@ public class SharingSessionViewDto {
      * Empty no-args constructor
      */
     protected SharingSessionViewDto() {
-	//
     }
 
     public SharingSessionViewDto(Long id, LocalDateTime startTime,

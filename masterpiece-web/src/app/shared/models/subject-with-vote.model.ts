@@ -1,4 +1,4 @@
-export class SubjectWithVote{
+export class SubjectViewDtoWithVote{
     id: number;
     title: string;
     description: string;

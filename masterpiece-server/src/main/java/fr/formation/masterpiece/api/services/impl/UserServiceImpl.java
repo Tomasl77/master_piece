@@ -8,18 +8,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.formation.masterpiece.api.repositories.CustomUserRepository;
+import fr.formation.masterpiece.api.repositories.EntityUserRepository;
 import fr.formation.masterpiece.api.repositories.RoleRepository;
 import fr.formation.masterpiece.api.services.UserService;
 import fr.formation.masterpiece.commons.config.AbstractService;
 import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
 import fr.formation.masterpiece.domain.dtos.UserEmailCheckDto;
 import fr.formation.masterpiece.domain.dtos.UsernameCheckDto;
+import fr.formation.masterpiece.domain.dtos.users.EntityCustomUserDto;
 import fr.formation.masterpiece.domain.dtos.users.EntityUserCreateDto;
 import fr.formation.masterpiece.domain.dtos.users.EntityUserDto;
 import fr.formation.masterpiece.domain.dtos.users.EntityUserPatchDto;
 import fr.formation.masterpiece.domain.dtos.users.EntityUserViewDto;
-import fr.formation.masterpiece.domain.dtos.users.EntityCustomUserDto;
 import fr.formation.masterpiece.domain.entities.EntityUser;
 import fr.formation.masterpiece.domain.entities.Role;
 import fr.formation.masterpiece.security.SecurityHelper;
@@ -33,13 +33,13 @@ import fr.formation.masterpiece.security.SecurityHelper;
 @Service
 public class UserServiceImpl extends AbstractService implements UserService {
 
-    private final CustomUserRepository userRepository;
+    private final EntityUserRepository userRepository;
 
     private final RoleRepository roleRepository;
 
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(CustomUserRepository userRepository,
+    public UserServiceImpl(EntityUserRepository userRepository,
             RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
 	this.userRepository = userRepository;
 	this.roleRepository = roleRepository;
@@ -85,7 +85,6 @@ public class UserServiceImpl extends AbstractService implements UserService {
     /**
      * Get all users with enable account
      *
-     * @author Tomas LOBGEOIS
      */
     @Override
     public List<EntityUserViewDto> getAll() {
@@ -98,7 +97,6 @@ public class UserServiceImpl extends AbstractService implements UserService {
      * @param userDto the dto with information to update
      * @return a dto with information updated
      *
-     * @author Tomas LOBGEOIS
      */
     @Override
     @Transactional
@@ -117,7 +115,6 @@ public class UserServiceImpl extends AbstractService implements UserService {
      * @param email the email to test availability
      * @return true if available, false if not
      *
-     * @author Tomas LOBGEOIS
      */
     @Override
     public boolean isEmailValid(String email) {

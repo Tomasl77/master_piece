@@ -28,14 +28,17 @@ public class Role extends AbstractEntity {
     @Column(length = 1, nullable = false)
     boolean defaultRole;
 
+    /**
+     * Empty no-args constructor
+     */
+    protected Role() {
+    }
+
     public Role(String code) {
 	this.code = code;
     }
 
     public String getCode() {
 	return code;
-    }
-
-    protected Role() {
     }
 }

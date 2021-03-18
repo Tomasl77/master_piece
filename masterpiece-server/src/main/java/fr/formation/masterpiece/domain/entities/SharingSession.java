@@ -12,8 +12,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import lombok.Getter;
-
 /**
  * Entity representing a {@code SharingSession}.
  * <p>
@@ -29,7 +27,6 @@ import lombok.Getter;
  *
  */
 @Entity
-@Getter
 @Table(name = "sharing_sessions",
         uniqueConstraints = @UniqueConstraint(name = "UK_starttime",
                 columnNames = { "start_time" }))
@@ -52,6 +49,12 @@ public class SharingSession extends AbstractEntity {
             nullable = false,
             foreignKey = @ForeignKey(name = "FK_sharingsession_user"))
     private EntityUser lecturer;
+
+    /**
+     * Empty no-args constructor
+     */
+    protected SharingSession() {
+    }
 
     public void setSubject(Subject subject) {
 	this.subject = subject;

@@ -24,6 +24,9 @@ public class Category extends AbstractEntity {
     @Column(length = 20, nullable = false)
     private String name;
 
+    /**
+     * Empty no-args constructor
+     */
     protected Category() {
     }
 

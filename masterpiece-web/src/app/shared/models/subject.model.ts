@@ -1,10 +1,10 @@
 import { Category } from './category.model';
-import { UserCredentials } from './user-credentials.model';
+import { EntityUser } from './user-credentials.model';
 
 export class Subject{
     id : number;
     title : string;
     description : string;
     category : Category;
-    requester : UserCredentials;
+    requester : EntityUser;
 }

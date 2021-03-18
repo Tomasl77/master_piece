@@ -7,7 +7,7 @@ import { BtnCellRenderer } from '../../shared/btn-cell-renderer.component'
 import { ConfirmationModalComponent } from 'src/app/shared/modals/confirmation-modal/confirmation-modal.component';
 import { MatDialog } from '@angular/material';
 import { AuthenticationService } from 'src/app/shared/services/authentication/authentication.service';
-import { UserCredentials } from 'src/app/shared/models/user-credentials.model';
+import { EntityUser } from 'src/app/shared/models/user-credentials.model';
 import { CacheService } from 'src/app/shared/services/cache.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandler } from 'src/app/shared/services/error-handler';
@@ -22,7 +22,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
   private allUsersSubscription: Subscription;
   private deleteUserSubscription: Subscription;
-  rowData: UserCredentials[];
+  rowData: EntityUser[];
   gridOptions: GridOptions;
   columnDefs: ColDef[];
   frameworkComponents = {};
@@ -60,14 +60,14 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
   private getAllUsers() {
     this.allUsersSubscription = this.userRegistrationService.getAllUsers().subscribe(
-      ((users: UserCredentials[]) => {
+      ((users: EntityUser[]) => {
         this.rowData = users;
       }),
       err => console.log(err)
     );
   }
 
-  openDialog(user: UserCredentials) {
+  openDialog(user: EntityUser) {
     console.log(user);
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {
       position: {
@@ -118,7 +118,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
   }
 
   public openDeleteModal(params: any) {
-    const user: UserCredentials = params.rowData;
+    const user: EntityUser = params.rowData;
     this.openDialog(user);
   };
 

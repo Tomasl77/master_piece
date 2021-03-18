@@ -1,2 +1,3 @@
 /application-dev.properties
 /banner-dev.txt
+/logback-spring-dev.xml

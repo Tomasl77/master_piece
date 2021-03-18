@@ -11,6 +11,12 @@ public class SubjectVoteUpdateDto {
 
     private boolean hasVoted;
 
+    /**
+     * Empty no-args constructor
+     */
+    protected SubjectVoteUpdateDto() {
+    }
+
     public boolean isHasVoted() {
 	return hasVoted;
     }

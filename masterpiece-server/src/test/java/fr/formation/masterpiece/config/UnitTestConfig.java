@@ -1,11 +1,8 @@
 package fr.formation.masterpiece.config;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.io.IOException;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +19,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @ActiveProfiles(profiles = "test")
 public class UnitTestConfig {
 
-    protected static final ObjectMapper MAPPER = Jackson2ObjectMapperBuilder
-            .json().build();
-
     @Autowired
     protected ModelMapper modelMapper;
+
+    protected static final ObjectMapper MAPPER = Jackson2ObjectMapperBuilder
+            .json().build();
 
     @BeforeAll
     protected static void setUp() {
@@ -38,10 +35,6 @@ public class UnitTestConfig {
 	                .withSetterVisibility(JsonAutoDetect.Visibility.NONE));
     }
 
-    protected final <S, D> D dtoConvert(S inputs, Class<D> destinationType) {
-	return modelMapper.map(inputs, destinationType);
-    }
-
     protected final <D> D jsonConvert(String inputs, Class<D> destinationType) {
 	D converted = null;
 	try {
@@ -51,6 +44,4 @@ public class UnitTestConfig {
 	}
 	return converted;
     }
-
-
 }

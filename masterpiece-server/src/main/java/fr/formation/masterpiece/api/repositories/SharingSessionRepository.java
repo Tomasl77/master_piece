@@ -31,7 +31,6 @@ public interface SharingSessionRepository
      *
      * @return a {@code List} of {@code SharingSession}
      *
-     * @author Tomas LOBGEOIS
      */
     @Query(JpqlQuery.SESSION_WITH_ENABLE_LECTURER)
     List<SharingSessionViewDto> getAllSessionWithUserEnable(

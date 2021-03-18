@@ -25,7 +25,7 @@ public class SubjectCreateDto {
     private Long categoryId;
 
     /**
-     * Empty no-args constructor
+     * Empty protected no-args constructor
      */
     protected SubjectCreateDto() {
     }

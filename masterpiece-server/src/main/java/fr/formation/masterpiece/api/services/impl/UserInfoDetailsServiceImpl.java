@@ -4,7 +4,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import fr.formation.masterpiece.api.repositories.CustomUserRepository;
+import fr.formation.masterpiece.api.repositories.EntityUserRepository;
 import fr.formation.masterpiece.api.services.UserInfoDetailsService;
 import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
 import fr.formation.masterpiece.domain.dtos.users.EntityUserAuthDto;
@@ -18,9 +18,9 @@ import fr.formation.masterpiece.security.EntityUserDetails;
 @Service
 public class UserInfoDetailsServiceImpl implements UserInfoDetailsService {
 
-    private final CustomUserRepository repo;
+    private final EntityUserRepository repo;
 
-    protected UserInfoDetailsServiceImpl(CustomUserRepository repo) {
+    protected UserInfoDetailsServiceImpl(EntityUserRepository repo) {
 	this.repo = repo;
     }
 

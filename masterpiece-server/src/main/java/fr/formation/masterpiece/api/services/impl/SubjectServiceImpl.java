@@ -3,12 +3,11 @@ package fr.formation.masterpiece.api.services.impl;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.formation.masterpiece.api.repositories.CategoryRepository;
-import fr.formation.masterpiece.api.repositories.CustomUserRepository;
+import fr.formation.masterpiece.api.repositories.EntityUserRepository;
 import fr.formation.masterpiece.api.repositories.SubjectRepository;
 import fr.formation.masterpiece.api.services.SubjectService;
 import fr.formation.masterpiece.commons.config.AbstractService;
@@ -35,12 +34,12 @@ public class SubjectServiceImpl extends AbstractService
 
     private final SubjectRepository subjectRepository;
 
-    private final CustomUserRepository userRepository;
+    private final EntityUserRepository userRepository;
 
     private final CategoryRepository categoryRepository;
 
     public SubjectServiceImpl(SubjectRepository subjectRepository,
-            CustomUserRepository userRepository,
+            EntityUserRepository userRepository,
             CategoryRepository categoryRepository) {
 	this.subjectRepository = subjectRepository;
 	this.userRepository = userRepository;
@@ -48,7 +47,6 @@ public class SubjectServiceImpl extends AbstractService
     }
 
     @Override
-    @Modifying
     @Transactional
     public SubjectViewDto create(SubjectCreateDto subjectDto) {
 	Long userCredentialsId = SecurityHelper.getUserId();
@@ -94,7 +92,7 @@ public class SubjectServiceImpl extends AbstractService
 	if (!hasVoted) {
 	    subject.addVote(user);
 	} else {
-	    subject.remove(user);
+	    subject.removeVote(user);
 	}
 	List<VoteSubjectDto> votes = subjectRepository.findVoteByUserId(userId);
 	SubjectViewDtoWithVote subjectToReturn = subjectRepository

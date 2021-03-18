@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 
-import fr.formation.masterpiece.api.controllers.UserController;
 import fr.formation.masterpiece.config.IntegrationTestConfig;
 import fr.formation.masterpiece.domain.dtos.users.EntityUserViewDto;
 import fr.formation.masterpiece.security.annotations.MockUserForTests;

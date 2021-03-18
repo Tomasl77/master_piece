@@ -13,6 +13,12 @@ public class CategoryViewDto {
 
     private String name;
 
+    /**
+     * Empty no-args constructor
+     */
+    protected CategoryViewDto() {
+    }
+
     public CategoryViewDto(Long id, String name) {
 	this.id = id;
 	this.name = name;
