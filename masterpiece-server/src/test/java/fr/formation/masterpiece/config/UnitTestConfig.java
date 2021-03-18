@@ -19,11 +19,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @ActiveProfiles(profiles = "test")
 public class UnitTestConfig {
 
-    protected static final ObjectMapper MAPPER = Jackson2ObjectMapperBuilder
-            .json().build();
-
     @Autowired
     protected ModelMapper modelMapper;
+
+    protected static final ObjectMapper MAPPER = Jackson2ObjectMapperBuilder
+            .json().build();
 
     @BeforeAll
     protected static void setUp() {
@@ -33,10 +33,6 @@ public class UnitTestConfig {
 	                .withGetterVisibility(JsonAutoDetect.Visibility.NONE)
 	                .withIsGetterVisibility(JsonAutoDetect.Visibility.NONE)
 	                .withSetterVisibility(JsonAutoDetect.Visibility.NONE));
-    }
-
-    protected final <S, D> D dtoConvert(S inputs, Class<D> destinationType) {
-	return modelMapper.map(inputs, destinationType);
     }
 
     protected final <D> D jsonConvert(String inputs, Class<D> destinationType) {

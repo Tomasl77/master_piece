@@ -9,7 +9,7 @@ import fr.formation.masterpiece.config.UnitTestConfig;
 class UsernameCheckDtoTest extends UnitTestConfig {
 
     @Test
-    void sould_construct_false() {
+    void should_construct_false() {
 	UsernameCheckDto tested = new UsernameCheckDto(false);
 	assertNotNull(tested);
     }

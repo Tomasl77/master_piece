@@ -9,7 +9,7 @@ import fr.formation.masterpiece.config.UnitTestConfig;
 class SubjectCreateDtoTest extends UnitTestConfig {
 
     @Test
-    public void should_construct() {
+    void should_construct() {
 	SubjectCreateDto actual = new SubjectCreateDto();
 	assertNotNull(actual);
     }
