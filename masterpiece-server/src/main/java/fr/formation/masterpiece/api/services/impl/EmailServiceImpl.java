@@ -21,8 +21,6 @@ public class EmailServiceImpl implements EmailService {
 
     private static final String ENCODING = "utf-8";
 
-    private static final String TYPE = "text/html";
-
     private final JavaMailSender javaMailSender;
 
     /**

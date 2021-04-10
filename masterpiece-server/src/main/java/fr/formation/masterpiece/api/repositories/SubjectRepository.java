@@ -75,4 +75,14 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
      */
     @Query(JpqlQuery.USER_VOTED_SUBJECTS)
     List<VoteSubjectDto> findVoteByUserId(@Param("userId") Long userId);
+
+    /**
+     * Custom request to retrieve the title of {@code Subject}'s ID
+     *
+     * @param subjectId the id of subject to get
+     * @return a {@code String} of the {@code Subject}'s title
+     *
+     */
+    @Query(JpqlQuery.FIND_TITLE_BY_ID)
+    String findTitleById(@Param("subjectId") Long subjectId);
 }

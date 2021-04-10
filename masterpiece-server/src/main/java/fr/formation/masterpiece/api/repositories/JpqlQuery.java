@@ -79,4 +79,6 @@ public final class JpqlQuery {
      */
     public static final String FIND_USERS_BY_ENABLED = "SELECT new fr.formation.masterpiece.domain.dtos.users.EntityUserViewDto"
             + "(u.id, u.username, u.email) FROM EntityUser u WHERE u.enabled = :enabled";
+
+    public static final String FIND_TITLE_BY_ID = "SELECT s.title FROM Subject s WHERE id = :subjectId";
 }

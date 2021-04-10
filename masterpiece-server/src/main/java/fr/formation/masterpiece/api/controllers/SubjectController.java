@@ -2,6 +2,7 @@ package fr.formation.masterpiece.api.controllers;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -55,11 +56,12 @@ public class SubjectController {
      * Delete a {@code Subject} associated with the id
      *
      * @param id the id to delete
+     * @throws MessagingException messaging exception if error with mail occured
      */
     @DeleteMapping("/{id}")
     @HasRoleAdmin
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void deleteSubject(@PathVariable Long id) {
+    public void deleteSubject(@PathVariable Long id) throws MessagingException {
 	service.deleteOne(id);
     }
 
