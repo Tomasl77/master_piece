@@ -72,7 +72,7 @@ public class SharingSessionServiceImpl extends AbstractService
 	        savedDto);
 	String content = emailManager.buildMailContent(mailToConstruct._1,
 	        mailToConstruct._2);
-	Mail mail = emailManager.buildMail(savedDto.getSubjectTitle(), content);
+	Mail mail = emailManager.buildTeamMail(savedDto.getSubjectTitle(), content);
 	emailManager.send(mail);
     }
 

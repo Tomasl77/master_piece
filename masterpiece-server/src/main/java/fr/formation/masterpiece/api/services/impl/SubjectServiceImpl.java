@@ -1,6 +1,7 @@
 package fr.formation.masterpiece.api.services.impl;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
 import fr.formation.masterpiece.commons.utils.EmailManager;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectCreateDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithRequester;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectVoteUpdateDto;
 import fr.formation.masterpiece.domain.dtos.subjects.VoteSubjectDto;
@@ -76,13 +78,15 @@ public class SubjectServiceImpl extends AbstractService
     @Override
     @Transactional
     public void deleteOne(Long id) throws MessagingException {
-	String title = subjectRepository.findTitleById(id);
+	SubjectViewDtoWithRequester subjectDto = subjectRepository
+	        .findTitleAndRequesterBySubjectId(id);
 	subjectRepository.deleteById(id);
 	Tuple2<Map<String, Object>, String> mailToConstruct = buildArgsAndGetTemplate(
-	        title);
+	        subjectDto.getTitle());
 	String content = emailManager.buildMailContent(mailToConstruct._1,
 	        mailToConstruct._2);
-	Mail mail = emailManager.buildMail("Subject Deleted", content);
+	Mail mail = emailManager.buildMail("Subject Deleted", content,
+	        Collections.singletonList(subjectDto.getRequester()));
 	emailManager.send(mail);
     }
 

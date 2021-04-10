@@ -53,8 +53,13 @@ public class EmailManager {
 	return templateEngine.process(template, context);
     }
 
-    public Mail buildMail(String title, String content) {
+    public Mail buildTeamMail(String title, String content) {
 	return new Mail("SyK", getRecipients(), title, content);
+    }
+
+    public Mail buildMail(String title, String content,
+            List<String> recipients) {
+	return new Mail("SyK", recipients, title, content);
     }
 
     public void send(Mail mail) throws MessagingException {
