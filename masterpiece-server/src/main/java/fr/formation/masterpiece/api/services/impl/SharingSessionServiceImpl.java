@@ -72,19 +72,8 @@ public class SharingSessionServiceImpl extends AbstractService
 	        savedDto);
 	String content = emailManager.buildMailContent(mailToConstruct._1,
 	        mailToConstruct._2);
-	Mail mail = emailManager.buildMail(savedDto.getSubjectTitle(), content);
+	Mail mail = emailManager.buildTeamMail(savedDto.getSubjectTitle(), content);
 	emailManager.send(mail);
-    }
-
-    private Tuple2<Map<String, Object>, String> buildArgsAndGetTemplate(
-            SharingSessionDto savedDto) {
-	String template = "NewSessionMail";
-	Map<String, Object> args = new HashMap();
-	args.put("lecturer", savedDto.getLecturer());
-	args.put("date", formatDate(savedDto.getStartTime()));
-	args.put("start", formatTime(savedDto.getStartTime()));
-	args.put("end", formatTime(savedDto.getEndTime()));
-	return new Tuple2<>(args, template);
     }
 
     @Override
@@ -145,5 +134,16 @@ public class SharingSessionServiceImpl extends AbstractService
     private String formatTime(LocalDateTime dateTime) {
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 	return dateTime.format(formatter);
+    }
+
+    private Tuple2<Map<String, Object>, String> buildArgsAndGetTemplate(
+            SharingSessionDto savedDto) {
+	String template = "NewSessionMail";
+	Map<String, Object> args = new HashMap<>();
+	args.put("lecturer", savedDto.getLecturer());
+	args.put("date", formatDate(savedDto.getStartTime()));
+	args.put("start", formatTime(savedDto.getStartTime()));
+	args.put("end", formatTime(savedDto.getEndTime()));
+	return new Tuple2<>(args, template);
     }
 }

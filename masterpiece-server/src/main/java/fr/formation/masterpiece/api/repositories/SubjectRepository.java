@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithRequester;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
 import fr.formation.masterpiece.domain.dtos.subjects.VoteSubjectDto;
 import fr.formation.masterpiece.domain.entities.Subject;
@@ -75,4 +76,15 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
      */
     @Query(JpqlQuery.USER_VOTED_SUBJECTS)
     List<VoteSubjectDto> findVoteByUserId(@Param("userId") Long userId);
+
+    /**
+     * Custom request to retrieve the title of {@code Subject}'s ID
+     *
+     * @param subjectId the id of subject to get
+     * @return a {@code String} of the {@code Subject}'s title
+     *
+     */
+    @Query(JpqlQuery.FIND_TITLE_AND_REQUESTER_BY_ID)
+    SubjectViewDtoWithRequester findTitleAndRequesterBySubjectId(
+            @Param("subjectId") Long subjectId);
 }

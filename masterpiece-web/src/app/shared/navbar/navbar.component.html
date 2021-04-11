@@ -4,6 +4,10 @@
       <button mat-icon-button fxShow="true" fxHide.gt-sm="true">
         <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
       </button>
+      <a mat-tab-link
+      [routerLink]="['/']">
+        <img src="/assets/img/syk_logo.png">
+      </a>
       <h1>Share Your Knowlegde</h1>
       <div fxFlex fxLayout fxLayoutAlign="end" fxHide.lt-md="true">
         <a mat-button [routerLink]="['/accounts']" [routerLinkActive]="['active-white']"

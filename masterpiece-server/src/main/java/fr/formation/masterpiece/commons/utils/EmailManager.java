@@ -47,12 +47,19 @@ public class EmailManager {
 
     public String buildMailContent(Map<String, Object> args, String template) {
 	Context context = new Context();
+	args.put("signature",
+	        "Don't miss an opporunity to raise your knowledge");
 	context.setVariables(args);
 	return templateEngine.process(template, context);
     }
 
-    public Mail buildMail(String title, String content) {
+    public Mail buildTeamMail(String title, String content) {
 	return new Mail("SyK", getRecipients(), title, content);
+    }
+
+    public Mail buildMail(String title, String content,
+            List<String> recipients) {
+	return new Mail("SyK", recipients, title, content);
     }
 
     public void send(Mail mail) throws MessagingException {

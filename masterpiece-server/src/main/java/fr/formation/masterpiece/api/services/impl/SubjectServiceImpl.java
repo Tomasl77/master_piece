@@ -1,7 +1,12 @@
 package fr.formation.masterpiece.api.services.impl;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.mail.MessagingException;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,15 +17,19 @@ import fr.formation.masterpiece.api.repositories.SubjectRepository;
 import fr.formation.masterpiece.api.services.SubjectService;
 import fr.formation.masterpiece.commons.config.AbstractService;
 import fr.formation.masterpiece.commons.exceptions.ResourceNotFoundException;
+import fr.formation.masterpiece.commons.utils.EmailManager;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectCreateDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
+import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithRequester;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectVoteUpdateDto;
 import fr.formation.masterpiece.domain.dtos.subjects.VoteSubjectDto;
 import fr.formation.masterpiece.domain.entities.Category;
 import fr.formation.masterpiece.domain.entities.EntityUser;
+import fr.formation.masterpiece.domain.entities.Mail;
 import fr.formation.masterpiece.domain.entities.Subject;
 import fr.formation.masterpiece.security.SecurityHelper;
+import javaslang.Tuple2;
 
 /**
  * Default concrete implementation of {@link SubjectService}
@@ -38,12 +47,15 @@ public class SubjectServiceImpl extends AbstractService
 
     private final CategoryRepository categoryRepository;
 
+    private final EmailManager emailManager;
+
     public SubjectServiceImpl(SubjectRepository subjectRepository,
             EntityUserRepository userRepository,
-            CategoryRepository categoryRepository) {
+            CategoryRepository categoryRepository, EmailManager emailManager) {
 	this.subjectRepository = subjectRepository;
 	this.userRepository = userRepository;
 	this.categoryRepository = categoryRepository;
+	this.emailManager = emailManager;
     }
 
     @Override
@@ -65,8 +77,17 @@ public class SubjectServiceImpl extends AbstractService
 
     @Override
     @Transactional
-    public void deleteOne(Long id) {
+    public void deleteOne(Long id) throws MessagingException {
+	SubjectViewDtoWithRequester subjectDto = subjectRepository
+	        .findTitleAndRequesterBySubjectId(id);
 	subjectRepository.deleteById(id);
+	Tuple2<Map<String, Object>, String> mailToConstruct = buildArgsAndGetTemplate(
+	        subjectDto.getTitle());
+	String content = emailManager.buildMailContent(mailToConstruct._1,
+	        mailToConstruct._2);
+	Mail mail = emailManager.buildMail("Subject Deleted", content,
+	        Collections.singletonList(subjectDto.getRequester()));
+	emailManager.send(mail);
     }
 
     @Override
@@ -114,5 +135,13 @@ public class SubjectServiceImpl extends AbstractService
             List<VoteSubjectDto> votes) {
 	return votes.stream().filter(vote -> vote.getId().equals(subjectId))
 	        .findFirst().isPresent();
+    }
+
+    private Tuple2<Map<String, Object>, String> buildArgsAndGetTemplate(
+            String subjectTitle) {
+	String template = "DeleteSubjectMail";
+	Map<String, Object> args = new HashMap<>();
+	args.put("title", subjectTitle);
+	return new Tuple2<>(args, template);
     }
 }

@@ -2,6 +2,8 @@ package fr.formation.masterpiece.api.services;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectCreateDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
@@ -29,7 +31,7 @@ public interface SubjectService {
      *
      * @param id the given identifier of the {@code Subject} to delete
      */
-    void deleteOne(Long id);
+    void deleteOne(Long id) throws MessagingException;
 
     /**
      * Get a {@code List} of all {@code Subject} not scheduled for a
