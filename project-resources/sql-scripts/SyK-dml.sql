@@ -2,7 +2,7 @@
 DML script for teamsharing database
 Script can be used with mysql
 
-Last update : 2021-02-12
+Last update : 2021-04-25
 
 */
 
@@ -29,7 +29,8 @@ INSERT INTO `users` (account_non_expired, password, username, account_non_locked
     ('T','$2a$10$JbSdgniSs9PoNJM3XN6qUuS9s6uVJwpS1fLIOddNemQgx8FuUw67O','Tomas','T','T','T', 'lobgeois.tomas@free.fr'), -- password = Totototo9!
 	('T','$2a$10$PxZEkHGLpGgeV8mO8ehxz..dGlyxwFo3FgTGfdC/2LqOYd8R4DI/a','Johanna','T','T','T', 'joan@gmail.com'),  -- password = Joanhime77!
     ('T','$2a$10$tToGMTh3vyXByVqOQHdk9uqbip3wm5rZz1GLbZSoaBB1ileL5w8qi','Lily','T','T','T','lily@gmail.com'),  -- password = Lily2709!
-    ('T','$2a$10$fGGDHcgG3JF6e3kX12C9JO8jkWF6wFJd.eZQQOEoM9479.Ypy.Fbe','Benjamin', 'T','T','T', 'benjamin@gmail.com'); -- password = Benjamin9!
+    ('T','$2a$10$fGGDHcgG3JF6e3kX12C9JO8jkWF6wFJd.eZQQOEoM9479.Ypy.Fbe','Benjamin', 'T','T','T', 'benjamin@gmail.com'), -- password = Benjamin9!
+    ('T', '$2a$10$rdG2wuDmdWW2yIut0R7ZEeKVVBo5OAh6eQN13pg4M8JEYfupJ5eKy', 'Frank','T','T','T','frank@gmail.com'); -- password = Frankfrank9!
 
 COMMIT; 
 
@@ -37,6 +38,7 @@ SET @Tomas = (SELECT id  FROM users WHERE username= 'Tomas');
 SET @Johanna = (SELECT id  FROM users WHERE username = 'Johanna');
 SET @Lily = (SELECT id  FROM users WHERE username = 'Lily');
 SET @Benjamin = (SELECT id FROM users WHERE username = 'Benjamin');
+SET @Frank = (SELECT id FROM users WHERE username = 'Frank');
 SET @user = (SELECT id FROM roles WHERE code = 'ROLE_USER');
 SET @admin = (SELECT id FROM roles WHERE code = 'ROLE_ADMIN');
 
@@ -47,7 +49,9 @@ INSERT INTO `user_role` (user_id, role_id)
     (@Benjamin, @user),
     (@Johanna,@admin),
     (@Lily,@admin),
-    (@Benjamin, @admin);
+    (@Benjamin, @admin),
+    (@Frank, @user),
+    (@Frank, @admin);
 
 COMMIT;
 
