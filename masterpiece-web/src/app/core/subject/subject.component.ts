@@ -203,7 +203,7 @@ export class SubjectComponent implements OnInit, OnDestroy {
       this.columnDefs = [
         { headerName: 'id', field: 'id', hide: true },
         { headerName: this.translate('ag-grid.subject.title'), field: 'title', sortable: true, filter: true },
-        { headerName: this.translate('ag-grid.subject.description'), field: 'description', sortable: true, filter: true },
+        { headerName: this.translate('ag-grid.subject.description'), field: 'description', sortable: true, filter: true, tooltipField: 'description' },
         { headerName: this.translate('ag-grid.subject.category'), field: 'categoryName', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.subject.requester'), field: 'requesterUsername', sortable: true, filter: true },
         { headerName: this.translate('ag-grid.subject.numberOfVote'), field: 'numberOfVote', sortable: true, filter: true },
