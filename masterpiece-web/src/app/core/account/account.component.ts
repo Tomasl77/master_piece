@@ -3,9 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { EntityUser } from 'src/app/shared/models/user-credentials.model';
+import { VotedSubjectByUser } from 'src/app/shared/models/voted-subject-by-user.model';
 import { AuthenticationService } from 'src/app/shared/services/authentication/authentication.service';
 import { ErrorHandler } from 'src/app/shared/services/error-handler';
 import { Config } from 'src/assets/config-properties';
+import { SubjectService } from '../subject/subject.service';
 import { UserRegistrationService } from '../user-registration.service';
 import { EmailValidator } from '../validators/email-validator';
 
@@ -14,7 +16,7 @@ import { EmailValidator } from '../validators/email-validator';
   selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css'],
-  providers:[UserRegistrationService]
+  providers:[UserRegistrationService, SubjectService]
 })
 export class AccountComponent implements OnInit, OnDestroy {
 
@@ -28,6 +30,8 @@ export class AccountComponent implements OnInit, OnDestroy {
   updateUserForm: FormGroup;
   newMail: string;
 
+  subjects: VotedSubjectByUser[];
+
   formErrors = {
     'email':''
   }
@@ -37,7 +41,8 @@ export class AccountComponent implements OnInit, OnDestroy {
     private authenthicationService: AuthenticationService,
     private fb: FormBuilder,
     private translate : TranslateService,
-    private emailValidator: EmailValidator
+    private emailValidator: EmailValidator,
+    private subjectService: SubjectService
     ) {
     this.updateUserForm = this.fb.group({
       email:['', [Validators.pattern(Config.emailPattern), Validators.maxLength(255)], this.emailValidator.validate.bind(this.emailValidator)],
@@ -58,6 +63,13 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.updateUserForm.valueChanges.subscribe(() => {
       this.logValidationErrors(this.updateUserForm)
     });
+
+    this.subjectService.getAllVotedSubjectForUser().subscribe(
+      (subjects: VotedSubjectByUser[]) => {
+        console.log(subjects);
+        this.subjects = subjects;
+      }
+    )
   }
 
   ngOnDestroy(): void {

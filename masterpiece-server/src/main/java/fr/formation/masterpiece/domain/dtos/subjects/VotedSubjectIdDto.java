@@ -7,17 +7,17 @@ package fr.formation.masterpiece.domain.dtos.subjects;
  * @author Tomas LOBGEOIS
  *
  */
-public class VoteSubjectDto {
+public class VotedSubjectIdDto {
 
     private Long id;
 
     /**
      * Empty no-args constructor
      */
-    protected VoteSubjectDto() {
+    protected VotedSubjectIdDto() {
     }
 
-    public VoteSubjectDto(Long id) {
+    public VotedSubjectIdDto(Long id) {
 	this.id = id;
     }
 

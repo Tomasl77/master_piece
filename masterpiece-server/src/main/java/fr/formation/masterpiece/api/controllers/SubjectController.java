@@ -22,6 +22,7 @@ import fr.formation.masterpiece.domain.dtos.subjects.SubjectCreateDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectVoteUpdateDto;
+import fr.formation.masterpiece.domain.dtos.subjects.VotedSubjectByUserDto;
 
 /**
  * A {@link RestController} to handle {@code Subject}
@@ -93,5 +94,11 @@ public class SubjectController {
     @GetMapping
     public List<SubjectViewDtoWithVote> getAllNotScheduledWithVote() {
 	return service.getAllNotScheduledWithVote();
+    }
+
+    @GetMapping("/byUser")
+    public List<VotedSubjectByUserDto> getAllSubjectsVotedByUser() {
+	List<VotedSubjectByUserDto> list = service.getAllVotedSubjectByUserId();
+	return list;
     }
 }

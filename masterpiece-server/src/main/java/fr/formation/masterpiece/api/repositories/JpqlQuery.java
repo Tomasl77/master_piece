@@ -60,11 +60,19 @@ public final class JpqlQuery {
             + "FROM Subject s LEFT JOIN s.voters v WHERE s.id = :subjectId GROUP BY s.id";
 
     /**
-     * Create new {@code VoteSubjectDto} to retrieve informtation on which
+     * Create new {@code VotedSubjectByUserDto} to retrieve the id of subject
+     * the user has already voted
+     */
+    static final String USER_VOTED_SUBJECTS = "SELECT new fr.formation.masterpiece.domain.dtos.subjects.VotedSubjectIdDto"
+            + "(s.id) FROM Subject s JOIN s.voters v WHERE v.id = :userId GROUP BY s.id";
+
+    /**
+     * Create new {@code VotedSubjectIdDto} to retrieve information on which
      * subject the user has already voted
      */
-    static final String USER_VOTED_SUBJECTS = "SELECT new fr.formation.masterpiece.domain.dtos.subjects.VoteSubjectDto"
-            + "(s.id) FROM Subject s JOIN s.voters v WHERE v.id = :userId GROUP BY s.id";
+    static final String VOTED_SUBJECTS_FOR_USER = "SELECT new fr.formation.masterpiece.domain.dtos.subjects.VotedSubjectByUserDto"
+            + "(s.id, s.title, s.description, s.category.name, s.requester.username, s.requestDate) "
+            + "FROM Subject s JOIN s.voters v WHERE v.id = :userId AND s.schedule = false GROUP BY s.id";
 
     /**
      * Create new {@code List} of {@code Categories} to have all categories

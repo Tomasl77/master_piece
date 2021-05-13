@@ -5,6 +5,7 @@ import { Subject } from '../../shared/models/subject.model';
 import { Observable, Subscription } from 'rxjs';
 import { HttpRequestHandler } from 'src/app/shared/services/http-helper/http-request-handler';
 import { SubjectViewDtoWithVote } from 'src/app/shared/models/subject-with-vote.model';
+import { VotedSubjectByUser } from 'src/app/shared/models/voted-subject-by-user.model';
 
 @Injectable()
 export class SubjectService {
@@ -23,6 +24,10 @@ export class SubjectService {
 
   getAllSubjects(): Observable<SubjectViewDtoWithVote[]> {
     return this.http.get(this.baseUrl);
+  }
+
+  getAllVotedSubjectForUser(): Observable<VotedSubjectByUser[]> {
+    return this.http.get(this.baseUrl + `/byUser`)
   }
 
   voteForSubject(id:number, form: FormGroup): Observable<SubjectViewDtoWithVote> {

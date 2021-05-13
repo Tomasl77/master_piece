@@ -10,7 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithRequester;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
-import fr.formation.masterpiece.domain.dtos.subjects.VoteSubjectDto;
+import fr.formation.masterpiece.domain.dtos.subjects.VotedSubjectByUserDto;
+import fr.formation.masterpiece.domain.dtos.subjects.VotedSubjectIdDto;
 import fr.formation.masterpiece.domain.entities.Subject;
 
 /**
@@ -71,11 +72,23 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
      * the user already vote for
      *
      * @param userId the id of user to check
-     * @return a {@code List} of {@code VoteSubjectDto}
+     * @return a {@code List} of {@code VotedSubjectIdDto}
      *
      */
     @Query(JpqlQuery.USER_VOTED_SUBJECTS)
-    List<VoteSubjectDto> findVoteByUserId(@Param("userId") Long userId);
+    List<VotedSubjectIdDto> findVoteByUserId(@Param("userId") Long userId);
+
+    /**
+     * Custom request to retrieve a {@code List} of {@code Subject}'s IDs that
+     * the user already vote for
+     *
+     * @param userId the id of user to check
+     * @return a {@code List} of {@code VotedSubjectIdDto}
+     *
+     */
+    @Query(JpqlQuery.VOTED_SUBJECTS_FOR_USER)
+    List<VotedSubjectByUserDto> findVotedSubjectForSpecificUser(
+            @Param("userId") Long userId);
 
     /**
      * Custom request to retrieve the title of {@code Subject}'s ID

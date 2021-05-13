@@ -23,7 +23,8 @@ import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithRequester;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectVoteUpdateDto;
-import fr.formation.masterpiece.domain.dtos.subjects.VoteSubjectDto;
+import fr.formation.masterpiece.domain.dtos.subjects.VotedSubjectByUserDto;
+import fr.formation.masterpiece.domain.dtos.subjects.VotedSubjectIdDto;
 import fr.formation.masterpiece.domain.entities.Category;
 import fr.formation.masterpiece.domain.entities.EntityUser;
 import fr.formation.masterpiece.domain.entities.Mail;
@@ -96,7 +97,7 @@ public class SubjectServiceImpl extends AbstractService
 	Long userId = SecurityHelper.getUserId();
 	List<SubjectViewDtoWithVote> subjectsWithVotes = subjectRepository
 	        .findAllWithVotes();
-	List<VoteSubjectDto> votes = subjectRepository.findVoteByUserId(userId);
+	List<VotedSubjectIdDto> votes = getVoteForSpecificUserId(userId);
 	subjectsWithVotes.forEach(subject -> subject
 	        .setHasVoted(hasUserVotedForSubject(subject.getId(), votes)));
 	return subjectsWithVotes;
@@ -115,11 +116,18 @@ public class SubjectServiceImpl extends AbstractService
 	} else {
 	    subject.removeVote(user);
 	}
-	List<VoteSubjectDto> votes = subjectRepository.findVoteByUserId(userId);
+	List<VotedSubjectIdDto> votes = getVoteForSpecificUserId(userId);
 	SubjectViewDtoWithVote subjectToReturn = subjectRepository
 	        .findSubjectWithVote(subjectId);
 	subjectToReturn.setHasVoted(hasUserVotedForSubject(subjectId, votes));
 	return subjectToReturn;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<VotedSubjectByUserDto> getAllVotedSubjectByUserId() {
+	Long userId = SecurityHelper.getUserId();
+	return subjectRepository.findVotedSubjectForSpecificUser(userId);
     }
 
     /**
@@ -132,9 +140,13 @@ public class SubjectServiceImpl extends AbstractService
      *         subject, {@code false} otherwise
      */
     private boolean hasUserVotedForSubject(Long subjectId,
-            List<VoteSubjectDto> votes) {
+            List<VotedSubjectIdDto> votes) {
 	return votes.stream().filter(vote -> vote.getId().equals(subjectId))
 	        .findFirst().isPresent();
+    }
+
+    private List<VotedSubjectIdDto> getVoteForSpecificUserId(Long userId) {
+	return subjectRepository.findVoteByUserId(userId);
     }
 
     private Tuple2<Map<String, Object>, String> buildArgsAndGetTemplate(

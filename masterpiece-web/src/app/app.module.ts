@@ -17,6 +17,7 @@ import { MatDialog, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular
 import { ConfirmationModalComponent } from './shared/modals/confirmation-modal/confirmation-modal.component';
 import { DatePipe } from '@angular/common';
 import { BtnCellRendererVote } from './shared/btn-cell-renderer-vote.component';
+import { CardsComponent } from './shared/cards/cards.component';
 
 @NgModule({
   declarations: [

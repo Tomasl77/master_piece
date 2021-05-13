@@ -8,6 +8,7 @@ import fr.formation.masterpiece.domain.dtos.subjects.SubjectCreateDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDto;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectViewDtoWithVote;
 import fr.formation.masterpiece.domain.dtos.subjects.SubjectVoteUpdateDto;
+import fr.formation.masterpiece.domain.dtos.subjects.VotedSubjectByUserDto;
 
 /**
  * Service to handle {@code Subject} logic.
@@ -41,6 +42,14 @@ public interface SubjectService {
      * @return a {@code List} of {@code SubjectViewDtoWithVote}
      */
     List<SubjectViewDtoWithVote> getAllNotScheduledWithVote();
+
+    /**
+     * Get a {@code List} of all {@code Subject} a specific user has voted for.
+     *
+     * @param userId the id of the user
+     * @return a {@code List} of {@code VotedSubjectByUserDto}
+     */
+    List<VotedSubjectByUserDto> getAllVotedSubjectByUserId();
 
     /**
      * Update the vote of a {@code EntityUser} for a specific subject. If the
