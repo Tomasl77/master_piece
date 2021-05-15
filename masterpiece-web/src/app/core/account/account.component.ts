@@ -66,7 +66,6 @@ export class AccountComponent implements OnInit, OnDestroy {
 
     this.subjectService.getAllVotedSubjectForUser().subscribe(
       (subjects: VotedSubjectByUser[]) => {
-        console.log(subjects);
         this.subjects = subjects;
       }
     )

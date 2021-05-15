@@ -16,7 +16,7 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { BtnCellRenderer } from '../shared/btn-cell-renderer.component';
 import { SharingSessionComponent } from './sharing-session/sharing-session.component';
 import { BtnCellRendererVote } from '../shared/btn-cell-renderer-vote.component';
-import { CardsComponent } from '../shared/cards/cards.component';
+import { CardModule } from '../shared/card.module';
 
 
 
@@ -37,6 +37,7 @@ import { CardsComponent } from '../shared/cards/cards.component';
     MatSelectModule,
     MatFormFieldModule,
     RouterModule,
+    CardModule,
     TranslateModule.forChild({
       loader: {
           provide: TranslateLoader,

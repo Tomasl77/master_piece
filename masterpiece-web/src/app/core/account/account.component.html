@@ -21,7 +21,7 @@
 </form>
 <div *ngIf="subjects">
   <div *ngFor="let subject of subjects">
-    <app-cards></app-cards>
+    <app-cards [subject] = subject></app-cards>
   </div>
 </div>
 </div>

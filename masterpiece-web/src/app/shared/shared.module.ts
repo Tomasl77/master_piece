@@ -15,9 +15,6 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { RouterModule } from '@angular/router'
 import { BtnCellRendererVote } from './btn-cell-renderer-vote.component';
-import { CardsComponent } from './cards/cards.component';
-import {MatCardModule} from '@angular/material/card'; 
-
 
 @NgModule({
   declarations: [
@@ -26,8 +23,7 @@ import {MatCardModule} from '@angular/material/card';
     BtnCellRendererVote,
     DateTimeDialogComponentComponent,
     LayoutComponent,
-    NavbarComponent,
-    CardsComponent
+    NavbarComponent
   ],
   imports: [
     RouterModule,
@@ -40,7 +36,6 @@ import {MatCardModule} from '@angular/material/card';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
-    MatCardModule,
     ReactiveFormsModule,
     FormsModule,
     MatInputModule,
@@ -64,8 +59,7 @@ import {MatCardModule} from '@angular/material/card';
     BtnCellRenderer,
     BtnCellRendererVote,
     LayoutComponent,
-    NavbarComponent,
-    CardsComponent
+    NavbarComponent
   ],
   entryComponents: [
     DateTimeDialogComponentComponent

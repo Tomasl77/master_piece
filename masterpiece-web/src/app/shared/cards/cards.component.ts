@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { VotedSubjectByUser } from '../models/voted-subject-by-user.model';
 
 @Component({
   selector: 'app-cards',
@@ -7,6 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CardsComponent implements OnInit {
 
+
+  @Input()
+  subject: VotedSubjectByUser
   constructor() { }
 
   ngOnInit() {
